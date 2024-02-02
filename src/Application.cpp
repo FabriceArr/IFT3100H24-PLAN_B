@@ -9,7 +9,7 @@ void Application::setup()
 
 	scene.setup();
 
-	interface.setup(scene.get_selected_object());
+	interface.setup();
 }
 
 void Application::update()

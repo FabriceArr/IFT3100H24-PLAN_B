@@ -28,11 +28,16 @@ private:
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
 
+	list<ofxButton*> object_element_list;
+
 public:
 
-	void setup(Object* selectedObject);
+	void setup();
 	void draw();
 	void update();
+	void changeFocus(Object* Object);
+	bool addObject(Object* Object);
+	bool removeObject(Object* Object);
 
 };
 
