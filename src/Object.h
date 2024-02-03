@@ -6,7 +6,6 @@
 class Object
 {
 private:
-	ofNode object;
 	ofTexture texture;
 
 	
@@ -14,6 +13,7 @@ private:
 
 
 public:
+	ofNode object;
 	ofVec3f translation_temp;
 	ofVec3f rotation_temp;
 	ofVec3f scale_temp;

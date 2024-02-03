@@ -32,9 +32,11 @@ void Renderer::draw()
 
 	ofDrawGrid(100, 12, false, false, true, false);
 
-	for each (auto element in scene.getSceneContent())
+	for (std::vector<Object>::const_iterator it = scene.getSceneContent()->begin()
+		; it != scene.getSceneContent()->end(); it++)
 	{
-		element.getObject()->draw();
+		ofLog() << "one drawn";
+		it->object.draw();
 	}
 
 

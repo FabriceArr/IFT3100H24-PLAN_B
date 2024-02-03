@@ -43,6 +43,13 @@ void Application::keyReleased(int key)
 		renderer.createObject(0, cam.getOrientationEulerDeg());
 		break;
 
+	case 39://right arrow key in ascii
+		scene.selectNextObject();
+		break;
+
+	case 40://left arrow key in ascii
+		scene.selectPreviousObject();
+		break;
 	default:
 		break;
 	}
