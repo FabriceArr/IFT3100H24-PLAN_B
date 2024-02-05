@@ -30,6 +30,10 @@ private:
 
 	list<ofxButton*> object_element_list;
 
+	ofxPanel object_creation_interface;
+	list<ofxButton*> object_creation_selection;
+
+
 public:
 
 	void setup();

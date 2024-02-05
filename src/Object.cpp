@@ -8,12 +8,12 @@ Object::Object(ofNode object)
 	scale_temp = { 0.f, 0.f, 0.f };
 }
 
-ofNode* Object::getObject()
+const ofNode* Object::getObject()
 {
 	return &this->object;
 }
 
-ofTexture* Object::getTexture()
+const ofTexture* Object::getTexture()
 {
 	return &this->texture;
 }
@@ -27,3 +27,8 @@ void Object::setTexture(ofTexture texture)
 {
 	this->texture = texture;
 }
+
+bool Object::operator==(const Object& a) {
+	return (*this == a) ?  true :  false;
+}
+

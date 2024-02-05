@@ -7,13 +7,13 @@ class Renderer
 private:
 
 	ofColor clear_color;
-	Scene scene;
+	Scene* scene;
 	ofNode node;
 
 	bool has_changed;
 public:
 
-	void setup();
+	void setup(Scene* sce);
 	void draw();
 
 	void clear() const;

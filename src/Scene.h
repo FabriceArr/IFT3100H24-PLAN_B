@@ -8,7 +8,7 @@ class Scene
 {
 private:
 	ofVec3f origin_pos;
-	std::vector<Object> scene_content;
+	std::vector<Object*>* scene_content;
 	Object* selected_object;
 	//Object cursor;
 
@@ -19,7 +19,7 @@ public:
 	//clean up the scene from memory
 	void exit();
 
-	const std::vector<Object>* getSceneContent();
+	const std::vector<Object*>* getSceneContent() const;
 
 	//creates a new object on the origin of the scene
 	void createObject(int type, ofVec3f angle);
@@ -32,11 +32,13 @@ public:
 	//the given amount in the scene.
 	void rotateObject(unsigned int object_id, ofVec3f rotation_change);
 
-	Object* getSelectedObject();
+	const Object* getSelectedObject() const;
 
 	void selectNextObject();
 
 	void selectPreviousObject();
+
+
 };
 
 

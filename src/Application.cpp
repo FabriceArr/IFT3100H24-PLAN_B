@@ -5,9 +5,10 @@ void Application::setup()
 {
 	ofSetWindowTitle("Prototype");
 
-	renderer.setup();
+	
 
 	scene.setup();
+	renderer.setup(&scene);
 
 	interface.setup();
 }

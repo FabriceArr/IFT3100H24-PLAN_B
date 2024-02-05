@@ -2,7 +2,7 @@
 #include "Renderer.h"
 
 
-void Renderer::setup()
+void Renderer::setup(Scene* sce)
 {
 	ofSetFrameRate(60);
 
@@ -19,7 +19,7 @@ void Renderer::setup()
 	ofSetBackgroundColor(clear_color);
 
 	ofBackground(clear_color);
-
+	scene = sce;
 	
 
 }
@@ -31,12 +31,17 @@ void Renderer::draw()
 	ofPushMatrix();
 
 	ofDrawGrid(100, 12, false, false, true, false);
+	std::vector<Object*>::const_iterator it = scene->getSceneContent()->begin();
 
-	for (std::vector<Object>::const_iterator it = scene.getSceneContent()->begin()
-		; it != scene.getSceneContent()->end(); it++)
+	for (std::vector<Object*>::const_iterator it = 
+		scene->getSceneContent()->begin(); it !=
+		scene->getSceneContent()->end(); it++)
 	{
 		ofLog() << "one drawn";
-		it->object.draw();
+		if (*it) {
+			(*it)->getObject()->draw();
+		}
+		
 	}
 
 
@@ -52,7 +57,7 @@ void Renderer::clear() const
 
 void Renderer::createObject(int type, const glm::vec3 cameraAngle)
 {
-		scene.createObject(type, cameraAngle);
+		scene->createObject(type, cameraAngle);
 	
 }
 

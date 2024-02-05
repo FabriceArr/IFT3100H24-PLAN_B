@@ -20,11 +20,13 @@ public:
 
 	Object(ofNode object);
 
-	ofNode* getObject();
-	ofTexture* getTexture();
+	const ofNode* getObject();
+	const ofTexture* getTexture();
 
 	void setObject(ofNode object);
 	void setTexture(ofTexture texture);
+
+	bool operator==(const Object& a);
 	
 };
 
