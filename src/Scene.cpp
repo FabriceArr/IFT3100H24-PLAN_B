@@ -29,7 +29,7 @@ void Scene::createObject(int type, ofVec3f angle)
 	{
 		case 0://plane
 		{
-			Object* plane = new Object(ofPlanePrimitive());
+			Object* plane = new Object(ofPlanePrimitive(), "Plane");
 			scene_content->push_back(plane);
 		break; 
 		}
@@ -37,7 +37,7 @@ void Scene::createObject(int type, ofVec3f angle)
 
 		case 1://cube
 		{
-			Object* box = new Object(ofBoxPrimitive());
+			Object* box = new Object(ofBoxPrimitive(), "Cube");
 
 			scene_content->push_back(box);
 			break;
@@ -78,14 +78,18 @@ void Scene::selectNextObject()
 			//retour du front comme suivant.
 				if (&result == &scene_content->end() - 1) {
 					selected_object = *scene_content->begin();
+					ofLog() << "next object select ordered";
 				}
 				else {
 					//cas normal, selection du suivant
 					selected_object = *scene_content->begin();
+					ofLog() << "next object select ordered";
 				}
 			}
 			// L'object cherché n'est pas dans la scene... Somehow
-			//else {}
+			else {
+				ofLog() << "next object select not in scene";
+			}
 			
 			
 		}
@@ -93,6 +97,7 @@ void Scene::selectNextObject()
 		//retour du premier element de la scene alors
 		else {
 			selected_object = scene_content->front();
+			ofLog() << "next object select ordered";
 		}
 
 	}

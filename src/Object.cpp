@@ -1,7 +1,8 @@
 #include "Object.h"
 
-Object::Object(ofNode object)
+Object::Object(ofNode object, string name = "Objet")
 {
+	this->name = name;
 	this->object = object;
 	translation_temp = { 0.f, 0.f, 0.f };
 	rotation_temp = { 0.f, 0.f, 0.f };
@@ -18,6 +19,11 @@ const ofTexture* Object::getTexture()
 	return &this->texture;
 }
 
+const string* Object::getName()
+{
+	return &this->name;
+}
+
 void Object::setObject(ofNode object)
 {
 	this->object = object;
@@ -26,6 +32,12 @@ void Object::setObject(ofNode object)
 void Object::setTexture(ofTexture texture)
 {
 	this->texture = texture;
+}
+
+
+void Object::setName(string name)
+{
+	this->name = name;
 }
 
 bool Object::operator==(const Object& a) {

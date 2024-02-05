@@ -16,6 +16,9 @@ void UI::setup()
 	position_slider_group.group.add(position_slider_group.z);
 
 	interface.add(&position_slider_group.group);
+
+	selected_object_namefield.setup((ofParameter<string>) "Objet selectionner");
+	object_creation_interface.add(&selected_object_namefield);
 }
 
 void UI::draw()
@@ -29,6 +32,8 @@ void UI::update()
 		position_slider_group.x.set("position X", selected_object->translation_temp.x, 0.0f, 256.0f);
 		position_slider_group.y.set("position Y", selected_object->translation_temp.y, 0.0f, 256.0f);
 		position_slider_group.z.set("position Z", selected_object->translation_temp.z, 0.0f, 256.0f);
+
+		selected_object_namefield.setup(*selected_object->getName());
 	}
 	else
 	{

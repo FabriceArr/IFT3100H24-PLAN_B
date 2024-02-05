@@ -31,6 +31,7 @@ private:
 	list<ofxButton*> object_element_list;
 
 	ofxPanel object_creation_interface;
+	ofxLabel selected_object_namefield;
 	list<ofxButton*> object_creation_selection;
 
 

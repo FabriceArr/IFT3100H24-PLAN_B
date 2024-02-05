@@ -41,14 +41,17 @@ void Application::keyReleased(int key)
 	switch (key)
 	{
 	case 100: //d in ascii 
+		ofLog() << "New object ordered";
 		renderer.createObject(0, cam.getOrientationEulerDeg());
 		break;
 
-	case 39://right arrow key in ascii
+	case 57358://right arrow key in ascii
+		ofLog() << "next object select ordered";
 		scene.selectNextObject();
 		break;
 
-	case 40://left arrow key in ascii
+	case 57359://left arrow key in ascii
+		ofLog() << "previous object select ordered";
 		scene.selectPreviousObject();
 		break;
 	default:

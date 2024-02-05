@@ -6,25 +6,29 @@
 class Object
 {
 private:
+	string name;
 	ofTexture texture;
-
+	ofNode object;
+	
 	
 
 
 
 public:
-	ofNode object;
 	ofVec3f translation_temp;
 	ofVec3f rotation_temp;
 	ofVec3f scale_temp;
 
-	Object(ofNode object);
+	Object(ofNode object, string name);
+
+	const string* getName();
+	void setName(string name);
+
+	const ofTexture* getTexture();
+	void setTexture(ofTexture texture);
 
 	const ofNode* getObject();
-	const ofTexture* getTexture();
-
 	void setObject(ofNode object);
-	void setTexture(ofTexture texture);
 
 	bool operator==(const Object& a);
 	
