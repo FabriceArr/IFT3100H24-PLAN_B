@@ -90,10 +90,11 @@ void Renderer::draw_cursor(float x, float y) const
 		ofDrawLine(x + offset + length, y + offset + length, x + offset, y + offset); // BR
 
 	}
-	else
+	else		// no mouse button pressed
+
 	{
-		// no mouse button pressed
-		ofSetColor(31);
+		// if hovering above selecable object
+		ofSetColor(isSelectable ? 256: 31 );
 
 		ofDrawLine(x + offset, y, x + offset + length, y);
 		ofDrawLine(x - offset, y, x - offset - length, y);

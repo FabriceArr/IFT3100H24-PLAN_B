@@ -22,6 +22,7 @@ public:
 	int mouse_current_y;
 
 	bool isCursorVisible;
+	bool isSelectable;
 
 	void setup(Scene* sce);
 	void draw();
