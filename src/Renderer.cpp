@@ -6,6 +6,8 @@ void Renderer::setup(Scene* sce)
 {
 	mouse_button = 10; // set mouse button to none
 
+	ofHideCursor();
+
 	ofSetFrameRate(60);
 
 	clear_color.r = 128;
@@ -50,14 +52,10 @@ void Renderer::draw()
 	ofPopMatrix();
 	
 
-	//CursorVisible();
-	//draw_cursor(mouse_current_x, mouse_current_y);
-
 }
 
 void Renderer::update()
 {
-	cursorVisible();
 }
 
 // fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par défaut
@@ -80,44 +78,29 @@ void Renderer::draw_cursor(float x, float y) const
 	float offset = 5.0f;
 
 
-	if (isCursorVisible)
+	ofSetLineWidth(2);
+	if (mouse_button == 0)
 	{
-		//ofLog() << "cursor is visible? " << isCursorVisible;
-		ofHideCursor();
+		// left mouse button pressed down
+		ofSetColor(255);
+
+		ofDrawLine(x - offset - length, y - offset - length, x - offset, y - offset); //TL
+		ofDrawLine(x - offset - length, y + offset + length, x - offset, y + offset); //BL
+		ofDrawLine(x + offset + length, y - offset - length, x + offset, y - offset); // TR
+		ofDrawLine(x + offset + length, y + offset + length, x + offset, y + offset); // BR
+
 	}
-	
-		ofSetLineWidth(2);
-		if (mouse_button == 0)
-		{
-			// left mouse button pressed down
-			ofSetColor(255);
+	else
+	{
+		// no mouse button pressed
+		ofSetColor(31);
 
-			ofDrawLine(x + offset, y, x + offset + length, y);
-			ofDrawLine(x - offset, y, x - offset - length, y);
-			ofDrawLine(x, y + offset, x, y + offset + length);
-			ofDrawLine(x, y - offset, x, y - offset - length);
-		}
-		else
-		{
-			// no mouse button pressed
-			ofSetColor(31);
-			ofDrawLine(x + offset, y, x + offset + length, y);
-			ofDrawLine(x - offset, y, x - offset - length, y);
-			ofDrawLine(x, y + offset, x, y + offset + length);
-			ofDrawLine(x, y - offset, x, y - offset - length);
+		ofDrawLine(x + offset, y, x + offset + length, y);
+		ofDrawLine(x - offset, y, x - offset - length, y);
+		ofDrawLine(x, y + offset, x, y + offset + length);
+		ofDrawLine(x, y - offset, x, y - offset - length);
 
-		}
-	
+	}
+
 }
 
-void Renderer::cursorVisible()
-{
-	if (mouse_current_x <= ofGetWindowWidth() )
-		isCursorVisible = true;
-		
-	if (mouse_current_y <= ofGetWindowHeight())
-		isCursorVisible = true;
-
-	isCursorVisible = false;
-	//ofLog() << "cursor not visible";
-}

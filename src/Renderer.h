@@ -27,7 +27,6 @@ public:
 	void draw();
 	void update();
 	void draw_cursor(float x, float y) const;
-	void cursorVisible();
 	void clear() const;
 
 	void createObject(int type, const glm::vec3 cameraAngle);
