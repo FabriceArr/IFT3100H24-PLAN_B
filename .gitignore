@@ -115,3 +115,4 @@ obj/x64/Debug/IFT3100H.7FD42DF7.tlog/CL.write.1.tlog
 /.vs/IFT3100H24_planB/v16/ipch/AutoPCH/3be6183edecbf017/OBJECT.ipch
 /.vs/IFT3100H24_planB/v16/ipch/AutoPCH/32d544658cd78da3/RENDERER.ipch
 /obj/x64/Debug/IFT3100H24_planB.tlog/CL.write.1.tlog
+*.ipch
