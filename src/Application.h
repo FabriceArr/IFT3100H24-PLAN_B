@@ -14,6 +14,7 @@ private:
 public:
 	Renderer renderer;
 	Scene scene;
+	
 
 	void setup();
 	void update();
@@ -30,7 +31,7 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
-
+	
 	void drawInteractionArea();
 	ofEasyCam cam; // add mouse controls for camera movement
 

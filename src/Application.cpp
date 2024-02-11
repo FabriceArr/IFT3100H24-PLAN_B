@@ -29,6 +29,12 @@ void Application::draw()
 	cam.end();
 
 	interface.draw();
+
+	if (renderer.isCursorVisible)
+	{
+		renderer.draw_cursor(renderer.mouse_current_x,
+			renderer.mouse_current_y);
+	}
 }
 
 void Application::keyPressed(int key)
@@ -64,27 +70,38 @@ void Application::keyReleased(int key)
 
 void Application::mouseMoved(int x, int y)
 {
+	renderer.mouse_current_x = x;
+	renderer.mouse_current_y = y;
 }
 
 void Application::mouseDragged(int x, int y, int button)
 {
+	renderer.mouse_current_x = x;
+	renderer.mouse_current_y = y;
 }
 
 void Application::mousePressed(int x, int y, int button)
 {
-	
+	renderer.mouse_current_x = x;
+	renderer.mouse_current_y = y;
+	renderer.mouse_button = button;
+	ofLog() << "mouse pressed: " << button;
+
 }
 
 void Application::mouseReleased(int x, int y, int button)
 {
+	renderer.mouse_button = 10;
 }
 
 void Application::mouseEntered(int x, int y)
 {
+	renderer.isCursorVisible = true;
 }
 
 void Application::mouseExited(int x, int y)
 {
+	renderer.isCursorVisible = false;
 }
 
 void Application::windowResized(int w, int h)
