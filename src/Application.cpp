@@ -81,7 +81,7 @@ void Application::keyReleased(int key)
 		break;
 
 	case 114: // key r
-		renderer.clear();
+		renderer.removeLastShape();
 		break;
 
 	default:

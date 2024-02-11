@@ -236,3 +236,12 @@ void Renderer::cursorVisible()
 	isCursorVisible = false;
 	//ofLog() << "cursor not visible";
 }
+
+void Renderer::removeLastShape()
+{
+	if (!shapes.empty())
+	{
+		shapes.pop_back();
+		ofLog() << "Removed last shape. Total shapes: " << shapes.size();
+	}
+}

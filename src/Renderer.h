@@ -72,6 +72,7 @@ public:
 	void clear();
 
 	void createObject(int type, const glm::vec3 cameraAngle);
+	void removeLastShape();
 };
 
 
