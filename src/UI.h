@@ -5,23 +5,16 @@
 #include "scene.h"
 
 struct parameterVectorGroup {
-	ofxGuiGroup group;
-	ofParameter<float> x;
-	ofParameter<float> y;
-	ofParameter<float> z;
-
-	parameterVectorGroup(ofParameter<float> x = 0.f, ofParameter<float> y = 0.f, ofParameter<float> z = 0.f) {
-		this->x = x;
-		this->y = y;
-		this->z = z;
-
-	}
+	ofxFloatSlider x;
+	ofxFloatSlider y;
+	ofxFloatSlider z;
 };
 
 class UI
 {
 private:
-	Object* selected_object;
+	Object* holder;
+	const Object* selected_object;
 
 	ofxPanel interface;
 	parameterVectorGroup position_slider_group;
@@ -30,8 +23,8 @@ private:
 
 	list<ofxButton*> object_element_list;
 
-	ofxPanel object_creation_interface;
-	ofxLabel selected_object_namefield;
+	ofParameter<std::string> selected_object_name;
+	ofxTextField selected_object_name_field;
 	list<ofxButton*> object_creation_selection;
 
 
@@ -40,7 +33,7 @@ public:
 	void setup();
 	void draw();
 	void update();
-	void changeFocus(Object* Object);
+	void changeFocus(const Object* Object = nullptr);
 	bool addObject(Object* Object);
 	bool removeObject(Object* Object);
 

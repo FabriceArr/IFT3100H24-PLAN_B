@@ -3,22 +3,25 @@
 
 void UI::setup()
 {
-	
-	position_slider_group.group.setup("Translation");
+	holder = new Object(ofNode(), "Holder");
+	changeFocus();
 
-	
-	position_slider_group.x.set("position X", 0.f, 0.0f, 256.0f);
-	position_slider_group.y.set("position Y", 0.f, 0.0f, 256.0f);
-	position_slider_group.z.set("position Z", 0.f, 0.0f, 256.0f);
+	interface.setup();
 
-	position_slider_group.group.add(position_slider_group.x);
-	position_slider_group.group.add(position_slider_group.y);
-	position_slider_group.group.add(position_slider_group.z);
+	interface.add(position_slider_group.x.setup(
+		"Position X", 0.f , -100.f, 100.f));
 
-	interface.add(&position_slider_group.group);
+	interface.add(position_slider_group.y.setup(
+		"Position Y", 0.f, -100.f, 100.f));
 
-	selected_object_namefield.setup((ofParameter<string>) "Objet selectionner");
-	object_creation_interface.add(&selected_object_namefield);
+	interface.add(position_slider_group.z.setup(
+		"Position Z", 0.f, -100.f, 100.f));
+
+	interface.add(selected_object_name_field.setup(
+		"Nom de l'object", *holder->getName()));
+
+
+	//interface.add(selected_object_name);
 }
 
 void UI::draw()
@@ -26,27 +29,17 @@ void UI::draw()
 	interface.draw();
 }
 
-void UI::update()
-{
-	if (selected_object != nullptr) {
-		position_slider_group.x.set("position X", selected_object->translation_temp.x, 0.0f, 256.0f);
-		position_slider_group.y.set("position Y", selected_object->translation_temp.y, 0.0f, 256.0f);
-		position_slider_group.z.set("position Z", selected_object->translation_temp.z, 0.0f, 256.0f);
 
-		selected_object_namefield.setup(*selected_object->getName());
+void UI::changeFocus(const Object* Obj) {
+	//si la fonction demande de changer le focus vers rien, 
+	//le focus est changer vers le place holder du UI
+	if (Obj != nullptr) {
+		selected_object = Obj;
 	}
-	else
-	{
-		position_slider_group.x.set("position X", 0.f, 0.0f, 256.0f);
-		position_slider_group.y.set("position Y", 0.f, 0.0f, 256.0f);
-		position_slider_group.z.set("position Z", 0.f, 0.0f, 256.0f);
+	else {
+		selected_object = holder;
 	}
-
-
-}
-
-void UI::changeFocus(Object* Object) {
-	selected_object = Object;
+	
 }
 
 bool UI::addObject(Object* Object) {
