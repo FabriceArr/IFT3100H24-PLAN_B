@@ -36,4 +36,3 @@ public:
 	ofEasyCam cam; // add mouse controls for camera movement
 
 };
-
