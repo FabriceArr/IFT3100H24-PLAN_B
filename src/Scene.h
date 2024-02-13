@@ -43,6 +43,8 @@ public:
 
 	void selectPreviousObject();
 
+	void draw();
+
 
 };
 

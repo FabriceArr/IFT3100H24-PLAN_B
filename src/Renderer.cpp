@@ -31,35 +31,7 @@ void Renderer::setup(Scene* sce)
 void Renderer::draw()
 {
 	clear();
-
-	
-
-	ofDrawGrid(100, 12, false, false, true, false);
-	std::vector<Object*>::const_iterator it = scene->getSceneContent()->begin();
-
-	for (std::vector<Object*>::const_iterator it = 
-		scene->getSceneContent()->begin(); it !=
-		scene->getSceneContent()->end(); it++)
-	{
-		
-		ofLog() << "one drawn";
-		if (*it) {
-			ofPushMatrix();
-
-			(*it)->scale_temp;
-			(*it)->getObject()->draw();
-
-
-			ofPopMatrix();
-		}
-
-		
-	}
-
-
-
-	
-
+	scene->draw();
 }
 
 void Renderer::update()

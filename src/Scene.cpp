@@ -14,12 +14,39 @@ void Scene::setup(const ofVec3f* UIposition, const  ofVec3f* UIrot,
 	UI_scale_output = UIscale;
 }
 
+void Scene::draw()
+{
+	ofDrawGrid(100, 12, false, false, true, false);
+
+
+	std::vector<Object*>::const_iterator it = scene_content->begin();
+
+	for (std::vector<Object*>::const_iterator it =
+		scene_content->begin(); it !=
+		scene_content->end(); it++)
+	{
+		ofLog() << "one drawn";
+		if (*it) {
+			ofPushMatrix();
+
+			ofTranslate((*it)->translation_temp);
+
+			(*it)->getObject()->draw();
+
+
+			ofPopMatrix();
+		}
+
+
+	}
+
+}
+
 void Scene::exit()
 {
 	for (vector<Object*>::const_iterator it = scene_content->begin()
 		; it != scene_content->end(); it++)
 	{
-
 	}
 }
 
@@ -116,6 +143,8 @@ void Scene::selectPreviousObject()
 {
 	//std::find(scene_content.begin(), scene_content.end(), selected_object);
 }
+
+
 
 
 
