@@ -7,20 +7,11 @@ void UI::setup()
 	changeFocus();
 
 	interface.setup();
-	interface.add(position_slider_group.x.setup(
-		"Position X", position_slider_group.data.x , -100.f, 100.f));
-
-	interface.add(position_slider_group.y.setup(
-		"Position Y", position_slider_group.data.y , -100.f, 100.f));
-
-	interface.add(position_slider_group.z.setup(
-		"Position Z", position_slider_group.data.z , -100.f, 100.f));
+	interface.add(position_slider_group.x.set("xtrans", 5.f, -100.f, 100.f));
 
 	interface.add(selected_object_name_field.setup(
 		"Nom de l'object", *holder->getName()));
-
-
-	//interface.add(selected_object_name);
+	test = &(interface.getFloatSlider("xtrans"));
 }
 
 void UI::draw()
@@ -28,18 +19,25 @@ void UI::draw()
 	interface.draw();
 }
 
-const ofVec3f* UI::getPositionSliderValues() {
-	return &position_slider_group.data;
+const ofParameter<float>* UI::getPositionSliderValues() {
+	ofLog() << "In UI- " << position_slider_group.x;
+	return &position_slider_group.x;
 }
 
 const ofVec3f* UI::getRotationSliderValues()
 {
-	return &rotation_slider_group.data;
+	ofVec3f x;
+	x.set(1, 1, 1);
+
+	return &x;
 }
 
 const ofVec3f* UI::getScaleSliderValues()
 {
-	return &scale_slider_group.data;;
+	ofVec3f x;
+	x.set(1, 1, 1);
+
+	return &x;
 }
 
 

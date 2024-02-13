@@ -6,7 +6,7 @@ void Renderer::setup(Scene* sce)
 {
 	mouse_button = 10; // set mouse button to none
 
-	ofHideCursor();
+	//ofHideCursor();
 
 	ofSetFrameRate(60);
 

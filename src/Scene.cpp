@@ -1,8 +1,8 @@
 #include "scene.h"
 #include <algorithm>
 
-void Scene::setup(const ofVec3f* UIposition, const  ofVec3f* UIrot,
-					const  ofVec3f* UIscale)
+void Scene::setup(const ofParameter<float>* UIposition, const ofParameter<float>* UIrot,
+	const ofParameter<float>* UIscale)
 {
 	origin_pos = { 0, 0, 0 };
 	//selected_object = &cursor;
@@ -10,8 +10,6 @@ void Scene::setup(const ofVec3f* UIposition, const  ofVec3f* UIrot,
 	selected_object = nullptr;
 
 	UI_trans_output = UIposition;
-	UI_rotation_output = UIrot;
-	UI_scale_output = UIscale;
 }
 
 void Scene::draw()
@@ -26,10 +24,15 @@ void Scene::draw()
 		scene_content->end(); it++)
 	{
 		ofLog() << "one drawn";
+		stringstream ss;
+
+		ss << *UI_trans_output << endl;
+
 		if (*it) {
 			ofPushMatrix();
 
-			ofTranslate((*it)->translation_temp);
+			ofLog() << *UI_trans_output;
+			ofTranslate(*UI_trans_output, *UI_trans_output, *UI_trans_output);
 
 			(*it)->getObject()->draw();
 

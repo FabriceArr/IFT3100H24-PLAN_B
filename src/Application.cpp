@@ -7,12 +7,10 @@ void Application::setup()
 
 	interface.setup();
 	interface.getPositionSliderValues();
-	scene.setup(interface.getPositionSliderValues(), 
+	scene.setup(interface.getPositionSliderValues(),
 		interface.getPositionSliderValues(), 
 		interface.getPositionSliderValues());
 	renderer.setup(&scene);
-
-	
 }
 
 void Application::update()
