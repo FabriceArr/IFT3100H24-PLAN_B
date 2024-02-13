@@ -1,12 +1,17 @@
 #include "scene.h"
 #include <algorithm>
 
-void Scene::setup()
+void Scene::setup(const ofVec3f* UIposition, const  ofVec3f* UIrot,
+					const  ofVec3f* UIscale)
 {
 	origin_pos = { 0, 0, 0 };
 	//selected_object = &cursor;
 	scene_content = new vector<Object*>();
 	selected_object = nullptr;
+
+	UI_trans_output = UIposition;
+	UI_rotation_output = UIrot;
+	UI_scale_output = UIscale;
 }
 
 void Scene::exit()

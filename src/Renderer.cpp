@@ -32,7 +32,7 @@ void Renderer::draw()
 {
 	clear();
 
-	ofPushMatrix();
+	
 
 	ofDrawGrid(100, 12, false, false, true, false);
 	std::vector<Object*>::const_iterator it = scene->getSceneContent()->begin();
@@ -41,15 +41,23 @@ void Renderer::draw()
 		scene->getSceneContent()->begin(); it !=
 		scene->getSceneContent()->end(); it++)
 	{
+		
 		ofLog() << "one drawn";
 		if (*it) {
+			ofPushMatrix();
+
+			(*it)->scale_temp;
 			(*it)->getObject()->draw();
+
+
+			ofPopMatrix();
 		}
+
 		
 	}
 
 
-	ofPopMatrix();
+
 	
 
 }

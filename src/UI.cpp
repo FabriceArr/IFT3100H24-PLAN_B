@@ -7,15 +7,14 @@ void UI::setup()
 	changeFocus();
 
 	interface.setup();
-
 	interface.add(position_slider_group.x.setup(
-		"Position X", 0.f , -100.f, 100.f));
+		"Position X", position_slider_group.data.x , -100.f, 100.f));
 
 	interface.add(position_slider_group.y.setup(
-		"Position Y", 0.f, -100.f, 100.f));
+		"Position Y", position_slider_group.data.y , -100.f, 100.f));
 
 	interface.add(position_slider_group.z.setup(
-		"Position Z", 0.f, -100.f, 100.f));
+		"Position Z", position_slider_group.data.z , -100.f, 100.f));
 
 	interface.add(selected_object_name_field.setup(
 		"Nom de l'object", *holder->getName()));
@@ -27,6 +26,20 @@ void UI::setup()
 void UI::draw()
 {
 	interface.draw();
+}
+
+const ofVec3f* UI::getPositionSliderValues() {
+	return &position_slider_group.data;
+}
+
+const ofVec3f* UI::getRotationSliderValues()
+{
+	return &rotation_slider_group.data;
+}
+
+const ofVec3f* UI::getScaleSliderValues()
+{
+	return &scale_slider_group.data;;
 }
 
 

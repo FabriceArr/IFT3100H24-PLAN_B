@@ -8,13 +8,18 @@ class Scene
 {
 private:
 	ofVec3f origin_pos;
+
+	const ofVec3f* UI_trans_output;
+	const ofVec3f* UI_rotation_output;
+	const ofVec3f* UI_scale_output;
+
 	std::vector<Object*>* scene_content;
 	Object* selected_object;
 	//Object cursor;
 
 public:
 	//set all defaults and settings
-	void setup();
+	void setup(const ofVec3f* UIposition, const  ofVec3f* UIrot, const  ofVec3f* UIscale);
 
 	//clean up the scene from memory
 	void exit();

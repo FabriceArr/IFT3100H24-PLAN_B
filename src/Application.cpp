@@ -5,12 +5,14 @@ void Application::setup()
 {
 	ofSetWindowTitle("Prototype");
 
-	
-
-	scene.setup();
+	interface.setup();
+	interface.getPositionSliderValues();
+	scene.setup(interface.getPositionSliderValues(), 
+		interface.getPositionSliderValues(), 
+		interface.getPositionSliderValues());
 	renderer.setup(&scene);
 
-	interface.setup();
+	
 }
 
 void Application::update()

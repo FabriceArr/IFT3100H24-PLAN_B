@@ -8,7 +8,19 @@ struct parameterVectorGroup {
 	ofxFloatSlider x;
 	ofxFloatSlider y;
 	ofxFloatSlider z;
+
+	ofVec3f data;
+
+
+	parameterVectorGroup() {
+		data.x = 0.f;
+		data.y = 0.f;
+		data.z = 0.f;
+	}
 };
+
+
+
 
 class UI
 {
@@ -33,9 +45,20 @@ public:
 	void setup();
 	void draw();
 	void update();
+
 	void changeFocus(const Object* Object = nullptr);
 	bool addObject(Object* Object);
 	bool removeObject(Object* Object);
 
+	const ofVec3f* getPositionSliderValues();
+	const ofVec3f* getRotationSliderValues();
+	const ofVec3f* getScaleSliderValues();
+
+	ofVec3f* setPositionSliderValues();
+	ofVec3f* setRotationSliderValues();
+	ofVec3f* setScaleSliderValues();
+
+
 };
+
 
