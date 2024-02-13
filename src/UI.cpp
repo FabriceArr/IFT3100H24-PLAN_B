@@ -7,11 +7,27 @@ void UI::setup()
 	changeFocus();
 
 	interface.setup();
-	interface.add(position_slider_group.x.set("xtrans", 5.f, -100.f, 100.f));
+	interface.add(position_slider_group.x.set("xtrans", 0.f, -100.f, 100.f));
+	interface.add(position_slider_group.y.set("ytrans", 0.f, -100.f, 100.f));
+	interface.add(position_slider_group.z.set("ztrans", 0.f, -100.f, 100.f));
 
-	interface.add(selected_object_name_field.setup(
-		"Nom de l'object", *holder->getName()));
-	test = &(interface.getFloatSlider("xtrans"));
+	interface.add(rotation_slider_group.x.set("xrotdeg", 0.f, 0, 360.f));
+	interface.add(rotation_slider_group.y.set("yrotdeg", 0.f, 0, 360.f));
+	interface.add(rotation_slider_group.z.set("zrotdeg", 0.f, 0, 360.f));
+
+	interface.add(scale_slider_group.x.set("xscale", 0.f, -100.f, 100.f));
+	interface.add(scale_slider_group.y.set("yscale", 0.f, -100.f, 100.f));
+	interface.add(scale_slider_group.z.set("zscale", 0.f, -100.f, 100.f));
+
+	interface.add(selected_object_name_field.setup("Nom de l'object", *holder->getName()));
+
+	trans_sliders_pointer.push_back(&position_slider_group.x);
+	trans_sliders_pointer.push_back(&position_slider_group.y);
+	trans_sliders_pointer.push_back(&position_slider_group.z);
+
+	rot_sliders_pointer = { &rotation_slider_group.x,&rotation_slider_group.y, &rotation_slider_group.z };
+	scale_sliders_pointer = { &scale_slider_group.x,&scale_slider_group.y, &scale_slider_group.z };
+
 }
 
 void UI::draw()
@@ -19,25 +35,22 @@ void UI::draw()
 	interface.draw();
 }
 
-const ofParameter<float>* UI::getPositionSliderValues() {
+const vector<ofParameter<float>*> UI::getPositionSliderValues() {
 	ofLog() << "In UI- " << position_slider_group.x;
-	return &position_slider_group.x;
+	return trans_sliders_pointer;
+	;
 }
 
-const ofVec3f* UI::getRotationSliderValues()
+const vector<ofParameter<float>*> UI::getRotationSliderValues()
 {
-	ofVec3f x;
-	x.set(1, 1, 1);
 
-	return &x;
+	return rot_sliders_pointer;
 }
 
-const ofVec3f* UI::getScaleSliderValues()
+const vector<ofParameter<float>*> UI::getScaleSliderValues()
 {
-	ofVec3f x;
-	x.set(1, 1, 1);
 
-	return &x;
+	return scale_sliders_pointer;
 }
 
 
@@ -51,6 +64,17 @@ void UI::changeFocus(const Object* Obj) {
 		selected_object = holder;
 	}
 	
+}
+
+void UI::exit()
+{
+	delete holder;
+	delete selected_object;
+
+	trans_sliders_pointer.clear();
+	rot_sliders_pointer.clear();
+	scale_sliders_pointer.clear();
+
 }
 
 bool UI::addObject(Object* Object) {

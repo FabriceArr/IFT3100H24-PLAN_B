@@ -8,8 +8,10 @@ void Application::setup()
 	interface.setup();
 	interface.getPositionSliderValues();
 	scene.setup(interface.getPositionSliderValues(),
-		interface.getPositionSliderValues(), 
-		interface.getPositionSliderValues());
+		interface.getRotationSliderValues(), 
+		interface.getScaleSliderValues());
+	auto i = interface.getPositionSliderValues();
+
 	renderer.setup(&scene);
 }
 

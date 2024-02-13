@@ -10,9 +10,9 @@ class Scene
 private:
 	ofVec3f origin_pos;
 
-	const ofParameter<float>* UI_trans_output;
-	const ofxFloatSlider* UI_rotation_output;
-	const ofxFloatSlider* UI_scale_output;
+	vector<ofParameter<float>*> UI_trans_output;
+	vector<ofParameter<float>*> UI_rotation_output;
+	vector<ofParameter<float>*> UI_scale_output;
 
 	std::vector<Object*>* scene_content;
 	Object* selected_object;
@@ -20,7 +20,9 @@ private:
 
 public:
 	//set all defaults and settings
-	void setup(const ofParameter<float>* UIposition, const ofParameter<float>* UIrot, const ofParameter<float>* UIscale);
+	void setup(const vector<ofParameter<float>*> UIposition, 
+		const vector<ofParameter<float>*> UIrot, 
+		const vector<ofParameter<float>*> UIscale);
 
 	//clean up the scene from memory
 	void exit();

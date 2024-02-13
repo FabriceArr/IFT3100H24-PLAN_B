@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "scene.h"
+#include <vector>
 
 struct parameterVectorGroup {
 	ofParameter<float> x;
@@ -24,26 +25,28 @@ private:
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
 
-	list<ofxButton*> object_element_list;
+
 
 	ofxTextField selected_object_name_field;
 
-	ofxFloatSlider* test;
-
+	vector<ofParameter<float>*> trans_sliders_pointer;
+	vector<ofParameter<float>*> rot_sliders_pointer;
+	vector<ofParameter<float>*> scale_sliders_pointer;
 
 public:
 
 	void setup();
 	void draw();
 	void update();
+	void exit();
 
 	void changeFocus(const Object* Object = nullptr);
 	bool addObject(Object* Object);
 	bool removeObject(Object* Object);
 
-	const ofParameter<float>* getPositionSliderValues();
-	const ofVec3f* getRotationSliderValues();
-	const ofVec3f* getScaleSliderValues();
+	const vector<ofParameter<float>*> getPositionSliderValues();
+	const vector<ofParameter<float>*> getRotationSliderValues();
+	const vector<ofParameter<float>*> getScaleSliderValues();
 
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();

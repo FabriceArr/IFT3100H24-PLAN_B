@@ -1,15 +1,17 @@
 #include "scene.h"
 #include <algorithm>
 
-void Scene::setup(const ofParameter<float>* UIposition, const ofParameter<float>* UIrot,
-	const ofParameter<float>* UIscale)
+void Scene::setup(const vector<ofParameter<float>*> UIposition,
+	const vector<ofParameter<float>*> UIrot,
+	const vector<ofParameter<float>*> UIscale)
 {
 	origin_pos = { 0, 0, 0 };
 	//selected_object = &cursor;
 	scene_content = new vector<Object*>();
 	selected_object = nullptr;
 
-	UI_trans_output = UIposition;
+	UIposition.at(0);
+
 }
 
 void Scene::draw()
@@ -24,15 +26,19 @@ void Scene::draw()
 		scene_content->end(); it++)
 	{
 		ofLog() << "one drawn";
-		stringstream ss;
-
-		ss << *UI_trans_output << endl;
 
 		if (*it) {
 			ofPushMatrix();
 
-			ofLog() << *UI_trans_output;
-			ofTranslate(*UI_trans_output, *UI_trans_output, *UI_trans_output);
+			
+
+			ofTranslate(*UI_trans_output.at(0), *UI_trans_output.at(1), *UI_trans_output.at(2));
+
+			ofRotateXDeg(*UI_rotation_output.at(0));
+			ofRotateYDeg(*UI_rotation_output.at(1));
+			ofRotateZDeg(*UI_rotation_output.at(2));
+
+			ofScale(*UI_scale_output.at(0), *UI_scale_output.at(1),*UI_scale_output.at(2));
 
 			(*it)->getObject()->draw();
 
@@ -47,10 +53,15 @@ void Scene::draw()
 
 void Scene::exit()
 {
-	for (vector<Object*>::const_iterator it = scene_content->begin()
-		; it != scene_content->end(); it++)
-	{
-	}
+	//empty them first by iterator for the objects maybe
+	scene_content->clear();
+	delete scene_content;
+
+	UI_trans_output.clear();
+	UI_rotation_output.clear();
+	UI_scale_output.clear();
+	
+
 }
 
 const std::vector<Object*>* Scene::getSceneContent() const
