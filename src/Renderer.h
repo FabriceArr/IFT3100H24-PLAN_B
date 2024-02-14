@@ -57,6 +57,7 @@ public:
 	int mouse_current_y;
 
 	bool isCursorVisible;
+	bool isSelectable;
 
 	void setup(Scene* sce);
 	void draw();
@@ -69,7 +70,7 @@ public:
 	void add_vector_shape(VectorPrimitiveType type);
 	void draw_cursor(float x, float y) const;
 	void cursorVisible();
-	void clear();
+	void clear() const;
 
 	void createObject(int type, const glm::vec3 cameraAngle);
 	void removeLastShape();

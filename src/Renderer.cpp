@@ -5,10 +5,12 @@
 void Renderer::setup(Scene* sce)
 {
 	// Initialisation du vecteur
-	shapes.clear(); // Assurez-vous que le vecteur est vide au début
-	shapes.reserve(100); // Réservez de l'espace pour 100 éléments si nécessaire
+	shapes.clear(); // Assurez-vous que le vecteur est vide au dÃ©but
+	shapes.reserve(100); // RÃ©servez de l'espace pour 100 Ã©lÃ©ments si nÃ©cessaire
 
 	mouse_button = 10; // set mouse button to none
+
+	ofHideCursor();
 
 	ofSetFrameRate(60);
 
@@ -92,9 +94,6 @@ void Renderer::draw()
 	}
 
 	ofPopMatrix();
-
-	//CursorVisible();
-	//draw_cursor(mouse_current_x, mouse_current_y);
 }
 
 void Renderer::add_vector_shape(VectorPrimitiveType type)
@@ -174,10 +173,9 @@ void Renderer::drawVectorTriangle(const glm::vec3& point1, const glm::vec3& poin
 
 void Renderer::update()
 {
-	cursorVisible();
 }
 
-// fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par défaut
+// fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par dÃ©faut
 void Renderer::clear()
 {
 	ofBackground(clear_color);
@@ -195,46 +193,31 @@ void Renderer::draw_cursor(float x, float y) const
 	float offset = 5.0f;
 
 
-	if (isCursorVisible)
+	ofSetLineWidth(2);
+	if (mouse_button == 0)
 	{
-		//ofLog() << "cursor is visible? " << isCursorVisible;
-		ofHideCursor();
+		// left mouse button pressed down
+		ofSetColor(255);
+
+		ofDrawLine(x - offset - length, y - offset - length, x - offset, y - offset); //TL
+		ofDrawLine(x - offset - length, y + offset + length, x - offset, y + offset); //BL
+		ofDrawLine(x + offset + length, y - offset - length, x + offset, y - offset); // TR
+		ofDrawLine(x + offset + length, y + offset + length, x + offset, y + offset); // BR
+
 	}
-	
-		ofSetLineWidth(2);
-		if (mouse_button == 0)
-		{
-			// left mouse button pressed down
-			ofSetColor(255);
+	else		// no mouse button pressed
 
-			ofDrawLine(x + offset, y, x + offset + length, y);
-			ofDrawLine(x - offset, y, x - offset - length, y);
-			ofDrawLine(x, y + offset, x, y + offset + length);
-			ofDrawLine(x, y - offset, x, y - offset - length);
-		}
-		else
-		{
-			// no mouse button pressed
-			ofSetColor(31);
-			ofDrawLine(x + offset, y, x + offset + length, y);
-			ofDrawLine(x - offset, y, x - offset - length, y);
-			ofDrawLine(x, y + offset, x, y + offset + length);
-			ofDrawLine(x, y - offset, x, y - offset - length);
+	{
+		// if hovering above selecable object
+		ofSetColor(isSelectable ? 256: 31 );
 
-		}
-	
-}
+		ofDrawLine(x + offset, y, x + offset + length, y);
+		ofDrawLine(x - offset, y, x - offset - length, y);
+		ofDrawLine(x, y + offset, x, y + offset + length);
+		ofDrawLine(x, y - offset, x, y - offset - length);
 
-void Renderer::cursorVisible()
-{
-	if (mouse_current_x <= ofGetWindowWidth() )
-		isCursorVisible = true;
-		
-	if (mouse_current_y <= ofGetWindowHeight())
-		isCursorVisible = true;
+	}
 
-	isCursorVisible = false;
-	//ofLog() << "cursor not visible";
 }
 
 void Renderer::removeLastShape()
