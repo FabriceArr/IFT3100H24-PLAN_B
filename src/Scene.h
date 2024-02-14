@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "Object.h"
+#include "ObjNode.h"
 #include "ofxGui.h"
 #include <vector>
 
@@ -17,6 +18,8 @@ private:
 	std::vector<Object*>* scene_content;
 	Object* selected_object;
 	//Object cursor;
+
+	ObjNode* object_tree_head;
 
 public:
 	//set all defaults and settings

@@ -44,6 +44,12 @@ void Renderer::clear() const
 	ofBackground(clear_color);
 }
 
+void Renderer::exit()
+{
+	//make scene destructor first
+	//delete scene;
+}
+
 void Renderer::createObject(int type, const glm::vec3 cameraAngle)
 {
 		scene->createObject(type, cameraAngle);

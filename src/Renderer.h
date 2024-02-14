@@ -8,7 +8,6 @@ private:
 
 	ofColor clear_color;
 	Scene* scene;
-	ofNode node;
 
 	bool has_changed;
 public:
@@ -29,6 +28,8 @@ public:
 	void update();
 	void draw_cursor(float x, float y) const;
 	void clear() const;
+
+	void exit();
 
 	void createObject(int type, const glm::vec3 cameraAngle);
 };

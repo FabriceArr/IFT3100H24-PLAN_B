@@ -5,6 +5,9 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	const vector<ofParameter<float>*> UIrot,
 	const vector<ofParameter<float>*> UIscale)
 {
+	object_tree_head = new ObjNode(nullptr);
+
+
 	origin_pos = { 0, 0, 0 };
 	//selected_object = &cursor;
 	scene_content = new vector<Object*>();
