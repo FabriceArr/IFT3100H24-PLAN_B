@@ -2,19 +2,27 @@
 
 #include "ofMain.h"
 #include "Object.h"
+#include "ofxGui.h"
 #include <vector>
 
 class Scene
 {
 private:
 	ofVec3f origin_pos;
+
+	vector<ofParameter<float>*> UI_trans_output;
+	vector<ofParameter<float>*> UI_rotation_output;
+	vector<ofParameter<float>*> UI_scale_output;
+
 	std::vector<Object*>* scene_content;
 	Object* selected_object;
 	//Object cursor;
 
 public:
 	//set all defaults and settings
-	void setup();
+	void setup(const vector<ofParameter<float>*> UIposition, 
+		const vector<ofParameter<float>*> UIrot, 
+		const vector<ofParameter<float>*> UIscale);
 
 	//clean up the scene from memory
 	void exit();
@@ -37,6 +45,8 @@ public:
 	void selectNextObject();
 
 	void selectPreviousObject();
+
+	void draw();
 
 
 };

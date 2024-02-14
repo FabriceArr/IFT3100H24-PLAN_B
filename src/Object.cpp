@@ -9,17 +9,17 @@ Object::Object(ofNode object, string name = "Objet")
 	scale_temp = { 0.f, 0.f, 0.f };
 }
 
-const ofNode* Object::getObject()
+const ofNode* Object::getObject() const
 {
 	return &this->object;
 }
 
-const ofTexture* Object::getTexture()
+const ofTexture* Object::getTexture() const
 {
 	return &this->texture;
 }
 
-const string* Object::getName()
+string* Object::getName()
 {
 	return &this->name;
 }

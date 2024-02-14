@@ -3,46 +3,56 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "scene.h"
+#include <vector>
 
 struct parameterVectorGroup {
-	ofxGuiGroup group;
-	ofParameter<float> x;
-	ofParameter<float> y;
-	ofParameter<float> z;
-
-	parameterVectorGroup(ofParameter<float> x = 0.f, ofParameter<float> y = 0.f, ofParameter<float> z = 0.f) {
-		this->x = x;
-		this->y = y;
-		this->z = z;
-
-	}
+	ofParameter<float>* x;
+	ofParameter<float>* y;
+	ofParameter<float>* z;
 };
+
+
+
 
 class UI
 {
 private:
-	Object* selected_object;
+	Object* holder;
+	const Object* selected_object;
 
 	ofxPanel interface;
 	parameterVectorGroup position_slider_group;
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
 
-	list<ofxButton*> object_element_list;
 
-	ofxPanel object_creation_interface;
-	ofxLabel selected_object_namefield;
-	list<ofxButton*> object_creation_selection;
 
+	ofxTextField selected_object_name_field;
+
+	vector<ofParameter<float>*> trans_sliders_pointer;
+	vector<ofParameter<float>*> rot_sliders_pointer;
+	vector<ofParameter<float>*> scale_sliders_pointer;
 
 public:
 
 	void setup();
 	void draw();
 	void update();
-	void changeFocus(Object* Object);
-	bool addObject(Object* Object);
-	bool removeObject(Object* Object);
+	void exit();
+
+	void changeFocus(const Object* Object = nullptr);
+	bool addObject();
+	bool removeObject();
+
+	const vector<ofParameter<float>*> getPositionSliderValues();
+	const vector<ofParameter<float>*> getRotationSliderValues();
+	const vector<ofParameter<float>*> getScaleSliderValues();
+
+	ofVec3f* setPositionSliderValues();
+	ofVec3f* setRotationSliderValues();
+	ofVec3f* setScaleSliderValues();
+
 
 };
+
 

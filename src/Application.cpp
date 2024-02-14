@@ -5,12 +5,14 @@ void Application::setup()
 {
 	ofSetWindowTitle("Prototype");
 
-	
-
-	scene.setup();
-	renderer.setup(&scene);
-
 	interface.setup();
+	interface.getPositionSliderValues();
+	scene.setup(interface.getPositionSliderValues(),
+		interface.getRotationSliderValues(), 
+		interface.getScaleSliderValues());
+	auto i = interface.getPositionSliderValues();
+
+	renderer.setup(&scene);
 }
 
 void Application::update()
@@ -49,16 +51,19 @@ void Application::keyReleased(int key)
 	case 100: //d in ascii 
 		ofLog() << "New object ordered";
 		renderer.createObject(0, cam.getOrientationEulerDeg());
+		interface.changeFocus(scene.getSelectedObject());
 		break;
 
 	case 57358://right arrow key in ascii
 		ofLog() << "next object select ordered";
 		scene.selectNextObject();
+		interface.changeFocus(scene.getSelectedObject());
 		break;
 
 	case 57359://left arrow key in ascii
 		ofLog() << "previous object select ordered";
 		scene.selectPreviousObject();
+		interface.changeFocus(scene.getSelectedObject());
 		break;
 	default:
 		break;

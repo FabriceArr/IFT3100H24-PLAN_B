@@ -3,22 +3,46 @@
 
 void UI::setup()
 {
-	
-	position_slider_group.group.setup("Translation");
+	holder = new Object(ofNode(), "Holder");
+	changeFocus();
 
-	
-	position_slider_group.x.set("position X", 0.f, 0.0f, 256.0f);
-	position_slider_group.y.set("position Y", 0.f, 0.0f, 256.0f);
-	position_slider_group.z.set("position Z", 0.f, 0.0f, 256.0f);
+	interface.setup();
+	position_slider_group.x = new ofParameter<float>();
+	position_slider_group.y = new ofParameter<float>();
+	position_slider_group.z = new ofParameter<float>();
 
-	position_slider_group.group.add(position_slider_group.x);
-	position_slider_group.group.add(position_slider_group.y);
-	position_slider_group.group.add(position_slider_group.z);
+	interface.add(position_slider_group.x->set("xtrans", 0.f, -100.f, 100.f));
+	interface.add(position_slider_group.y->set("ytrans", 0.f, -100.f, 100.f));
+	interface.add(position_slider_group.z->set("ztrans", 0.f, -100.f, 100.f));
 
-	interface.add(&position_slider_group.group);
+	rotation_slider_group.x = new ofParameter<float>();
+	rotation_slider_group.y = new ofParameter<float>();
+	rotation_slider_group.z = new ofParameter<float>();
+	interface.add(rotation_slider_group.x->set("xrotdeg", 0.f, 0, 360.f));
+	interface.add(rotation_slider_group.y->set("yrotdeg", 0.f, 0, 360.f));
+	interface.add(rotation_slider_group.z->set("zrotdeg", 0.f, 0, 360.f));
 
-	selected_object_namefield.setup((ofParameter<string>) "Objet selectionner");
-	object_creation_interface.add(&selected_object_namefield);
+	scale_slider_group.x = new ofParameter<float>();
+	scale_slider_group.y = new ofParameter<float>();
+	scale_slider_group.z = new ofParameter<float>();
+	interface.add(scale_slider_group.x->set("xscale", 1.f, -100.f, 100.f));
+	interface.add(scale_slider_group.y->set("yscale", 1.f, -100.f, 100.f));
+	interface.add(scale_slider_group.z->set("zscale", 1.f, -100.f, 100.f));
+
+	interface.add(selected_object_name_field.setup("Nom de l'object", *holder->getName()));
+
+	trans_sliders_pointer.push_back(position_slider_group.x);
+	trans_sliders_pointer.push_back(position_slider_group.y);
+	trans_sliders_pointer.push_back(position_slider_group.z);
+
+	rot_sliders_pointer.push_back(rotation_slider_group.x);
+	rot_sliders_pointer.push_back(rotation_slider_group.y);
+	rot_sliders_pointer.push_back(rotation_slider_group.z);
+
+	scale_sliders_pointer.push_back(scale_slider_group.x);
+	scale_sliders_pointer.push_back(scale_slider_group.y);
+	scale_sliders_pointer.push_back(scale_slider_group.z);
+
 }
 
 void UI::draw()
@@ -26,47 +50,57 @@ void UI::draw()
 	interface.draw();
 }
 
-void UI::update()
+const vector<ofParameter<float>*> UI::getPositionSliderValues() {
+	ofLog() << "In UI- " << position_slider_group.x;
+	return trans_sliders_pointer;
+	;
+}
+
+const vector<ofParameter<float>*> UI::getRotationSliderValues()
 {
-	if (selected_object != nullptr) {
-		position_slider_group.x.set("position X", selected_object->translation_temp.x, 0.0f, 256.0f);
-		position_slider_group.y.set("position Y", selected_object->translation_temp.y, 0.0f, 256.0f);
-		position_slider_group.z.set("position Z", selected_object->translation_temp.z, 0.0f, 256.0f);
 
-		selected_object_namefield.setup(*selected_object->getName());
-	}
-	else
-	{
-		position_slider_group.x.set("position X", 0.f, 0.0f, 256.0f);
-		position_slider_group.y.set("position Y", 0.f, 0.0f, 256.0f);
-		position_slider_group.z.set("position Z", 0.f, 0.0f, 256.0f);
-	}
+	return rot_sliders_pointer;
+}
 
+const vector<ofParameter<float>*> UI::getScaleSliderValues()
+{
+
+	return scale_sliders_pointer;
+}
+
+
+void UI::changeFocus(const Object* Obj) {
+	//si la fonction demande de changer le focus vers rien, 
+	//le focus est changer vers le place holder du UI
+	if (Obj != nullptr) {
+		selected_object = Obj;
+	}
+	else {
+		selected_object = holder;
+	}
+	
+}
+
+void UI::exit()
+{
+	delete holder;
+	delete selected_object;
+
+	trans_sliders_pointer.clear();
+	rot_sliders_pointer.clear();
+	scale_sliders_pointer.clear();
 
 }
 
-void UI::changeFocus(Object* Object) {
-	selected_object = Object;
-}
-
-bool UI::addObject(Object* Object) {
-	/*ofxButton* objectSelector = new ofxButton();
-	object_element_list.push_front(objectSelector);
-	interface.add(objectSelector);
-
-	to add when remove is implemented
-	*/
+bool UI::addObject() {
+	//affiche le selecteur de primitive
+	//return true si afficher, false si deja afficher
 	return false;
 }
 
-bool UI::removeObject(Object* Object) {
-	//need to add remove fonction to ofxGuiGroup.
-	/*
-	maybe something like 
-	void ofxGuiGroup::removeElement(int id){
-		iterator to find the id among the 
-	}
-	*/
+bool UI::removeObject() {
+	//cache le selecteur de primitive
+	//return true si cacher, false si il etait deja cacher
 	return false;
 }
 

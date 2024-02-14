@@ -1,21 +1,77 @@
 #include "scene.h"
 #include <algorithm>
 
-void Scene::setup()
+void Scene::setup(const vector<ofParameter<float>*> UIposition,
+	const vector<ofParameter<float>*> UIrot,
+	const vector<ofParameter<float>*> UIscale)
 {
 	origin_pos = { 0, 0, 0 };
 	//selected_object = &cursor;
 	scene_content = new vector<Object*>();
 	selected_object = nullptr;
+
+	//sets the pointer to the elements in the UI to keep track of the transforms that are ordered.
+	UI_trans_output.push_back(UIposition.at(0));//x
+	UI_trans_output.push_back(UIposition.at(1));//y
+	UI_trans_output.push_back(UIposition.at(2));//z
+
+	UI_rotation_output.push_back(UIrot.at(0));//x
+	UI_rotation_output.push_back(UIrot.at(1));//y
+	UI_rotation_output.push_back(UIrot.at(2));//z
+
+	UI_scale_output.push_back(UIscale.at(0));//x
+	UI_scale_output.push_back(UIscale.at(1));//y
+	UI_scale_output.push_back(UIscale.at(2));//z
+}
+
+void Scene::draw()
+{
+	ofDrawGrid(100, 12, false, false, true, false);
+
+
+	std::vector<Object*>::const_iterator it = scene_content->begin();
+
+	for (std::vector<Object*>::const_iterator it =
+		scene_content->begin(); it !=
+		scene_content->end(); it++)
+	{
+		ofLog() << "one drawn";
+
+		if (*it) {
+			ofPushMatrix();
+
+			
+
+			ofTranslate(*UI_trans_output.at(0), *UI_trans_output.at(1), *UI_trans_output.at(2));
+
+			ofRotateXDeg(*UI_rotation_output.at(0));
+			ofRotateYDeg(*UI_rotation_output.at(1));
+			ofRotateZDeg(*UI_rotation_output.at(2));
+
+			ofScale(*UI_scale_output.at(0), *UI_scale_output.at(1),*UI_scale_output.at(2));
+
+			(*it)->getObject()->draw();
+
+
+			ofPopMatrix();
+		}
+
+
+	}
+
 }
 
 void Scene::exit()
 {
-	for (vector<Object*>::const_iterator it = scene_content->begin()
-		; it != scene_content->end(); it++)
-	{
+	//empty them first by iterator for the objects maybe
+	scene_content->clear();
+	delete scene_content;
 
-	}
+	UI_trans_output.clear();
+	UI_rotation_output.clear();
+	UI_scale_output.clear();
+	
+
 }
 
 const std::vector<Object*>* Scene::getSceneContent() const
@@ -111,6 +167,8 @@ void Scene::selectPreviousObject()
 {
 	//std::find(scene_content.begin(), scene_content.end(), selected_object);
 }
+
+
 
 
 

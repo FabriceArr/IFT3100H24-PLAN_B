@@ -6,7 +6,7 @@ void Renderer::setup(Scene* sce)
 {
 	mouse_button = 10; // set mouse button to none
 
-	ofHideCursor();
+	//ofHideCursor();
 
 	ofSetFrameRate(60);
 
@@ -31,27 +31,7 @@ void Renderer::setup(Scene* sce)
 void Renderer::draw()
 {
 	clear();
-
-	ofPushMatrix();
-
-	ofDrawGrid(100, 12, false, false, true, false);
-	std::vector<Object*>::const_iterator it = scene->getSceneContent()->begin();
-
-	for (std::vector<Object*>::const_iterator it = 
-		scene->getSceneContent()->begin(); it !=
-		scene->getSceneContent()->end(); it++)
-	{
-		ofLog() << "one drawn";
-		if (*it) {
-			(*it)->getObject()->draw();
-		}
-		
-	}
-
-
-	ofPopMatrix();
-	
-
+	scene->draw();
 }
 
 void Renderer::update()
