@@ -5,6 +5,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	const vector<ofParameter<float>*> UIrot,
 	const vector<ofParameter<float>*> UIscale)
 {
+	//Doit etre le SEUL object initialiser comme ceci
 	object_tree_head = new ObjNode(nullptr);
 
 
