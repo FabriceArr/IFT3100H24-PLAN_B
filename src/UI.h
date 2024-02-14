@@ -6,9 +6,9 @@
 #include <vector>
 
 struct parameterVectorGroup {
-	ofParameter<float> x;
-	ofParameter<float> y;
-	ofParameter<float> z;
+	ofParameter<float>* x;
+	ofParameter<float>* y;
+	ofParameter<float>* z;
 };
 
 
@@ -41,8 +41,8 @@ public:
 	void exit();
 
 	void changeFocus(const Object* Object = nullptr);
-	bool addObject(Object* Object);
-	bool removeObject(Object* Object);
+	bool addObject();
+	bool removeObject();
 
 	const vector<ofParameter<float>*> getPositionSliderValues();
 	const vector<ofParameter<float>*> getRotationSliderValues();

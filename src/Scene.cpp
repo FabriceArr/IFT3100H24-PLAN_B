@@ -10,8 +10,18 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	scene_content = new vector<Object*>();
 	selected_object = nullptr;
 
-	UIposition.at(0);
+	//sets the pointer to the elements in the UI to keep track of the transforms that are ordered.
+	UI_trans_output.push_back(UIposition.at(0));//x
+	UI_trans_output.push_back(UIposition.at(1));//y
+	UI_trans_output.push_back(UIposition.at(2));//z
 
+	UI_rotation_output.push_back(UIrot.at(0));//x
+	UI_rotation_output.push_back(UIrot.at(1));//y
+	UI_rotation_output.push_back(UIrot.at(2));//z
+
+	UI_scale_output.push_back(UIscale.at(0));//x
+	UI_scale_output.push_back(UIscale.at(1));//y
+	UI_scale_output.push_back(UIscale.at(2));//z
 }
 
 void Scene::draw()
