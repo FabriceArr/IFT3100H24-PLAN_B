@@ -17,6 +17,8 @@ void Application::setup()
 
 void Application::update()
 {
+
+
 }
 
 void Application::draw()
@@ -51,19 +53,21 @@ void Application::keyReleased(int key)
 	case 100: //d in ascii 
 		ofLog() << "New object ordered";
 		renderer.createObject(0, cam.getOrientationEulerDeg());
-		interface.changeFocus(scene.getSelectedObject());
+		break;
+
+	case 102: //d in ascii 
+		ofLog() << "object deleted test";
+		renderer.createObject(0, cam.getOrientationEulerDeg());
 		break;
 
 	case 57358://right arrow key in ascii
 		ofLog() << "next object select ordered";
 		scene.selectNextObject();
-		interface.changeFocus(scene.getSelectedObject());
 		break;
 
 	case 57359://left arrow key in ascii
 		ofLog() << "previous object select ordered";
 		scene.selectPreviousObject();
-		interface.changeFocus(scene.getSelectedObject());
 		break;
 	default:
 		break;
@@ -73,7 +77,9 @@ void Application::keyReleased(int key)
 void Application::mouseMoved(int x, int y)
 {
 	renderer.mouse_current_x = x;
+	ofLog() << "x: " << x;
 	renderer.mouse_current_y = y;
+	ofLog() << "y: " << x;
 }
 
 void Application::mouseDragged(int x, int y, int button)
