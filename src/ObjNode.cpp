@@ -14,9 +14,15 @@ ObjNode::ObjNode(Object* object, ObjNode* master)
 //removes this node, not other ones
 void ObjNode::remove()
 {
-	for (auto it = begin (sub_objects); it != end(sub_objects); it++) {
-		//place tous les object vers pointer l'object
-		(*it)->group_master = this->group_master;
+	//check if nullptr since scene origine node is nullptr
+	if (group_master != nullptr) {
+		for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
+			//place tous les object vers pointer l'object
+			(*it)->group_master = this->group_master;
+		}
+	}
+	if (object != nullptr) {
+		delete object;
 	}
 }
 
@@ -24,4 +30,19 @@ void ObjNode::remove()
 void ObjNode::add(ObjNode* objnode)
 {
 	this->sub_objects.push_back(objnode);
+}
+
+const std::vector<ObjNode*>* ObjNode::getSubs()
+{
+	return &(this->sub_objects);
+}
+
+
+
+void ObjNode::destroy_subs()
+{
+	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
+		//place tous les object vers pointer l'object
+		(*it)->group_master = this->group_master;
+	}
 }

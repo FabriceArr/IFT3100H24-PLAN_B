@@ -10,9 +10,6 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 
 
 	origin_pos = { 0, 0, 0 };
-	//selected_object = &cursor;
-	scene_content = new vector<Object*>();
-	selected_object = nullptr;
 
 	//sets the pointer to the elements in the UI to keep track of the transforms that are ordered.
 	UI_trans_output.push_back(UIposition.at(0));//x
@@ -33,15 +30,19 @@ void Scene::draw()
 	ofDrawGrid(100, 12, false, false, true, false);
 
 
-	std::vector<Object*>::const_iterator it = scene_content->begin();
-
-	for (std::vector<Object*>::const_iterator it =
-		scene_content->begin(); it !=
-		scene_content->end(); it++)
+	for (std::vector<ObjNode*>::const_iterator it =
+		object_tree_head->getSubs()->begin() ; it !=
+		object_tree_head->getSubs()->end(); it++)
 	{
 		ofLog() << "one drawn";
 
 		if (*it) {
+
+			//only apply transform if selected
+			//draw others normally
+
+			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
+
 			ofPushMatrix();
 
 			
@@ -54,7 +55,7 @@ void Scene::draw()
 
 			ofScale(*UI_scale_output.at(0), *UI_scale_output.at(1),*UI_scale_output.at(2));
 
-			(*it)->getObject()->draw();
+			(*it)->object->getObject()->draw();
 
 
 			ofPopMatrix();
@@ -65,11 +66,16 @@ void Scene::draw()
 
 }
 
+void Scene::drawSubObjects(std::vector<Object*>* subVector) {
+
+}
+
 void Scene::exit()
 {
-	//empty them first by iterator for the objects maybe
-	scene_content->clear();
-	delete scene_content;
+	//cleans the entire scene
+	object_tree_head->destroy_subs();
+	
+	delete object_tree_head;
 
 	UI_trans_output.clear();
 	UI_rotation_output.clear();
@@ -78,9 +84,9 @@ void Scene::exit()
 
 }
 
-const std::vector<Object*>* Scene::getSceneContent() const
+const ObjNode* Scene::getSceneContent() const
 {
-	return scene_content;
+	return object_tree_head;
 }
 
 void Scene::createObject(int type, ofVec3f angle)
@@ -90,7 +96,7 @@ void Scene::createObject(int type, ofVec3f angle)
 		case 0://plane
 		{
 			Object* plane = new Object(ofPlanePrimitive(), "Plane");
-			scene_content->push_back(plane);
+			object_tree_head->add(new ObjNode(plane, object_tree_head));
 		break; 
 		}
 			
@@ -98,8 +104,7 @@ void Scene::createObject(int type, ofVec3f angle)
 		case 1://cube
 		{
 			Object* box = new Object(ofBoxPrimitive(), "Cube");
-
-			scene_content->push_back(box);
+			object_tree_head->add(new ObjNode(box, object_tree_head));
 			break;
 		}
 
@@ -119,15 +124,16 @@ void Scene::rotateObject(unsigned int object_id, ofVec3f rotation_change)
 	//apply changes to object mesh permanently 
 }
 
-const Object* Scene::getSelectedObject() const
+const vector<Object*>* Scene::getSelectedObjects() const
 {
-	return selected_object;
+	return &selected_objects;
 }
 
 
 void Scene::selectNextObject()
 {
 	//Is there an element to choose in the scene? If not do nothing
+	/*
 	if (scene_content->size() > 0) {
 		//finds the currently selected object in the scene's content if there is an object
 		if (selected_object != nullptr) {
@@ -161,6 +167,7 @@ void Scene::selectNextObject()
 		}
 
 	}
+	*/
 
 
 

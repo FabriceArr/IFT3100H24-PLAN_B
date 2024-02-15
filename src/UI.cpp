@@ -116,10 +116,6 @@ void UI::exit()
 
 }
 
-void UI::mouseMoved(int x, int y)
-{
-
-}
 
 bool UI::addObject() {
 	//affiche le selecteur de primitive

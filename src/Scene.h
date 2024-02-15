@@ -14,10 +14,9 @@ private:
 	vector<ofParameter<float>*> UI_trans_output;
 	vector<ofParameter<float>*> UI_rotation_output;
 	vector<ofParameter<float>*> UI_scale_output;
-
-	std::vector<Object*>* scene_content;
-	Object* selected_object;
-	//Object cursor;
+	
+	//vector for selecting multiple objects
+	std::vector<Object*> selected_objects;
 
 	ObjNode* object_tree_head;
 
@@ -30,7 +29,7 @@ public:
 	//clean up the scene from memory
 	void exit();
 
-	const std::vector<Object*>* getSceneContent() const;
+	const ObjNode* getSceneContent() const;
 
 	//creates a new object on the origin of the scene
 	void createObject(int type, ofVec3f angle);
@@ -43,13 +42,15 @@ public:
 	//the given amount in the scene.
 	void rotateObject(unsigned int object_id, ofVec3f rotation_change);
 
-	const Object* getSelectedObject() const;
+	const vector<Object*>* getSelectedObjects() const;
 
 	void selectNextObject();
 
 	void selectPreviousObject();
 
 	void draw();
+
+	void drawSubObjects(std::vector<Object*>* subVector);
 
 
 };
