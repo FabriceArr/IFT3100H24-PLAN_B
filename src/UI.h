@@ -17,10 +17,12 @@ struct parameterVectorGroup {
 class UI
 {
 private:
+	ofxPanel interface;
+
 	Object* holder;
 	const Object* selected_object;
 
-	ofxPanel interface;
+	
 	parameterVectorGroup position_slider_group;
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
@@ -34,7 +36,7 @@ private:
 	vector<ofParameter<float>*> scale_sliders_pointer;
 
 public:
-
+	
 	void setup();
 	void draw();
 	void update();

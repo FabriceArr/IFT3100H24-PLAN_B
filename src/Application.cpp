@@ -17,6 +17,8 @@ void Application::setup()
 
 void Application::update()
 {
+
+
 }
 
 void Application::draw()
@@ -73,7 +75,9 @@ void Application::keyReleased(int key)
 void Application::mouseMoved(int x, int y)
 {
 	renderer.mouse_current_x = x;
+	ofLog() << "x: " << x;
 	renderer.mouse_current_y = y;
+	ofLog() << "y: " << x;
 }
 
 void Application::mouseDragged(int x, int y, int button)

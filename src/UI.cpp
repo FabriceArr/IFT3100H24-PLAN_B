@@ -116,6 +116,11 @@ void UI::exit()
 
 }
 
+void UI::mouseMoved(int x, int y)
+{
+
+}
+
 bool UI::addObject() {
 	//affiche le selecteur de primitive
 	//return true si afficher, false si deja afficher
