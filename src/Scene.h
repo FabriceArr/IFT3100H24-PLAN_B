@@ -44,6 +44,8 @@ public:
 
 	const vector<Object*>* getSelectedObjects() const;
 
+	void removeObject(ObjNode* objectNode);
+
 	void selectNextObject();
 
 	void selectPreviousObject();

@@ -55,6 +55,11 @@ void Application::keyReleased(int key)
 		renderer.createObject(0, cam.getOrientationEulerDeg());
 		break;
 
+	case 102: //d in ascii 
+		ofLog() << "object deleted test";
+		renderer.createObject(0, cam.getOrientationEulerDeg());
+		break;
+
 	case 57358://right arrow key in ascii
 		ofLog() << "next object select ordered";
 		scene.selectNextObject();

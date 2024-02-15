@@ -114,6 +114,8 @@ void Scene::createObject(int type, ofVec3f angle)
 	}
 }
 
+
+
 void Scene::moveObject(unsigned int object_id, ofVec3f position_change)
 {
 	//apply changes to object mesh permanently 
@@ -127,6 +129,11 @@ void Scene::rotateObject(unsigned int object_id, ofVec3f rotation_change)
 const vector<Object*>* Scene::getSelectedObjects() const
 {
 	return &selected_objects;
+}
+
+void Scene::removeObject(ObjNode* objectNode)
+{
+	objectNode->remove();
 }
 
 
