@@ -50,11 +50,13 @@ void UI::setup()
 	scale_sliders_pointer.push_back(scale_slider_group.y);
 	scale_sliders_pointer.push_back(scale_slider_group.z);
 
+	
 }
 
 void UI::draw()
 {
 	interface.draw();
+	
 }
 
 const vector<ofParameter<float>*> UI::getPositionSliderValues() {

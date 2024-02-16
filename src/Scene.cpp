@@ -55,6 +55,9 @@ void Scene::draw()
 
 			ofScale(*UI_scale_output.at(0), *UI_scale_output.at(1),*UI_scale_output.at(2));
 
+			ofMatrix4x4 W = ofGetCurrentMatrix(OF_MATRIX_MODELVIEW);
+			(*it)->object->addChange(W);
+			
 			(*it)->object->getObject()->draw();
 
 

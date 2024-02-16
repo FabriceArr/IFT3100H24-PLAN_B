@@ -1,5 +1,7 @@
 #include "Object.h"
 
+#define MAXCHANGEBUFFERSIZE 10
+
 Object::Object(ofNode object, string name = "Objet")
 {
 	this->name = name;
@@ -8,7 +10,7 @@ Object::Object(ofNode object, string name = "Objet")
 	rotation_temp = { 0.f, 0.f, 0.f };
 	scale_temp = { 0.f, 0.f, 0.f };
 
-	changes_buffer = deque<ofMatrix4x4>(10);
+	
 	current_change = 0;
 }
 
@@ -58,7 +60,7 @@ void Object::addChange(ofMatrix4x4 mat)
 	}
 
 
-	if (changes_buffer.size() == changes_buffer.max_size()) {
+	if (changes_buffer.size() == MAXCHANGEBUFFERSIZE) {
 		changes_buffer.pop_back();
 	}
 

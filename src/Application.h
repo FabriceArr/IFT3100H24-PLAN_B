@@ -3,6 +3,9 @@
 #include "Renderer.h"
 #include "UI.h"
 #include "Scene.h"
+#include "EventObject.h"
+#include <gl/glew.h>
+#include <GLFW/glfw3.h>
 
 
 
@@ -20,6 +23,8 @@ public:
 	void update();
 	void draw();
 
+
+
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y);
@@ -34,6 +39,21 @@ public:
 	
 	void drawInteractionArea();
 	ofEasyCam cam; // add mouse controls for camera movement
+	eventsObject ev_object;
+
+	//method that will receive events from ofxEventsAddon
+	void newx(int& i);
+	void newy(int& i);
+	void newb(int& i);
+
+	unsigned int x, y;
+	bool pressed, released;
+	string xMsg;
+	string yMsg;
+	string buttonMsg;
+
+
+	bool enabled;
 
 
 

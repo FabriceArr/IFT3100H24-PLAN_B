@@ -22,7 +22,6 @@ private:
 	Object* holder;
 	const Object* selected_object;
 
-	
 	parameterVectorGroup position_slider_group;
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
