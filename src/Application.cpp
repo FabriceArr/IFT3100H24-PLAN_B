@@ -126,4 +126,5 @@ void Application::gotMessage(ofMessage msg)
 
 void Application::drawInteractionArea()
 {
+	
 }

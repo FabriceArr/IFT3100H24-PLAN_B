@@ -5,7 +5,6 @@
 #include <GL/glew.h>
 #include <stdio.h>
 #include <math.h>
-#include <glm/glm.hpp>
 
 
 class ClickTexture

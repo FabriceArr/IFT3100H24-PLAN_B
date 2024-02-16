@@ -24,8 +24,6 @@ void Renderer::setup(Scene* sce)
 
 	ofBackground(clear_color);
 	scene = sce;
-	
-
 }
 
 void Renderer::draw()

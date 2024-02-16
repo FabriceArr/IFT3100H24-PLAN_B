@@ -1,14 +1,14 @@
 #pragma once
 #include "Scene.h"
+#include "ClickTexture.h"
 
 
 class Renderer
 {
 private:
-
 	ofColor clear_color;
 	Scene* scene;
-
+	ClickTexture select_mode;
 	bool has_changed;
 public:
 
