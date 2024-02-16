@@ -35,6 +35,7 @@ void Application::draw()
 	}
 }
 
+
 void Application::keyPressed(int key)
 {
 	
@@ -147,6 +148,3 @@ void Application::gotMessage(ofMessage msg)
 {
 }
 
-void Application::drawInteractionArea()
-{
-}
