@@ -34,6 +34,9 @@ private:
 	ofxLabel selected_object_namefield;
 	list<ofxButton*> object_creation_selection;
 
+	parameterVectorGroup color_selection_group;	
+	parameterVectorGroup stroke_color_selection_group;
+
 
 public:
 

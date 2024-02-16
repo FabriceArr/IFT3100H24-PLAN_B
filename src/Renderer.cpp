@@ -227,7 +227,7 @@ void Renderer::update()
 }
 
 // fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par défaut
-void Renderer::clear()
+void Renderer::clear() const
 {
 	ofBackground(clear_color);
 }
