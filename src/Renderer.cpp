@@ -27,6 +27,16 @@ void Renderer::setup(Scene* sce)
 	ofBackground(clear_color);
 	scene = sce;
 
+	// largeur de la ligne de contour
+	stroke_width_default = 2;
+
+	// couleur de la ligne de contour
+	color_stroke();
+
+	// couleur de la zone de remplissage
+	color_fill();
+
+
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 
 	radius = 4.0f;
@@ -54,6 +64,7 @@ void Renderer::draw()
 
 	ofSetColor(255);
 
+
 	// Draw based on the draw_mode
 	 // Draw all shapes in the vector
 	for (const auto& shape : shapes)
@@ -61,28 +72,61 @@ void Renderer::draw()
 		switch (shape.type)
 		{
 		case VectorPrimitiveType::point:
+			ofFill();
+			ofSetLineWidth(0);
+			ofSetColor(shape.fill_color);
 			drawVectorPoint(glm::vec3(shape.position1[0], shape.position1[1], 0));
 			break;
 
 		case VectorPrimitiveType::line:
+			ofNoFill();
+			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetColor(shape.stroke_color);
 			drawVectorLine(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				glm::vec3(shape.position2[0], shape.position2[1], 0));
 			break;
 
 		case VectorPrimitiveType::rectangle:
+			ofFill();
+			ofSetLineWidth(0);
+			ofSetColor( shape.fill_color);
+			drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
+				shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
+			ofNoFill();
+			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetColor(shape.stroke_color);
 			drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
 			break;
 
 		case VectorPrimitiveType::ellipse:
+			ofFill();
+			ofSetLineWidth(0);
+			ofSetCircleResolution(48);
+			ofSetColor(shape.fill_color);
 			drawVectorEllipse(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.position2[0], shape.position2[1]);
+			ofNoFill();
+			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetColor(shape.stroke_color);
+			drawVectorEllipse(glm::vec3(shape.position1[0], shape.position1[1], 0),
+								shape.position2[0], shape.position2[1]);
 			break;
 
 		case VectorPrimitiveType::triangle:
+			ofFill();
+			ofSetLineWidth(0);
+			ofSetCircleResolution(48);
+			ofSetColor(shape.fill_color);
 			drawVectorTriangle(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				glm::vec3(shape.position2[0], shape.position2[1], 0),
 				glm::vec3(shape.position3[0], shape.position3[1], 0));
+			ofNoFill();
+			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetColor(shape.stroke_color);
+			drawVectorTriangle(glm::vec3(shape.position1[0], shape.position1[1], 0),
+								glm::vec3(shape.position2[0], shape.position2[1], 0),
+								glm::vec3(shape.position3[0], shape.position3[1], 0));
 			break;
 
 		default:
@@ -102,14 +146,19 @@ void Renderer::add_vector_shape(VectorPrimitiveType type)
 	VectorPrimitive newShape;
 	newShape.type = type;
 
-	newShape.position1[0] = mouse_press_x;
-	newShape.position1[1] = mouse_press_y;
+	newShape.position1[0] = 0;
+	newShape.position1[1] = 0;
 
-	newShape.position2[0] = mouse_current_x;
-	newShape.position2[1] = mouse_current_y;
+	newShape.position2[0] = 100;  // You can adjust the width or radius as needed
+	newShape.position2[1] = 100;  // You can adjust the height as needed
+
+	newShape.stroke_color = ofColor(stroke_color_r, stroke_color_g, stroke_color_b, stroke_color_a);
+	newShape.fill_color = ofColor(fill_color_r, fill_color_g, fill_color_b, fill_color_a);
 
 	switch (newShape.type)
 	{
+		// Adjust stroke width or other properties as needed for each shape type
+
 	case VectorPrimitiveType::point:
 		newShape.stroke_width = ofRandom(1, 64);
 		break;
@@ -127,7 +176,8 @@ void Renderer::add_vector_shape(VectorPrimitiveType type)
 		break;
 
 	case VectorPrimitiveType::triangle:
-		newShape.position3 = glm::vec3(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 0);
+		// Adjust properties if needed for triangles
+		newShape.position3 = glm::vec3(50, 100, 0);  // Example position for the third point
 		newShape.stroke_width = ofRandom(1, 16);
 		break;
 
@@ -138,14 +188,15 @@ void Renderer::add_vector_shape(VectorPrimitiveType type)
 
 	ofLog() << "<new primitive at index: " << shapes.size() << ">";
 
-	// Ajoutez la nouvelle primitive directement au vecteur
+	// Add the new primitive directly to the vector
 	shapes.push_back(newShape);
 }
+
 
 // Implementation of drawVectorPoint function
 void Renderer::drawVectorPoint(const glm::vec3& position)
 {
-	ofDrawSphere(position.x, position.y, position.z, 5);
+	ofDrawCircle(position.x, position.y, 5);
 }
 
 // Implementation of drawVectorLine function
@@ -244,4 +295,27 @@ void Renderer::removeLastShape()
 		shapes.pop_back();
 		ofLog() << "Removed last shape. Total shapes: " << shapes.size();
 	}
+}
+
+void Renderer::color_stroke()
+{
+	stroke_color_r = (int)ofRandom(0, 255);
+	stroke_color_g = (int)ofRandom(0, 255);
+	stroke_color_b = (int)ofRandom(0, 255);
+	stroke_color_a = 255;
+}
+
+// fonction qui détermine une couleur aléatoire pour les zones de remplissage
+void Renderer::color_fill()
+{
+	fill_color_r = (int)ofRandom(0, 255);
+	fill_color_g = (int)ofRandom(0, 255);
+	fill_color_b = (int)ofRandom(0, 255);
+	fill_color_a = 255;
+
+}
+
+void Renderer::setStrokeWidth(float strokeWidth)
+{
+	stroke_weight = strokeWidth;
 }

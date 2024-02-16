@@ -31,6 +31,7 @@ void Application::draw()
 	renderer.draw_cursor(renderer.mouse_current_x, renderer.mouse_current_y);
 }
 
+
 void Application::keyPressed(int key)
 {
 	
@@ -152,6 +153,3 @@ void Application::gotMessage(ofMessage msg)
 {
 }
 
-void Application::drawInteractionArea()
-{
-}
