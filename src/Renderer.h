@@ -28,7 +28,6 @@ class Renderer
 private:
 
 	Scene* scene;
-	ofNode node;
 
 	bool has_changed;
 
@@ -86,6 +85,8 @@ public:
 	void draw_cursor(float x, float y) const;
 	void cursorVisible();
 	void clear() const;
+
+	void exit();
 
 	void createObject(int type, const glm::vec3 cameraAngle);
 	void removeLastShape();
