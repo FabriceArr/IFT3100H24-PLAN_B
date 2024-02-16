@@ -5,16 +5,20 @@ void Application::setup()
 {
 	ofSetWindowTitle("Prototype");
 
-	
-
-	scene.setup();
-	renderer.setup(&scene);
-
 	interface.setup();
+	interface.getPositionSliderValues();
+	scene.setup(interface.getPositionSliderValues(),
+		interface.getRotationSliderValues(), 
+		interface.getScaleSliderValues());
+	auto i = interface.getPositionSliderValues();
+
+	renderer.setup(&scene);
 }
 
 void Application::update()
 {
+
+
 }
 
 void Application::draw()
@@ -47,6 +51,11 @@ void Application::keyReleased(int key)
 	{
 	case 100: //d in ascii 
 		ofLog() << "New object ordered";
+		renderer.createObject(0, cam.getOrientationEulerDeg());
+		break;
+
+	case 102: //d in ascii 
+		ofLog() << "object deleted test";
 		renderer.createObject(0, cam.getOrientationEulerDeg());
 		break;
 
@@ -97,7 +106,9 @@ void Application::keyReleased(int key)
 void Application::mouseMoved(int x, int y)
 {
 	renderer.mouse_current_x = x;
+	ofLog() << "x: " << x;
 	renderer.mouse_current_y = y;
+	ofLog() << "y: " << x;
 }
 
 void Application::mouseDragged(int x, int y, int button)

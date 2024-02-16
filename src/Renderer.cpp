@@ -5,12 +5,12 @@
 void Renderer::setup(Scene* sce)
 {
 	// Initialisation du vecteur
-	shapes.clear(); // Assurez-vous que le vecteur est vide au début
-	shapes.reserve(100); // Réservez de l'espace pour 100 éléments si nécessaire
+	shapes.clear(); // Assurez-vous que le vecteur est vide au dÃ©but
+	shapes.reserve(100); // RÃ©servez de l'espace pour 100 Ã©lÃ©ments si nÃ©cessaire
 
 	mouse_button = 10; // set mouse button to none
 
-	ofHideCursor();
+	//ofHideCursor();
 
 	ofSetFrameRate(60);
 
@@ -226,10 +226,16 @@ void Renderer::update()
 {
 }
 
-// fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par défaut
+// fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par dÃ©faut
 void Renderer::clear() const
 {
 	ofBackground(clear_color);
+}
+
+void Renderer::exit()
+{
+	//make scene destructor first
+	//delete scene;
 }
 
 void Renderer::createObject(int type, const glm::vec3 cameraAngle)
@@ -288,7 +294,7 @@ void Renderer::color_stroke()
 	stroke_color_a = 255;
 }
 
-// fonction qui d�termine une couleur al�atoire pour les zones de remplissage
+// fonction qui détermine une couleur aléatoire pour les zones de remplissage
 void Renderer::color_fill()
 {
 	fill_color_r = (int)ofRandom(0, 255);
