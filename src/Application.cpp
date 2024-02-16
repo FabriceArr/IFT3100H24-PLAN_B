@@ -12,7 +12,9 @@ void Application::setup()
 		interface.getScaleSliderValues());
 	auto i = interface.getPositionSliderValues();
 
-	renderer.setup(&scene);
+	renderer.setup(&scene, &cam);
+
+	cam.getProjectionMatrix();
 }
 
 void Application::update()

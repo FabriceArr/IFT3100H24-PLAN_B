@@ -102,3 +102,4 @@ obj/x64/Debug/IFT3100H24-PLAN_B_debug.exe.recipe
 .vs/IFT3100H24-PLAN_B/FileContentIndex/e8c3b717-3ebb-4562-9c1b-98f6fe1694fd.vsidx
 .vs/IFT3100H24-PLAN_B/FileContentIndex/ef1f6a76-e6c7-4102-ad00-cfecaa656754.vsidx
 .vs/IFT3100H24-PLAN_B/v17/ipch/AutoPCH/6c0f09df4cc1a9f4/CLICKTEXTURE.ipch
+*.vsidx

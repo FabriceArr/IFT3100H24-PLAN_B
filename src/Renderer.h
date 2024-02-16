@@ -8,8 +8,13 @@ class Renderer
 private:
 	ofColor clear_color;
 	Scene* scene;
+	ofCamera* cam;
+	ofMatrix4x4 viewM, projectM;
+
 	ClickTexture select_mode;
 	bool has_changed;
+
+	void updateCamMatrixes();
 public:
 
 	int mouse_press_x;
@@ -23,11 +28,13 @@ public:
 	bool isCursorVisible;
 	bool isSelectable;
 
-	void setup(Scene* sce);
+	void setup(Scene* sce, ofCamera* cam);
 	void draw();
 	void update();
 	void draw_cursor(float x, float y) const;
 	void clear() const;
+
+	
 
 	void exit();
 

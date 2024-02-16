@@ -2,7 +2,13 @@
 #include "Renderer.h"
 
 
-void Renderer::setup(Scene* sce)
+void Renderer::updateCamMatrixes()
+{
+	projectM = cam->getProjectionMatrix();
+	viewM = ofGetCurrentViewMatrix();
+}
+
+void Renderer::setup(Scene* sce, ofCamera* cam)
 {
 	mouse_button = 10; // set mouse button to none
 
@@ -24,11 +30,14 @@ void Renderer::setup(Scene* sce)
 
 	ofBackground(clear_color);
 	scene = sce;
+	this->cam = cam;
 }
 
 void Renderer::draw()
 {
 	clear();
+
+	updateCamMatrixes();
 	scene->draw();
 }
 
