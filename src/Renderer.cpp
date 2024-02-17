@@ -29,8 +29,6 @@ void Renderer::setup(Scene* sce)
 	ofBackground(clear_color);
 	scene = sce;
 
-	// largeur de la ligne de contour
-	stroke_width_default = 2;
 
 	// couleur de la ligne de contour
 	color_stroke();
@@ -51,18 +49,6 @@ void Renderer::draw()
 	ofPushMatrix();
 
 	ofDrawGrid(100, 12, false, false, true, false);
-	std::vector<Object*>::const_iterator it = scene->getSceneContent()->begin();
-
-	for (std::vector<Object*>::const_iterator it = 
-		scene->getSceneContent()->begin(); it !=
-		scene->getSceneContent()->end(); it++)
-	{
-		ofLog() << "one drawn";
-		if (*it) {
-			(*it)->getObject()->draw();
-		}
-		
-	}
 
 	ofSetColor(255);
 

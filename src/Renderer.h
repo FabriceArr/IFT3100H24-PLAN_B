@@ -71,7 +71,6 @@ public:
 	ofColor stroke_color;
 	ofColor fill_color;
 	float stroke_weight;
-	float stroke_width_default;
 
 	void setup(Scene* sce);
 	void draw();
