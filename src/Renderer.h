@@ -18,6 +18,8 @@ struct VectorPrimitive
 	glm::vec3 position1;
 	glm::vec3 position2;
 	glm::vec3 position3;
+	float radiusx;
+	float radiusy;
 	float stroke_width;
 	ofColor stroke_color;
 	ofColor fill_color;
@@ -80,9 +82,8 @@ public:
 	void drawVectorEllipse(const glm::vec3& position, float radiusX, float radiusY);
 	void drawVectorTriangle(const glm::vec3& point1, const glm::vec3& point2, const glm::vec3& point3);
 	void update();
-	void add_vector_shape(VectorPrimitiveType type);
+	void add_vector_shape(VectorPrimitiveType type, float x1, float y1, float x2, float y2, float x3, float y3, float radiusx, float raduisy);
 	void draw_cursor(float x, float y) const;
-	void cursorVisible();
 	void clear() const;
 
 	void exit();

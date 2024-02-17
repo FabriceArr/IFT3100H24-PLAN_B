@@ -62,7 +62,7 @@ void Renderer::draw()
 		case VectorPrimitiveType::point:
 			ofFill();
 			ofSetLineWidth(0);
-			ofSetColor(shape.fill_color);
+			ofSetColor(shape.stroke_color);
 			drawVectorPoint(glm::vec3(shape.position1[0], shape.position1[1], 0));
 			break;
 
@@ -93,12 +93,12 @@ void Renderer::draw()
 			ofSetCircleResolution(48);
 			ofSetColor(shape.fill_color);
 			drawVectorEllipse(glm::vec3(shape.position1[0], shape.position1[1], 0),
-				shape.position2[0], shape.position2[1]);
+				shape.radiusx, shape.radiusy);
 			ofNoFill();
 			ofSetLineWidth(shapes[index].stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorEllipse(glm::vec3(shape.position1[0], shape.position1[1], 0),
-								shape.position2[0], shape.position2[1]);
+				shape.radiusx, shape.radiusy);
 			break;
 
 		case VectorPrimitiveType::triangle:
@@ -126,34 +126,40 @@ void Renderer::draw()
 	ofPopMatrix();
 }
 
-void Renderer::add_vector_shape(VectorPrimitiveType type)
+void Renderer::add_vector_shape(VectorPrimitiveType type, float x1, float y1, float x2, float y2, float x3, float y3, float radiusx, float radiusy)
 {
 	VectorPrimitive newShape;
 	newShape.type = type;
 
-	newShape.position1[0] = 0;
-	newShape.position1[1] = 0;
+	newShape.position1[0] = x1;
+	newShape.position1[1] = y1;
 
-	newShape.position2[0] = 100;  // You can adjust the width or radius as needed
-	newShape.position2[1] = 100;  // You can adjust the height as needed
+	newShape.position2[0] = x2;
+	newShape.position2[1] = y2;
+
+	newShape.position3[0] = x3;
+	newShape.position3[1] = y3;
+
+	newShape.radiusx = radiusx;
+	newShape.radiusy = radiusy;
+
 
 	newShape.stroke_color = ofColor(stroke_color_r, stroke_color_g, stroke_color_b, stroke_color_a);
 	newShape.fill_color = ofColor(fill_color_r, fill_color_g, fill_color_b, fill_color_a);
 
 	switch (newShape.type)
 	{
-		// Adjust stroke width or other properties as needed for each shape type
 
 	case VectorPrimitiveType::point:
-		newShape.stroke_width = ofRandom(1, 64);
+		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::line:
-		newShape.stroke_width = ofRandom(1, 16);
+		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::rectangle:
-		newShape.stroke_width = ofRandom(1, 16);
+		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::ellipse:
@@ -161,9 +167,7 @@ void Renderer::add_vector_shape(VectorPrimitiveType type)
 		break;
 
 	case VectorPrimitiveType::triangle:
-		// Adjust properties if needed for triangles
-		newShape.position3 = glm::vec3(50, 100, 0);  // Example position for the third point
-		newShape.stroke_width = ofRandom(1, 16);
+		newShape.stroke_width = stroke_width_default;
 		break;
 
 	default:
@@ -181,7 +185,7 @@ void Renderer::add_vector_shape(VectorPrimitiveType type)
 // Implementation of drawVectorPoint function
 void Renderer::drawVectorPoint(const glm::vec3& position)
 {
-	ofDrawCircle(position.x, position.y, 5);
+	ofDrawCircle(position.x, position.y, 20);
 }
 
 // Implementation of drawVectorLine function
