@@ -34,8 +34,4 @@ public:
 	
 	void drawInteractionArea();
 	ofEasyCam cam; // add mouse controls for camera movement
-
-
-
 };
-
