@@ -51,7 +51,7 @@ void Renderer::draw()
 	ofDrawGrid(100, 12, false, false, true, false);
 
 	ofSetColor(255);
-
+	scene->draw();
 
 	// Draw based on the draw_mode
 	 // Draw all shapes in the vector
@@ -226,7 +226,7 @@ void Renderer::exit()
 
 void Renderer::createObject(int type, const glm::vec3 cameraAngle)
 {
-		scene->createObject(type, cameraAngle);
+	scene->createObject(type, cameraAngle);
 	
 }
 
