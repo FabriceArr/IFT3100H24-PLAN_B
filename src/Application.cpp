@@ -14,34 +14,7 @@ void Application::setup()
 
 	renderer.setup(&scene, &cam);
 
-	cam.getProjectionMatrix();
-	
-	enabled = false;
-	ev_object.setup();
-	
-	// add the newFloat method to listen for eventsAddon newFloatEvent
-	//ofAddListener(ev_object.event_x, this, &Application::newx);
-
-	// add the newInt method to listen for eventsAddon newIntEvent
-	//ofAddListener(ev_object.event_y, this, &Application::newy);
-
-	// add the newInt method to listen for eventsAddon newIntEvent
-	//ofAddListener(ev_object.event_mouse, this, &Application::newb);
-
-
-}
-
-void Application::newx(int& i) {
-	xMsg = "newFloat event:  " + ofToString(i);
-}
-
-//--------------------------------------------------------------
-void Application::newy(int& i) {
-	yMsg = "newInt   event:  " + ofToString(i);
-}
-
-void Application::newb(int& i) {
-	buttonMsg = "newInt   event:  " + ofToString(i);
+	ofAddListener(ofEvents().mouseMoved, this, &Application::mouser);
 }
 
 void Application::update()
@@ -68,9 +41,6 @@ void Application::draw()
 		renderer.draw_cursor(renderer.mouse_current_x,
 			renderer.mouse_current_y);
 	}
-	ofDrawBitmapString(xMsg, 500, 20);
-	ofDrawBitmapString(yMsg, 500, 40);
-	ofDrawBitmapString(buttonMsg, 20, 40);
 
 }
 
@@ -160,3 +130,8 @@ void Application::drawInteractionArea()
 {
 	
 }
+
+void Application::mouser(int x, int y, int button) {
+
+}
+

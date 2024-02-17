@@ -3,7 +3,6 @@
 #include "Renderer.h"
 #include "UI.h"
 #include "Scene.h"
-#include "EventObject.h"
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -39,23 +38,9 @@ public:
 	
 	void drawInteractionArea();
 	ofEasyCam cam; // add mouse controls for camera movement
-	eventsObject ev_object;
 
-	//method that will receive events from ofxEventsAddon
-	void newx(int& i);
-	void newy(int& i);
-	void newb(int& i);
-
-	unsigned int x, y;
-	bool pressed, released;
-	string xMsg;
-	string yMsg;
-	string buttonMsg;
-
-
-	bool enabled;
-
-
+	void mouser(int x, int y, int button);
+	ofxPanel test;
 
 };
 

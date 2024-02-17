@@ -50,7 +50,6 @@ void UI::setup()
 	scale_sliders_pointer.push_back(scale_slider_group.y);
 	scale_sliders_pointer.push_back(scale_slider_group.z);
 
-	
 }
 
 void UI::draw()
@@ -117,18 +116,3 @@ void UI::exit()
 	}
 
 }
-
-
-bool UI::addObject() {
-	//affiche le selecteur de primitive
-	//return true si afficher, false si deja afficher
-	return false;
-}
-
-bool UI::removeObject() {
-	//cache le selecteur de primitive
-	//return true si cacher, false si il etait deja cacher
-	return false;
-}
-
-
