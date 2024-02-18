@@ -5,13 +5,27 @@
 #include "scene.h"
 #include <vector>
 
+#include "renderer.h"
+
 struct parameterVectorGroup {
 	ofParameter<float>* x;
 	ofParameter<float>* y;
 	ofParameter<float>* z;
+	ofParameter<ofColor> fill_color_slider;
+	ofParameter<ofColor> stroke_color_slider;
 };
 
+struct hsv {
+	double h;
+	double s;
+	double v;
+};
 
+struct rgb {
+	double r;
+	double g;
+	double b;
+};
 
 
 class UI
@@ -27,15 +41,40 @@ private:
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
 
-
-
+	parameterVectorGroup fill_color_slider_group;
+	parameterVectorGroup stroke_color_slider_group;
+    
 	ofxTextField selected_object_name_field;
 
 	vector<ofParameter<float>*> trans_sliders_pointer;
 	vector<ofParameter<float>*> rot_sliders_pointer;
 	vector<ofParameter<float>*> scale_sliders_pointer;
 
+	ofParameter<float> h_slider_fill;
+	ofParameter<float> s_slider_fill;
+	ofParameter<float> v_slider_fill;
+
+	ofParameter<float> h_slider_stroke;
+	ofParameter<float> s_slider_stroke;
+	ofParameter<float> v_slider_stroke;
+
+	hsv rgbToHSV(ofColor color);
+	ofColor hsvToRGB(hsv hsvColor);
+
+	void fillColorRGBChanged(ofColor& color);
+	void strokeColorRGBChanged(ofColor& color);
+
+	void hueChanged_fill(float& value);
+	void saturationChanged_fill(float& value);
+	void valueChanged_fill(float& value);
+
+	void hueChanged_stroke(float& value);
+	void saturationChanged_stroke(float& value);
+	void valueChanged_stroke(float& value);
+
 public:
+
+	Renderer renderer;
 	
 	void setup();
 	void draw();
@@ -54,7 +93,7 @@ public:
 	ofVec3f* setRotationSliderValues();
 	ofVec3f* setScaleSliderValues();
 
-
+	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
 };
 
 

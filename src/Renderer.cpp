@@ -29,14 +29,6 @@ void Renderer::setup(Scene* sce)
 	ofBackground(clear_color);
 	scene = sce;
 
-
-	// couleur de la ligne de contour
-	color_stroke();
-
-	// couleur de la zone de remplissage
-	color_fill();
-
-
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 
 	radius = 4.0f;
@@ -144,8 +136,8 @@ void Renderer::add_vector_shape(VectorPrimitiveType type, float x1, float y1, fl
 	newShape.radiusy = radiusy;
 
 
-	newShape.stroke_color = ofColor(stroke_color_r, stroke_color_g, stroke_color_b, stroke_color_a);
-	newShape.fill_color = ofColor(fill_color_r, fill_color_g, fill_color_b, fill_color_a);
+	newShape.stroke_color = stroke_color;
+	newShape.fill_color = fill_color;
 
 	switch (newShape.type)
 	{
@@ -274,24 +266,6 @@ void Renderer::removeLastShape()
 		shapes.pop_back();
 		ofLog() << "Removed last shape. Total shapes: " << shapes.size();
 	}
-}
-
-void Renderer::color_stroke()
-{
-	stroke_color_r = (int)ofRandom(0, 255);
-	stroke_color_g = (int)ofRandom(0, 255);
-	stroke_color_b = (int)ofRandom(0, 255);
-	stroke_color_a = 255;
-}
-
-// fonction qui détermine une couleur aléatoire pour les zones de remplissage
-void Renderer::color_fill()
-{
-	fill_color_r = (int)ofRandom(0, 255);
-	fill_color_g = (int)ofRandom(0, 255);
-	fill_color_b = (int)ofRandom(0, 255);
-	fill_color_a = 255;
-
 }
 
 void Renderer::setStrokeWidth(float strokeWidth)

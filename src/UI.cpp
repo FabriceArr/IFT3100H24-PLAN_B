@@ -36,6 +36,31 @@ void UI::setup()
 	//setup for selected object name input
 	interface.add(selected_object_name_field.setup("Nom de l'object", *holder->getName()));
 
+    // Setup for fill color input
+    interface.add(fill_color_slider_group.fill_color_slider.set("Fill Color", ofColor(255), ofColor(0, 0), ofColor(255, 255)));
+    interface.add(h_slider_fill.set("Hue_fill", 0, 0, 360));
+    interface.add(s_slider_fill.set("Saturation_fill", 0, 0, 1));
+    interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
+
+    // Setup for stroke color input
+    interface.add(stroke_color_slider_group.stroke_color_slider.set("Stroke Color", ofColor(0), ofColor(0, 0), ofColor(255, 255)));
+    interface.add(h_slider_stroke.set("Hue_stroke", 0, 0, 360));
+    interface.add(s_slider_stroke.set("Saturation_stroke", 0, 0, 1));
+    interface.add(v_slider_stroke.set("Value_stroke", 1, 0, 1));
+	
+    // Ajoutez des callbacks pour les sliders RGB
+    fill_color_slider_group.fill_color_slider.addListener(this, &UI::fillColorRGBChanged);
+    stroke_color_slider_group.stroke_color_slider.addListener(this, &UI::strokeColorRGBChanged);
+
+    // Ajoutez des callbacks pour les sliders HSV
+    h_slider_fill.addListener(this, &UI::hueChanged_fill);
+    s_slider_fill.addListener(this, &UI::saturationChanged_fill);
+    v_slider_fill.addListener(this, &UI::valueChanged_fill);
+
+    h_slider_stroke.addListener(this, &UI::hueChanged_stroke);
+    s_slider_stroke.addListener(this, &UI::saturationChanged_stroke);
+    v_slider_stroke.addListener(this, &UI::valueChanged_stroke);
+
 
 	//stashes slider pointer into vector for output towards scene object in order to control objects inside of it
 	trans_sliders_pointer.push_back(position_slider_group.x);
@@ -50,6 +75,14 @@ void UI::setup()
 	scale_sliders_pointer.push_back(scale_slider_group.y);
 	scale_sliders_pointer.push_back(scale_slider_group.z);
 
+}
+
+void UI::update()
+{
+    renderer.fill_color = fill_color_slider_group.fill_color_slider;
+    renderer.stroke_color = stroke_color_slider_group.stroke_color_slider;
+
+    renderer.update();
 }
 
 void UI::draw()
@@ -129,4 +162,179 @@ bool UI::removeObject() {
 	return false;
 }
 
+hsv UI::rgbToHSV(ofColor color)
+{
+    hsv out;
+    float r = color.r / 255.0;
+    float g = color.g / 255.0;
+    float b = color.b / 255.0;
 
+    double min, max, delta;
+
+    min = r < g ? r : g;
+    min = min < b ? min : b;
+
+    max = r > g ? r : g;
+    max = max > b ? max : b;
+
+    out.v = max;
+    delta = max - min;
+
+    if (delta < 0.00001)
+    {
+        out.s = 0;
+        out.h = 0; // undefined, maybe nan?
+        return out;
+    }
+
+    if (max > 0.0) {
+        out.s = (delta / max);
+    }
+    else {
+        out.s = 0.0;
+        out.h = NAN;
+        return out;
+    }
+
+    if (r >= max)
+        out.h = (g - b) / delta;
+    else if (g >= max)
+        out.h = 2.0 + (b - r) / delta;
+    else
+        out.h = 4.0 + (r - g) / delta;
+
+    out.h *= 60.0;
+
+    if (out.h < 0.0)
+        out.h += 360.0;
+
+    return out;
+}
+
+ofColor UI::hsvToRGB(hsv hsvColor)
+{
+    double hh, p, q, t, ff;
+    long i;
+    rgb out;
+
+    if (hsvColor.s <= 0.0) {
+        out.r = hsvColor.v;
+        out.g = hsvColor.v;
+        out.b = hsvColor.v;
+        return ofColor(out.r * 255, out.g * 255, out.b * 255);
+    }
+
+    hh = hsvColor.h;
+    if (hh >= 360.0) hh = 0.0;
+    hh /= 60.0;
+    i = (long)hh;
+    ff = hh - i;
+    p = hsvColor.v * (1.0 - hsvColor.s);
+    q = hsvColor.v * (1.0 - (hsvColor.s * ff));
+    t = hsvColor.v * (1.0 - (hsvColor.s * (1.0 - ff)));
+
+    switch (i) {
+    case 0:
+        out.r = hsvColor.v;
+        out.g = t;
+        out.b = p;
+        break;
+    case 1:
+        out.r = q;
+        out.g = hsvColor.v;
+        out.b = p;
+        break;
+    case 2:
+        out.r = p;
+        out.g = hsvColor.v;
+        out.b = t;
+        break;
+
+    case 3:
+        out.r = p;
+        out.g = q;
+        out.b = hsvColor.v;
+        break;
+    case 4:
+        out.r = t;
+        out.g = p;
+        out.b = hsvColor.v;
+        break;
+    case 5:
+    default:
+        out.r = hsvColor.v;
+        out.g = p;
+        out.b = q;
+        break;
+    }
+
+    return ofColor(out.r * 255, out.g * 255, out.b * 255);
+}
+
+void UI::setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor)
+{
+    hsv hsvColor = rgbToHSV(rgbColor);
+
+    if (isFillColor) {
+        h_slider_fill = hsvColor.h;
+        s_slider_fill = hsvColor.s;
+        v_slider_fill = hsvColor.v;
+    }
+    else {
+        h_slider_stroke = hsvColor.h;
+        s_slider_stroke = hsvColor.s;
+        v_slider_stroke = hsvColor.v;
+    }
+}
+
+void UI::fillColorRGBChanged(ofColor& color)
+{
+    setHSVSlidersFromRGB(color, true);
+}
+
+void UI::strokeColorRGBChanged(ofColor& color)
+{
+    setHSVSlidersFromRGB(color, false);
+}
+
+void UI::hueChanged_fill(float& value)
+{
+    // Mettez à jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+    ofColor rgbColor_fill = hsvToRGB({ h_slider_fill, s_slider_fill, v_slider_fill });
+    fill_color_slider_group.fill_color_slider = rgbColor_fill;
+}
+
+void UI::saturationChanged_fill(float& value)
+{
+    // Mettez à jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+    ofColor rgbColor_fill = hsvToRGB({ h_slider_fill, s_slider_fill, v_slider_fill });
+    fill_color_slider_group.fill_color_slider = rgbColor_fill;
+}
+
+void UI::valueChanged_fill(float& value)
+{
+    // Mettez à jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+    ofColor rgbColor_fill = hsvToRGB({ h_slider_fill, s_slider_fill, v_slider_fill });
+    fill_color_slider_group.fill_color_slider = rgbColor_fill;
+}
+
+void UI::hueChanged_stroke(float& value)
+{
+    // Mettez à jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+    ofColor rgbColor_stroke = hsvToRGB({ h_slider_stroke, s_slider_stroke, v_slider_stroke });
+    stroke_color_slider_group.stroke_color_slider = rgbColor_stroke;
+}
+
+void UI::saturationChanged_stroke(float& value)
+{
+    // Mettez à jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+    ofColor rgbColor_stroke = hsvToRGB({ h_slider_stroke, s_slider_stroke, v_slider_stroke });
+    stroke_color_slider_group.stroke_color_slider = rgbColor_stroke;
+}
+
+void UI::valueChanged_stroke(float& value)
+{
+    // Mettez à jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+    ofColor rgbColor_stroke = hsvToRGB({ h_slider_stroke, s_slider_stroke, v_slider_stroke });
+    stroke_color_slider_group.stroke_color_slider = rgbColor_stroke;
+}

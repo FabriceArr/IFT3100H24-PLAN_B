@@ -60,18 +60,9 @@ public:
 	bool isCursorVisible;
 	bool isSelectable;
 
-	unsigned char stroke_color_r;
-	unsigned char stroke_color_g;
-	unsigned char stroke_color_b;
-	unsigned char stroke_color_a;
-
-	unsigned char fill_color_r;
-	unsigned char fill_color_g;
-	unsigned char fill_color_b;
-	unsigned char fill_color_a;
-
 	ofColor stroke_color;
 	ofColor fill_color;
+
 	float stroke_weight;
 
 	void setup(Scene* sce);
@@ -91,8 +82,6 @@ public:
 	void createObject(int type, const glm::vec3 cameraAngle);
 	void removeLastShape();
 
-	void color_stroke();
-	void color_fill();
 	void setStrokeWidth(float strokeWidth);
 };
 
