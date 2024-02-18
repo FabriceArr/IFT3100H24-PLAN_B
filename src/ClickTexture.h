@@ -10,11 +10,13 @@
 class ClickTexture
 {
 private:
-    GLuint m_WVPLocation;
+    GLuint m_WVPLocation, m_objPLocation;
     GLuint selection_frame_buffer = 0;
     GLuint clickable_pixel_texture = 0;
     GLuint selection_depth_texture = 0;
     ofShader click_shader;
+
+    unsigned int i;
 
 public:
 
@@ -27,6 +29,7 @@ public:
     unsigned int ReadPixel(unsigned int x, unsigned int y);
 
     void SetWVP(const ofMatrix4x4& WVP);
+    void SetObjPointer(const unsigned int& obj);
     
     void enable();
     void disable();

@@ -207,7 +207,7 @@ void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 		ofMatrix4x4 World = (*it)->object->getCurrentChangeM();
 		ofMatrix4x4 WVP = projectM * viewM * World;
 		select_mode.SetWVP(WVP);
-
+		select_mode.SetObjPointer(reinterpret_cast<unsigned int>((*it)->object));
 		//turns on the clickshader
 		select_mode.enable();
 
@@ -218,6 +218,10 @@ void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 	}
 
 	select_mode.DisableWriting();
+}
+
+void Scene::findSelectedObject(int x, int y) {
+	select_mode.ReadPixel(x, y);
 }
 
 

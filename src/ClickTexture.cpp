@@ -37,9 +37,12 @@ bool ClickTexture::Init(unsigned int WindowWidth, unsigned int WindowHeight)
     //Sets up the shaders needed to make the objects produce the image that gives off their pointers as first value
 
     click_shader.load("click_select_vs", "click_select_fs");
-    m_WVPLocation = glGetUniformLocation(0, "WVP");
-
+    m_WVPLocation = glGetUniformLocation(1,"WVP");
+    m_objPLocation = glGetUniformLocation(1, "ObjectPointer");
     if (m_WVPLocation == GL_INVALID_VALUE) {
+        return false;
+    }
+    if (m_objPLocation == GL_INVALID_VALUE) {
         return false;
     }
 
@@ -60,13 +63,28 @@ void ClickTexture::DisableWriting()
 
 unsigned int ClickTexture::ReadPixel(unsigned int x, unsigned int y)
 {
+    //grabs the grabber frame buffer that has still its info stored, really improtant to not have cleared it by now!!
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, selection_frame_buffer);
+    i = 0;
+
+    //grab the pixel, change the 1 to the vertical and horizontal triangle done during a click and drag to get multiple ones at a time
+    glReadPixels(x, y, 1, 1, GL_RGB_INTEGER, GL_UNSIGNED_INT, &i);
+
+    //cleaning and put stuff how it was before we got here
+    glReadBuffer(GL_NONE);
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
     return 0;
 }
 
 
 void ClickTexture::SetWVP(const ofMatrix4x4& WVP)
 {
-    glUniformMatrix4fv(m_WVPLocation, 1, GL_TRUE, WVP.getPtr());
+    click_shader.setUniformMatrix4f("MVP", WVP);
+}
+
+void ClickTexture::SetObjPointer(const unsigned int& obj)
+{
+    click_shader.setUniform1i("ObjectPointer", obj);
 }
 
 void ClickTexture::enable() {

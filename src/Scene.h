@@ -61,6 +61,8 @@ public:
 
 	void PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM);
 
+	void findSelectedObject(int x, int y);
+
 };
 
 

@@ -54,8 +54,14 @@ public:
 
 	int mouse_press_x;
 	int mouse_press_y;
+	int mouse_release_x;
+	int mouse_release_y;
+
+	bool mouse_pressed;
+	bool mouse_released;
 
 	int mouse_button;
+	int mouse_release_button;
 
 	int mouse_current_x;
 	int mouse_current_y;

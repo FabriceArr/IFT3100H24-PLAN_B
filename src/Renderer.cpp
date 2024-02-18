@@ -14,7 +14,7 @@ void Renderer::setup(Scene* sce, ofCamera* cam)
 	shapes.clear(); // Assurez-vous que le vecteur est vide au dÃ©but
 	shapes.reserve(100); // RÃ©servez de l'espace pour 100 Ã©lÃ©ments si nÃ©cessaire
 
-	mouse_button = 10; // set mouse button to none
+	mouse_release_button = mouse_button = 10; // set mouse button to none
 
 	//ofHideCursor();
 
@@ -43,7 +43,7 @@ void Renderer::setup(Scene* sce, ofCamera* cam)
 	color_fill();
 
 
-	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
+	mouse_release_x = mouse_release_y = mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 
 	radius = 4.0f;
 	this->cam = cam;
@@ -62,8 +62,14 @@ void Renderer::draw()
 
 	updateCamMatrixes();
 
-	scene->PickingPhase(viewM, projectM);
-
+	if (mouse_pressed && mouse_button == 0) {
+		scene->PickingPhase(viewM, projectM);
+	}
+	
+	if (mouse_released && mouse_release_button == 0) {
+		ofLog() << "released";
+		scene->findSelectedObject(mouse_release_x, mouse_release_y);
+	}
 	scene->draw();
 
 	// Draw based on the draw_mode
