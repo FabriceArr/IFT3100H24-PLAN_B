@@ -70,6 +70,11 @@ void Object::addChange(ofMatrix4x4 mat)
 
 ofMatrix4x4 Object::getCurrentChangeM()
 {
+	//fail safe if the queu is somehow empty
+	if (changes_buffer.size() < 1) {
+		ofMatrix4x4 i;
+		return i;
+	}
 	return (changes_buffer.at(current_change));
 }
 
