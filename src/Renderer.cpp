@@ -47,6 +47,7 @@ void Renderer::setup(Scene* sce, ofCamera* cam)
 
 	radius = 4.0f;
 	this->cam = cam;
+
 }
 
 void Renderer::draw()
@@ -60,6 +61,9 @@ void Renderer::draw()
 	ofSetColor(255);
 
 	updateCamMatrixes();
+
+	scene->PickingPhase(viewM, projectM);
+
 	scene->draw();
 
 	// Draw based on the draw_mode
@@ -303,3 +307,4 @@ void Renderer::setStrokeWidth(float strokeWidth)
 {
 	stroke_weight = strokeWidth;
 }
+

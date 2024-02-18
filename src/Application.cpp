@@ -14,7 +14,6 @@ void Application::setup()
 
 	renderer.setup(&scene, &cam);
 
-	//ofAddListener(ofEvents().mouseMoved, this, &Application::mouser);
 }
 
 void Application::update()

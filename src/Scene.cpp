@@ -23,6 +23,8 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	UI_scale_output.push_back(UIscale.at(0));//x
 	UI_scale_output.push_back(UIscale.at(1));//y
 	UI_scale_output.push_back(UIscale.at(2));//z
+
+	select_mode.Init(ofGetWindowWidth(), ofGetWindowHeight());
 }
 
 void Scene::draw()
@@ -43,9 +45,10 @@ void Scene::draw()
 
 			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
 
-			ofPushMatrix();
 
-			
+			PickingPhase(project_matrice, view_matrice);
+
+			ofPushMatrix();
 
 			ofTranslate(*UI_trans_output.at(0), *UI_trans_output.at(1), *UI_trans_output.at(2));
 
@@ -189,6 +192,33 @@ void Scene::selectPreviousObject()
 	//std::find(scene_content.begin(), scene_content.end(), selected_object);
 }
 
+void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
+{
+	select_mode.EnableWriting();
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	for (std::vector<ObjNode*>::const_iterator it =
+		object_tree_head->getSubs()->begin(); it !=
+		object_tree_head->getSubs()->end(); it++)
+	{
+		// Background is zero, the real objects start at 1
+
+		ofMatrix4x4 World = (*it)->object->getCurrentChangeM();
+		ofMatrix4x4 WVP = projectM * viewM * World;
+		select_mode.SetWVP(WVP);
+
+		//turns on the clickshader
+		select_mode.enable();
+
+		(*it)->object->getObject()->draw();
+
+		//turns on the clickshader so the next WVP and item pointer can be loaded
+		select_mode.disable();
+	}
+
+	select_mode.DisableWriting();
+}
 
 
 

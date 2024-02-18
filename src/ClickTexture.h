@@ -17,11 +17,6 @@ private:
     ofShader click_shader;
 
 public:
-    ClickTexture();
-
-    ~ClickTexture();
-    
-
 
     bool Init(unsigned int WindowWidth, unsigned int WindowHeight);
 
@@ -33,7 +28,8 @@ public:
 
     void SetWVP(const ofMatrix4x4& WVP);
     
-    
+    void enable();
+    void disable();
 
 
     

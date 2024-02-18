@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "ClickTexture.h"
 
 enum class VectorPrimitiveType
 {
@@ -32,7 +31,7 @@ private:
 	ofCamera* cam;
 	ofMatrix4x4 viewM, projectM;
 
-	ClickTexture select_mode;
+	
 	bool has_changed;
 
 	
@@ -91,8 +90,6 @@ public:
 	void draw_cursor(float x, float y) const;
 	void cursorVisible();
 	void clear() const;
-
-	
 
 	void exit();
 

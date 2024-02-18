@@ -1,17 +1,6 @@
 //implémentation des concept vue ici https://ogldev.org/www/tutorial29/tutorial29.html avec modification
 
 #include "ClickTexture.h"
-
-
-
-ClickTexture::ClickTexture()
-{
-}
-
-ClickTexture::~ClickTexture()
-{
-}
-
 bool ClickTexture::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 {
     //create a second framebuffer to capture the clickable object catcher, and setting up for read and write
@@ -48,7 +37,6 @@ bool ClickTexture::Init(unsigned int WindowWidth, unsigned int WindowHeight)
     //Sets up the shaders needed to make the objects produce the image that gives off their pointers as first value
 
     click_shader.load("click_select_vs", "click_select_fs");
-
     m_WVPLocation = glGetUniformLocation(0, "WVP");
 
     if (m_WVPLocation == GL_INVALID_VALUE) {
@@ -80,3 +68,13 @@ void ClickTexture::SetWVP(const ofMatrix4x4& WVP)
 {
     glUniformMatrix4fv(m_WVPLocation, 1, GL_TRUE, WVP.getPtr());
 }
+
+void ClickTexture::enable() {
+    click_shader.begin();
+}
+
+void ClickTexture::disable() {
+    click_shader.end();
+}
+
+
