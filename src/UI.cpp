@@ -55,6 +55,7 @@ void UI::setup()
 void UI::draw()
 {
 	interface.draw();
+	
 }
 
 const vector<ofParameter<float>*> UI::getPositionSliderValues() {
@@ -115,18 +116,3 @@ void UI::exit()
 	}
 
 }
-
-
-bool UI::addObject() {
-	//affiche le selecteur de primitive
-	//return true si afficher, false si deja afficher
-	return false;
-}
-
-bool UI::removeObject() {
-	//cache le selecteur de primitive
-	//return true si cacher, false si il etait deja cacher
-	return false;
-}
-
-

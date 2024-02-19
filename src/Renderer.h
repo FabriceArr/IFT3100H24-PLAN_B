@@ -30,7 +30,10 @@ class Renderer
 private:
 
 	Scene* scene;
+	ofCamera* cam;
+	ofMatrix4x4 viewM, projectM;
 
+	
 	bool has_changed;
 
 	
@@ -43,6 +46,8 @@ private:
 	float stroke_width_default;
 	ofColor clear_color;
 
+
+	void updateCamMatrixes();
 public:
 	std::vector<VectorPrimitive> shapes;
 	VectorPrimitiveType draw_mode;
@@ -51,8 +56,14 @@ public:
 
 	int mouse_press_x;
 	int mouse_press_y;
+	int mouse_release_x;
+	int mouse_release_y;
+
+	bool mouse_pressed;
+	bool mouse_released;
 
 	int mouse_button;
+	int mouse_release_button;
 
 	int mouse_current_x;
 	int mouse_current_y;

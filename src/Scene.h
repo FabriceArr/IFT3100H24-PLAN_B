@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
+#include "ClickTexture.h"
 #include <vector>
 
 class Scene
@@ -11,14 +12,18 @@ class Scene
 private:
 	ofVec3f origin_pos;
 
+	ofMatrix4x4 project_matrice, view_matrice;
+
 	vector<ofParameter<float>*> UI_trans_output;
 	vector<ofParameter<float>*> UI_rotation_output;
 	vector<ofParameter<float>*> UI_scale_output;
 	
 	//vector for selecting multiple objects
-	std::vector<Object*> selected_objects;
+	std::vector<Object*> selected_object;
 
 	ObjNode* object_tree_head;
+
+	ClickTexture select_mode;
 
 public:
 	//set all defaults and settings
@@ -54,6 +59,9 @@ public:
 
 	void drawSubObjects(std::vector<Object*>* subVector);
 
+	void PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM);
+
+	void findSelectedObject(int x, int y);
 
 };
 
