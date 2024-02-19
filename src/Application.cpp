@@ -31,7 +31,7 @@ void Application::draw()
 	ofDrawGrid(20, 10, false, true, true, false);
 
 	scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
-	//scene.findSelectedObject(0, 0);
+	
 	renderer.draw();
 	cam.end();
 
@@ -163,6 +163,7 @@ void Application::mouseDragged(int x, int y, int button)
 
 void Application::mousePressed(int x, int y, int button)
 {
+
 	
 	//make sure that when you get a value from this, your logic isnt faulty and takes an old released number
 	renderer.mouse_release_x = -1;

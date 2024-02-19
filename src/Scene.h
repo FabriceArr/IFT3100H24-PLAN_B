@@ -19,7 +19,7 @@ private:
 	vector<ofParameter<float>*> UI_scale_output;
 	
 	//vector for selecting multiple objects
-	std::vector<Object*> selected_objects;
+	std::vector<Object*> selected_object;
 
 	ObjNode* object_tree_head;
 

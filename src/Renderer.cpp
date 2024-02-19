@@ -55,15 +55,6 @@ void Renderer::draw()
 
 	ofSetColor(255);
 
-
-	/*if (mouse_pressed && mouse_button == 0) {
-		scene->PickingPhase(viewM, projectM);
-	}
-	
-	if (mouse_released && mouse_release_button == 0) {
-		ofLog() << "released";
-		scene->findSelectedObject(mouse_release_x, mouse_release_y);
-	}*/
 	scene->draw();
 
 	// Draw based on the draw_mode
