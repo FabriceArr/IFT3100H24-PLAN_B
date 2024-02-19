@@ -12,8 +12,7 @@ void Application::setup()
 		interface.getScaleSliderValues());
 	auto i = interface.getPositionSliderValues();
 
-	renderer.setup(&scene, &cam);
-
+	renderer.setup(&scene);
 }
 
 void Application::update()
@@ -24,10 +23,15 @@ void Application::update()
 
 void Application::draw()
 {
+	
 
+	
+	
 	cam.begin();
 	ofDrawGrid(20, 10, false, true, true, false);
 
+	scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
+	//scene.findSelectedObject(0, 0);
 	renderer.draw();
 	cam.end();
 
@@ -119,6 +123,7 @@ void Application::mouseDragged(int x, int y, int button)
 
 void Application::mousePressed(int x, int y, int button)
 {
+	
 	//make sure that when you get a value from this, your logic isnt faulty and takes an old released number
 	renderer.mouse_release_x = -1;
 	renderer.mouse_release_y = -1;
@@ -137,11 +142,12 @@ void Application::mousePressed(int x, int y, int button)
 
 void Application::mouseReleased(int x, int y, int button)
 {
+	
 	renderer.mouse_pressed = false;
 	renderer.mouse_released = true;
 
 	renderer.mouse_button = 10;
-
+	renderer.mouse_release_button = button;
 
 	renderer.mouse_release_x = x;
 	renderer.mouse_release_y = y;

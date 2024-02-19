@@ -65,15 +65,16 @@ unsigned int ClickTexture::ReadPixel(unsigned int x, unsigned int y)
 {
     //grabs the grabber frame buffer that has still its info stored, really improtant to not have cleared it by now!!
     glBindFramebuffer(GL_READ_FRAMEBUFFER, selection_frame_buffer);
-    i = 0;
+    glReadBuffer(GL_COLOR_ATTACHMENT0);
 
     //grab the pixel, change the 1 to the vertical and horizontal triangle done during a click and drag to get multiple ones at a time
     glReadPixels(x, y, 1, 1, GL_RGB_INTEGER, GL_UNSIGNED_INT, &i);
 
     //cleaning and put stuff how it was before we got here
     glReadBuffer(GL_NONE);
+
     glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
-    return 0;
+    return i;
 }
 
 

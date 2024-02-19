@@ -221,7 +221,7 @@ void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 }
 
 void Scene::findSelectedObject(int x, int y) {
-	select_mode.ReadPixel(x, y);
+	ofLog() << select_mode.ReadPixel(x, y);
 }
 
 

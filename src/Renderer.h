@@ -84,7 +84,6 @@ public:
 	float stroke_weight;
 
 	void setup(Scene* sce);
-	void setup(Scene* sce, ofCamera* cam);
 	void draw();
 	void drawVectorPoint(const glm::vec3& position);
 	void drawVectorLine(const glm::vec3& start, const glm::vec3& end);

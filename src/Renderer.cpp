@@ -2,13 +2,8 @@
 #include "Renderer.h"
 
 
-void Renderer::updateCamMatrixes()
-{
-	projectM = cam->getProjectionMatrix();
-	viewM = ofGetCurrentViewMatrix();
-}
 
-void Renderer::setup(Scene* sce, ofCamera* cam)
+void Renderer::setup(Scene* sce)
 {
 	// Initialisation du vecteur
 	shapes.clear(); // Assurez-vous que le vecteur est vide au dÃ©but
@@ -60,16 +55,15 @@ void Renderer::draw()
 
 	ofSetColor(255);
 
-	updateCamMatrixes();
 
-	if (mouse_pressed && mouse_button == 0) {
+	/*if (mouse_pressed && mouse_button == 0) {
 		scene->PickingPhase(viewM, projectM);
 	}
 	
 	if (mouse_released && mouse_release_button == 0) {
 		ofLog() << "released";
 		scene->findSelectedObject(mouse_release_x, mouse_release_y);
-	}
+	}*/
 	scene->draw();
 
 	// Draw based on the draw_mode
@@ -144,6 +138,7 @@ void Renderer::draw()
 
 	ofPopMatrix();
 }
+
 
 void Renderer::add_vector_shape(VectorPrimitiveType type)
 {
