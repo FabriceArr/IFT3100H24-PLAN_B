@@ -14,6 +14,8 @@ private:
 
 	ofMatrix4x4 project_matrice, view_matrice;
 
+	ofMatrix3x3 info;
+
 	vector<ofParameter<float>*> UI_trans_output;
 	vector<ofParameter<float>*> UI_rotation_output;
 	vector<ofParameter<float>*> UI_scale_output;
@@ -48,6 +50,10 @@ public:
 	//rotate the origin of object number x in the list of the scene for 
 	//the given amount in the scene.
 	void rotateObject(unsigned int object_id, ofVec3f rotation_change);
+
+	void changeSelectedMatrice(ofMatrix3x3 change);
+
+	void updateSelectedObjects();
 
 	const Object* getSelectedObjects() const;
 

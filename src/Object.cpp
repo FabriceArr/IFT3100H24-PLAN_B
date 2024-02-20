@@ -49,7 +49,7 @@ bool Object::operator==(const Object& a) {
 	return (*this == a) ?  true :  false;
 }
 
-void Object::addChange(ofMatrix4x4 mat)
+void Object::addChange(ofMatrix3x3 mat)
 {
 	//current change isnt the newest, so clean the top until it meets the current change, discarting previous ones
 	if (current_change != changes_buffer.size()-1) {
@@ -68,11 +68,11 @@ void Object::addChange(ofMatrix4x4 mat)
 	current_change = changes_buffer.size()-1;
 }
 
-ofMatrix4x4 Object::getCurrentChangeM()
+ofMatrix3x3 Object::getCurrentChangeM()
 {
 	//fail safe if the queu is somehow empty
 	if (changes_buffer.size() < 1) {
-		ofMatrix4x4 i;
+		ofMatrix3x3 i;
 		return i;
 	}
 	return (changes_buffer.at(current_change));
