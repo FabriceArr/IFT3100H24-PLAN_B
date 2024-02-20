@@ -36,17 +36,7 @@ bool ClickTexture::Init(unsigned int WindowWidth, unsigned int WindowHeight)
 
     //Sets up the shaders needed to make the objects produce the image that gives off their pointers as first value
 
-    click_shader.load("click_select_vs", "click_select_fs");
-    m_WVPLocation = glGetUniformLocation(1,"WVP");
-    m_objPLocation = glGetUniformLocation(1, "ObjectPointer");
-    if (m_WVPLocation == GL_INVALID_VALUE) {
-        return false;
-    }
-    if (m_objPLocation == GL_INVALID_VALUE) {
-        return false;
-    }
-
-    return true;
+    return click_shader.load("click_select_vs", "click_select_fs");
 }
 
 void ClickTexture::EnableWriting()

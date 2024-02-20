@@ -3,7 +3,7 @@
 
 void Application::setup()
 {
-	ofSetWindowTitle("Prototype");
+	ofSetWindowTitle("Plan B viewer (m d f 1-5 a t e c)");
 
 	interface.setup();
 	interface.getPositionSliderValues();
@@ -24,13 +24,16 @@ void Application::update()
 void Application::draw()
 {
 	
-
-	
-	
 	cam.begin();
+	
 	ofDrawGrid(20, 10, false, true, true, false);
 
 	scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
+	if (scene.getSceneContent()->getSubs()->size()) {
+		//scene.findSelectedObject(5, 5); for the moment this makes the cam create an access violation
+	}
+	
+
 	
 	renderer.draw();
 	cam.end();
@@ -65,14 +68,24 @@ void Application::keyReleased(int key)
 		renderer.createObject(0, cam.getOrientationEulerDeg());
 		break;
 
-	case 57358://right arrow key in ascii
+	case OF_KEY_RIGHT:
 		ofLog() << "next object select ordered";
 		scene.selectNextObject();
 		break;
 
-	case 57359://left arrow key in ascii
+	case OF_KEY_LEFT:
 		ofLog() << "previous object select ordered";
 		scene.selectPreviousObject();
+		break;
+
+	case OF_KEY_UP:
+		ofLog() << "previous object select ordered";
+		scene.selectParentObject();
+		break;
+
+	case OF_KEY_DOWN:
+		ofLog() << "previous object select ordered";
+		scene.selectSubsObject();
 		break;
 
 	case 49:  // key 1

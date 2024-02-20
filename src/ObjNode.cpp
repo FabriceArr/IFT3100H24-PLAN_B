@@ -32,7 +32,7 @@ void ObjNode::add(ObjNode* objnode)
 	this->sub_objects.push_back(objnode);
 }
 
-const std::vector<ObjNode*>* ObjNode::getSubs()
+const std::vector<ObjNode*>* ObjNode::getSubs() const
 {
 	return &(this->sub_objects);
 }
