@@ -144,6 +144,12 @@ void Application::keyReleased(int key)
 		renderer.removeLastShape();
 		break;
 
+	case 'o': //orthogonal camera view switch
+		cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
+		ofLog() << "ortho : " << cam.getOrtho();
+		
+		break;
+
 	default:
 		break;
 	}
