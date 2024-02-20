@@ -13,6 +13,7 @@ void Application::setup()
 	auto i = interface.getPositionSliderValues();
 
 	renderer.setup(&scene);
+	cam.setOrientation(DEFAULTVIEW);
 }
 
 void Application::update()
@@ -158,8 +159,19 @@ void Application::keyReleased(int key)
 		break;
 
 	case 'o': //orthogonal camera view switch
+		ofLog() << "Camera Orientation : " << camOrientPersp;
+
+		if (!cam.getOrtho()) // Cam is in perspective
+		{
+			camOrientPersp = cam.getOrientationQuat();
+			cam.setOrientation(FRONTVIEW);
+		}
+		else {		// Cam is in Ortho
+			cam.setOrientation(camOrientPersp);
+		}
+
 		cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
-		ofLog() << "ortho : " << cam.getOrtho();
+		ofLog() << "Ortho : " << (cam.getOrtho() ? "True": "False");
 		
 		break;
 
