@@ -3,6 +3,8 @@
 #include "Renderer.h"
 #include "UI.h"
 #include "Scene.h"
+#include <gl/glew.h>
+#include <GLFW/glfw3.h>
 
 
 
@@ -20,6 +22,8 @@ public:
 	void update();
 	void draw();
 
+
+
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y);
@@ -34,4 +38,8 @@ public:
 	
 	void drawInteractionArea();
 	ofEasyCam cam; // add mouse controls for camera movement
+
+	void mouser(int x, int y, int button);
+	ofxPanel test;
+
 };

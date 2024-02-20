@@ -30,10 +30,18 @@ void Application::update()
 
 void Application::draw()
 {
-
+	
 	cam.begin();
+	
 	ofDrawGrid(20, 10, false, true, true, false);
 
+	scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
+	if (scene.getSceneContent()->getSubs()->size()) {
+		//scene.findSelectedObject(5, 5); for the moment this makes the cam create an access violation
+	}
+	
+
+	
 	renderer.draw();
 	cam.end();
 
@@ -44,6 +52,7 @@ void Application::draw()
 		renderer.draw_cursor(renderer.mouse_current_x,
 			renderer.mouse_current_y);
 	}
+
 }
 
 
@@ -66,14 +75,24 @@ void Application::keyReleased(int key)
 		renderer.createObject(0, cam.getOrientationEulerDeg());
 		break;
 
-	case 57358://right arrow key in ascii
+	case OF_KEY_RIGHT:
 		ofLog() << "next object select ordered";
 		scene.selectNextObject();
 		break;
 
-	case 57359://left arrow key in ascii
+	case OF_KEY_LEFT:
 		ofLog() << "previous object select ordered";
 		scene.selectPreviousObject();
+		break;
+
+	case OF_KEY_UP:
+		ofLog() << "previous object select ordered";
+		scene.selectParentObject();
+		break;
+
+	case OF_KEY_DOWN:
+		ofLog() << "previous object select ordered";
+		scene.selectSubsObject();
 		break;
 
 	case 49:  // key 1
@@ -153,9 +172,7 @@ void Application::keyReleased(int key)
 void Application::mouseMoved(int x, int y)
 {
 	renderer.mouse_current_x = x;
-	ofLog() << "x: " << x;
 	renderer.mouse_current_y = y;
-	ofLog() << "y: " << x;
 }
 
 void Application::mouseDragged(int x, int y, int button)
@@ -166,16 +183,36 @@ void Application::mouseDragged(int x, int y, int button)
 
 void Application::mousePressed(int x, int y, int button)
 {
+
+	
+	//make sure that when you get a value from this, your logic isnt faulty and takes an old released number
+	renderer.mouse_release_x = -1;
+	renderer.mouse_release_y = -1;
+
+
+	renderer.mouse_pressed = true;
+	renderer.mouse_released = false;
 	renderer.mouse_current_x = x;
 	renderer.mouse_current_y = y;
+
 	renderer.mouse_button = button;
+	renderer.mouse_release_button = 10;
 	ofLog() << "mouse pressed: " << button;
 
 }
 
 void Application::mouseReleased(int x, int y, int button)
 {
+	
+	renderer.mouse_pressed = false;
+	renderer.mouse_released = true;
+
 	renderer.mouse_button = 10;
+	renderer.mouse_release_button = button;
+
+	renderer.mouse_release_x = x;
+	renderer.mouse_release_y = y;
+
 	renderer.mouse_current_x = x;
 	renderer.mouse_current_y = y;
 
@@ -205,5 +242,14 @@ void Application::dragEvent(ofDragInfo dragInfo)
 
 void Application::gotMessage(ofMessage msg)
 {
+}
+
+void Application::drawInteractionArea()
+{
+	
+}
+
+void Application::mouser(int x, int y, int button) {
+
 }
 

@@ -88,6 +88,7 @@ void UI::update()
 void UI::draw()
 {
 	interface.draw();
+	
 }
 
 const vector<ofParameter<float>*> UI::getPositionSliderValues() {
