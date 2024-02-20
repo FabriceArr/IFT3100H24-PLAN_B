@@ -3,7 +3,7 @@
 
 void Application::setup()
 {
-	ofSetWindowTitle("Plan B viewer (m d f 1-5 a t e c)");
+	ofSetWindowTitle("Plan B viewer (m d f 1-5 a t e c o)");
 
 	interface.setup();
 	interface.getPositionSliderValues();
@@ -155,6 +155,12 @@ void Application::keyReleased(int key)
 
 	case 114: // key r
 		renderer.removeLastShape();
+		break;
+
+	case 'o': //orthogonal camera view switch
+		cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
+		ofLog() << "ortho : " << cam.getOrtho();
+		
 		break;
 
 	default:
