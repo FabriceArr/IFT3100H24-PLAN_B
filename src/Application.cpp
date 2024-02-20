@@ -12,13 +12,20 @@ void Application::setup()
 		interface.getScaleSliderValues());
 	auto i = interface.getPositionSliderValues();
 
+	interface.getFillColorSlider();
+	interface.getStrokeColorSlider();
+	interface.getStrokeWidthSlider();
+
 	renderer.setup(&scene);
 }
 
 void Application::update()
 {
-
-
+	interface.update();
+	renderer.fillcolor = interface.getFillColorSlider();
+	renderer.strokecolor = interface.getStrokeColorSlider();
+	renderer.stroke_weight = interface.getStrokeWidthSlider();
+	renderer.update();
 }
 
 void Application::draw()

@@ -20,7 +20,7 @@ struct VectorPrimitive
 	glm::vec3 position3;
 	float radiusx;
 	float radiusy;
-	float stroke_width;
+	int stroke_width;
 	ofColor stroke_color;
 	ofColor fill_color;
 };
@@ -60,10 +60,10 @@ public:
 	bool isCursorVisible;
 	bool isSelectable;
 
-	ofColor stroke_color;
-	ofColor fill_color;
+	ofColor strokecolor;
+	ofColor fillcolor;
 
-	float stroke_weight;
+	int stroke_weight;
 
 	void setup(Scene* sce);
 	void draw();

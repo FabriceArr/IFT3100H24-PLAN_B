@@ -60,7 +60,7 @@ void Renderer::draw()
 
 		case VectorPrimitiveType::line:
 			ofNoFill();
-			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetLineWidth(shape.stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorLine(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				glm::vec3(shape.position2[0], shape.position2[1], 0));
@@ -69,11 +69,11 @@ void Renderer::draw()
 		case VectorPrimitiveType::rectangle:
 			ofFill();
 			ofSetLineWidth(0);
-			ofSetColor( shape.fill_color);
+			ofSetColor(shape.fill_color);
 			drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
 			ofNoFill();
-			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetLineWidth(shape.stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
@@ -87,7 +87,7 @@ void Renderer::draw()
 			drawVectorEllipse(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.radiusx, shape.radiusy);
 			ofNoFill();
-			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetLineWidth(shape.stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorEllipse(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.radiusx, shape.radiusy);
@@ -102,7 +102,7 @@ void Renderer::draw()
 				glm::vec3(shape.position2[0], shape.position2[1], 0),
 				glm::vec3(shape.position3[0], shape.position3[1], 0));
 			ofNoFill();
-			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetLineWidth(shape.stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorTriangle(glm::vec3(shape.position1[0], shape.position1[1], 0),
 								glm::vec3(shape.position2[0], shape.position2[1], 0),
@@ -136,34 +136,29 @@ void Renderer::add_vector_shape(VectorPrimitiveType type, float x1, float y1, fl
 	newShape.radiusy = radiusy;
 
 
-	newShape.stroke_color = stroke_color;
-	newShape.fill_color = fill_color;
+	newShape.stroke_color = strokecolor;
+	newShape.fill_color = fillcolor;
+	newShape.stroke_width = stroke_weight;
 
 	switch (newShape.type)
 	{
 
 	case VectorPrimitiveType::point:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::line:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::rectangle:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::ellipse:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::triangle:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	default:
-		newShape.stroke_width = stroke_width_default;
 		break;
 	}
 
@@ -206,6 +201,9 @@ void Renderer::drawVectorTriangle(const glm::vec3& point1, const glm::vec3& poin
 
 void Renderer::update()
 {
+	ofSetColor(strokecolor);
+	ofSetColor(fillcolor);
+	ofSetLineWidth(stroke_weight);
 }
 
 // fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par dÃ©faut
@@ -223,7 +221,6 @@ void Renderer::exit()
 void Renderer::createObject(int type, const glm::vec3 cameraAngle)
 {
 	scene->createObject(type, cameraAngle);
-	
 }
 
 void Renderer::draw_cursor(float x, float y) const
@@ -266,9 +263,4 @@ void Renderer::removeLastShape()
 		shapes.pop_back();
 		ofLog() << "Removed last shape. Total shapes: " << shapes.size();
 	}
-}
-
-void Renderer::setStrokeWidth(float strokeWidth)
-{
-	stroke_weight = strokeWidth;
 }

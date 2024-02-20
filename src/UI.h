@@ -5,8 +5,6 @@
 #include "scene.h"
 #include <vector>
 
-#include "renderer.h"
-
 struct parameterVectorGroup {
 	ofParameter<float>* x;
 	ofParameter<float>* y;
@@ -40,15 +38,17 @@ private:
 	parameterVectorGroup position_slider_group;
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
-
-	parameterVectorGroup fill_color_slider_group;
-	parameterVectorGroup stroke_color_slider_group;
     
 	ofxTextField selected_object_name_field;
 
 	vector<ofParameter<float>*> trans_sliders_pointer;
 	vector<ofParameter<float>*> rot_sliders_pointer;
 	vector<ofParameter<float>*> scale_sliders_pointer;
+
+	ofParameter<int> stroke_width_slider;
+
+	ofParameter<ofColor> fill_color_slider;
+	ofParameter<ofColor> stroke_color_slider;
 
 	ofParameter<float> h_slider_fill;
 	ofParameter<float> s_slider_fill;
@@ -74,7 +74,6 @@ private:
 
 public:
 
-	Renderer renderer;
 	
 	void setup();
 	void draw();
@@ -88,6 +87,9 @@ public:
 	const vector<ofParameter<float>*> getPositionSliderValues();
 	const vector<ofParameter<float>*> getRotationSliderValues();
 	const vector<ofParameter<float>*> getScaleSliderValues();
+	const ofParameter<ofColor> getFillColorSlider();	
+	const ofParameter<ofColor> getStrokeColorSlider();
+	const ofParameter<int> getStrokeWidthSlider();
 
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();
