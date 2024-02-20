@@ -10,7 +10,7 @@
 class ClickTexture
 {
 private:
-    GLuint m_WVPLocation, m_objPLocation;
+    //pointers to the locations of the these elements
     GLuint selection_frame_buffer = 0;
     GLuint clickable_pixel_texture = 0;
     GLuint selection_depth_texture = 0;

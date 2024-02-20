@@ -26,7 +26,10 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 
 	select_mode.Init(ofGetWindowWidth(), ofGetWindowHeight());
 
-
+	//the default object level selection is the scene
+	sub_level_selected = object_tree_head->getSubs();
+	//set at -1 puisque pas d'objet selectionner
+	selected_obj_ind = -1;
 }
 
 void Scene::draw()
@@ -38,7 +41,6 @@ void Scene::draw()
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
 	{
-		ofLog() << "one drawn";
 
 		if (*it) {
 
@@ -88,7 +90,8 @@ void Scene::exit()
 	UI_trans_output.clear();
 	UI_rotation_output.clear();
 	UI_scale_output.clear();
-	
+
+	delete sub_level_selected;
 
 }
 
@@ -134,9 +137,13 @@ void Scene::rotateObject(unsigned int object_id, ofVec3f rotation_change)
 	//apply changes to object mesh permanently 
 }
 
-const vector<Object*>* Scene::getSelectedObjects() const
+const Object* Scene::getSelectedObjects() const
 {
-	return &selected_object;
+	if (selected_obj_ind >= 0) {
+		return sub_level_selected->at(selected_obj_ind)->object;
+	}
+	else
+		return nullptr;
 }
 
 void Scene::removeObject(ObjNode* objectNode)
@@ -147,16 +154,76 @@ void Scene::removeObject(ObjNode* objectNode)
 
 void Scene::selectNextObject()
 {
-	
-
-
-
-
+	if (!(selected_obj_ind < 0) && sub_level_selected->size() > 0) {
+		if (selected_obj_ind < sub_level_selected->size() - 1) {
+			//current isnt the last, cant change to next in vector of pointers
+			selected_obj_ind++;
+		}
+		else{
+			//the current is currently the last, send back to first
+			selected_obj_ind = 0;
+		}
+	}
+	else {
+		//no obj currently selected, is there any object on scene?
+		if(sub_level_selected->size() > 0)
+		{
+			//yes there is, set it to the first one
+			selected_obj_ind = 0;
+		}
+		
+	}
+	ofLog()<< "Currently selected item : " << selected_obj_ind;
 }
 
 void Scene::selectPreviousObject()
 {
-	//std::find(scene_content.begin(), scene_content.end(), selected_object);
+	if (!(selected_obj_ind < 0)) {
+		if (selected_obj_ind > 0) {
+			//current is not first
+			selected_obj_ind--;
+		}
+		else {
+			//is the first, put at last
+			selected_obj_ind = sub_level_selected->size() - 1;
+		}
+	}
+	else {
+		//no obj currently selected, is there any object on scene?
+		if (sub_level_selected->size() > 0)
+		{
+			//yes there is, set it to the last one
+			selected_obj_ind = sub_level_selected->size() - 1;
+		}
+
+	}
+	ofLog() << "Currently selected item : " << selected_obj_ind;
+}
+
+void Scene::selectParentObject()
+{
+	sub_level_selected = object_tree_head->getSubs();
+}
+
+void Scene::selectSubsObject()
+{
+	//Is there a selected object?
+	if (getSelectedObjects() != nullptr) {
+		//check if it is the default, since its parent is nullptr
+		//need to do 2 parent, since from default, the first is simply the treehead
+		if (sub_level_selected->at(selected_obj_ind)->group_master) {
+
+			//need to go up by two
+			sub_level_selected = sub_level_selected->at(selected_obj_ind)->getSubs();
+			//deselect since we are in a new layer, so we can create object there
+			deSelectObject();
+		}
+	}
+}
+
+void Scene::deSelectObject()
+{
+	selected_obj_ind = -1;
 }
 
 void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
@@ -174,13 +241,13 @@ void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 		ofMatrix4x4 World = (*it)->object->getCurrentChangeM();
 		ofMatrix4x4 WVP = projectM * viewM * World;
 		select_mode.SetWVP(WVP);
-		select_mode.SetObjPointer(reinterpret_cast<unsigned int>((*it)->object));
+		select_mode.SetObjPointer(1);
 		//turns on the clickshader
 		select_mode.enable();
 
 		(*it)->object->getObject()->draw();
 
-		//turns on the clickshader so the next WVP and item pointer can be loaded
+		//turns off the clickshader so the next WVP and item pointer can be loaded
 		select_mode.disable();
 	}
 

@@ -18,8 +18,10 @@ private:
 	vector<ofParameter<float>*> UI_rotation_output;
 	vector<ofParameter<float>*> UI_scale_output;
 	
-	//vector for selecting multiple objects
-	std::vector<Object*> selected_object;
+	//points to the vector of elements currently selected
+	int selected_obj_ind;
+	const std::vector<ObjNode*>* sub_level_selected;
+	ObjNode* selected_object;
 
 	ObjNode* object_tree_head;
 
@@ -47,13 +49,13 @@ public:
 	//the given amount in the scene.
 	void rotateObject(unsigned int object_id, ofVec3f rotation_change);
 
-	const vector<Object*>* getSelectedObjects() const;
+	const Object* getSelectedObjects() const;
 
 	void removeObject(ObjNode* objectNode);
 
-	void selectNextObject();
+	void deSelectObject();
 
-	void selectPreviousObject();
+
 
 	void draw();
 
@@ -62,6 +64,11 @@ public:
 	void PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM);
 
 	void findSelectedObject(int x, int y);
+
+	void selectNextObject();
+	void selectPreviousObject();
+	void selectParentObject();
+	void selectSubsObject();
 
 };
 
