@@ -175,6 +175,11 @@ void Application::keyReleased(int key)
 		
 		break;
 
+	case ' ': // key space
+		renderer.image_export("ScreenGrab", "png");
+		renderer.saveNumber++;
+		break;
+
 	default:
 		break;
 	}

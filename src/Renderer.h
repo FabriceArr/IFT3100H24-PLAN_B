@@ -71,6 +71,8 @@ public:
 	bool isCursorVisible;
 	bool isSelectable;
 
+	int saveNumber;
+
 	unsigned char stroke_color_r;
 	unsigned char stroke_color_g;
 	unsigned char stroke_color_b;
@@ -105,6 +107,9 @@ public:
 	void color_stroke();
 	void color_fill();
 	void setStrokeWidth(float strokeWidth);
+
+	void image_export(const string name, const string extension) const;
+
 };
 
 

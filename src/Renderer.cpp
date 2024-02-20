@@ -43,6 +43,7 @@ void Renderer::setup(Scene* sce)
 	radius = 4.0f;
 	this->cam = cam;
 
+	saveNumber = 1;
 }
 
 void Renderer::draw()
@@ -303,3 +304,16 @@ void Renderer::setStrokeWidth(float strokeWidth)
 	stroke_weight = strokeWidth;
 }
 
+// fonction qui exporte une image à partir de son nom et de son extension, à partir du répertoire ./bin/data ou d'un chemin absolue
+void Renderer::image_export(const string name, const string extension) const
+{
+	ofImage imageExport;
+
+	string file_name = name + "_" + to_string(saveNumber) + "." + extension;
+
+	imageExport.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+	imageExport.save(file_name);
+	
+	ofLog() << "<export image: " << file_name << ">";
+
+}
