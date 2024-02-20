@@ -37,6 +37,7 @@ void Application::draw()
 
 	
 	renderer.draw();
+	renderer.image.draw(renderer.image.getWidth() / -2, 0);
 	cam.end();
 
 	interface.draw();
@@ -254,6 +255,16 @@ void Application::windowResized(int w, int h)
 
 void Application::dragEvent(ofDragInfo dragInfo)
 {
+	ofLog() << "<app::ofDragInfo file[0]: " << dragInfo.files.at(0)
+		<< " at : " << dragInfo.position << ">";
+
+	// importer le premier fichier d�pos� sur la fen�tre si c'est une image (attention : aucune validation du type de fichier)
+	renderer.image.load(dragInfo.files.at(0));
+
+	// redimensionner la fen�tre selon la r�solution de l'image
+	//if (renderer.image.getWidth() > 0 && renderer.image.getHeight() > 0)
+	//	ofSetWindowShape(renderer.image.getWidth(), renderer.image.getHeight());
+
 }
 
 void Application::gotMessage(ofMessage msg)
