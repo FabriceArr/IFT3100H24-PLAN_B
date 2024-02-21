@@ -18,11 +18,13 @@ void ObjNode::remove()
 	if (group_master != nullptr) {
 		for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
 			//place tous les object vers pointer l'object
-			(*it)->group_master = this->group_master;
+			(*it)->remove();
+			sub_objects.erase(it);
 		}
 	}
 	if (object != nullptr) {
 		delete object;
+		group_master = nullptr;
 	}
 }
 
@@ -32,7 +34,7 @@ void ObjNode::add(ObjNode* objnode)
 	this->sub_objects.push_back(objnode);
 }
 
-const std::vector<ObjNode*>* ObjNode::getSubs() const
+ std::vector<ObjNode*>* ObjNode::getSubs()
 {
 	return &(this->sub_objects);
 }
