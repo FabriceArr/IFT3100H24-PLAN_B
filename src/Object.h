@@ -9,16 +9,14 @@ private:
 	string name;
 	ofTexture texture;
 	ofNode object;//change to mesh
-	
+	ofMatrix3x3 temp;
+
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
 
 
 
 public:
-	ofVec3f translation_temp;
-	ofVec3f rotation_temp;
-	ofVec3f scale_temp;
 
 	Object(ofNode object, string name);
 

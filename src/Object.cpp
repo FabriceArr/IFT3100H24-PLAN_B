@@ -6,12 +6,12 @@ Object::Object(ofNode object, string name = "Objet")
 {
 	this->name = name;
 	this->object = object;
-	translation_temp = { 0.f, 0.f, 0.f };
-	rotation_temp = { 0.f, 0.f, 0.f };
-	scale_temp = { 0.f, 0.f, 0.f };
-
 	
+	temp.g = temp.h = temp.i = 1;
+	
+
 	current_change = 0;
+	this->addChange(temp);
 }
 
 const ofNode* Object::getObject() const
