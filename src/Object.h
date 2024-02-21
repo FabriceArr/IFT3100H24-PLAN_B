@@ -19,6 +19,7 @@ private:
 public:
 
 	Object(ofNode object, string name);
+	~Object();
 
 	string* getName();
 	void setName(string name);
