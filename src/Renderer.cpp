@@ -41,11 +41,9 @@ void Renderer::setup(Scene* sce)
 	mouse_release_x = mouse_release_y = mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 
 	radius = 4.0f;
-	this->cam = cam;
+	//this->cam = cam;
 
 	saveNumber = 1;
-	//image.allocate(1920, 1080, OF_IMAGE_COLOR_ALPHA);
-	//imageExport.allocate(ofGetScreenWidth(), ofGetScreenHeight(), OF_IMAGE_COLOR);
 }
 
 void Renderer::draw()

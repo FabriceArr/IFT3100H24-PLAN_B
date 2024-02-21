@@ -30,7 +30,7 @@ class Renderer
 private:
 
 	Scene* scene;
-	ofCamera* cam;
+	//ofCamera* cam;
 	ofMatrix4x4 viewM, projectM;
 
 	
