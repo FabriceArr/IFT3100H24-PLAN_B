@@ -55,16 +55,16 @@ void Object::addChange(ofMatrix3x3 mat)
 	if (current_change != changes_buffer.size()-1) {
 		for (size_t i = 0; i < (changes_buffer.size() - current_change); i++)
 		{
-			changes_buffer.pop_front();
+			changes_buffer.pop_back();
 		}
 	}
 
 
 	if (changes_buffer.size() == MAXCHANGEBUFFERSIZE) {
-		changes_buffer.pop_back();
+		changes_buffer.pop_front();
 	}
 
-	changes_buffer.push_front(mat);
+	changes_buffer.push_back(mat);
 	current_change = changes_buffer.size()-1;
 }
 

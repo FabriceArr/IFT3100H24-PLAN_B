@@ -61,7 +61,6 @@ void UI::draw()
 const vector<ofParameter<float>*> UI::getPositionSliderValues() {
 	ofLog() << "In UI- " << position_slider_group.x;
 	return trans_sliders_pointer;
-	;
 }
 
 const vector<ofParameter<float>*> UI::getRotationSliderValues()
@@ -74,6 +73,30 @@ const vector<ofParameter<float>*> UI::getScaleSliderValues()
 {
 
 	return scale_sliders_pointer;
+}
+
+ofVec3f* UI::setPositionSliderValues()
+{
+	position_slider_group.x->reInit();
+	position_slider_group.y->reInit();
+	position_slider_group.z->reInit();
+	return nullptr;
+}
+
+ofVec3f* UI::setRotationSliderValues()
+{
+	rotation_slider_group.x->reInit();
+	rotation_slider_group.y->reInit();
+	rotation_slider_group.z->reInit();
+	return nullptr;
+}
+
+ofVec3f* UI::setScaleSliderValues()
+{
+	scale_slider_group.x->reInit();
+	scale_slider_group.y->reInit();
+	scale_slider_group.z->reInit();
+	return nullptr;
 }
 
 

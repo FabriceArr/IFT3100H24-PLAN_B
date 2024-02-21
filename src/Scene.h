@@ -14,7 +14,7 @@ private:
 
 	ofMatrix4x4 project_matrice, view_matrice;
 
-	ofMatrix3x3 info;
+	ofMatrix3x3 temp_info, info;
 
 	vector<ofParameter<float>*> UI_trans_output;
 	vector<ofParameter<float>*> UI_rotation_output;
@@ -55,13 +55,13 @@ public:
 
 	void updateSelectedObjects();
 
-	const Object* getSelectedObjects() const;
+	Object* getSelectedObjects();
 
 	void removeObject(ObjNode* objectNode);
 
 	void deSelectObject();
 
-
+	void savechange();
 
 	void draw();
 
