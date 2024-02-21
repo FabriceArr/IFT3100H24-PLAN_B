@@ -9,16 +9,14 @@ private:
 	string name;
 	ofTexture texture;
 	ofNode object;//change to mesh
-	
-	deque<ofMatrix4x4> changes_buffer;
+	ofMatrix3x3 temp;
+
+	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
 
 
 
 public:
-	ofVec3f translation_temp;
-	ofVec3f rotation_temp;
-	ofVec3f scale_temp;
 
 	Object(ofNode object, string name);
 
@@ -33,8 +31,8 @@ public:
 
 	bool operator==(const Object& a);
 
-	void addChange(ofMatrix4x4);
-	ofMatrix4x4 getCurrentChangeM();
+	void addChange(ofMatrix3x3);
+	ofMatrix3x3 getCurrentChangeM();
 
 	bool undoChange();
 	bool recoverChange();

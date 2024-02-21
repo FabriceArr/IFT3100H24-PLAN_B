@@ -60,6 +60,13 @@ void Application::keyReleased(int key)
 {
 	switch (key)
 	{
+	case OF_KEY_END:
+		scene.savechange();
+		interface.setPositionSliderValues();
+		interface.setRotationSliderValues();
+		interface.setScaleSliderValues();
+		break;
+
 	case 100: //d in ascii 
 		ofLog() << "New object ordered";
 		renderer.createObject(0, cam.getOrientationEulerDeg());
