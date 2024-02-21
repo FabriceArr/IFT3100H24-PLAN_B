@@ -22,7 +22,7 @@ private:
 	
 	//points to the vector of elements currently selected
 	int selected_obj_ind;
-	const std::vector<ObjNode*>* sub_level_selected;
+	std::vector<ObjNode*>* sub_level_selected;
 	ObjNode* selected_object;
 
 	ObjNode* object_tree_head;
@@ -57,7 +57,7 @@ public:
 
 	Object* getSelectedObjects();
 
-	void removeObject(ObjNode* objectNode);
+	void removeObject();
 
 	void deSelectObject();
 

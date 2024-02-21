@@ -29,10 +29,10 @@ void Application::draw()
 	
 	ofDrawGrid(20, 10, false, true, true, false);
 
-	scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
+	/*scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
 	if (scene.getSceneContent()->getSubs()->size()) {
-		//scene.findSelectedObject(5, 5); for the moment this makes the cam create an access violation
-	}
+		scene.findSelectedObject(5, 5); for the moment this makes the cam create an access violation
+	}*/
 	
 
 	
@@ -60,6 +60,10 @@ void Application::keyReleased(int key)
 {
 	switch (key)
 	{
+	case OF_KEY_DEL:
+		scene.removeObject();
+		break;
+
 	case OF_KEY_END:
 		scene.savechange();
 		interface.setPositionSliderValues();

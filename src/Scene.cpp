@@ -203,9 +203,13 @@ void Scene::updateSelectedObjects()
 		return nullptr;
 }
 
-void Scene::removeObject(ObjNode* objectNode)
+void Scene::removeObject()
 {
-	objectNode->remove();
+	if (getSelectedObjects() != nullptr) {
+		sub_level_selected->at(selected_obj_ind)->remove();
+		sub_level_selected->erase(sub_level_selected->begin() + selected_obj_ind);
+	}
+	
 }
 
 

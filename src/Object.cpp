@@ -14,6 +14,12 @@ Object::Object(ofNode object, string name = "Objet")
 	this->addChange(temp);
 }
 
+Object::~Object()
+{
+
+}
+
+
 const ofNode* Object::getObject() const
 {
 	return &this->object;
