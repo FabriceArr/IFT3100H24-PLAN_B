@@ -14,6 +14,7 @@ void Application::setup()
 
 	renderer.setup(&scene);
 	cam.setOrientation(DEFAULTVIEW);
+	isGrabReq = false;
 }
 
 void Application::update()
@@ -37,7 +38,6 @@ void Application::draw()
 
 	
 	renderer.draw();
-	renderer.image.draw(renderer.image.getWidth() / -2, 0);
 	cam.end();
 
 	interface.draw();
@@ -47,7 +47,11 @@ void Application::draw()
 		renderer.draw_cursor(renderer.mouse_current_x,
 			renderer.mouse_current_y);
 	}
-
+	if (isGrabReq) {	// now we're sure the draw is completed
+		renderer.image_export("ScreenGrab", "png");
+		renderer.saveNumber++;
+		isGrabReq = false;
+	}
 }
 
 
@@ -187,6 +191,10 @@ void Application::keyReleased(int key)
 		
 		break;
 
+	case ' ': // key space
+		isGrabReq = true;
+		break;
+
 	default:
 		break;
 	}
@@ -265,11 +273,7 @@ void Application::dragEvent(ofDragInfo dragInfo)
 		<< " at : " << dragInfo.position << ">";
 
 	// importer le premier fichier d�pos� sur la fen�tre si c'est une image (attention : aucune validation du type de fichier)
-	renderer.image.load(dragInfo.files.at(0));
-
-	// redimensionner la fen�tre selon la r�solution de l'image
-	//if (renderer.image.getWidth() > 0 && renderer.image.getHeight() > 0)
-	//	ofSetWindowShape(renderer.image.getWidth(), renderer.image.getHeight());
+	image.load(dragInfo.files.at(0));
 
 }
 
