@@ -44,6 +44,8 @@ void Renderer::setup(Scene* sce)
 	this->cam = cam;
 
 	saveNumber = 1;
+	//image.allocate(1920, 1080, OF_IMAGE_COLOR_ALPHA);
+	//imageExport.allocate(ofGetScreenWidth(), ofGetScreenHeight(), OF_IMAGE_COLOR);
 }
 
 void Renderer::draw()
@@ -305,15 +307,13 @@ void Renderer::setStrokeWidth(float strokeWidth)
 }
 
 // fonction qui exporte une image à partir de son nom et de son extension, à partir du répertoire ./bin/data ou d'un chemin absolue
-void Renderer::image_export(const string name, const string extension) const
+void Renderer::image_export(const string name, const string extension)	
 {
 	ofImage imageExport;
 
 	string file_name = name + "_" + to_string(saveNumber) + "." + extension;
-
 	imageExport.grabScreen(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
 	imageExport.save(file_name);
-	
 	ofLog() << "<export image: " << file_name << ">";
 
 }
