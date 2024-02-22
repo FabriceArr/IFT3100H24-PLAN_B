@@ -5,6 +5,7 @@
 #include "ObjNode.h"
 #include "ofxGui.h"
 #include "ClickTexture.h"
+#include "ofxAssimpModelLoader.h"
 #include <vector>
 
 class Scene
@@ -29,6 +30,8 @@ private:
 
 	ClickTexture select_mode;
 
+	ofxAssimpModelLoader mesh_loader;
+
 public:
 	//set all defaults and settings
 	void setup(const vector<ofParameter<float>*> UIposition, 
@@ -42,6 +45,8 @@ public:
 
 	//creates a new object on the origin of the scene
 	void createObject(int type, ofVec3f angle);
+
+	void createImportedObject3D(string path);
 
 	//moves the origin of object number x in the list of the scene for 
 	//the given amount in the scene.

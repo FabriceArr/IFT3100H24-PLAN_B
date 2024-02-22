@@ -272,8 +272,26 @@ void Application::dragEvent(ofDragInfo dragInfo)
 	ofLog() << "<app::ofDragInfo file[0]: " << dragInfo.files.at(0)
 		<< " at : " << dragInfo.position << ">";
 
-	// importer le premier fichier d�pos� sur la fen�tre si c'est une image (attention : aucune validation du type de fichier)
-	image.load(dragInfo.files.at(0));
+
+
+	for (std::vector<string>::iterator it = dragInfo.files.begin(); it != dragInfo.files.end(); it++)
+	{
+		if ((*it).substr((*it).length() - 4, 4) == ".png" ||
+			(*it).substr((*it).length() - 4, 4) == ".jpg" ||
+			(*it).substr((*it).length() - 4, 4) == ".gif") {
+			// importer le premier fichier depose sur la fenetre si c'est une image des types supportee
+			image.load((*it));
+		}
+
+		//checks the file format of the dragged files are any of the 3 supported 3D shape formats
+		else if ((*it).substr((*it).length() - 4, 4) == ".obj"||
+				(*it).substr((*it).length() - 4, 4) == ".fbx"||
+				(*it).substr((*it).length() - 4, 4) == ".dae") {
+
+			scene.createImportedObject3D((*it));
+		}
+	}
+	
 
 }
 

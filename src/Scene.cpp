@@ -152,6 +152,9 @@ void Scene::createObject(int type, ofVec3f angle)
 	}
 }
 
+void Scene::createImportedObject3D(string path) {
+
+}
 
 
 void Scene::moveObject(unsigned int object_id, ofVec3f position_change)

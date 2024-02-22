@@ -106,3 +106,5 @@ obj/x64/Debug/IFT3100H24-PLAN_B_debug.exe.recipe
 *.tlog
 *.ipch
 *.xml
+obj/x64/Debug/Build/Debug/OBJLoader.obj
+.vs/IFT3100H24-PLAN_B/v17/HierarchyCache.v1.txt

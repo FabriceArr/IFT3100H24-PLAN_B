@@ -1,5 +1,6 @@
 #include "Object.h"
 
+
 #define MAXCHANGEBUFFERSIZE 10
 
 Object::Object(ofNode object, string name = "Objet")
