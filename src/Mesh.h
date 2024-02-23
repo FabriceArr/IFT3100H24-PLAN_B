@@ -4,16 +4,19 @@
 #include "Object.h"
 #include<GLFW/glfw3.h>
 
+struct Verts {
+	ofVec3f vertices;
+	ofVec3f normals;
+	ofVec3f colors;
+	ofVec2f UV;
+};
 
 class Mesh
 {
 private:
 
-	vector<ofVec3f> verts;
+	vector<Verts> verts;
 	vector<GLuint> verticesIDs;
-
-	vector<ofVec3f> normals;
-	vector<GLuint> normalsIDs;
 
 	//buffers to load and assembles the vertexs groups together based on their indexes
 	//to form triangle faces ready to be drawn
@@ -22,7 +25,7 @@ private:
 	//add texture later pour tp2
 	//add matt info for tp2
 public:
-	Mesh(vector<ofVec3f> verts, vector<ofVec3f> normals, vector<GLuint> verticesIDs);
+	Mesh(vector<Verts> verts, vector<ofVec3f> normals, vector<GLuint> verticesIDs);
 
 	void draw();
 };
