@@ -92,7 +92,7 @@ void Scene::draw()
 			}
 			
 			//object is drawn
-			(*it)->object->getObject()->draw();
+			(*it)->object->draw();
 
 			ofPopMatrix();
 			
@@ -127,32 +127,22 @@ const ObjNode* Scene::getSceneContent() const
 	return object_tree_head;
 }
 
-void Scene::createObject(int type, ofVec3f angle)
+void Scene::createObject(bool i)
 {
-	switch (type)
-	{
-		case 0://plane
-		{
-			Object* plane = new Object(ofPlanePrimitive(), "Plane");
-			object_tree_head->add(new ObjNode(plane, object_tree_head));
-		break; 
-		}
-			
-
-		case 1://cube
-		{
-			Object* box = new Object(ofBoxPrimitive(), "Cube");
-			object_tree_head->add(new ObjNode(box, object_tree_head));
-			break;
-		}
-
-		default:
-			break;
-
+	if(i){
+		createImportedObject3D("C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/cube.obj");
+		
+		object_tree_head->add(new ObjNode(new Object(&mesh_loader, "cube"), object_tree_head));
+	}
+	else {
+		createImportedObject3D("C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/plane.obj");
+		
+		object_tree_head->add(new ObjNode(new Object(&mesh_loader, "plane"), object_tree_head));
 	}
 }
 
 void Scene::createImportedObject3D(string path) {
+	mesh_loader.loadModel(path);
 
 }
 

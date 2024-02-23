@@ -100,8 +100,6 @@ public:
 	void clear() const;
 
 	void exit();
-
-	void createObject(int type, const glm::vec3 cameraAngle);
 	void removeLastShape();
 
 	void color_stroke();

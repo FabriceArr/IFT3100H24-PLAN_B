@@ -76,13 +76,12 @@ void Application::keyReleased(int key)
 		break;
 
 	case 100: //d in ascii 
-		ofLog() << "New object ordered";
-		renderer.createObject(0, cam.getOrientationEulerDeg());
+		scene.createObject(0);
 		break;
 
 	case 102: //f in ascii 
 		ofLog() << "object deleted test";
-		renderer.createObject(0, cam.getOrientationEulerDeg());
+		scene.createObject(1);
 		break;
 
 	case OF_KEY_RIGHT:

@@ -44,7 +44,7 @@ public:
 	const ObjNode* getSceneContent() const;
 
 	//creates a new object on the origin of the scene
-	void createObject(int type, ofVec3f angle);
+	void createObject(bool i);
 
 	void createImportedObject3D(string path);
 

@@ -3,10 +3,10 @@
 
 #define MAXCHANGEBUFFERSIZE 10
 
-Object::Object(ofNode object, string name = "Objet")
+Object::Object(ofxAssimpModelLoader* mesh, string name)
 {
+	this->object_mesh = mesh;
 	this->name = name;
-	this->object = object;
 	
 	temp.g = temp.h = temp.i = 1;
 	
@@ -17,13 +17,18 @@ Object::Object(ofNode object, string name = "Objet")
 
 Object::~Object()
 {
+	delete object_mesh;
+}
 
+void Object::draw()
+{
+	object_mesh->drawFaces();
 }
 
 
-const ofNode* Object::getObject() const
+const ofxAssimpModelLoader* Object::getMesh() const
 {
-	return &this->object;
+	return this->object_mesh;
 }
 
 const ofTexture* Object::getTexture() const
@@ -36,9 +41,9 @@ string* Object::getName()
 	return &this->name;
 }
 
-void Object::setObject(ofNode object)
+void Object::setObject(ofxAssimpModelLoader mesh)
 {
-	this->object = object;
+	this->object_mesh = &mesh;
 }
 
 void Object::setTexture(ofTexture texture)

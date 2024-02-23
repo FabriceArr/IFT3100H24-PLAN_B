@@ -3,9 +3,6 @@
 
 void UI::setup()
 {
-	holder = new Object(ofNode(), "Holder");
-	changeFocus();
-
 	interface.setup();
 
 	//setup for translation input
@@ -34,7 +31,7 @@ void UI::setup()
 	interface.add(scale_slider_group.z->set("zscale", 1.f, -100.f, 100.f));
 
 	//setup for selected object name input
-	interface.add(selected_object_name_field.setup("Nom de l'object", *holder->getName()));
+	//interface.add(selected_object_name_field.setup("Nom de l'object", *holder->getName()));
 
 
 	//stashes slider pointer into vector for output towards scene object in order to control objects inside of it

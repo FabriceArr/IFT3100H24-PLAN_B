@@ -1,5 +1,6 @@
 #pragma once
 #include "ofMain.h"
+#include "ofxAssimpModelLoader.h"
 
 
 
@@ -8,8 +9,7 @@ class Object
 private:
 	string name;
 	ofTexture texture;
-	ofNode object;//change to mesh
-	ofMesh object_mesh;
+	ofxAssimpModelLoader* object_mesh;
 	ofMatrix3x3 temp;
 
 	deque<ofMatrix3x3> changes_buffer;
@@ -19,8 +19,10 @@ private:
 
 public:
 
-	Object(ofNode object, string name);
+	Object(ofxAssimpModelLoader* object = nullptr, string name = "object");
 	~Object();
+
+	void draw();
 
 	string* getName();
 	void setName(string name);
@@ -28,8 +30,8 @@ public:
 	const ofTexture* getTexture() const;
 	void setTexture(ofTexture texture);
 
-	const ofNode* getObject() const;
-	void setObject(ofNode object);
+	const ofxAssimpModelLoader* getMesh() const;
+	void setObject(ofxAssimpModelLoader mesh);
 
 	bool operator==(const Object& a);
 
