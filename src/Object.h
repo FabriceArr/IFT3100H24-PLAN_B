@@ -19,7 +19,7 @@ private:
 
 public:
 
-	Object(ofxAssimpModelLoader* object = nullptr, string name = "object");
+	Object(ofxAssimpModelLoader* object, string name = "object");
 	~Object();
 
 	void draw();
@@ -31,7 +31,7 @@ public:
 	void setTexture(ofTexture texture);
 
 	const ofxAssimpModelLoader* getMesh() const;
-	void setObject(ofxAssimpModelLoader mesh);
+	void setObject(ofxAssimpModelLoader* mesh);
 
 	bool operator==(const Object& a);
 

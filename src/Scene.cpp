@@ -41,7 +41,7 @@ void Scene::draw()
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
 	{
-
+		ofLog() << object_tree_head->getSubs()->size();
 		if (*it) {
 
 			//only apply transform if selected
@@ -129,20 +129,33 @@ const ObjNode* Scene::getSceneContent() const
 
 void Scene::createObject(bool i)
 {
+	
 	if(i){
-		createImportedObject3D("C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/cube.obj");
 		
-		object_tree_head->add(new ObjNode(new Object(&mesh_loader, "cube"), object_tree_head));
+		ofxAssimpModelLoader* hold = createImportedObject3D(
+			"C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/cube.obj");
+
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			hold,
+			hold->getMeshNames().at(0)),
+			getSelectedObjectsNode()));
+
 	}
 	else {
-		createImportedObject3D("C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/plane.obj");
-		
-		object_tree_head->add(new ObjNode(new Object(&mesh_loader, "plane"), object_tree_head));
+		ofxAssimpModelLoader* hold = createImportedObject3D(
+			"C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/plane.obj");
+
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			hold,
+			hold->getMeshNames().at(0)),
+			getSelectedObjectsNode()));
 	}
 }
 
-void Scene::createImportedObject3D(string path) {
-	mesh_loader.loadModel(path);
+ofxAssimpModelLoader* Scene::createImportedObject3D(string path) {
+	ofxAssimpModelLoader* i = new ofxAssimpModelLoader();
+	i->load(path);
+	return i;
 
 }
 
@@ -195,6 +208,15 @@ void Scene::updateSelectedObjects()
 	else
 		return nullptr;
 }
+
+ ObjNode* Scene::getSelectedObjectsNode()
+ {
+	 if (selected_obj_ind >= 0) {
+		 return sub_level_selected->at(selected_obj_ind);
+	 }
+	 else
+		 return object_tree_head;
+ }
 
 void Scene::removeObject()
 {

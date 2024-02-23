@@ -10,9 +10,9 @@ void UI::setup()
 	position_slider_group.y = new ofParameter<float>();
 	position_slider_group.z = new ofParameter<float>();
 
-	interface.add(position_slider_group.x->set("xtrans", 0.f, -100.f, 100.f));
-	interface.add(position_slider_group.y->set("ytrans", 0.f, -100.f, 100.f));
-	interface.add(position_slider_group.z->set("ztrans", 0.f, -100.f, 100.f));
+	interface.add(position_slider_group.x->set("xtrans", 0.f, -200.f, 200.f));
+	interface.add(position_slider_group.y->set("ytrans", 0.f, -200.f, 200.f));
+	interface.add(position_slider_group.z->set("ztrans", 0.f, -200.f, 200.f));
 
 	//setup for rotation input
 	rotation_slider_group.x = new ofParameter<float>();
@@ -26,9 +26,9 @@ void UI::setup()
 	scale_slider_group.x = new ofParameter<float>();
 	scale_slider_group.y = new ofParameter<float>();
 	scale_slider_group.z = new ofParameter<float>();
-	interface.add(scale_slider_group.x->set("xscale", 1.f, -100.f, 100.f));
-	interface.add(scale_slider_group.y->set("yscale", 1.f, -100.f, 100.f));
-	interface.add(scale_slider_group.z->set("zscale", 1.f, -100.f, 100.f));
+	interface.add(scale_slider_group.x->set("xscale", 1.f, -2.f, 3.f));
+	interface.add(scale_slider_group.y->set("yscale", 1.f, -2.f, 3.f));
+	interface.add(scale_slider_group.z->set("zscale", 1.f, -2.f, 3.f));
 
 	//setup for selected object name input
 	//interface.add(selected_object_name_field.setup("Nom de l'object", *holder->getName()));

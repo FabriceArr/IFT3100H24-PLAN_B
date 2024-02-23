@@ -41,9 +41,9 @@ string* Object::getName()
 	return &this->name;
 }
 
-void Object::setObject(ofxAssimpModelLoader mesh)
+void Object::setObject(ofxAssimpModelLoader* mesh)
 {
-	this->object_mesh = &mesh;
+	this->object_mesh = mesh;
 }
 
 void Object::setTexture(ofTexture texture)
