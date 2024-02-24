@@ -54,13 +54,8 @@ Object::Object(string primitivetype)
 		object_buffer.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&plane_vert_ids[0], 6, GL_STATIC_DRAW);
 	}
-	else {
-
-	}
 
 	this->name = primitivetype;
-
-	object_mesh = ofMesh();
 
 	temp.g = temp.h = temp.i = 1;
 
@@ -70,7 +65,7 @@ Object::Object(string primitivetype)
 
 Object::Object(string name, ofMesh mesh)
 {
-	object_mesh = mesh;
+	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
 	this->name = name;
 	temp.g = temp.h = temp.i = 1;
 	
@@ -88,6 +83,10 @@ void Object::draw()
 {
 	if (object_buffer.getNumIndices() > 0) {
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
+	}
+	else {
+		object_buffer;
+		//object_buffer.draw(GL_TRIANGLES, 0, )
 	}
 }
 

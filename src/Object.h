@@ -11,7 +11,6 @@ private:
 	ofTexture texture;
 	ofVbo object_buffer;
 	ofMatrix3x3 temp;
-	ofMesh object_mesh;
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu

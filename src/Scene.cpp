@@ -154,10 +154,14 @@ void Scene::createObject(bool i)
 	}
 }
 
-ofxAssimpModelLoader* Scene::createImportedObject3D(string path) {
-	ofxAssimpModelLoader* i = new ofxAssimpModelLoader();
-	i->load(path);
-	return i;
+void Scene::createImportedObject3D(string path) {
+	ofxAssimpModelLoader model;
+	model.loadModel(path, true);
+	getSelectedObjectsNode()->add(new ObjNode(new Object(
+			model.getMeshNames().at(0),
+			model.getMesh(0)
+			),getSelectedObjectsNode()));
+
 
 }
 
