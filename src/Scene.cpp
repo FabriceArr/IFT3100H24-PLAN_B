@@ -139,13 +139,18 @@ void Scene::createObject(bool i)
 
 	}
 	else {
-		ofxAssimpModelLoader* hold = createImportedObject3D(
+
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			"plane")
+			, getSelectedObjectsNode()
+		));
+		/*ofxAssimpModelLoader* hold = createImportedObject3D(
 			"C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/plane.obj");
 
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
 			hold->getMeshNames().at(0),
 			hold->getMesh(0)),
-			getSelectedObjectsNode()));
+			getSelectedObjectsNode()));*/
 	}
 }
 
