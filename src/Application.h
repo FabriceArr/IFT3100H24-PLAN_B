@@ -12,11 +12,18 @@ class Application : public ofBaseApp
 {
 private:
 	UI interface;
+	const glm::quat DEFAULTVIEW =
+		glm::quat(0.977996, -0.132828, 0.159414, 0.021651);
+	const glm::quat FRONTVIEW = 
+		glm::quat(1,0,0,0);
+		bool isGrabReq;
 
 public:
 	Renderer renderer;
 	Scene scene;
-	
+	ofEasyCam cam; // add mouse controls for camera movement
+	glm::quat camOrientPersp;
+	ofImage image;
 
 	void setup();
 	void update();
@@ -37,7 +44,6 @@ public:
 	void gotMessage(ofMessage msg);
 	
 	void drawInteractionArea();
-	ofEasyCam cam; // add mouse controls for camera movement
 
 	void mouser(int x, int y, int button);
 	ofxPanel test;

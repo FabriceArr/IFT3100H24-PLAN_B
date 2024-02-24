@@ -77,8 +77,6 @@ public:
 	void exit();
 
 	void changeFocus(const Object* Object = nullptr);
-	bool addObject();
-	bool removeObject();
 
 	const vector<ofParameter<float>*> getPositionSliderValues();
 	const vector<ofParameter<float>*> getRotationSliderValues();

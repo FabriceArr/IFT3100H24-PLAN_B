@@ -14,13 +14,15 @@ private:
 
 	ofMatrix4x4 project_matrice, view_matrice;
 
+	ofMatrix3x3 temp_info, info;
+
 	vector<ofParameter<float>*> UI_trans_output;
 	vector<ofParameter<float>*> UI_rotation_output;
 	vector<ofParameter<float>*> UI_scale_output;
 	
 	//points to the vector of elements currently selected
 	int selected_obj_ind;
-	const std::vector<ObjNode*>* sub_level_selected;
+	std::vector<ObjNode*>* sub_level_selected;
 	ObjNode* selected_object;
 
 	ObjNode* object_tree_head;
@@ -49,13 +51,17 @@ public:
 	//the given amount in the scene.
 	void rotateObject(unsigned int object_id, ofVec3f rotation_change);
 
-	const Object* getSelectedObjects() const;
+	void changeSelectedMatrice(ofMatrix3x3 change);
 
-	void removeObject(ObjNode* objectNode);
+	void updateSelectedObjects();
+
+	Object* getSelectedObjects();
+
+	void removeObject();
 
 	void deSelectObject();
 
-
+	void savechange();
 
 	void draw();
 

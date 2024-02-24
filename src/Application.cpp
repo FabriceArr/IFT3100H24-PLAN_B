@@ -3,7 +3,7 @@
 
 void Application::setup()
 {
-	ofSetWindowTitle("Prototype");
+	ofSetWindowTitle("Plan B viewer (m d f 1-5 a t e c o)");
 
 	interface.setup();
 	interface.getPositionSliderValues();
@@ -17,6 +17,8 @@ void Application::setup()
 	interface.getStrokeWidthSlider();
 
 	renderer.setup(&scene);
+	cam.setOrientation(DEFAULTVIEW);
+	isGrabReq = false;
 }
 
 void Application::update()
@@ -35,10 +37,10 @@ void Application::draw()
 	
 	ofDrawGrid(20, 10, false, true, true, false);
 
-	scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
+	/*scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
 	if (scene.getSceneContent()->getSubs()->size()) {
-		//scene.findSelectedObject(5, 5); for the moment this makes the cam create an access violation
-	}
+		scene.findSelectedObject(5, 5); for the moment this makes the cam create an access violation
+	}*/
 	
 
 	
@@ -52,7 +54,11 @@ void Application::draw()
 		renderer.draw_cursor(renderer.mouse_current_x,
 			renderer.mouse_current_y);
 	}
-
+	if (isGrabReq) {	// now we're sure the draw is completed
+		renderer.image_export("ScreenGrab", "png");
+		renderer.saveNumber++;
+		isGrabReq = false;
+	}
 }
 
 
@@ -65,6 +71,17 @@ void Application::keyReleased(int key)
 {
 	switch (key)
 	{
+	case OF_KEY_DEL:
+		scene.removeObject();
+		break;
+
+	case OF_KEY_END:
+		scene.savechange();
+		interface.setPositionSliderValues();
+		interface.setRotationSliderValues();
+		interface.setScaleSliderValues();
+		break;
+
 	case 100: //d in ascii 
 		ofLog() << "New object ordered";
 		renderer.createObject(0, cam.getOrientationEulerDeg());
@@ -164,6 +181,27 @@ void Application::keyReleased(int key)
 		renderer.removeLastShape();
 		break;
 
+	case 'o': //orthogonal camera view switch
+		ofLog() << "Camera Orientation : " << camOrientPersp;
+
+		if (!cam.getOrtho()) // Cam is in perspective
+		{
+			camOrientPersp = cam.getOrientationQuat();
+			cam.setOrientation(FRONTVIEW);
+		}
+		else {		// Cam is in Ortho
+			cam.setOrientation(camOrientPersp);
+		}
+
+		cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
+		ofLog() << "Ortho : " << (cam.getOrtho() ? "True": "False");
+		
+		break;
+
+	case ' ': // key space
+		isGrabReq = true;
+		break;
+
 	default:
 		break;
 	}
@@ -238,6 +276,12 @@ void Application::windowResized(int w, int h)
 
 void Application::dragEvent(ofDragInfo dragInfo)
 {
+	ofLog() << "<app::ofDragInfo file[0]: " << dragInfo.files.at(0)
+		<< " at : " << dragInfo.position << ">";
+
+	// importer le premier fichier d�pos� sur la fen�tre si c'est une image (attention : aucune validation du type de fichier)
+	image.load(dragInfo.files.at(0));
+
 }
 
 void Application::gotMessage(ofMessage msg)

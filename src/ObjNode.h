@@ -21,7 +21,7 @@ public:
 
 	void add(ObjNode* objnode);
 
-	const std::vector<ObjNode*>* getSubs() const;
+	std::vector<ObjNode*>* getSubs();
 
 	void destroy_subs();
 };

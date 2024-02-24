@@ -30,7 +30,7 @@ class Renderer
 private:
 
 	Scene* scene;
-	ofCamera* cam;
+	//ofCamera* cam;
 	ofMatrix4x4 viewM, projectM;
 
 	
@@ -76,6 +76,8 @@ public:
 
 	int stroke_weight;
 
+	int saveNumber;
+
 	void setup(Scene* sce);
 	void draw();
 	void drawVectorPoint(const glm::vec3& position);
@@ -94,6 +96,9 @@ public:
 	void removeLastShape();
 
 	void setStrokeWidth(float strokeWidth);
+
+	void image_export(const string name, const string extension);
+
 };
 
 

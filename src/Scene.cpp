@@ -52,23 +52,50 @@ void Scene::draw()
 
 			PickingPhase(project_matrice, view_matrice);
 
+
 			ofPushMatrix();
 
-			ofTranslate(*UI_trans_output.at(0), *UI_trans_output.at(1), *UI_trans_output.at(2));
-
-			ofRotateXDeg(*UI_rotation_output.at(0));
-			ofRotateYDeg(*UI_rotation_output.at(1));
-			ofRotateZDeg(*UI_rotation_output.at(2));
-
-			ofScale(*UI_scale_output.at(0), *UI_scale_output.at(1),*UI_scale_output.at(2));
-
-			ofMatrix4x4 W = ofGetCurrentMatrix(OF_MATRIX_MODELVIEW);
-			(*it)->object->addChange(W);
+			//applies the ui changes only for the selected object, 
+			//combining the current ui changes to the last change saved
+			if ((*it)->object == getSelectedObjects()) {
+				ofTranslate(
+					*UI_trans_output.at(0) + (*it)->object->getCurrentChangeM().a,
+					*UI_trans_output.at(1) + (*it)->object->getCurrentChangeM().b,
+					*UI_trans_output.at(2) + (*it)->object->getCurrentChangeM().c);
+				ofRotateXDeg(
+					*UI_rotation_output.at(0) + (*it)->object->getCurrentChangeM().d);
+				ofRotateYDeg(
+					*UI_rotation_output.at(1) + (*it)->object->getCurrentChangeM().e);
+				ofRotateZDeg(
+					*UI_rotation_output.at(2) + (*it)->object->getCurrentChangeM().f);
+				ofScale(
+					*UI_scale_output.at(0) * (*it)->object->getCurrentChangeM().g,
+					*UI_scale_output.at(1) * (*it)->object->getCurrentChangeM().h,
+					*UI_scale_output.at(2) * (*it)->object->getCurrentChangeM().i);
+			}
+			//not the selected object, then we apply the 
+			else {
+				ofTranslate(
+					(*it)->object->getCurrentChangeM().a,
+					(*it)->object->getCurrentChangeM().b,
+					(*it)->object->getCurrentChangeM().c);
+				ofRotateXDeg(
+					(*it)->object->getCurrentChangeM().d);
+				ofRotateYDeg(
+					(*it)->object->getCurrentChangeM().e);
+				ofRotateZDeg(
+					(*it)->object->getCurrentChangeM().f);
+				ofScale(
+					(*it)->object->getCurrentChangeM().g,
+					(*it)->object->getCurrentChangeM().h,
+					(*it)->object->getCurrentChangeM().i);
+			}
 			
+			//object is drawn
 			(*it)->object->getObject()->draw();
 
-
 			ofPopMatrix();
+			
 		}
 
 
@@ -137,7 +164,37 @@ void Scene::rotateObject(unsigned int object_id, ofVec3f rotation_change)
 	//apply changes to object mesh permanently 
 }
 
-const Object* Scene::getSelectedObjects() const
+void Scene::changeSelectedMatrice(ofMatrix3x3 change)
+{
+	//updates the selected object to be stored in the fonction setting to make the if work
+	updateSelectedObjects();
+	if (getSelectedObjects() != nullptr) {
+		selected_object->object->addChange(change);
+
+		ofLog() << endl;
+		ofLog() << "--------------------------------------------------";
+		ofLog() << " | " << change.a << " | " << change.b << " | " << change.c << " | " << endl;
+		ofLog() << "--------------------------------------------------";
+		ofLog() << " | " << change.d << " | " << change.e << " | " << change.f << " | " << endl;
+		ofLog() << "--------------------------------------------------";
+		ofLog() << " | " << change.g << " | " << change.h << " | " << change.i << " | " << endl;
+		ofLog() << "--------------------------------------------------";
+		ofLog() << endl;
+
+		if (selected_object->getSubs()->size() > 0) {
+
+		}
+	}
+}
+
+void Scene::updateSelectedObjects()
+{
+	if (getSelectedObjects() != nullptr) {
+		selected_object = sub_level_selected->at(selected_obj_ind);
+	}
+}
+
+ Object* Scene::getSelectedObjects()
 {
 	if (selected_obj_ind >= 0) {
 		return sub_level_selected->at(selected_obj_ind)->object;
@@ -146,9 +203,13 @@ const Object* Scene::getSelectedObjects() const
 		return nullptr;
 }
 
-void Scene::removeObject(ObjNode* objectNode)
+void Scene::removeObject()
 {
-	objectNode->remove();
+	if (getSelectedObjects() != nullptr) {
+		sub_level_selected->at(selected_obj_ind)->remove();
+		sub_level_selected->erase(sub_level_selected->begin() + selected_obj_ind);
+	}
+	
 }
 
 
@@ -226,9 +287,27 @@ void Scene::deSelectObject()
 	selected_obj_ind = -1;
 }
 
+void Scene::savechange()
+{
+	if (getSelectedObjects() != nullptr) {
+		info.set(
+			*UI_trans_output.at(0) + getSelectedObjects()->getCurrentChangeM().a,//a translation x
+			*UI_trans_output.at(1) + getSelectedObjects()->getCurrentChangeM().b,//b translation y
+			*UI_trans_output.at(2) + getSelectedObjects()->getCurrentChangeM().c,//c translation z
+			*UI_rotation_output.at(0) + getSelectedObjects()->getCurrentChangeM().d,//d rotation x
+			*UI_rotation_output.at(1) + getSelectedObjects()->getCurrentChangeM().e,//e rotation y
+			*UI_rotation_output.at(2) + getSelectedObjects()->getCurrentChangeM().f,//f rotation z
+			*UI_scale_output.at(0) * getSelectedObjects()->getCurrentChangeM().g,//g scale x
+			*UI_scale_output.at(1) * getSelectedObjects()->getCurrentChangeM().h,//h scale y
+			*UI_scale_output.at(2) * getSelectedObjects()->getCurrentChangeM().i);//i scale z
+
+		getSelectedObjects()->addChange(info);
+	}
+}
+
 void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 {
-	select_mode.EnableWriting();
+	/*select_mode.EnableWriting();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -252,6 +331,7 @@ void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 	}
 
 	select_mode.DisableWriting();
+	*/
 }
 
 void Scene::findSelectedObject(int x, int y) {
