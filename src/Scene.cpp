@@ -1,6 +1,49 @@
 #include "scene.h"
 #include <algorithm>
 
+ofVec3f vertices[] =
+{ //        COORDINATES                /          COLORS          /         NORMALS         / TEXTURE COORDINATES //
+	ofVec3f(1.0f ,  1.0f, -1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//0
+	ofVec3f(1.0f , -1.0f, -1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//1
+	ofVec3f(1.0f ,  1.0f,  1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//2
+	ofVec3f(1.0f , -1.0f,  1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//3
+	ofVec3f(-1.0f,  1.0f, -1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//4
+	ofVec3f(-1.0f, -1.0f, -1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//5
+	ofVec3f(-1.0f,  1.0f,  1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//6
+	ofVec3f(-1.0f,  -1.0f, 1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f)//7
+};
+
+GLuint cube_vertices_ids[] =
+{
+	0, 1, 2,
+	0, 1, 5,
+	0, 2, 4,
+	0, 4, 5,
+	1, 2, 3,
+	1, 3, 5,
+	2, 3, 7,
+	2, 4, 7,
+	2, 6, 7,
+	3, 5, 7,
+	4, 5, 6,
+	5, 6, 7
+
+};
+
+ofVec3f plane_vertices[] =
+{ //        COORDINATES         /          COLORS          /         NORMALS         / TEXTURE COORDINATES //
+	ofVec3f(-1.0f, 0.0f,  1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//0
+	ofVec3f(-1.0f, 0.0f,  1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//1
+	ofVec3f(-1.0f, 0.0f,  1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f),//2
+	ofVec3f(-1.0f, 0.0f,  1.0f), ofVec3f(0.0f, 1.0f, 0.0f), ofVec3f(1.0f, 1.0f, 1.0f)//3
+};
+
+GLuint plane_vert_ids[] =
+{
+	0, 1, 2,
+	0, 2, 3
+};
+
 void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	const vector<ofParameter<float>*> UIrot,
 	const vector<ofParameter<float>*> UIscale)
@@ -136,8 +179,8 @@ void Scene::createObject(bool i)
 			"C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/cube.obj");
 
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
-			hold,
-			hold->getMeshNames().at(0)),
+			hold->getMeshNames().at(0),
+			hold->getMesh(0)),
 			getSelectedObjectsNode()));
 
 	}
@@ -146,8 +189,8 @@ void Scene::createObject(bool i)
 			"C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/plane.obj");
 
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
-			hold,
-			hold->getMeshNames().at(0)),
+			hold->getMeshNames().at(0),
+			hold->getMesh(0)),
 			getSelectedObjectsNode()));
 	}
 }

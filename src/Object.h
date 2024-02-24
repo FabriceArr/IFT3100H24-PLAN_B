@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
+#include "ofVbo.h"
 #include "ofxAssimpModelLoader.h"
-
 
 
 class Object
@@ -9,8 +9,9 @@ class Object
 private:
 	string name;
 	ofTexture texture;
-	ofxAssimpModelLoader* object_mesh;
+	ofVbo object_buffer;
 	ofMatrix3x3 temp;
+	ofMesh object_mesh;
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
@@ -19,7 +20,7 @@ private:
 
 public:
 
-	Object(ofxAssimpModelLoader* object, string name = "object");
+	Object(string name, ofMesh mesh);
 	~Object();
 
 	void draw();
@@ -30,8 +31,7 @@ public:
 	const ofTexture* getTexture() const;
 	void setTexture(ofTexture texture);
 
-	const ofxAssimpModelLoader* getMesh() const;
-	void setObject(ofxAssimpModelLoader* mesh);
+	void setMesh(ofMesh& mesh);
 
 	bool operator==(const Object& a);
 

@@ -1,13 +1,11 @@
 #include "Object.h"
-
-
 #define MAXCHANGEBUFFERSIZE 10
 
-Object::Object(ofxAssimpModelLoader* mesh, string name)
+
+Object::Object(string name, ofMesh mesh)
 {
-	this->object_mesh = mesh;
+	object_mesh = mesh;
 	this->name = name;
-	
 	temp.g = temp.h = temp.i = 1;
 	
 
@@ -17,19 +15,16 @@ Object::Object(ofxAssimpModelLoader* mesh, string name)
 
 Object::~Object()
 {
-	delete object_mesh;
+	
 }
 
 void Object::draw()
 {
-	object_mesh->drawFaces();
+	if (object_buffer.getNumIndices() > 0) {
+		object_buffer.drawElements(GL_TRIANGLES, object_mesh.getNumIndices());
+	}
 }
 
-
-const ofxAssimpModelLoader* Object::getMesh() const
-{
-	return this->object_mesh;
-}
 
 const ofTexture* Object::getTexture() const
 {
@@ -41,14 +36,14 @@ string* Object::getName()
 	return &this->name;
 }
 
-void Object::setObject(ofxAssimpModelLoader* mesh)
-{
-	this->object_mesh = mesh;
-}
-
 void Object::setTexture(ofTexture texture)
 {
 	this->texture = texture;
+}
+
+void Object::setMesh(ofMesh &mesh)
+{
+	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
 }
 
 
