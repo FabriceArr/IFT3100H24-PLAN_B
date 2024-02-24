@@ -19,7 +19,7 @@ private:
 	
 
 public:
-
+	Object(string primitivetype);
 	Object(string name, ofMesh mesh);
 	~Object();
 
