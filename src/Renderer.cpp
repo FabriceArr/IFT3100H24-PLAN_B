@@ -30,15 +30,7 @@ void Renderer::setup(Scene* sce)
 	ofBackground(clear_color);
 	scene = sce;
 
-
-	// couleur de la ligne de contour
-	color_stroke();
-
-	// couleur de la zone de remplissage
-	color_fill();
-
-
-	mouse_release_x = mouse_release_y = mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
+	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 
 	radius = 4.0f;
 	//this->cam = cam;
@@ -73,7 +65,7 @@ void Renderer::draw()
 
 		case VectorPrimitiveType::line:
 			ofNoFill();
-			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetLineWidth(shape.stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorLine(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				glm::vec3(shape.position2[0], shape.position2[1], 0));
@@ -82,11 +74,11 @@ void Renderer::draw()
 		case VectorPrimitiveType::rectangle:
 			ofFill();
 			ofSetLineWidth(0);
-			ofSetColor( shape.fill_color);
+			ofSetColor(shape.fill_color);
 			drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
 			ofNoFill();
-			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetLineWidth(shape.stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
@@ -100,7 +92,7 @@ void Renderer::draw()
 			drawVectorEllipse(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.radiusx, shape.radiusy);
 			ofNoFill();
-			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetLineWidth(shape.stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorEllipse(glm::vec3(shape.position1[0], shape.position1[1], 0),
 				shape.radiusx, shape.radiusy);
@@ -115,7 +107,7 @@ void Renderer::draw()
 				glm::vec3(shape.position2[0], shape.position2[1], 0),
 				glm::vec3(shape.position3[0], shape.position3[1], 0));
 			ofNoFill();
-			ofSetLineWidth(shapes[index].stroke_width);
+			ofSetLineWidth(shape.stroke_width);
 			ofSetColor(shape.stroke_color);
 			drawVectorTriangle(glm::vec3(shape.position1[0], shape.position1[1], 0),
 								glm::vec3(shape.position2[0], shape.position2[1], 0),
@@ -149,34 +141,29 @@ void Renderer::add_vector_shape(VectorPrimitiveType type, float x1, float y1, fl
 	newShape.radiusy = radiusy;
 
 
-	newShape.stroke_color = ofColor(stroke_color_r, stroke_color_g, stroke_color_b, stroke_color_a);
-	newShape.fill_color = ofColor(fill_color_r, fill_color_g, fill_color_b, fill_color_a);
+	newShape.stroke_color = strokecolor;
+	newShape.fill_color = fillcolor;
+	newShape.stroke_width = stroke_weight;
 
 	switch (newShape.type)
 	{
 
 	case VectorPrimitiveType::point:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::line:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::rectangle:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::ellipse:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	case VectorPrimitiveType::triangle:
-		newShape.stroke_width = stroke_width_default;
 		break;
 
 	default:
-		newShape.stroke_width = stroke_width_default;
 		break;
 	}
 
@@ -219,6 +206,9 @@ void Renderer::drawVectorTriangle(const glm::vec3& point1, const glm::vec3& poin
 
 void Renderer::update()
 {
+	ofSetColor(strokecolor);
+	ofSetColor(fillcolor);
+	ofSetLineWidth(stroke_weight);
 }
 
 // fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par dÃ©faut
@@ -236,7 +226,6 @@ void Renderer::exit()
 void Renderer::createObject(int type, const glm::vec3 cameraAngle)
 {
 	scene->createObject(type, cameraAngle);
-	
 }
 
 void Renderer::draw_cursor(float x, float y) const
@@ -279,29 +268,6 @@ void Renderer::removeLastShape()
 		shapes.pop_back();
 		ofLog() << "Removed last shape. Total shapes: " << shapes.size();
 	}
-}
-
-void Renderer::color_stroke()
-{
-	stroke_color_r = (int)ofRandom(0, 255);
-	stroke_color_g = (int)ofRandom(0, 255);
-	stroke_color_b = (int)ofRandom(0, 255);
-	stroke_color_a = 255;
-}
-
-// fonction qui détermine une couleur aléatoire pour les zones de remplissage
-void Renderer::color_fill()
-{
-	fill_color_r = (int)ofRandom(0, 255);
-	fill_color_g = (int)ofRandom(0, 255);
-	fill_color_b = (int)ofRandom(0, 255);
-	fill_color_a = 255;
-
-}
-
-void Renderer::setStrokeWidth(float strokeWidth)
-{
-	stroke_weight = strokeWidth;
 }
 
 // fonction qui exporte une image à partir de son nom et de son extension, à partir du répertoire ./bin/data ou d'un chemin absolue
