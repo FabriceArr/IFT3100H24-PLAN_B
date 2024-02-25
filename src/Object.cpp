@@ -3,14 +3,14 @@
 
 ofVec3f cube_vertices[] =
 {
-	ofVec3f(1.0f ,  1.0f, -1.0f),//0
-	ofVec3f(1.0f , -1.0f, -1.0f),//1
-	ofVec3f(1.0f ,  1.0f,  1.0f),//2
-	ofVec3f(1.0f , -1.0f,  1.0f),//3
-	ofVec3f(-1.0f,  1.0f, -1.0f),//4
-	ofVec3f(-1.0f, -1.0f, -1.0f),//5
-	ofVec3f(-1.0f,  1.0f,  1.0f),//6
-	ofVec3f(-1.0f,  -1.0f, 1.0f)//7
+	ofVec3f(50.0f ,  50.0f, -50.0f),//0
+	ofVec3f(50.0f , -50.0f, -50.0f),//1
+	ofVec3f(50.0f ,  50.0f,  50.0f),//2
+	ofVec3f(50.0f , -50.0f,  50.0f),//3
+	ofVec3f(-50.0f,  50.0f, -50.0f),//4
+	ofVec3f(-50.0f, -50.0f, -50.0f),//5
+	ofVec3f(-50.0f,  50.0f,  50.0f),//6
+	ofVec3f(-50.0f,  -50.0f, 50.0f)//7
 };
 
 GLuint cube_vertices_ids[] =
@@ -32,16 +32,16 @@ GLuint cube_vertices_ids[] =
 
 ofVec3f plane_vertices[] =
 {
-	ofVec3f(-1.0f, 0.0f,  1.0f),//0
-	ofVec3f(-1.0f, 0.0f,  1.0f),//1
-	ofVec3f(-1.0f, 0.0f,  1.0f),//2
-	ofVec3f(-1.0f, 0.0f,  1.0f)//3
+	ofVec3f(-50.0f, 50.0f,  0.0f),//0
+	ofVec3f(50.0f, 50.0f,  0.0f),//1
+	ofVec3f(-50.0f, -50.0f,  0.0f),//2
+	ofVec3f(50.0f, -50.0f,  0.0f)//3
 };
 
 GLuint plane_vert_ids[] =
 {
 	0, 1, 2,
-	0, 2, 3
+	1, 2, 3
 };
 
 Object::Object(string primitivetype)
