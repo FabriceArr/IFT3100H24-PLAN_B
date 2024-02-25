@@ -20,7 +20,7 @@ struct VectorPrimitive
 	glm::vec3 position3;
 	float radiusx;
 	float radiusy;
-	float stroke_width;
+	int stroke_width;
 	ofColor stroke_color;
 	ofColor fill_color;
 };
@@ -71,19 +71,10 @@ public:
 	bool isCursorVisible;
 	bool isSelectable;
 
-	unsigned char stroke_color_r;
-	unsigned char stroke_color_g;
-	unsigned char stroke_color_b;
-	unsigned char stroke_color_a;
+	ofColor strokecolor;
+	ofColor fillcolor;
 
-	unsigned char fill_color_r;
-	unsigned char fill_color_g;
-	unsigned char fill_color_b;
-	unsigned char fill_color_a;
-
-	ofColor stroke_color;
-	ofColor fill_color;
-	float stroke_weight;
+	int stroke_weight;
 
 	int saveNumber;
 
@@ -102,8 +93,6 @@ public:
 	void exit();
 	void removeLastShape();
 
-	void color_stroke();
-	void color_fill();
 	void setStrokeWidth(float strokeWidth);
 
 	void image_export(const string name, const string extension);
