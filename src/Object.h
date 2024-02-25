@@ -18,7 +18,7 @@ private:
 	
 
 public:
-	Object(string primitivetype);
+	Object(string primitivetype, ofColor color);
 	Object(string name, ofMesh mesh);
 	~Object();
 

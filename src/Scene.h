@@ -33,6 +33,8 @@ private:
 
 	ofxAssimpModelLoader mesh_loader;
 
+	ofParameter<ofColor> UI_fill_color;
+
 public:
 	//set all defaults and settings
 	void setup(const vector<ofParameter<float>*> UIposition, 
@@ -59,6 +61,7 @@ public:
 
 	void changeSelectedMatrice(ofMatrix3x3 change);
 
+	void updateFillColor(ofParameter<ofColor> colorparam);
 	void updateSelectedObjects();
 
 	Object* getSelectedObjects();

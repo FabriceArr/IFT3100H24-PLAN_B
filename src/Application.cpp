@@ -27,6 +27,8 @@ void Application::update()
 	renderer.fillcolor = interface.getFillColorSlider();
 	renderer.strokecolor = interface.getStrokeColorSlider();
 	renderer.stroke_weight = interface.getStrokeWidthSlider();
+	scene.updateFillColor(interface.getFillColorSlider());
+
 	renderer.update();
 }
 
@@ -83,6 +85,7 @@ void Application::keyReleased(int key)
 		break;
 
 	case 100: //d in ascii 
+		scene.updateFillColor(interface.getFillColorSlider());
 		scene.createObject(0);
 		break;
 

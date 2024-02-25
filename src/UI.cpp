@@ -3,9 +3,6 @@
 
 void UI::setup()
 {
-    
-	holder = new Object("Holder");
-	changeFocus();
 
 	interface.setup();
 
@@ -156,14 +153,13 @@ void UI::changeFocus(const Object* Obj) {
 		selected_object = Obj;
 	}
 	else {
-		selected_object = holder;
+        selected_object = nullptr;
 	}
 	
 }
 
 void UI::exit()
 {
-	delete holder;
 	delete selected_object;
 
 	//empties all vector objects.

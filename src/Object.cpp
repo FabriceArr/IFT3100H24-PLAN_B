@@ -44,7 +44,7 @@ GLuint plane_vert_ids[] =
 	1, 2, 3
 };
 
-Object::Object(string primitivetype)
+Object::Object(string primitivetype, ofColor color)
 {
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
@@ -54,6 +54,14 @@ Object::Object(string primitivetype)
 		object_buffer.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&plane_vert_ids[0], 6, GL_STATIC_DRAW);
 	}
+	int size = object_buffer.getNumVertices();
+	ofFloatColor* holder = new ofFloatColor[size];
+	for (int i = 0; i < object_buffer.getNumVertices(); i++) {
+		holder[i] = color;
+	}
+	object_buffer.setColorData(&holder[0], object_buffer.getNumVertices(), GL_STATIC_DRAW);
+
+	delete [] holder;
 
 	this->name = primitivetype;
 
