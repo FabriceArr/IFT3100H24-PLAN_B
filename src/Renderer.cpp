@@ -223,11 +223,6 @@ void Renderer::exit()
 	//delete scene;
 }
 
-void Renderer::createObject(int type, const glm::vec3 cameraAngle)
-{
-	scene->createObject(type, cameraAngle);
-}
-
 void Renderer::draw_cursor(float x, float y) const
 {
 	float length = 10.0f;

@@ -1,23 +1,17 @@
 #pragma once
-#include "Object.h"
+#include "ofMain.h"
 
 
-class Mesh
+
+class mesh
 {
 private:
-
-	vector<ofVec3f> vertices;
-	vector<int> verticesIDs;
-
-	vector<ofVec3f> normals;
-	vector<int> normalsIDs;
-
-	//add texture later pour tp2
+	ofVbo vbo;
+	ofVboMesh mesh;
 public:
+	
+	void init();
 
-
-	void loadMesh() {
-
-	}
+	void draw();
 };
 

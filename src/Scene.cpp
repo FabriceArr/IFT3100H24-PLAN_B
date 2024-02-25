@@ -1,6 +1,8 @@
 #include "scene.h"
 #include <algorithm>
 
+
+
 void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	const vector<ofParameter<float>*> UIrot,
 	const vector<ofParameter<float>*> UIscale)
@@ -41,7 +43,7 @@ void Scene::draw()
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
 	{
-
+		ofLog() << object_tree_head->getSubs()->size();
 		if (*it) {
 
 			//only apply transform if selected
@@ -92,7 +94,7 @@ void Scene::draw()
 			}
 			
 			//object is drawn
-			(*it)->object->getObject()->draw();
+			(*it)->object->draw();
 
 			ofPopMatrix();
 			
@@ -127,31 +129,51 @@ const ObjNode* Scene::getSceneContent() const
 	return object_tree_head;
 }
 
-void Scene::createObject(int type, ofVec3f angle)
+void Scene::createObject(bool i)
 {
-	switch (type)
-	{
-		case 0://plane
-		{
-			Object* plane = new Object(ofPlanePrimitive(), "Plane");
-			object_tree_head->add(new ObjNode(plane, object_tree_head));
-		break; 
-		}
-			
+	if(i){
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			"cube")
+			, object_tree_head
+		));
 
-		case 1://cube
-		{
-			Object* box = new Object(ofBoxPrimitive(), "Cube");
-			object_tree_head->add(new ObjNode(box, object_tree_head));
-			break;
-		}
+	}
+	else {
 
-		default:
-			break;
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			"plane")
+			, object_tree_head
+		));
+		/*ofxAssimpModelLoader* hold = createImportedObject3D(
+			"C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/plane.obj");
 
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			hold->getMeshNames().at(0),
+			hold->getMesh(0)),
+			getSelectedObjectsNode()));*/
 	}
 }
 
+void Scene::createImportedObject3D(string path) {
+	if (path.substr(path.length() - 4, 4) == ".obj") {
+		ofMesh mesh = OBJLoader::loadMeshOBJ(path);
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			"Imported",
+			mesh
+		), object_tree_head));
+	}
+	else {
+		ofxAssimpModelLoader model;
+		model.loadModel(path, true);
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			model.getMeshNames().at(0),
+			model.getMesh(0)
+		), object_tree_head));
+	}
+	
+	
+
+}
 
 
 void Scene::moveObject(unsigned int object_id, ofVec3f position_change)
@@ -202,6 +224,15 @@ void Scene::updateSelectedObjects()
 	else
 		return nullptr;
 }
+
+ ObjNode* Scene::getSelectedObjectsNode()
+ {
+	 if (selected_obj_ind >= 0) {
+		 return sub_level_selected->at(selected_obj_ind);
+	 }
+	 else
+		 return object_tree_head;
+ }
 
 void Scene::removeObject()
 {

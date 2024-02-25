@@ -91,8 +91,6 @@ public:
 	void clear() const;
 
 	void exit();
-
-	void createObject(int type, const glm::vec3 cameraAngle);
 	void removeLastShape();
 
 	void setStrokeWidth(float strokeWidth);
