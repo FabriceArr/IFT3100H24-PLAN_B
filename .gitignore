@@ -60,3 +60,5 @@ obj/x64/Debug/IFT3100H.7FD42DF7.tlog/rc.write.1.tlog
 obj/x64/Debug/IFT3100H24-PLAN_B.log
 obj/x64/Debug/IFT3100H24-PLAN_B_debug.exe.recipe
 obj/x64/Debug/vc143.pdb
+obj/x64/Debug/Build/src/Debug/ClickTexture.obj
+obj/x64/Debug/Build/src/Debug/OBJLoader.obj

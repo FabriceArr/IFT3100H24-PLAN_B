@@ -4,7 +4,7 @@
 void UI::setup()
 {
     
-	holder = new Object(ofNode(), "Holder");
+	holder = new Object("Holder");
 	changeFocus();
 
 	interface.setup();
@@ -121,7 +121,8 @@ const ofParameter<ofColor> UI::getStrokeColorSlider()
 
 const ofParameter<int> UI::getStrokeWidthSlider()
 {
-	return stroke_width_slider;
+    return stroke_width_slider;
+}
 
 ofVec3f* UI::setPositionSliderValues()
 {
@@ -186,19 +187,6 @@ void UI::exit()
 		delete (*it);
 	}
 
-}
-
-
-bool UI::addObject() {
-	//affiche le selecteur de primitive
-	//return true si afficher, false si deja afficher
-	return false;
-}
-
-bool UI::removeObject() {
-	//cache le selecteur de primitive
-	//return true si cacher, false si il etait deja cacher
-	return false;
 }
 
 hsv UI::rgbToHSV(ofColor color)
