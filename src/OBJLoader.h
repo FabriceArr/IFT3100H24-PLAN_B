@@ -6,6 +6,6 @@
 class OBJLoader
 {
 public:
-	ofMesh loadMeshOBJ(string path);
+	static ofMesh loadMeshOBJ(string path);
 };
 

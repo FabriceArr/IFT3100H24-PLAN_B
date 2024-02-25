@@ -6,6 +6,7 @@
 #include "ofxGui.h"
 #include "ClickTexture.h"
 #include "ofxAssimpModelLoader.h"
+#include "OBJLoader.h"
 #include <vector>
 
 class Scene

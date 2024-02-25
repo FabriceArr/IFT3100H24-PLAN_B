@@ -15,7 +15,7 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 	vector<ofVec3f> vert;
 	vector<unsigned int> vertid;
 
-	vector<ofVec3f> uv;
+	vector<ofVec2f> uv;
 	vector<unsigned int> uvid;
 
 	vector<ofVec3f> norm;
@@ -27,8 +27,10 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 	//getting the file to read the lines
 	filereader.open(path, ios::in);
 	
+
 	//goes on until the doc is finished
-	while (getline(filereader, textbuffer)) {
+	while (filereader.peek() != EOF) {
+		getline(filereader, textbuffer);
 
 		//tokenizes the line to get all the infor seperated, the first is the type of date the line is about
 		//# = file header info, not useful here
@@ -98,8 +100,7 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 		if (tokens.at(0) == "vt") {
 			uv.push_back(
 					ofVec3f(stof(tokens.at(1)),
-					stof(tokens.at(2)),
-					stof(tokens.at(3))
+					stof(tokens.at(2))
 					));
 		}
 		
