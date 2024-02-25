@@ -134,7 +134,7 @@ void Scene::createObject(bool i)
 	if(i){
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
 			"cube")
-			, getSelectedObjectsNode()
+			, object_tree_head
 		));
 
 	}
@@ -142,7 +142,7 @@ void Scene::createObject(bool i)
 
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
 			"plane")
-			, getSelectedObjectsNode()
+			, object_tree_head
 		));
 		/*ofxAssimpModelLoader* hold = createImportedObject3D(
 			"C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/plane.obj");
@@ -156,7 +156,11 @@ void Scene::createObject(bool i)
 
 void Scene::createImportedObject3D(string path) {
 	if (path.substr(path.length() - 4, 4) == ".obj") {
-		OBJLoader::loadMeshOBJ(path);
+		ofMesh mesh = OBJLoader::loadMeshOBJ(path);
+		getSelectedObjectsNode()->add(new ObjNode(new Object(
+			"Imported",
+			mesh
+		), object_tree_head));
 	}
 	else {
 		ofxAssimpModelLoader model;
@@ -164,7 +168,7 @@ void Scene::createImportedObject3D(string path) {
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
 			model.getMeshNames().at(0),
 			model.getMesh(0)
-		), getSelectedObjectsNode()));
+		), object_tree_head));
 	}
 	
 	

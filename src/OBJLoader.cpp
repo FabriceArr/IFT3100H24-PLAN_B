@@ -106,17 +106,19 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 		
 	}
 	filereader.close();
-
+	for (int i = 0; i < vert.size(); i++) {
+		mesh.addVertex(vert.at(i));
+	}
 	for (int i = 0; i < vertid.size() / 3; i++) {
-		mesh.addVertex(vert.at(i*3));
+		
 		mesh.addIndex(vertid.at(i*3));
 
-		mesh.addVertex(vert.at(i*3+1));
+		
 		mesh.addIndex(vertid.at(i*3+1));
 
-		mesh.addVertex(vert.at(i*3)+2);
-		mesh.addIndex(vertid.at(i*3)+2);
+		
+		mesh.addIndex(vertid.at(i*3+2));
 	}
 	
-	return ofMesh();
+	return mesh;
 }

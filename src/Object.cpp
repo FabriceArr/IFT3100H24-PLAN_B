@@ -85,8 +85,8 @@ void Object::draw()
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
 	}
 	else {
-		object_buffer;
-		//object_buffer.draw(GL_TRIANGLES, 0, )
+		int i = object_buffer.getNumIndices();
+		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
 }
 
