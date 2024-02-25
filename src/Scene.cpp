@@ -133,7 +133,8 @@ void Scene::createObject(bool i)
 {
 	if(i){
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
-			"cube")
+			"cube",
+			this->UI_fill_color.get())
 			, object_tree_head
 		));
 
@@ -141,16 +142,10 @@ void Scene::createObject(bool i)
 	else {
 
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
-			"plane")
+			"plane",
+			this->UI_fill_color.get())
 			, object_tree_head
 		));
-		/*ofxAssimpModelLoader* hold = createImportedObject3D(
-			"C:/Users/arroy/Documents/of_v0.12.0_vs_release/apps/IFT3100H24-PLAN_B/bin/data/plane.obj");
-
-		getSelectedObjectsNode()->add(new ObjNode(new Object(
-			hold->getMeshNames().at(0),
-			hold->getMesh(0)),
-			getSelectedObjectsNode()));*/
 	}
 }
 
@@ -207,6 +202,11 @@ void Scene::changeSelectedMatrice(ofMatrix3x3 change)
 
 		}
 	}
+}
+
+void Scene::updateFillColor(ofParameter<ofColor> colorparam)
+{
+	this->UI_fill_color = colorparam;
 }
 
 void Scene::updateSelectedObjects()
