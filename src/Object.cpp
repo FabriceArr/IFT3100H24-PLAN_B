@@ -49,10 +49,12 @@ Object::Object(string primitivetype, ofColor color)
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&cube_vertices_ids[0], 36, GL_STATIC_DRAW);
+		primitivesLimitBox(0);
 	}
 	else if (primitivetype == "plane") {
 		object_buffer.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&plane_vert_ids[0], 6, GL_STATIC_DRAW);
+		primitivesLimitBox(1);
 	}
 
 	ofFloatColor* holder = new ofFloatColor[object_buffer.getNumVertices()];
@@ -69,7 +71,6 @@ Object::Object(string primitivetype, ofColor color)
 
 	current_change = 0;
 	this->addChange(temp);
-
 	
 }
 
@@ -102,6 +103,8 @@ void Object::draw()
 		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
 	if (selected) {
+		ofBeginShape();
+
 		ofSetColor(232, 247, 14);
 		glPointSize(5);
 		limit_box.draw(GL_POINTS, 0, 8);
@@ -112,6 +115,8 @@ void Object::draw()
 		limit_box.drawElements(GL_LINES, limit_box.getNumIndices());
 		glLineWidth(0);
 		ofSetColor(255);
+
+		ofEndShape();
 	}
 }
 
@@ -198,6 +203,41 @@ bool Object::recoverChange()
 	else {
 		current_change++;
 		return true;
+	}
+}
+
+void Object::primitivesLimitBox(bool type) {
+	if (!type) {
+		GLuint vertices_ids[] =
+		{
+			0, 1,
+			0, 2,
+			1, 3,
+			1, 5,
+			2, 3,
+			2, 6,
+			3, 7,
+			4, 5,
+			4, 0,
+			5, 7,
+			6, 7,
+			6, 4
+		};
+
+		this->limit_box.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
+		this->limit_box.setIndexData(&vertices_ids[0], 24, GL_STATIC_DRAW);
+	}
+	else {
+		GLuint vertices_ids[] =
+		{
+			0, 1,
+			1, 3,
+			2, 3,
+			2, 0
+		};
+
+		this->limit_box.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
+		this->limit_box.setIndexData(&vertices_ids[0], 8, GL_STATIC_DRAW);
 	}
 }
 
