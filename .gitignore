@@ -81,3 +81,10 @@ IFT3100H24_planB.vcxproj
 .vs/IFT3100H24_planB/v16/Browse.VC.opendb
 .vs/IFT3100H24_planB/v16/Browse.VC.db-wal
 .vs/IFT3100H24_planB/v16/Browse.VC.db-shm
+*.png
+*.log
+obj/x64/Debug/vc142.pdb
+obj/x64/Debug/IFT3100H24_planB_debug.exe.recipe
+obj/x64/Debug/IFT3100H24_planB.tlog/unsuccessfulbuild
+bin/IFT3100H24_planB_debug.pdb
+.vs/IFT3100H24_planB/v16/.suo
