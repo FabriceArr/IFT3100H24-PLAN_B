@@ -32,12 +32,14 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	sub_level_selected = object_tree_head->getSubs();
 	//set at -1 puisque pas d'objet selectionner
 	selected_obj_ind = -1;
+
+	isOrtho = false;
 }
 
 void Scene::draw()
 {
-	ofDrawGrid(100, 12, false, false, true, false);
-
+	isOrtho ? ofDrawGrid(100, 12, false, false, false, true) :
+		ofDrawGrid(100, 12, false, false, true, false);
 
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
