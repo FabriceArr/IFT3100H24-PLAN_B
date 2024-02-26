@@ -225,7 +225,6 @@ void Renderer::exit()
 void Renderer::draw_cursor(float x, float y) const
 {
 
-
 	ofSetLineWidth(2);
 	if (mouse_button == 0)
 	{
@@ -253,18 +252,25 @@ void Renderer::draw_cursor(float x, float y) const
 	switch (draw_mode)
 	{
 	case VectorPrimitiveType::point:
+		ofFill();
+		ofDrawCircle(x + cursorSubOffset, y - cursorSubOffset, cursorLength / 5);
 		break;
 
 	case VectorPrimitiveType::line:
 		break;
 
 	case VectorPrimitiveType::rectangle:
+		ofNoFill();
+		ofDrawTriangle(
+			x + cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TR
+			x - cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TL
+			x + cursorSubOffset,					y + cursorLength / 2 - cursorSubOffset); //B
+		//ofDrawTriangle()
 		break;
 
 	case VectorPrimitiveType::ellipse:
 		ofNoFill();
 		ofDrawCircle(x + cursorSubOffset, y - cursorSubOffset, cursorLength /2);
-
 		break;
 
 	case VectorPrimitiveType::triangle:
