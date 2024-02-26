@@ -7,10 +7,12 @@
 class Object
 {
 private:
+	bool selected = true;
 	string name;
 	ofTexture texture;
-	ofVbo object_buffer;
+	ofVbo object_buffer, limit_box;
 	ofMatrix3x3 temp;
+	ofxAssimpModelLoader lmb;
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
@@ -40,5 +42,6 @@ public:
 	bool undoChange();
 	bool recoverChange();
 	
+	void customBox(ofMesh mesh);
 };
 
