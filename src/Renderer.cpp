@@ -44,8 +44,6 @@ void Renderer::draw()
 
 	ofPushMatrix();
 
-	ofDrawGrid(100, 12, false, false, true, false);
-
 	ofSetColor(255);
 
 	scene->draw();

@@ -36,6 +36,8 @@ private:
 	ofParameter<ofColor> UI_fill_color;
 
 public:
+	bool isOrtho;
+
 	//set all defaults and settings
 	void setup(const vector<ofParameter<float>*> UIposition, 
 		const vector<ofParameter<float>*> UIrot, 
