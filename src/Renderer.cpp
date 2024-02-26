@@ -257,6 +257,8 @@ void Renderer::draw_cursor(float x, float y) const
 		break;
 
 	case VectorPrimitiveType::line:
+		ofDrawLine(	x + cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset, //TL
+					x - cursorLength / 2 + cursorSubOffset, y + cursorLength / 2 - cursorSubOffset);//BR
 		break;
 
 	case VectorPrimitiveType::rectangle:
