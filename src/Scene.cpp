@@ -34,6 +34,8 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	selected_obj_ind = -1;
 
 	isOrtho = false;
+	wasDragging = false;
+
 }
 
 void Scene::draw()
