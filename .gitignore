@@ -88,3 +88,4 @@ obj/x64/Debug/IFT3100H24_planB_debug.exe.recipe
 obj/x64/Debug/IFT3100H24_planB.tlog/unsuccessfulbuild
 bin/IFT3100H24_planB_debug.pdb
 .vs/IFT3100H24_planB/v16/.suo
+bin/IFT3100H24_planB_debug.exe
