@@ -70,7 +70,7 @@ Object::Object(string primitivetype, ofColor color)
 	current_change = 0;
 	this->addChange(temp);
 
-
+	
 }
 
 Object::Object(string name, ofMesh mesh)
@@ -219,12 +219,7 @@ void Object::customBox(ofMesh mesh){
 		if (hold.z < min_z) { min_z = hold.z; }
 		if (hold.z > max_z) { max_z = hold.z; }
 	}
-	max_x += 1.0f;
-	max_y += 1.0f;
-	max_z += 1.0f;
-	min_x -= 1.0f;
-	min_y -= 1.0f;
-	min_z -= 1.0f;
+	
 	ofVec3f cube_vertices_custom[] =
 	{
 		ofVec3f(max_x ,  max_y, min_z),//0
@@ -252,8 +247,7 @@ void Object::customBox(ofMesh mesh){
 		6, 4
 	};
 
-	ofVbo limit_box;
-	limit_box.setVertexData(&cube_vertices_custom[0], 8, GL_STATIC_DRAW);
-	limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
+	this->limit_box.setVertexData(&cube_vertices_custom[0], 8, GL_STATIC_DRAW);
+	this->limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
 }
 
