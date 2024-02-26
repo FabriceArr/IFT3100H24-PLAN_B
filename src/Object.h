@@ -7,9 +7,10 @@
 class Object
 {
 private:
+	bool selected = true;
 	string name;
 	ofTexture texture;
-	ofVbo object_buffer;
+	ofVbo object_buffer, limit_box;
 	ofMatrix3x3 temp;
 
 	deque<ofMatrix3x3> changes_buffer;
@@ -40,5 +41,7 @@ public:
 	bool undoChange();
 	bool recoverChange();
 	
+	void primitivesLimitBox(bool type);
+	void customBox(ofMesh mesh);
 };
 
