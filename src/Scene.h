@@ -40,6 +40,8 @@ private:
 public:
 	bool animate;
 	bool isOrtho;
+	bool wasDragging;
+
 
 	//set all defaults and settings
 	void setup(const vector<ofParameter<float>*> UIposition, 
