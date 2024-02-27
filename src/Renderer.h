@@ -9,7 +9,8 @@ enum class VectorPrimitiveType
 	line,
 	rectangle,
 	ellipse,
-	triangle
+	triangle,
+	image
 };
 
 struct VectorPrimitive
@@ -33,7 +34,10 @@ private:
 	//ofCamera* cam;
 	ofMatrix4x4 viewM, projectM;
 
-	
+	const float cursorLength = 10.0f;
+	const float cursorOffset = 5.0f;
+	float cursorSubOffset = 5.0f;
+
 	bool has_changed;
 
 	
@@ -51,6 +55,7 @@ private:
 public:
 	std::vector<VectorPrimitive> shapes;
 	VectorPrimitiveType draw_mode;
+	ofImage imageImport;
 
 	int mouse_press_x;
 	int mouse_press_y;
