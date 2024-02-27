@@ -9,7 +9,8 @@ enum class VectorPrimitiveType
 	line,
 	rectangle,
 	ellipse,
-	triangle
+	triangle,
+	image
 };
 
 struct VectorPrimitive
