@@ -35,7 +35,10 @@ private:
 
 	ofParameter<ofColor> UI_fill_color;
 
+	ofShader anim_shader_rot, anim_shader_bob;
+
 public:
+	bool animate;
 	bool isOrtho;
 	bool wasDragging;
 

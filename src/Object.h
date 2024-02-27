@@ -15,7 +15,6 @@ private:
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
-
 	
 
 public:
