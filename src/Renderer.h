@@ -54,6 +54,7 @@ private:
 public:
 	std::vector<VectorPrimitive> shapes;
 	VectorPrimitiveType draw_mode;
+	ofImage imageImport;
 
 	float radius;
 
