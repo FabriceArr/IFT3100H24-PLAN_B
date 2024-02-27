@@ -4,7 +4,7 @@
 #include "Object.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
-#include "ClickTexture.h"
+//#include "ClickTexture.h"
 #include "ofxAssimpModelLoader.h"
 #include "OBJLoader.h"
 #include <vector>
@@ -29,7 +29,7 @@ private:
 
 	ObjNode* object_tree_head;
 
-	ClickTexture select_mode;
+	//ClickTexture select_mode;
 
 	ofxAssimpModelLoader mesh_loader;
 
