@@ -71,7 +71,7 @@ Object::Object(string primitivetype, ofColor color)
 
 	current_change = 0;
 	this->addChange(temp);
-	
+
 }
 
 Object::Object(string name, ofMesh mesh)
@@ -96,6 +96,7 @@ void Object::draw()
 {
 	
 	if (object_buffer.getNumIndices() > 0) {
+
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
 	}
 	else {

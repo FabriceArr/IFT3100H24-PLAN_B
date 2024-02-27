@@ -34,6 +34,9 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	selected_obj_ind = -1;
 
 	isOrtho = false;
+	animate = false;
+	//anim_shader_rot.load("rotateony_vs.glsl");
+	//bool i = anim_shader_rot.isLoaded();
 }
 
 void Scene::draw()
@@ -50,9 +53,7 @@ void Scene::draw()
 
 			//only apply transform if selected
 			//draw others normally
-
-			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
-
+			
 
 			PickingPhase(project_matrice, view_matrice);
 
@@ -96,7 +97,22 @@ void Scene::draw()
 			}
 			
 			//object is drawn
+			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
+			if (animate) {
+				//ofLog() << "Time: " << fmod((ofGetElapsedTimef() * 100), 360);
+				//ofLog() << "Time: " << sin(ofGetElapsedTimef());
+				ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
+				ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
+			}
 			(*it)->object->draw();
+
+			//object is drawn
+			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
+			if (animate) {
+				anim_shader_rot.end();
+				//anim_shader_bob.end();
+			}
+
 
 			ofPopMatrix();
 			
@@ -123,6 +139,9 @@ void Scene::exit()
 	UI_scale_output.clear();
 
 	delete sub_level_selected;
+
+	//anim_shader_rot.unload();
+	//anim_shader_bob.unload();
 
 }
 

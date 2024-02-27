@@ -64,13 +64,28 @@ void Application::draw()
 
 void Application::keyPressed(int key)
 {
-	
+	switch (key)
+	{
+	case '.':
+		//begins animation, resets elapsed time so it starts the transforms at 0
+		if (!scene.animate) {
+			ofResetElapsedTimeCounter();
+			scene.animate = true;
+		}
+		
+		break;
+	}
 }
 
 void Application::keyReleased(int key)
 {
 	switch (key)
 	{
+	case '.':
+		//ends animation, resets bool to be ready for next press
+		scene.animate = false;
+		break;
+
 	case OF_KEY_DEL:
 		scene.removeObject();
 		break;
