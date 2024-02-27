@@ -9,7 +9,8 @@ enum class VectorPrimitiveType
 	line,
 	rectangle,
 	ellipse,
-	triangle
+	triangle,
+	image
 };
 
 struct VectorPrimitive
@@ -54,6 +55,7 @@ private:
 public:
 	std::vector<VectorPrimitive> shapes;
 	VectorPrimitiveType draw_mode;
+	ofImage imageImport;
 
 	float radius;
 

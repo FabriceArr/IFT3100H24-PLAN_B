@@ -45,9 +45,10 @@ void Application::draw()
 		scene.findSelectedObject(5, 5); for the moment this makes the cam create an access violation
 	}*/
 	
-
 	
 	renderer.draw();
+	renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
+
 	cam.end();
 
 	interface.draw();
@@ -289,7 +290,10 @@ void Application::dragEvent(ofDragInfo dragInfo)
 {
 	ofLog() << "<app::ofDragInfo file[0]: " << dragInfo.files.at(0)
 		<< " at : " << dragInfo.position << ">";
+		
 
+	// importer le premier fichier déposé sur la fenêtre si c'est une image (attention : aucune validation du type de fichier)
+	renderer.imageImport.load(dragInfo.files.at(0));
 
 
 	for (std::vector<string>::iterator it = dragInfo.files.begin(); it != dragInfo.files.end(); it++)

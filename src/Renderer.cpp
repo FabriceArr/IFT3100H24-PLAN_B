@@ -282,6 +282,9 @@ void Renderer::draw_cursor(float x, float y) const
 
 		break;
 
+	case VectorPrimitiveType::image:
+		imageImport.draw(imageImport.getWidth() / -2, 0);
+		break;
 
 	default:
 		break;
