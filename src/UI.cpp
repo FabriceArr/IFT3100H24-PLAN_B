@@ -48,6 +48,22 @@ void UI::setup()
     interface.add(h_slider_stroke.set("Hue_stroke", 0, 0, 360));
     interface.add(s_slider_stroke.set("Saturation_stroke", 0, 0, 1));
     interface.add(v_slider_stroke.set("Value_stroke", 1, 0, 1));
+
+    group_point.setup("Primitive Vector Points");
+
+    // Setup for three points
+    group_point.add(intInputPoint1X.setup("Point 1 : x =", 0));
+    group_point.add(intInputPoint1Y.setup("Point 1 : y =", 0));
+    group_point.add(intInputPoint2X.setup("Point 2 : x =", 0));
+    group_point.add(intInputPoint2Y.setup("Point 2 : y =", 0));
+    group_point.add(intInputPoint3X.setup("Point 3 : x =", 0));
+    group_point.add(intInputPoint3Y.setup("Point 3 : y =", 0));
+
+    // Setup for radius
+    group_point.add(intInputRadiusX.setup("radius : x =", 3));
+    group_point.add(intInputRadiusY.setup("radius : y =", 3));
+
+    interface.add(&group_point);
 	
     // Ajoutez des callbacks pour les sliders RGB
     fill_color_slider.addListener(this, &UI::fillColorRGBChanged);
@@ -76,6 +92,7 @@ void UI::setup()
 	scale_sliders_pointer.push_back(scale_slider_group.y);
 	scale_sliders_pointer.push_back(scale_slider_group.z);
 
+    
 }
 
 void UI::update()
@@ -85,7 +102,34 @@ void UI::update()
 void UI::draw()
 {
 	interface.draw();
-	
+}
+
+const ofVec3f* UI::getPoint1Values()
+{
+    point1_values.x = intInputPoint1X;
+    point1_values.y = intInputPoint1Y;
+    return &point1_values;
+}
+
+const ofVec3f* UI::getPoint2Values()
+{
+    point2_values.x = intInputPoint2X;
+    point2_values.y = intInputPoint2Y;
+    return &point2_values;
+}
+
+const ofVec3f* UI::getPoint3Values()
+{
+    point3_values.x = intInputPoint3X;
+    point3_values.y = intInputPoint3Y;
+    return &point3_values;
+}
+
+const ofVec3f* UI::getRadiusValues()
+{
+    radius_values.x = intInputRadiusX;
+    radius_values.y = intInputRadiusY;
+    return &radius_values;
 }
 
 const vector<ofParameter<float>*> UI::getPositionSliderValues() {

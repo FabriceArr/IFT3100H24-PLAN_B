@@ -54,9 +54,30 @@ private:
 	ofParameter<float> h_slider_stroke;
 	ofParameter<float> s_slider_stroke;
 	ofParameter<float> v_slider_stroke;
+	
 
 	hsv rgbToHSV(ofColor color);
 	ofColor hsvToRGB(hsv hsvColor);
+
+	ofxIntField intInputPoint1X;
+	ofxIntField intInputPoint1Y;
+	ofxIntField intInputPoint1Z;
+	ofxIntField intInputPoint2X;
+	ofxIntField intInputPoint2Y;
+	ofxIntField intInputPoint2Z;
+	ofxIntField intInputPoint3X;
+	ofxIntField intInputPoint3Y;
+	ofxIntField intInputPoint3Z;
+
+	ofxIntField intInputRadiusX;
+	ofxIntField intInputRadiusY;
+
+	ofVec3f point1_values;
+	ofVec3f point2_values;
+	ofVec3f point3_values;
+	ofVec3f radius_values;
+
+	ofxGuiGroup group_point;
 
 	void fillColorRGBChanged(ofColor& color);
 	void strokeColorRGBChanged(ofColor& color);
@@ -77,6 +98,12 @@ public:
 	void exit();
 
 	void changeFocus(const Object* Object = nullptr);
+
+	const ofVec3f* UI::getPoint1Values();
+	const ofVec3f* UI::getPoint2Values();
+	const ofVec3f* UI::getPoint3Values();
+
+	const ofVec3f* UI::getRadiusValues();
 
 	const vector<ofParameter<float>*> getPositionSliderValues();
 	const vector<ofParameter<float>*> getRotationSliderValues();
