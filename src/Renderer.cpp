@@ -263,11 +263,9 @@ void Renderer::draw_cursor(float x, float y) const
 
 	case VectorPrimitiveType::rectangle:
 		ofNoFill();
-		ofDrawTriangle(
-			x + cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TR
-			x - cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TL
-			x + cursorSubOffset,					y + cursorLength / 2 - cursorSubOffset); //B
-		//ofDrawTriangle()
+		ofDrawRectangle(glm::vec2(x + 2*cursorSubOffset, y - 2*cursorSubOffset),
+			-cursorSubOffset, cursorSubOffset);
+
 		break;
 
 	case VectorPrimitiveType::ellipse:
@@ -276,6 +274,12 @@ void Renderer::draw_cursor(float x, float y) const
 		break;
 
 	case VectorPrimitiveType::triangle:
+		ofNoFill();
+		ofDrawTriangle(
+			x + cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TR
+			x - cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TL
+			x + cursorSubOffset, y + cursorLength / 2 - cursorSubOffset); //B
+
 		break;
 
 
