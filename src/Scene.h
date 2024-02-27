@@ -37,6 +37,8 @@ private:
 
 public:
 	bool isOrtho;
+	bool wasDragging;
+
 
 	//set all defaults and settings
 	void setup(const vector<ofParameter<float>*> UIposition, 

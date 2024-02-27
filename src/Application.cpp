@@ -19,6 +19,7 @@ void Application::setup()
 	renderer.setup(&scene);
 	cam.setOrientation(DEFAULTVIEW);
 	isGrabReq = false;
+	isMouseDragRealease = false;
 }
 
 void Application::update()
@@ -30,6 +31,8 @@ void Application::update()
 	scene.updateFillColor(interface.getFillColorSlider());
 
 	renderer.update();
+	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;
+
 }
 
 void Application::draw()
@@ -213,18 +216,19 @@ void Application::mouseMoved(int x, int y)
 {
 	renderer.mouse_current_x = x;
 	renderer.mouse_current_y = y;
+	//isMouseDragRealease = renderer.mouse_pressed;
 }
 
 void Application::mouseDragged(int x, int y, int button)
 {
 	renderer.mouse_current_x = x;
 	renderer.mouse_current_y = y;
+	scene.wasDragging = true;
 }
 
 void Application::mousePressed(int x, int y, int button)
 {
 
-	
 	//make sure that when you get a value from this, your logic isnt faulty and takes an old released number
 	renderer.mouse_release_x = -1;
 	renderer.mouse_release_y = -1;
@@ -243,7 +247,7 @@ void Application::mousePressed(int x, int y, int button)
 
 void Application::mouseReleased(int x, int y, int button)
 {
-	
+
 	renderer.mouse_pressed = false;
 	renderer.mouse_released = true;
 
@@ -257,7 +261,12 @@ void Application::mouseReleased(int x, int y, int button)
 	renderer.mouse_current_y = y;
 
 	// Appel de la fonction add_vector_shape avec les positions spécifiées
-	renderer.add_vector_shape(renderer.draw_mode, x, y, x - 50, y - 100, x + 50, y - 100, ofRandom(10, 250), ofRandom(10, 250));
+	if (!scene.wasDragging)
+	{
+		renderer.add_vector_shape(renderer.draw_mode, x, y, x - 50, y - 100, x + 50, y - 100, ofRandom(10, 250), ofRandom(10, 250));
+	}		
+	scene.wasDragging = false;
+
 }
 
 void Application::mouseEntered(int x, int y)

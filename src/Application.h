@@ -24,6 +24,7 @@ public:
 	ofEasyCam cam; // add mouse controls for camera movement
 	glm::quat camOrientPersp;
 	ofImage image;
+	bool isMouseDragRealease;
 
 	void setup();
 	void update();
@@ -46,6 +47,8 @@ public:
 	void drawInteractionArea();
 
 	void mouser(int x, int y, int button);
+	void mouseDragRelease();
+
 	ofxPanel test;
 
 };
