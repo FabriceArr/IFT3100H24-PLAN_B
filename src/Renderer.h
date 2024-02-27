@@ -52,8 +52,6 @@ public:
 	std::vector<VectorPrimitive> shapes;
 	VectorPrimitiveType draw_mode;
 
-	float radius;
-
 	int mouse_press_x;
 	int mouse_press_y;
 	int mouse_release_x;
@@ -93,9 +91,11 @@ public:
 	void exit();
 	void removeLastShape();
 
-	void setStrokeWidth(float strokeWidth);
-
 	void image_export(const string name, const string extension);
+
+	void Renderer::add_vector_cross(ofVec3f point1, ofVec3f point2);
+	void Renderer::add_vector_house(ofVec3f point1, ofVec3f point2, ofVec3f point3);
+	void Renderer::add_vector_flower(ofVec3f point1, ofVec3f radius);
 
 };
 

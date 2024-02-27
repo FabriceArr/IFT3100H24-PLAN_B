@@ -27,6 +27,10 @@ void Application::update()
 	renderer.fillcolor = interface.getFillColorSlider();
 	renderer.strokecolor = interface.getStrokeColorSlider();
 	renderer.stroke_weight = interface.getStrokeWidthSlider();
+	point1 = *interface.getPoint1Values();
+	point2 = *interface.getPoint2Values();
+	point3 = *interface.getPoint3Values();
+	radius = *interface.getRadiusValues();
 	scene.updateFillColor(interface.getFillColorSlider());
 
 	renderer.update();
@@ -138,43 +142,15 @@ void Application::keyReleased(int key)
 		break;
 
 	case 'm':
-		// Appel au Renderer pour dessiner un rectangle
-		renderer.add_vector_shape(VectorPrimitiveType::rectangle, 0, 0, 200, 200, 0, 0, 0, 0);
-
-		// Appel au Renderer pour dessiner un triangle
-		renderer.add_vector_shape(VectorPrimitiveType::triangle, 0, 200, 100, 300, 200, 200, 0, 0);
-
-		// Appel au Renderer pour dessiner un rectangle
-		renderer.add_vector_shape(VectorPrimitiveType::rectangle, 125, 0, 175, 125, 0, 0, 0, 0);
+		renderer.add_vector_house(point1, point2, point3);
 		break;
 
 	case 'c':
-		renderer.add_vector_shape(VectorPrimitiveType::line, 0, 0, 200, 200, 0, 0, 0, 0);
-		renderer.add_vector_shape(VectorPrimitiveType::line, 0, 200, 200, 0, 0, 0, 0, 0);
-		break;
-
-	case 'e':
-		renderer.add_vector_shape(VectorPrimitiveType::ellipse, 250, 250, 0, 0, 0, 0, 500, 500);
-		renderer.add_vector_shape(VectorPrimitiveType::line, 150, 125, 350, 125, 0, 0, 0, 0);
-		renderer.add_vector_shape(VectorPrimitiveType::line, 350, 275, 350, 375, 0, 0, 0, 0);
-		renderer.add_vector_shape(VectorPrimitiveType::line, 150, 275, 150, 375, 0, 0, 0, 0);
+		renderer.add_vector_cross(point1, point2);
 		break;
 
 	case 't':
-		renderer.add_vector_shape(VectorPrimitiveType::ellipse, 0, 50, 0, 0, 0, 0, 100, 100);
-		renderer.add_vector_shape(VectorPrimitiveType::ellipse, 50, 0, 0, 0, 0, 0, 100, 100);
-		renderer.add_vector_shape(VectorPrimitiveType::ellipse, 0, -50, 0, 0, 0, 0, 100, 100);
-		renderer.add_vector_shape(VectorPrimitiveType::ellipse, -50, 0, 0, 0, 0, 0,100, 100);
-		renderer.add_vector_shape(VectorPrimitiveType::point, 0, 0, 0, 0, 0, 0, 0, 0);
-		break;
-
-	case 'a': 
-		renderer.add_vector_shape(VectorPrimitiveType::triangle, 100, 0, 0, 200, 200, 200, 0, 0);
-		renderer.add_vector_shape(VectorPrimitiveType::triangle, 0, 200, 100, 200, 50, 250, 0, 0);
-		renderer.add_vector_shape(VectorPrimitiveType::triangle, 100, 200, 200, 200, 150, 250, 0, 0);
-		renderer.add_vector_shape(VectorPrimitiveType::point, 100, 0, 0, 0, 0, 0, 0, 0);
-		renderer.add_vector_shape(VectorPrimitiveType::point, 50, 150, 0, 0, 0, 0, 0, 0);
-		renderer.add_vector_shape(VectorPrimitiveType::point, 150, 150, 0, 0, 0, 0, 0, 0);
+		renderer.add_vector_flower(point1, radius);
 		break;
 
 	case 114: // key r
@@ -257,7 +233,7 @@ void Application::mouseReleased(int x, int y, int button)
 	renderer.mouse_current_y = y;
 
 	// Appel de la fonction add_vector_shape avec les positions spécifiées
-	renderer.add_vector_shape(renderer.draw_mode, x, y, x - 50, y - 100, x + 50, y - 100, ofRandom(10, 250), ofRandom(10, 250));
+	renderer.add_vector_shape(renderer.draw_mode, point1.x, point1.y, point2.x, point3.y, point3.x, point3.y , radius.x, radius.y);
 }
 
 void Application::mouseEntered(int x, int y)

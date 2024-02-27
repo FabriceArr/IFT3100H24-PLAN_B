@@ -18,6 +18,13 @@ private:
 		glm::quat(1,0,0,0);
 		bool isGrabReq;
 
+
+
+		ofVec3f point1;
+		ofVec3f point2;
+		ofVec3f point3;
+		ofVec3f radius;
+
 public:
 	Renderer renderer;
 	Scene scene;

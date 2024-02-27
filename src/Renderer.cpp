@@ -32,7 +32,6 @@ void Renderer::setup(Scene* sce)
 
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 
-	radius = 4.0f;
 	//this->cam = cam;
 
 	saveNumber = 1;
@@ -137,6 +136,7 @@ void Renderer::add_vector_shape(VectorPrimitiveType type, float x1, float y1, fl
 
 	newShape.radiusx = radiusx;
 	newShape.radiusy = radiusy;
+
 
 
 	newShape.stroke_color = strokecolor;
@@ -273,4 +273,22 @@ void Renderer::image_export(const string name, const string extension)
 	imageExport.save(file_name);
 	ofLog() << "<export image: " << file_name << ">";
 
+}
+
+void Renderer::add_vector_house(ofVec3f point1, ofVec3f point2, ofVec3f point3) {
+	add_vector_shape(VectorPrimitiveType::rectangle, point1.x, point1.y, point2.x, point2.y, 0, 0, 0, 0);
+	add_vector_shape(VectorPrimitiveType::triangle, point1.x, point2.y, point3.x, point3.y, point2.x, point2.y, 0, 0);
+}
+
+void Renderer::add_vector_cross(ofVec3f point1, ofVec3f point2) {
+	add_vector_shape(VectorPrimitiveType::line, point1.x, point1.y, point2.x, point2.y, 0, 0, 0, 0);
+	add_vector_shape(VectorPrimitiveType::line, point1.x, point2.y, point2.x, point1.y, 0, 0, 0, 0);
+
+}
+
+void Renderer::add_vector_flower(ofVec3f point1, ofVec3f radius) {
+	add_vector_shape(VectorPrimitiveType::ellipse, point1.x, point1.y, 0, 0, 0, 0, radius.x, radius.x);
+	add_vector_shape(VectorPrimitiveType::ellipse, point1.x + (radius.x / 2), point1.y, 0, 0, 0, 0, radius.x, radius.x);
+	add_vector_shape(VectorPrimitiveType::ellipse, point1.x + (radius.x / 2), point1.y - (radius.x / 2), 0, 0, 0, 0, radius.x, radius.x);
+	add_vector_shape(VectorPrimitiveType::ellipse, point1.x , point1.y - (radius.x / 2), 0, 0, 0, 0, radius.x, radius.x);
 }
