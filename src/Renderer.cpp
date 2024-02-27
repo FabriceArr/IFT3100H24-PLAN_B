@@ -6,8 +6,8 @@
 void Renderer::setup(Scene* sce)
 {
 	// Initialisation du vecteur
-	shapes.clear(); // Assurez-vous que le vecteur est vide au dÃ©but
-	shapes.reserve(100); // RÃ©servez de l'espace pour 100 Ã©lÃ©ments si nÃ©cessaire
+	shapes.clear(); // Assurez-vous que le vecteur est vide au début
+	shapes.reserve(100); // Réservez de l'espace pour 100 éléments si nécessaire
 
 	mouse_release_button = mouse_button = 10; // set mouse button to none
 	cursorSubOffset += cursorOffset;
@@ -37,6 +37,7 @@ void Renderer::setup(Scene* sce)
 	//this->cam = cam;
 
 	saveNumber = 1;
+	//imageImport.allocate(0,0,OF_IMAGE_COLOR);
 }
 
 void Renderer::draw()

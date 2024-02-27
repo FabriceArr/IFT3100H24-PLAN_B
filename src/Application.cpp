@@ -47,7 +47,8 @@ void Application::draw()
 	
 	
 	renderer.draw();
-	renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
+	if(renderer.imageImport.isAllocated())
+		renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
 
 	cam.end();
 
