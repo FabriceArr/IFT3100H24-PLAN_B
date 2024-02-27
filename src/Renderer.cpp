@@ -10,6 +10,7 @@ void Renderer::setup(Scene* sce)
 	shapes.reserve(100); // RÃ©servez de l'espace pour 100 Ã©lÃ©ments si nÃ©cessaire
 
 	mouse_release_button = mouse_button = 10; // set mouse button to none
+	cursorSubOffset += cursorOffset;
 
 	//ofHideCursor();
 
@@ -223,9 +224,6 @@ void Renderer::exit()
 
 void Renderer::draw_cursor(float x, float y) const
 {
-	float length = 10.0f;
-	float offset = 5.0f;
-
 
 	ofSetLineWidth(2);
 	if (mouse_button == 0)
@@ -233,10 +231,10 @@ void Renderer::draw_cursor(float x, float y) const
 		// left mouse button pressed down
 		ofSetColor(255);
 
-		ofDrawLine(x - offset - length, y - offset - length, x - offset, y - offset); //TL
-		ofDrawLine(x - offset - length, y + offset + length, x - offset, y + offset); //BL
-		ofDrawLine(x + offset + length, y - offset - length, x + offset, y - offset); // TR
-		ofDrawLine(x + offset + length, y + offset + length, x + offset, y + offset); // BR
+		ofDrawLine(x - cursorOffset - cursorLength, y - cursorOffset - cursorLength, x - cursorOffset, y - cursorOffset); //TL
+		ofDrawLine(x - cursorOffset - cursorLength, y + cursorOffset + cursorLength, x - cursorOffset, y + cursorOffset); //BL
+		ofDrawLine(x + cursorOffset + cursorLength, y - cursorOffset - cursorLength, x + cursorOffset, y - cursorOffset); // TR
+		ofDrawLine(x + cursorOffset + cursorLength, y + cursorOffset + cursorLength, x + cursorOffset, y + cursorOffset); // BR
 
 	}
 	else		// no mouse button pressed
@@ -245,12 +243,50 @@ void Renderer::draw_cursor(float x, float y) const
 		// if hovering above selecable object
 		ofSetColor(isSelectable ? 256: 31 );
 
-		ofDrawLine(x + offset, y, x + offset + length, y);
-		ofDrawLine(x - offset, y, x - offset - length, y);
-		ofDrawLine(x, y + offset, x, y + offset + length);
-		ofDrawLine(x, y - offset, x, y - offset - length);
+		ofDrawLine(x + cursorOffset, y, x + cursorOffset + cursorLength, y);
+		ofDrawLine(x - cursorOffset, y, x - cursorOffset - cursorLength, y);
+		ofDrawLine(x, y + cursorOffset, x, y + cursorOffset + cursorLength);
+		ofDrawLine(x, y - cursorOffset, x, y - cursorOffset - cursorLength);
 
 	}
+	switch (draw_mode)
+	{
+	case VectorPrimitiveType::point:
+		ofFill();
+		ofDrawCircle(x + cursorSubOffset, y - cursorSubOffset, cursorLength / 5);
+		break;
+
+	case VectorPrimitiveType::line:
+		ofDrawLine(	x + cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset, //TL
+					x - cursorLength / 2 + cursorSubOffset, y + cursorLength / 2 - cursorSubOffset);//BR
+		break;
+
+	case VectorPrimitiveType::rectangle:
+		ofNoFill();
+		ofDrawRectangle(glm::vec2(x + 2*cursorSubOffset, y - 2*cursorSubOffset),
+			-cursorSubOffset, cursorSubOffset);
+
+		break;
+
+	case VectorPrimitiveType::ellipse:
+		ofNoFill();
+		ofDrawCircle(x + cursorSubOffset, y - cursorSubOffset, cursorLength /2);
+		break;
+
+	case VectorPrimitiveType::triangle:
+		ofNoFill();
+		ofDrawTriangle(
+			x + cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TR
+			x - cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TL
+			x + cursorSubOffset, y + cursorLength / 2 - cursorSubOffset); //B
+
+		break;
+
+
+	default:
+		break;
+	}
+
 
 }
 
