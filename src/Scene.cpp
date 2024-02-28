@@ -79,6 +79,22 @@ void Scene::draw()
 					*UI_scale_output.at(0) * (*it)->object->getCurrentChangeM().g,
 					*UI_scale_output.at(1) * (*it)->object->getCurrentChangeM().h,
 					*UI_scale_output.at(2) * (*it)->object->getCurrentChangeM().i);
+
+				//object is drawn
+			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
+				if (animate) {
+					//ofLog() << "Time: " << fmod((ofGetElapsedTimef() * 100), 360);
+					//ofLog() << "Time: " << sin(ofGetElapsedTimef());
+					ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
+					ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
+					anim_shader_rot.setUniform1f("time", fmod((ofGetElapsedTimef() * 100), 360));
+					//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
+
+					//anim_shader_rot.begin();
+					//anim_shader_bob.begin();
+				}
+				//draws the object with the selection box
+				(*it)->object->draw(true);
 			}
 			//not the selected object, then we apply the 
 			else {
@@ -96,26 +112,16 @@ void Scene::draw()
 					(*it)->object->getCurrentChangeM().g,
 					(*it)->object->getCurrentChangeM().h,
 					(*it)->object->getCurrentChangeM().i);
+				//draws the object without the selection box
+				(*it)->object->draw(false);
 			}
 			
-			//object is drawn
-			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
-			if (animate) {
-				//ofLog() << "Time: " << fmod((ofGetElapsedTimef() * 100), 360);
-				//ofLog() << "Time: " << sin(ofGetElapsedTimef());
-				ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
-				ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
-				anim_shader_rot.setUniform1f("time", fmod((ofGetElapsedTimef() * 100), 360));
-				//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
-
-				//anim_shader_rot.begin();
-				//anim_shader_bob.begin();
-			}
-			(*it)->object->draw();
+			
+			
 
 			//object is drawn
 			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
-			if (animate) {
+			if (animate && (*it)->object == getSelectedObjects()) {
 				//anim_shader_rot.end();
 				//anim_shader_bob.end();
 			}
@@ -256,7 +262,7 @@ void Scene::removeObject()
 	if (getSelectedObjects() != nullptr) {
 		sub_level_selected->at(selected_obj_ind)->remove();
 		sub_level_selected->erase(sub_level_selected->begin() + selected_obj_ind);
-		selected_obj_ind = -1;
+		deSelectObject();
 	}
 	
 }
@@ -353,6 +359,27 @@ void Scene::savechange()
 		getSelectedObjects()->addChange(info);
 	}
 }
+
+void Scene::undoChange()
+{
+	if (getSelectedObjects() != nullptr) {
+
+		getSelectedObjects()->undoChange();
+	}
+}
+
+void Scene::redoChange()
+{
+	if (getSelectedObjects() != nullptr) {
+
+		getSelectedObjects()->recoverChange();
+	}
+}
+
+
+
+
+
 
 void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 {

@@ -92,7 +92,7 @@ Object::~Object()
 	
 }
 
-void Object::draw()
+void Object::draw(bool highlight)
 {
 	
 	if (object_buffer.getNumIndices() > 0) {
@@ -103,7 +103,8 @@ void Object::draw()
 		int i = object_buffer.getNumIndices();
 		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
-	if (selected) {
+	if (highlight) {
+		//draw the box
 		ofBeginShape();
 
 		ofSetColor(232, 247, 14);

@@ -22,7 +22,7 @@ public:
 	Object(string name, ofMesh mesh);
 	~Object();
 
-	void draw();
+	void draw(bool highlight);
 
 	string* getName();
 	void setName(string name);
