@@ -299,10 +299,12 @@ void Object::customBox(ofMesh mesh){
 
 bool Object::isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b) {
 	for (int i = 0; i < 9; i++) {
-		if (a[i] == b[i]) {
-			return true;
+		float tempa = a[i];
+		float tempb = b[i];
+		if (a[i] != b[i]) {
+			return false;
 		}
 	}
-	return false;
+	return true;
 
 }
