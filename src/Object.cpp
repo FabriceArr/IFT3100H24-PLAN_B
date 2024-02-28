@@ -69,7 +69,7 @@ Object::Object(string primitivetype, ofColor color)
 
 	temp.g = temp.h = temp.i = 1;
 	
-	current_change = 1;
+	current_change = 0;
 	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
 }
 
@@ -80,7 +80,7 @@ Object::Object(string name, ofMesh mesh)
 	temp.g = temp.h = temp.i = 1;
 	
 
-	current_change = 1;
+	current_change = 0;
 	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
 
 	customBox(mesh);
@@ -183,13 +183,13 @@ ofMatrix3x3 Object::getCurrentChangeM()
 		ofMatrix3x3 i;
 		return i;
 	}
-	return (changes_buffer.at(current_change - 1));
+	return (changes_buffer.at(current_change));
 }
 
 bool Object::undoChange()
 {
 	//no more changes to undo, first change is default location
-	if (current_change == 1) {
+	if (current_change == 0) {
 		return false;
 	}
 	else {
