@@ -83,15 +83,15 @@ void Scene::draw()
 				//object is drawn
 			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
 				if (animate) {
-					//ofLog() << "Time: " << fmod((ofGetElapsedTimef() * 100), 360);
-					//ofLog() << "Time: " << sin(ofGetElapsedTimef());
 					ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 					ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
-					anim_shader_rot.setUniform1f("time", fmod((ofGetElapsedTimef() * 100), 360));
-					//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
+					
 
 					//anim_shader_rot.begin();
 					//anim_shader_bob.begin();
+
+					//anim_shader_rot.setUniform1f("time", fmod((ofGetElapsedTimef() * 100), 360));
+					//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
 				}
 				//draws the object with the selection box
 				(*it)->object->draw(true);
