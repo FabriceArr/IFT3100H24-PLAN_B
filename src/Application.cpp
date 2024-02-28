@@ -78,6 +78,7 @@ void Application::keyPressed(int key)
 	case '.':
 		//begins animation, resets elapsed time so it starts the transforms at 0
 		if (!scene.animate) {
+			saveSceneChanges();
 			ofResetElapsedTimeCounter();
 			scene.animate = true;
 		}
@@ -96,43 +97,45 @@ void Application::keyReleased(int key)
 		break;
 
 	case OF_KEY_DEL:
+		saveSceneChanges();
 		scene.removeObject();
 		break;
 
 	case OF_KEY_END:
-		scene.savechange();
-		interface.setPositionSliderValues();
-		interface.setRotationSliderValues();
-		interface.setScaleSliderValues();
+		saveSceneChanges();
 		break;
 
-	case 100: //d in ascii 
+	case 'd':
 		scene.updateFillColor(interface.getFillColorSlider());
 		scene.createObject(0);
 		break;
 
-	case 102: //f in ascii 
-		ofLog() << "object deleted test";
+	case 'f':
+		scene.updateFillColor(interface.getFillColorSlider());
 		scene.createObject(1);
 		break;
 
 	case OF_KEY_RIGHT:
 		ofLog() << "next object select ordered";
+		saveSceneChanges();
 		scene.selectNextObject();
 		break;
 
 	case OF_KEY_LEFT:
 		ofLog() << "previous object select ordered";
+		saveSceneChanges();
 		scene.selectPreviousObject();
 		break;
 
 	case OF_KEY_UP:
 		ofLog() << "previous object select ordered";
+		saveSceneChanges();
 		scene.selectParentObject();
 		break;
 
 	case OF_KEY_DOWN:
 		ofLog() << "previous object select ordered";
+		saveSceneChanges();
 		scene.selectSubsObject();
 		break;
 
@@ -317,7 +320,11 @@ void Application::drawInteractionArea()
 	
 }
 
-void Application::mouser(int x, int y, int button) {
 
+void Application::saveSceneChanges() {
+	scene.savechange();
+	interface.setPositionSliderValues();
+	interface.setRotationSliderValues();
+	interface.setScaleSliderValues();
 }
 

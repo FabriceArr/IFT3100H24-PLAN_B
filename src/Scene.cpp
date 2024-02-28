@@ -51,7 +51,6 @@ void Scene::draw()
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
 	{
-		ofLog() << object_tree_head->getSubs()->size();
 		if (*it) {
 
 			//only apply transform if selected
@@ -199,17 +198,6 @@ void Scene::createImportedObject3D(string path) {
 
 }
 
-
-void Scene::moveObject(unsigned int object_id, ofVec3f position_change)
-{
-	//apply changes to object mesh permanently 
-}
-
-void Scene::rotateObject(unsigned int object_id, ofVec3f rotation_change)
-{
-	//apply changes to object mesh permanently 
-}
-
 void Scene::changeSelectedMatrice(ofMatrix3x3 change)
 {
 	//updates the selected object to be stored in the fonction setting to make the if work
@@ -268,6 +256,7 @@ void Scene::removeObject()
 	if (getSelectedObjects() != nullptr) {
 		sub_level_selected->at(selected_obj_ind)->remove();
 		sub_level_selected->erase(sub_level_selected->begin() + selected_obj_ind);
+		selected_obj_ind = -1;
 	}
 	
 }
