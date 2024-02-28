@@ -80,6 +80,9 @@ public:
 
 	void savechange();
 
+	void undoChange();
+	void redoChange();
+
 	void draw();
 
 	void drawSubObjects(std::vector<Object*>* subVector);

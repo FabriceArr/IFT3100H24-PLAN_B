@@ -256,7 +256,7 @@ void Scene::removeObject()
 	if (getSelectedObjects() != nullptr) {
 		sub_level_selected->at(selected_obj_ind)->remove();
 		sub_level_selected->erase(sub_level_selected->begin() + selected_obj_ind);
-		selected_obj_ind = -1;
+		deSelectObject();
 	}
 	
 }
@@ -353,6 +353,27 @@ void Scene::savechange()
 		getSelectedObjects()->addChange(info);
 	}
 }
+
+void Scene::undoChange()
+{
+	if (getSelectedObjects() != nullptr) {
+
+		getSelectedObjects()->undoChange();
+	}
+}
+
+void Scene::redoChange()
+{
+	if (getSelectedObjects() != nullptr) {
+
+		getSelectedObjects()->recoverChange();
+	}
+}
+
+
+
+
+
 
 void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 {

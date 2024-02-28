@@ -96,6 +96,16 @@ void Application::keyReleased(int key)
 		scene.animate = false;
 		break;
 
+	case OF_KEY_PAGE_UP:
+		saveSceneChanges();
+		scene.redoChange();
+		break;
+
+	case OF_KEY_PAGE_DOWN:
+		saveSceneChanges();
+		scene.undoChange();
+		break;
+
 	case OF_KEY_DEL:
 		saveSceneChanges();
 		scene.removeObject();
@@ -327,4 +337,3 @@ void Application::saveSceneChanges() {
 	interface.setRotationSliderValues();
 	interface.setScaleSliderValues();
 }
-
