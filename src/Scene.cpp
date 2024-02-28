@@ -26,7 +26,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	UI_scale_output.push_back(UIscale.at(1));//y
 	UI_scale_output.push_back(UIscale.at(2));//z
 
-	select_mode.Init(ofGetWindowWidth(), ofGetWindowHeight());
+	//select_mode.Init(ofGetWindowWidth(), ofGetWindowHeight());
 
 	//the default object level selection is the scene
 	sub_level_selected = object_tree_head->getSubs();
@@ -37,8 +37,9 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	wasDragging = false;
 
 	animate = false;
-	//anim_shader_rot.load("rotateony_vs.glsl");
-	//bool i = anim_shader_rot.isLoaded();
+	//ofSetLogLevel(OF_LOG_VERBOSE);
+	//anim_shader_rot.load("rotateony");
+	//anim_shader_bob.load("bobony");
 }
 
 void Scene::draw()
@@ -50,7 +51,6 @@ void Scene::draw()
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
 	{
-		ofLog() << object_tree_head->getSubs()->size();
 		if (*it) {
 
 			//only apply transform if selected
@@ -105,13 +105,18 @@ void Scene::draw()
 				//ofLog() << "Time: " << sin(ofGetElapsedTimef());
 				ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 				ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
+				anim_shader_rot.setUniform1f("time", fmod((ofGetElapsedTimef() * 100), 360));
+				//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
+
+				//anim_shader_rot.begin();
+				//anim_shader_bob.begin();
 			}
 			(*it)->object->draw();
 
 			//object is drawn
 			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
 			if (animate) {
-				anim_shader_rot.end();
+				//anim_shader_rot.end();
 				//anim_shader_bob.end();
 			}
 
@@ -142,8 +147,8 @@ void Scene::exit()
 
 	delete sub_level_selected;
 
-	//anim_shader_rot.unload();
-	//anim_shader_bob.unload();
+	anim_shader_rot.unload();
+	anim_shader_bob.unload();
 
 }
 
@@ -191,17 +196,6 @@ void Scene::createImportedObject3D(string path) {
 	
 	
 
-}
-
-
-void Scene::moveObject(unsigned int object_id, ofVec3f position_change)
-{
-	//apply changes to object mesh permanently 
-}
-
-void Scene::rotateObject(unsigned int object_id, ofVec3f rotation_change)
-{
-	//apply changes to object mesh permanently 
 }
 
 void Scene::changeSelectedMatrice(ofMatrix3x3 change)
@@ -262,6 +256,7 @@ void Scene::removeObject()
 	if (getSelectedObjects() != nullptr) {
 		sub_level_selected->at(selected_obj_ind)->remove();
 		sub_level_selected->erase(sub_level_selected->begin() + selected_obj_ind);
+		selected_obj_ind = -1;
 	}
 	
 }
@@ -390,7 +385,7 @@ void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
 
 void Scene::findSelectedObject(int x, int y) {
 	//need to invert the y since the coord of textures are opeosite of the ones of screen pixels
-	ofLog() << select_mode.ReadPixel(x, ofGetWindowHeight() - y - 1);
+	//ofLog() << select_mode.ReadPixel(x, ofGetWindowHeight() - y - 1);
 }
 
 

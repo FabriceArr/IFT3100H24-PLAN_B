@@ -53,8 +53,10 @@ public:
 	
 	void drawInteractionArea();
 
-	void mouser(int x, int y, int button);
+	void saveSceneChanges();
+
 	void mouseDragRelease();
+
 
 	ofxPanel test;
 
