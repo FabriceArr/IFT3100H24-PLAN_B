@@ -154,20 +154,23 @@ bool Object::operator==(const Object& a) {
 
 void Object::addChange(ofMatrix3x3 mat)
 {
-	//current change isnt the newest, so clean the top until it meets the current change, discarting previous ones
-	if (current_change != changes_buffer.size()-1) {
-		for (size_t i = 0; i < (changes_buffer.size() - current_change); i++)
-		{
-			changes_buffer.pop_back();
-		}
-	}
-
-
-	if (changes_buffer.size() == MAXCHANGEBUFFERSIZE) {
-		changes_buffer.pop_front();
-	}
+	//if the mat presented is the same as current one, all actions are ignored
 	if(!isSameMatrix(mat, getCurrentChangeM()))
 	{
+		//current change isnt the newest, so clean the top until it meets the current change, discarting previous ones
+		if (current_change != changes_buffer.size() - 1) {
+			for (size_t i = 0; i < (changes_buffer.size() - current_change); i++)
+			{
+				changes_buffer.pop_back();
+			}
+		}
+
+
+		if (changes_buffer.size() == MAXCHANGEBUFFERSIZE) {
+			changes_buffer.pop_front();
+		}
+
+
 		changes_buffer.push_back(mat);
 		current_change = changes_buffer.size() - 1;
 	}
