@@ -42,5 +42,7 @@ public:
 	
 	void primitivesLimitBox(bool type);
 	void customBox(ofMesh mesh);
+
+	bool isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b);
 };
 

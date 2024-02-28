@@ -68,10 +68,9 @@ Object::Object(string primitivetype, ofColor color)
 	this->name = primitivetype;
 
 	temp.g = temp.h = temp.i = 1;
-
-	current_change = 0;
-	this->addChange(temp);
-
+	
+	current_change = 1;
+	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
 }
 
 Object::Object(string name, ofMesh mesh)
@@ -81,8 +80,8 @@ Object::Object(string name, ofMesh mesh)
 	temp.g = temp.h = temp.i = 1;
 	
 
-	current_change = 0;
-	this->addChange(temp);
+	current_change = 1;
+	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
 
 	customBox(mesh);
 }
@@ -167,25 +166,30 @@ void Object::addChange(ofMatrix3x3 mat)
 	if (changes_buffer.size() == MAXCHANGEBUFFERSIZE) {
 		changes_buffer.pop_front();
 	}
-
-	changes_buffer.push_back(mat);
-	current_change = changes_buffer.size()-1;
+	if(!isSameMatrix(mat, getCurrentChangeM()))
+	{
+		changes_buffer.push_back(mat);
+		current_change = changes_buffer.size() - 1;
+	}
+	
 }
 
 ofMatrix3x3 Object::getCurrentChangeM()
 {
-	//fail safe if the queu is somehow empty
+	ofLog() << "Current change : " << current_change;
+	//fail safe if the queu is somehow empty,
+	//will show as teh object not being visible anymore and will never be visible again
 	if (changes_buffer.size() < 1) {
 		ofMatrix3x3 i;
 		return i;
 	}
-	return (changes_buffer.at(current_change));
+	return (changes_buffer.at(current_change - 1));
 }
 
 bool Object::undoChange()
 {
-	//no more changes to undo
-	if (current_change == 0) {
+	//no more changes to undo, first change is default location
+	if (current_change == 1) {
 		return false;
 	}
 	else {
@@ -293,3 +297,14 @@ void Object::customBox(ofMesh mesh){
 	this->limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
 }
 
+bool Object::isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b) {
+	for (int i = 0; i < 9; i++) {
+		float tempa = a[i];
+		float tempb = b[i];
+		if (a[i] != b[i]) {
+			return false;
+		}
+	}
+	return true;
+
+}
