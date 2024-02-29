@@ -93,6 +93,21 @@ Object::~Object()
 
 void Object::draw(bool highlight)
 {
+	ofMatrix3x3 hold = getCurrentChangeM();
+	ofTranslate(
+		hold.a,
+		hold.b,
+		hold.c);
+	ofRotateXDeg(
+		hold.d);
+	ofRotateYDeg(
+		hold.e);
+	ofRotateZDeg(
+		hold.f);
+	ofScale(
+		hold.g,
+		hold.h,
+		hold.i);
 	
 	if (object_buffer.getNumIndices() > 0) {
 

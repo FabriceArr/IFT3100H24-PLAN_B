@@ -28,6 +28,20 @@ void ObjNode::remove()
 	}
 }
 
+void ObjNode::draw(bool selected)
+{
+	if (this->object != nullptr) {
+		this->object->draw(selected);
+	}
+	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
+		
+		if ((*it)->object != nullptr) {
+			(*it)->object->draw(selected);
+		}
+		
+	}
+}
+
 //adds a child to this one
 void ObjNode::add(ObjNode* objnode)
 {
