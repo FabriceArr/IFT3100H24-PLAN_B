@@ -23,6 +23,7 @@ public:
 	~Object();
 
 	void draw(bool highlight);
+	void drawSub(bool highlight);
 
 	string* getName();
 	void setName(string name);

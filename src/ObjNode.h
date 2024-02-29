@@ -18,6 +18,7 @@ public:
 
 	void remove();
 
+	void draw(bool selected);
 
 	void add(ObjNode* objnode);
 

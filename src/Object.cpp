@@ -121,6 +121,52 @@ void Object::draw(bool highlight)
 	}
 }
 
+void Object::drawSub(bool highlight)
+{
+
+	ofMatrix3x3 hold = getCurrentChangeM();
+	ofTranslate(
+		hold.a,
+		hold.b,
+		hold.c);
+	ofRotateXDeg(
+		hold.d);
+	ofRotateYDeg(
+		hold.e);
+	ofRotateZDeg(
+		hold.f);
+	ofScale(
+		hold.g,
+		hold.h,
+		hold.i);
+
+
+	if (object_buffer.getNumIndices() > 0) {
+
+		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
+
+		if (highlight) {
+			//draw the box
+			ofBeginShape();
+
+			ofSetColor(232, 247, 14);
+			glPointSize(5);
+			limit_box.draw(GL_POINTS, 0, 8);
+			glPointSize(0);
+			ofSetColor(233, 15, 233);
+
+			glLineWidth(5);
+			limit_box.drawElements(GL_LINES, limit_box.getNumIndices());
+			glLineWidth(0);
+			ofSetColor(255);
+
+			ofEndShape();
+		}
+	}
+
+	
+}
+
 
 const ofTexture* Object::getTexture() const
 {
