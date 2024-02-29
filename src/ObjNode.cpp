@@ -30,6 +30,10 @@ void ObjNode::remove()
 
 void ObjNode::draw(bool selected, bool animated)
 {
+	if (trans != nullptr && rot != nullptr && sca != nullptr)
+	{
+
+	}
 	if (this->object != nullptr) {
 		this->object->draw(selected, animated);
 	}
@@ -40,6 +44,11 @@ void ObjNode::draw(bool selected, bool animated)
 		}
 		
 	}
+
+	//resets the pointers
+	delete trans;
+	delete rot;
+	delete sca;
 }
 
 //adds a child to this one
@@ -61,4 +70,11 @@ void ObjNode::destroy_subs()
 		//place tous les object vers pointer l'object
 		(*it)->group_master = this->group_master;
 	}
+}
+
+void ObjNode::setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParameter<float>*>* rot, vector<ofParameter<float>*>* sca)
+{
+	this->trans = trans;
+	this->rot = rot;
+	this->sca = sca;
 }
