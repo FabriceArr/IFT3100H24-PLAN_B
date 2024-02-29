@@ -98,20 +98,6 @@ void Scene::draw()
 			}
 			//not the selected object, then we apply the 
 			else {
-				ofTranslate(
-					(*it)->object->getCurrentChangeM().a,
-					(*it)->object->getCurrentChangeM().b,
-					(*it)->object->getCurrentChangeM().c);
-				ofRotateXDeg(
-					(*it)->object->getCurrentChangeM().d);
-				ofRotateYDeg(
-					(*it)->object->getCurrentChangeM().e);
-				ofRotateZDeg(
-					(*it)->object->getCurrentChangeM().f);
-				ofScale(
-					(*it)->object->getCurrentChangeM().g,
-					(*it)->object->getCurrentChangeM().h,
-					(*it)->object->getCurrentChangeM().i);
 				//draws the object without the selection box
 				(*it)->object->draw(false);
 			}
@@ -169,7 +155,7 @@ void Scene::createObject(bool i)
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
 			"cube",
 			this->UI_fill_color.get())
-			, object_tree_head
+			, getSelectedObjectsNode()
 		));
 
 	}
@@ -178,7 +164,7 @@ void Scene::createObject(bool i)
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
 			"plane",
 			this->UI_fill_color.get())
-			, object_tree_head
+			, getSelectedObjectsNode()
 		));
 	}
 }
@@ -189,7 +175,7 @@ void Scene::createImportedObject3D(string path) {
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
 			"Imported",
 			mesh
-		), object_tree_head));
+		), getSelectedObjectsNode()));
 	}
 	else {
 		ofxAssimpModelLoader model;
@@ -197,7 +183,7 @@ void Scene::createImportedObject3D(string path) {
 		getSelectedObjectsNode()->add(new ObjNode(new Object(
 			model.getMeshNames().at(0),
 			model.getMesh(0)
-		), object_tree_head));
+		), getSelectedObjectsNode()));
 	}
 	
 	
@@ -206,24 +192,11 @@ void Scene::createImportedObject3D(string path) {
 
 void Scene::changeSelectedMatrice(ofMatrix3x3 change)
 {
-	//updates the selected object to be stored in the fonction setting to make the if work
+	//updates the selected object to be stored in the fonction setting to make the 
+	// if work
 	updateSelectedObjects();
 	if (getSelectedObjects() != nullptr) {
 		selected_object->object->addChange(change);
-
-		ofLog() << endl;
-		ofLog() << "--------------------------------------------------";
-		ofLog() << " | " << change.a << " | " << change.b << " | " << change.c << " | " << endl;
-		ofLog() << "--------------------------------------------------";
-		ofLog() << " | " << change.d << " | " << change.e << " | " << change.f << " | " << endl;
-		ofLog() << "--------------------------------------------------";
-		ofLog() << " | " << change.g << " | " << change.h << " | " << change.i << " | " << endl;
-		ofLog() << "--------------------------------------------------";
-		ofLog() << endl;
-
-		if (selected_object->getSubs()->size() > 0) {
-
-		}
 	}
 }
 
@@ -251,6 +224,7 @@ void Scene::updateSelectedObjects()
  ObjNode* Scene::getSelectedObjectsNode()
  {
 	 if (selected_obj_ind >= 0) {
+		 auto i = sub_level_selected->at(selected_obj_ind);
 		 return sub_level_selected->at(selected_obj_ind);
 	 }
 	 else
