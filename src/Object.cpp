@@ -91,7 +91,7 @@ Object::~Object()
 	
 }
 
-void Object::draw(bool highlight)
+void Object::draw(bool highlight ,bool animated)
 {
 	ofMatrix3x3 hold = getCurrentChangeM();
 	ofTranslate(
@@ -108,7 +108,18 @@ void Object::draw(bool highlight)
 		hold.g,
 		hold.h,
 		hold.i);
-	
+	if (animated) {
+		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
+		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
+
+
+		//anim_shader_rot.begin();
+		//anim_shader_bob.begin();
+
+		//anim_shader_rot.setUniform1f("time", fmod((ofGetElapsedTimef() * 100), 360));
+		//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
+
+	}
 	if (object_buffer.getNumIndices() > 0) {
 
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
