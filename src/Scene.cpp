@@ -94,12 +94,12 @@ void Scene::draw()
 					//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
 				}
 				//draws the object with the selection box
-				(*it)->object->draw(true);
+				(*it)->draw(true);
 			}
 			//not the selected object, then we apply the 
 			else {
 				//draws the object without the selection box
-				(*it)->object->draw(false);
+				(*it)->draw(false);
 			}
 			
 			
