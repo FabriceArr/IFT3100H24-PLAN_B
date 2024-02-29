@@ -28,15 +28,15 @@ void ObjNode::remove()
 	}
 }
 
-void ObjNode::draw(bool selected)
+void ObjNode::draw(bool selected, bool animated)
 {
 	if (this->object != nullptr) {
-		this->object->draw(selected);
+		this->object->draw(selected, animated);
 	}
 	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
 		
 		if ((*it)->object != nullptr) {
-			(*it)->object->draw(selected);
+			(*it)->object->draw(selected , animated);
 		}
 		
 	}

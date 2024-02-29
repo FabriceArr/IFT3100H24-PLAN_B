@@ -18,7 +18,7 @@ public:
 
 	void remove();
 
-	void draw(bool selected);
+	void draw(bool selected, bool animated = false);
 
 	void add(ObjNode* objnode);
 
