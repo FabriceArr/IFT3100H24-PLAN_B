@@ -66,19 +66,19 @@ void Scene::draw()
 			//combining the current ui changes to the last change saved
 			if ((*it)->object == getSelectedObjects()) {
 				ofTranslate(
-					*UI_trans_output.at(0) + (*it)->object->getCurrentChangeM().a,
-					*UI_trans_output.at(1) + (*it)->object->getCurrentChangeM().b,
-					*UI_trans_output.at(2) + (*it)->object->getCurrentChangeM().c);
+					*UI_trans_output.at(0),
+					*UI_trans_output.at(1),
+					*UI_trans_output.at(2));
 				ofRotateXDeg(
-					*UI_rotation_output.at(0) + (*it)->object->getCurrentChangeM().d);
+					*UI_rotation_output.at(0));
 				ofRotateYDeg(
-					*UI_rotation_output.at(1) + (*it)->object->getCurrentChangeM().e);
+					*UI_rotation_output.at(1));
 				ofRotateZDeg(
-					*UI_rotation_output.at(2) + (*it)->object->getCurrentChangeM().f);
+					*UI_rotation_output.at(2));
 				ofScale(
-					*UI_scale_output.at(0) * (*it)->object->getCurrentChangeM().g,
-					*UI_scale_output.at(1) * (*it)->object->getCurrentChangeM().h,
-					*UI_scale_output.at(2) * (*it)->object->getCurrentChangeM().i);
+					*UI_scale_output.at(0),
+					*UI_scale_output.at(1),
+					*UI_scale_output.at(2));
 
 				//object is drawn
 			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)

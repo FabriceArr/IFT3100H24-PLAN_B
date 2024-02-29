@@ -34,9 +34,9 @@ void ObjNode::draw(bool selected)
 		this->object->draw(selected);
 	}
 	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
-		//place tous les object vers pointer l'object
+		
 		if ((*it)->object != nullptr) {
-			(*it)->object->drawSub(selected);
+			(*it)->object->draw(selected);
 		}
 		
 	}
