@@ -250,10 +250,6 @@ void Scene::selectPreviousObject()
 	ofLog() << "Currently selected item : " << selected_obj_ind;
 }
 
-void Scene::selectParentObject()
-{
-	sub_level_selected = object_tree_head->getSubs();
-}
 
 void Scene::selectSubsObject()
 {
@@ -262,13 +258,14 @@ void Scene::selectSubsObject()
 	if (hold != object_tree_head) {
 		//change the new vector to the one of the pointed object
 		sub_level_selected = hold->getSubs();
-		deSelectObject();
+		selected_obj_ind = -1;
 	}
 }
 
 void Scene::deSelectObject()
 {
 	selected_obj_ind = -1;
+	sub_level_selected = object_tree_head->getSubs();
 }
 
 void Scene::savechange()

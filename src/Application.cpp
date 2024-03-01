@@ -140,7 +140,7 @@ void Application::keyReleased(int key)
 	case OF_KEY_UP:
 		ofLog() << "previous object select ordered";
 		saveSceneChanges();
-		scene.selectParentObject();
+		scene.deSelectObject();
 		break;
 
 	case OF_KEY_DOWN:
