@@ -47,7 +47,7 @@ void ObjNode::draw(bool selected, bool animated)
 	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
 		
 		if ((*it)->object != nullptr) {
-			(*it)->object->draw(selectedpasser, animated);
+			(*it)->draw(selectedpasser, animated);
 		}
 		
 	}
