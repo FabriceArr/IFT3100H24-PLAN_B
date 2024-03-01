@@ -47,6 +47,11 @@ void Scene::draw()
 	isOrtho ? ofDrawGrid(100, 12, false, false, false, true) :
 		ofDrawGrid(100, 12, false, false, true, false);
 
+	//sets which node will be updated with the ui changes,
+	//this is not apply on the main head if non are selected
+	//Since it would be a bit of a mess
+	setSelectedNode();
+
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
@@ -61,7 +66,6 @@ void Scene::draw()
 
 
 			ofPushMatrix();
-			(*it)->setAsSelected(&UI_trans_output, &UI_rotation_output, &UI_scale_output);
 			(*it)->draw();
 			
 
@@ -72,10 +76,6 @@ void Scene::draw()
 
 
 	}
-
-}
-
-void Scene::drawSubObjects(std::vector<Object*>* subVector) {
 
 }
 
@@ -97,8 +97,11 @@ void Scene::exit()
 
 }
 
-void Scene::setSelectedNode() {
-
+void Scene::setSelectedNode()
+{
+	if (getSelectedObjectsNode() != object_tree_head) {
+		getSelectedObjectsNode()->setAsSelected(&UI_trans_output, &UI_rotation_output, &UI_scale_output);
+	}
 }
 
 const ObjNode* Scene::getSceneContent() const

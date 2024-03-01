@@ -8,6 +8,7 @@ ObjNode::ObjNode(Object* object, ObjNode* master)
 	group_master = master;
 
 	this->sub_objects = vector<ObjNode*>();
+	trans = rot = sca = nullptr;
 }
 
 
@@ -30,25 +31,33 @@ void ObjNode::remove()
 
 void ObjNode::draw(bool selected, bool animated)
 {
+	bool selectedpasser = selected;
 	if (trans != nullptr && rot != nullptr && sca != nullptr)
 	{
-
+		ofTranslate(*this->trans->at(0), *this->trans->at(1), *this->trans->at(2));
+		ofRotateXDeg(*this->rot->at(0));
+		ofRotateYDeg(*this->rot->at(1));
+		ofRotateXDeg(*this->rot->at(2));
+		ofScale(*this->sca->at(0), *this->sca->at(1), *this->sca->at(2));
+		selectedpasser = true;
 	}
 	if (this->object != nullptr) {
-		this->object->draw(selected, animated);
+		this->object->draw(selectedpasser, animated);
 	}
 	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
 		
 		if ((*it)->object != nullptr) {
-			(*it)->object->draw(selected , animated);
+			(*it)->object->draw(selectedpasser, animated);
 		}
 		
 	}
 
 	//resets the pointers
-	delete trans;
-	delete rot;
-	delete sca;
+	if (trans != nullptr && rot != nullptr && sca != nullptr)
+	{
+		sca = rot = trans = nullptr;
+	}
+	
 }
 
 //adds a child to this one
