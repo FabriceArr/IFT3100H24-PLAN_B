@@ -51,20 +51,14 @@ public:
 	//clean up the scene from memory
 	void exit();
 
+	void setSelectedNode();
+
 	const ObjNode* getSceneContent() const;
 
 	//creates a new object on the origin of the scene
 	void createObject(bool i);
 
 	void createImportedObject3D(string path);
-
-	//moves the origin of object number x in the list of the scene for 
-	//the given amount in the scene.
-	void moveObject(unsigned int object_id, ofVec3f position_change);
-
-	//rotate the origin of object number x in the list of the scene for 
-	//the given amount in the scene.
-	void rotateObject(unsigned int object_id, ofVec3f rotation_change);
 
 	void changeSelectedMatrice(ofMatrix3x3 change);
 
@@ -84,6 +78,7 @@ public:
 	void redoChange();
 
 	void draw();
+	void updateUITransformMat();
 
 	void drawSubObjects(std::vector<Object*>* subVector);
 

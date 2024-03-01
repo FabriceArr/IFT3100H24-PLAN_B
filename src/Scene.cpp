@@ -47,6 +47,11 @@ void Scene::draw()
 	isOrtho ? ofDrawGrid(100, 12, false, false, false, true) :
 		ofDrawGrid(100, 12, false, false, true, false);
 
+	//sets which node will be updated with the ui changes,
+	//this is not apply on the main head if non are selected
+	//Since it would be a bit of a mess
+	setSelectedNode();
+
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
@@ -61,46 +66,8 @@ void Scene::draw()
 
 
 			ofPushMatrix();
-
-			//applies the ui changes only for the selected object, 
-			//combining the current ui changes to the last change saved
-			if ((*it)->object == getSelectedObjects()) {
-				ofTranslate(
-					*UI_trans_output.at(0),
-					*UI_trans_output.at(1),
-					*UI_trans_output.at(2));
-				ofRotateXDeg(
-					*UI_rotation_output.at(0));
-				ofRotateYDeg(
-					*UI_rotation_output.at(1));
-				ofRotateZDeg(
-					*UI_rotation_output.at(2));
-				ofScale(
-					*UI_scale_output.at(0),
-					*UI_scale_output.at(1),
-					*UI_scale_output.at(2));
-
-				//object is drawn
-			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
-				
-				//draws the object with the selection box
-				(*it)->draw(true, animate);
-			}
-			//not the selected object, then we apply the 
-			else {
-				//draws the object without the selection box
-				(*it)->draw(false);
-			}
+			(*it)->draw();
 			
-			
-			
-
-			//object is drawn
-			//transform selected on rot and scales from the point of (*it)->object->getObject()->getGlobalPosition(); ((x1+x2+x3)/3, (y1+y2+y3)/3, (z1+z2+z3)/3)
-			if (animate && (*it)->object == getSelectedObjects()) {
-				//anim_shader_rot.end();
-				//anim_shader_bob.end();
-			}
 
 
 			ofPopMatrix();
@@ -109,10 +76,6 @@ void Scene::draw()
 
 
 	}
-
-}
-
-void Scene::drawSubObjects(std::vector<Object*>* subVector) {
 
 }
 
@@ -132,6 +95,13 @@ void Scene::exit()
 	anim_shader_rot.unload();
 	anim_shader_bob.unload();
 
+}
+
+void Scene::setSelectedNode()
+{
+	if (getSelectedObjectsNode() != object_tree_head) {
+		getSelectedObjectsNode()->setAsSelected(&UI_trans_output, &UI_rotation_output, &UI_scale_output);
+	}
 }
 
 const ObjNode* Scene::getSceneContent() const
@@ -288,16 +258,11 @@ void Scene::selectParentObject()
 void Scene::selectSubsObject()
 {
 	//Is there a selected object?
-	if (getSelectedObjects() != nullptr) {
-		//check if it is the default, since its parent is nullptr
-		//need to do 2 parent, since from default, the first is simply the treehead
-		if (sub_level_selected->at(selected_obj_ind)->group_master) {
-
-			//need to go up by two
-			sub_level_selected = sub_level_selected->at(selected_obj_ind)->getSubs();
-			//deselect since we are in a new layer, so we can create object there
-			deSelectObject();
-		}
+	ObjNode* hold = getSelectedObjectsNode();
+	if (hold != object_tree_head) {
+		//change the new vector to the one of the pointed object
+		sub_level_selected = hold->getSubs();
+		deSelectObject();
 	}
 }
 
