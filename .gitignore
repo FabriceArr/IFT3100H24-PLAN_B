@@ -88,3 +88,5 @@ bin/IFT3100H24_planB_debug.pdb
 obj/x64/Debug/IFT3100H24_planB.log
 obj/x64/Debug/IFT3100H24_planB_debug.exe.recipe
 obj/x64/Debug/vc142.pdb
+/bin/data/untitled.mtl
+/bin/data/untitled.obj
