@@ -59,32 +59,107 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 
 		//faces
 		if (tokens.at(0) == "f") {
-			//set the first set of face ids
-			vertid.push_back(stoi(tokens.at(1).substr(0, tokens.at(1).find_first_of("/"))) - 1);
-			temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+			ofVec3f first, second, third;
+			switch (tokens.size())
+			{
+			case(4)://triangular faces
 
-			uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
-			temp = temp.substr(temp.find_first_of("/") + 1);
+				//set the first set of face ids
+				vertid.push_back(stoi(tokens.at(1).substr(0, tokens.at(1).find_first_of("/"))) - 1);
+				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
 
-			normid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+				uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+				temp = temp.substr(temp.find_first_of("/") + 1);
 
-			//set the second set of face ids
-			vertid.push_back(stoi(tokens.at(2).substr(0, tokens.at(1).find_first_of("/"))) - 1);
-			temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+				normid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
 
-			uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
-			temp = temp.substr(temp.find_first_of("/") + 1);
+				//set the second set of face ids
+				vertid.push_back(stoi(tokens.at(2).substr(0, tokens.at(1).find_first_of("/"))) - 1);
+				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
 
-			normid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+				uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+				temp = temp.substr(temp.find_first_of("/") + 1);
 
-			//set the last set of face ids
-			vertid.push_back(stoi(tokens.at(3).substr(0, tokens.at(1).find_first_of("/"))) - 1);
-			temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+				normid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
 
-			uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
-			temp = temp.substr(temp.find_first_of("/") + 1);
+				//set the last set of face ids
+				vertid.push_back(stoi(tokens.at(3).substr(0, tokens.at(1).find_first_of("/"))) - 1);
+				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
 
-			normid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+				uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+				temp = temp.substr(temp.find_first_of("/") + 1);
+
+				normid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+
+				break;
+
+			case(5)://square faces
+				
+				//converting to triangles by adding  the second and third indices a second time
+				// doing this to split the square face into to, that share the second and third indices
+				//set the first set of face ids
+				first.x = stoi(tokens.at(1).substr(0, tokens.at(1).find_first_of("/"))) - 1;
+				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+
+				first.y = stoi(temp.substr(0, temp.find_first_of("/"))) - 1;
+				temp = temp.substr(temp.find_first_of("/") + 1);
+
+				first.z = stoi(temp.substr(0, temp.find_first_of("/"))) - 1;
+
+				vertid.push_back(first.x);
+				uvid.push_back(first.y);
+				normid.push_back(first.z);
+
+				//set the second set of face ids
+				second.x = stoi(tokens.at(2).substr(0, tokens.at(1).find_first_of("/"))) - 1;
+				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+
+				second.y = stoi(temp.substr(0, temp.find_first_of("/"))) - 1;
+				temp = temp.substr(temp.find_first_of("/") + 1);
+
+				second.z = stoi(temp.substr(0, temp.find_first_of("/"))) - 1;
+
+				vertid.push_back(second.x);
+				uvid.push_back(second.y);
+				normid.push_back(second.z);
+
+				//set the third set of face ids
+				third.x = stoi(tokens.at(3).substr(0, tokens.at(1).find_first_of("/"))) - 1;
+				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+
+				third.y = stoi(temp.substr(0, temp.find_first_of("/"))) - 1;
+				temp = temp.substr(temp.find_first_of("/") + 1);
+
+				third.z = stoi(temp.substr(0, temp.find_first_of("/"))) - 1;
+
+				vertid.push_back(third.x);
+				uvid.push_back(third.y);
+				normid.push_back(third.z);
+
+				//first triangle done, now duplicating it to make another triangle that has the 4rth data point
+
+				vertid.push_back(first.x);
+				uvid.push_back(first.y);
+				normid.push_back(first.z);
+
+				vertid.push_back(third.x);
+				uvid.push_back(third.y);
+				normid.push_back(third.z);
+
+				//set the last set of face ids
+				vertid.push_back(stoi(tokens.at(4).substr(0, tokens.at(1).find_first_of("/"))) - 1);
+				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+
+				uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+				temp = temp.substr(temp.find_first_of("/") + 1);
+
+				normid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
+				break;
+
+			default://n gons, which is cursed
+				break;
+			}			
+			
 		}
 
 		//normals
