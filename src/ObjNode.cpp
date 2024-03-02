@@ -37,7 +37,7 @@ void ObjNode::draw(bool selected, bool animated)
 		ofTranslate(*this->trans->at(0), *this->trans->at(1), *this->trans->at(2));
 		ofRotateXDeg(*this->rot->at(0));
 		ofRotateYDeg(*this->rot->at(1));
-		ofRotateXDeg(*this->rot->at(2));
+		ofRotateZDeg(*this->rot->at(2));
 		ofScale(*this->sca->at(0), *this->sca->at(1), *this->sca->at(2));
 		selectedpasser = true;
 	}
