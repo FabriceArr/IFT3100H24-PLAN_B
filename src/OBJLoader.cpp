@@ -95,7 +95,7 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 
 			case(5)://square faces
 				
-				//converting to triangles by adding  the second and third indices a second time
+				//converting to triangles by adding  the first and third indices a second time
 				// doing this to split the square face into to, that share the second and third indices
 				//set the first set of face ids
 				first.x = stoi(tokens.at(1).substr(0, tokens.at(1).find_first_of("/"))) - 1;
