@@ -112,7 +112,7 @@ const ObjNode* Scene::getSceneContent() const
 void Scene::createObject(bool i)
 {
 	if(i){
-		getSelectedObjectsNode()->add(new ObjNode(new Object(
+		getSelectedObjectsNode()->add(new ObjNode(new Element3D(
 			"cube",
 			this->UI_fill_color.get())
 			, getSelectedObjectsNode()
@@ -121,7 +121,7 @@ void Scene::createObject(bool i)
 	}
 	else {
 
-		getSelectedObjectsNode()->add(new ObjNode(new Object(
+		getSelectedObjectsNode()->add(new ObjNode(new Element3D(
 			"plane",
 			this->UI_fill_color.get())
 			, getSelectedObjectsNode()
@@ -132,7 +132,7 @@ void Scene::createObject(bool i)
 void Scene::createImportedObject3D(string path) {
 	if (path.substr(path.length() - 4, 4) == ".obj") {
 		ofMesh mesh = OBJLoader::loadMeshOBJ(path);
-		getSelectedObjectsNode()->add(new ObjNode(new Object(
+		getSelectedObjectsNode()->add(new ObjNode(new Element3D(
 			"Imported",
 			mesh
 		), getSelectedObjectsNode()));
@@ -140,7 +140,7 @@ void Scene::createImportedObject3D(string path) {
 	else {
 		ofxAssimpModelLoader model;
 		model.loadModel(path, true);
-		getSelectedObjectsNode()->add(new ObjNode(new Object(
+		getSelectedObjectsNode()->add(new ObjNode(new Element3D(
 			model.getMeshNames().at(0),
 			model.getMesh(0)
 		), getSelectedObjectsNode()));

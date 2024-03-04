@@ -1,7 +1,5 @@
 #pragma once
 #include "ofMain.h"
-#include "ofVbo.h"
-#include "ofxAssimpModelLoader.h"
 
 
 class Object
@@ -10,7 +8,6 @@ private:
 	bool selected = true;
 	string name;
 	ofTexture texture;
-	ofVbo object_buffer, limit_box;
 	ofMatrix3x3 temp;
 
 	deque<ofMatrix3x3> changes_buffer;
@@ -18,30 +15,20 @@ private:
 	
 
 public:
-	Object(string primitivetype, ofColor color);
-	Object(string name, ofMesh mesh);
+	Object(string name);
 	~Object();
 
-	void draw(bool highlight, bool animated = false);
+	virtual void draw(bool highlight, bool animated = false) = 0;
 
-	string* getName();
-	void setName(string name);
-
-	const ofTexture* getTexture() const;
-	void setTexture(ofTexture texture);
-
-	void setMesh(ofMesh& mesh);
+	virtual string* getName();
 
 	bool operator==(const Object& a);
 
-	void addChange(ofMatrix3x3);
-	ofMatrix3x3 getCurrentChangeM();
+	virtual void addChange(ofMatrix3x3);
+	virtual ofMatrix3x3 getCurrentChangeM();
 
-	bool undoChange();
-	bool recoverChange();
-	
-	void primitivesLimitBox(bool type);
-	void customBox(ofMesh mesh);
+	virtual bool undoChange();
+	virtual bool recoverChange();
 
 	bool isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b);
 };

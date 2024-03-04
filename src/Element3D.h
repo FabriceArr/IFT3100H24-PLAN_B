@@ -1,0 +1,48 @@
+#pragma once
+#include "ofMain.h"
+#include "Object.h"
+#include "ofVbo.h"
+#include "ofxAssimpModelLoader.h"
+
+class Element3D : public Object
+{
+private:
+	bool selected = true;
+	string name;
+	ofTexture texture;
+	ofVbo object_buffer, limit_box;
+	ofMatrix3x3 temp;
+
+	deque<ofMatrix3x3> changes_buffer;
+	unsigned int current_change;//index of the current change in the queu
+
+public:
+	Element3D(string primitivetype, ofColor color);
+	Element3D(string name, ofMesh mesh);
+	~Element3D();
+
+	void draw(bool highlight, bool animated = false);
+
+	string* getName();
+	void setName(string name);
+
+	const ofTexture* getTexture() const;
+	void setTexture(ofTexture texture);
+
+	void setMesh(ofMesh& mesh);
+
+	bool operator==(const Object& a);
+
+	void addChange(ofMatrix3x3);
+	ofMatrix3x3 getCurrentChangeM();
+
+	bool undoChange();
+	bool recoverChange();
+
+	void primitivesLimitBox(bool type);
+	void customBox(ofMesh mesh);
+
+	bool isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b);
+
+};
+
