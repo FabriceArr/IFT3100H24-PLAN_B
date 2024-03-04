@@ -17,11 +17,6 @@ public:
 
 	void draw(bool highlight, bool animated = false);
 
-	const ofTexture* getTexture() const;
-	void setTexture(ofTexture texture);
-
-	void setMesh(ofMesh& mesh);
-
 
 	void primitivesLimitBox(bool type);
 	void customBox(ofMesh mesh);

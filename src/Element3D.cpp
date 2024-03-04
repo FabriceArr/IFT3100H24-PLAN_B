@@ -134,23 +134,6 @@ void Element3D::draw(bool highlight, bool animated)
 	}
 }
 
-
-const ofTexture* Element3D::getTexture() const
-{
-	return &this->texture;
-}
-
-
-void Element3D::setTexture(ofTexture texture)
-{
-	this->texture = texture;
-}
-
-void Element3D::setMesh(ofMesh& mesh)
-{
-	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
-}
-
 void Element3D::primitivesLimitBox(bool type) {
 	if (!type) {
 		GLuint vertices_ids[] =
