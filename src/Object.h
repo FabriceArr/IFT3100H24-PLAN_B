@@ -7,7 +7,6 @@ class Object
 private:
 	bool selected = true;
 	string name;
-	ofTexture texture;
 	ofMatrix3x3 temp;
 
 	deque<ofMatrix3x3> changes_buffer;
@@ -22,7 +21,7 @@ public:
 
 	virtual string* getName();
 
-	bool operator==(const Object& a);
+	virtual bool operator==(const Object& a);
 
 	virtual void addChange(ofMatrix3x3);
 	virtual ofMatrix3x3 getCurrentChangeM();

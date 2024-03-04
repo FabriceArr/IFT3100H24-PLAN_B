@@ -64,24 +64,11 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 	object_buffer.setColorData(&holder[0], object_buffer.getNumVertices(), GL_STATIC_DRAW);
 
 	delete[] holder;
-
-	this->name = primitivetype;
-
-	temp.g = temp.h = temp.i = 1;
-
-	current_change = 0;
-	changes_buffer.push_back(ofMatrix3x3(0, 0, 0, 0, 0, 0, 1, 1, 1));
 }
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
 {
 	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
-	this->name = name;
-	temp.g = temp.h = temp.i = 1;
-
-
-	current_change = 0;
-	changes_buffer.push_back(ofMatrix3x3(0, 0, 0, 0, 0, 0, 1, 1, 1));
 
 	customBox(mesh);
 }
@@ -153,10 +140,6 @@ const ofTexture* Element3D::getTexture() const
 	return &this->texture;
 }
 
-string* Element3D::getName()
-{
-	return &this->name;
-}
 
 void Element3D::setTexture(ofTexture texture)
 {
@@ -166,79 +149,6 @@ void Element3D::setTexture(ofTexture texture)
 void Element3D::setMesh(ofMesh& mesh)
 {
 	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
-}
-
-
-void Element3D::setName(string name)
-{
-	this->name = name;
-}
-
-bool Element3D::operator==(const Object& a) {
-	return (*this == a) ? true : false;
-}
-
-void Element3D::addChange(ofMatrix3x3 mat)
-{
-	//if the mat presented is the same as current one, all actions are ignored
-	if (!isSameMatrix(mat, getCurrentChangeM()))
-	{
-		//current change isnt the newest, so clean the top until it meets the current change, discarting previous ones
-		if (current_change != changes_buffer.size() - 1) {
-			for (size_t i = 0; i < (changes_buffer.size() - current_change); i++)
-			{
-				changes_buffer.pop_back();
-			}
-		}
-
-
-		if (changes_buffer.size() == MAXCHANGEBUFFERSIZE) {
-			changes_buffer.pop_front();
-		}
-
-
-		changes_buffer.push_back(mat);
-		current_change = changes_buffer.size() - 1;
-	}
-
-}
-
-ofMatrix3x3 Element3D::getCurrentChangeM()
-{
-	ofLog() << "Current change : " << current_change;
-	//fail safe if the queu is somehow empty,
-	//will show as teh object not being visible anymore and will never be visible again
-	if (changes_buffer.size() < 1) {
-		ofMatrix3x3 i;
-		return i;
-	}
-	return (changes_buffer.at(current_change));
-}
-
-bool Element3D::undoChange()
-{
-	//no more changes to undo, first change is default location
-	if (current_change == 0) {
-		return false;
-	}
-	else {
-		current_change--;
-		return true;
-	}
-
-
-}
-
-bool Element3D::recoverChange()
-{
-	//no more changes to recover
-	if (current_change == changes_buffer.size() - 1) {
-		return false;
-	}
-	else {
-		current_change++;
-		return true;
-	}
 }
 
 void Element3D::primitivesLimitBox(bool type) {
@@ -324,16 +234,4 @@ void Element3D::customBox(ofMesh mesh) {
 
 	this->limit_box.setVertexData(&cube_vertices_custom[0], 8, GL_STATIC_DRAW);
 	this->limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
-}
-
-bool Element3D::isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b) {
-	for (int i = 0; i < 9; i++) {
-		float tempa = a[i];
-		float tempb = b[i];
-		if (a[i] != b[i]) {
-			return false;
-		}
-	}
-	return true;
-
 }
