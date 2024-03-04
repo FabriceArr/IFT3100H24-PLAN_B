@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "Object.h"
+#include "Element3D.h"
+#include "Element2D.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
 //#include "ClickTexture.h"
