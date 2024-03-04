@@ -24,7 +24,7 @@ void Renderer::setup(Scene* sce)
 
 	ofSetBackgroundColor(clear_color);
 
-	ofSetBackgroundAuto(false);
+	//ofSetBackgroundAuto(false);
 
 	ofSetBackgroundColor(clear_color);
 
