@@ -30,24 +30,25 @@ void ObjNode::remove()
 
 void ObjNode::draw(bool selected, bool animated)
 {
+	ofMatrix3x3 hold = this->object->getCurrentChangeM();
+	ofTranslate(
+		hold.a,
+		hold.b,
+		hold.c);
+	ofRotateXDeg(
+		hold.d);
+	ofRotateYDeg(
+		hold.e);
+	ofRotateZDeg(
+		hold.f);
+	ofScale(
+		hold.g,
+		hold.h,
+		hold.i);
 	bool selectedpasser = selected;
 	if (trans != nullptr && rot != nullptr && sca != nullptr)
 	{
-		ofMatrix3x3 hold = this->object->getCurrentChangeM();
-		ofTranslate(
-			hold.a,
-			hold.b,
-			hold.c);
-		ofRotateXDeg(
-			hold.d);
-		ofRotateYDeg(
-			hold.e);
-		ofRotateZDeg(
-			hold.f);
-		ofScale(
-			hold.g,
-			hold.h,
-			hold.i);
+		
 		ofTranslate(*this->trans->at(0), *this->trans->at(1), *this->trans->at(2));
 		ofRotateXDeg(*this->rot->at(0));
 		ofRotateYDeg(*this->rot->at(1));
