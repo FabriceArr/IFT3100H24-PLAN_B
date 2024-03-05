@@ -146,7 +146,18 @@ void Scene::createImportedObject3D(string path) {
 		), getSelectedObjectsNode()));
 	}
 	
-	
+
+}
+
+void Scene::createImportedObject2D(string path) {
+	ofImage imageImport;
+	// importer le premier fichier déposé sur la fenêtre si c'est une image (attention : aucune validation du type de fichier)
+	imageImport.load(path);
+
+	getSelectedObjectsNode()->add(new ObjNode(new Element2D(
+		"Imported",
+		imageImport
+	), getSelectedObjectsNode()));
 
 }
 
