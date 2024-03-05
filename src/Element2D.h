@@ -31,7 +31,6 @@ class Element2D : public Object
 {
 private:
 	ofImage image;
-	ofVbo object_buffer, limit_box;
 
 public:
 	std::vector<VectorPrimitive> shapes;
@@ -43,8 +42,5 @@ public:
 	void add_vector_shape(VectorPrimitiveType type, float x1, float y1, float x2, float y2, float x3, float y3, float radiusx, float radiusy);
 
 	void draw(bool highlight, bool animated = false);
-
-	void primitivesLimitBox(bool type);
-	void customBox(ofMesh mesh);
 
 };
