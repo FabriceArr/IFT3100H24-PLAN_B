@@ -20,7 +20,6 @@ void ObjNode::remove()
 		for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
 			//place tous les object vers pointer l'object
 			(*it)->remove();
-			sub_objects.erase(it);
 		}
 	}
 	if (object != nullptr) {
