@@ -53,9 +53,9 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 		//primitivesLimitBox(1);
 
 		this->image.load(path);
-		object_buffer.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
-		object_buffer.setIndexData(&plane_vert_ids[0], 6, GL_STATIC_DRAW);
-		primitivesLimitBox(1);
+		//object_buffer.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
+		//object_buffer.setIndexData(&plane_vert_ids[0], 6, GL_STATIC_DRAW);
+		//primitivesLimitBox(1);
 
 	}
 
