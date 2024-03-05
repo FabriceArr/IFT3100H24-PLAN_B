@@ -299,7 +299,6 @@ void Application::dragEvent(ofDragInfo dragInfo)
 	//// importer le premier fichier déposé sur la fenêtre si c'est une image (attention : aucune validation du type de fichier)
 	//renderer.imageImport.load(dragInfo.files.at(0));
 
-
 	for (std::vector<string>::iterator it = dragInfo.files.begin(); it != dragInfo.files.end(); it++)
 	{
 		if ((*it).substr((*it).length() - 4, 4) == ".png" ||

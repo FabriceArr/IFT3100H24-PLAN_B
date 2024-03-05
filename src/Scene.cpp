@@ -156,7 +156,7 @@ void Scene::createImportedObject2D(string path) {
 
 	getSelectedObjectsNode()->add(new ObjNode(new Element2D(
 		"Imported",
-		imageImport
+		path
 	), getSelectedObjectsNode()));
 
 }
