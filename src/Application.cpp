@@ -292,13 +292,12 @@ void Application::windowResized(int w, int h)
 
 void Application::dragEvent(ofDragInfo dragInfo)
 {
-	ofLog() << "<app::ofDragInfo file[0]: " << dragInfo.files.at(0)
-		<< " at : " << dragInfo.position << ">";
-		
+	//ofLog() << "<app::ofDragInfo file[0]: " << dragInfo.files.at(0)
+	//	<< " at : " << dragInfo.position << ">";
+	//	
 
-	// importer le premier fichier déposé sur la fenêtre si c'est une image (attention : aucune validation du type de fichier)
-	renderer.imageImport.load(dragInfo.files.at(0));
-
+	//// importer le premier fichier déposé sur la fenêtre si c'est une image (attention : aucune validation du type de fichier)
+	//renderer.imageImport.load(dragInfo.files.at(0));
 
 	for (std::vector<string>::iterator it = dragInfo.files.begin(); it != dragInfo.files.end(); it++)
 	{
@@ -306,7 +305,8 @@ void Application::dragEvent(ofDragInfo dragInfo)
 			(*it).substr((*it).length() - 4, 4) == ".jpg" ||
 			(*it).substr((*it).length() - 4, 4) == ".gif") {
 			// importer le premier fichier depose sur la fenetre si c'est une image des types supportee
-			image.load((*it));
+			//image.load((*it));
+			scene.createImportedObject2D((*it));
 		}
 
 		//checks the file format of the dragged files are any of the 3 supported 3D shape formats

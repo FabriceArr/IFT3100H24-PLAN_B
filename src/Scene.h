@@ -61,6 +61,7 @@ public:
 	void createObject(bool i);
 
 	void createImportedObject3D(string path);
+	void createImportedObject2D(string path);
 
 	void changeSelectedMatrice(ofMatrix3x3 change);
 
