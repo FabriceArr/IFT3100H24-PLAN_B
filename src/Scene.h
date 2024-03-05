@@ -36,6 +36,8 @@ private:
 	ofxAssimpModelLoader mesh_loader;
 
 	ofParameter<ofColor> UI_fill_color;
+	ofParameter<ofColor> UI_stroke_color;
+	ofParameter<int> UI_stroke_width;
 
 	ofShader anim_shader_rot, anim_shader_bob;
 
@@ -66,6 +68,8 @@ public:
 	void changeSelectedMatrice(ofMatrix3x3 change);
 
 	void updateFillColor(ofParameter<ofColor> colorparam);
+	void updateStrokeColor(ofParameter<ofColor> colorparam);
+	void updateStrokeWidth(ofParameter<int> widthparam);
 	void updateSelectedObjects();
 
 	Object* getSelectedObjects();

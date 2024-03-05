@@ -148,45 +148,55 @@ void Scene::createImportedObject3D(string path) {
 	
 
 }
-
+/*
 void Scene::create2DObject(int i)
 {
 	if (i == 0) {
 		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
 			"triangle",
-			this->UI_fill_color.get())
-			, getSelectedObjectsNode()
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get()),
+			getSelectedObjectsNode()
 		));
 	}
 	else if (i == 1) {
 		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
 			"point",
-			this->UI_fill_color.get())
-			, getSelectedObjectsNode()
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get()),
+			getSelectedObjectsNode()
 		));
 	}
 	else if (i == 2) {
 		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
 			"ligne",
-			this->UI_fill_color.get())
-			, getSelectedObjectsNode()
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get()),
+			getSelectedObjectsNode()
 		));
 	}
 	else if (i == 3) {
 		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
 			"rectangle",
-			this->UI_fill_color.get())
-			, getSelectedObjectsNode()
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get()),
+			getSelectedObjectsNode()
 		));
 	}
 	else if (i == 4) {
 		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
 			"ellipse",
-			this->UI_fill_color.get())
-			, getSelectedObjectsNode()
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get()),
+			getSelectedObjectsNode()
 		));
 	}
-}
+}*/
 
 void Scene::createImportedObject2D(string path) {
 	ofImage imageImport;
@@ -213,6 +223,16 @@ void Scene::changeSelectedMatrice(ofMatrix3x3 change)
 void Scene::updateFillColor(ofParameter<ofColor> colorparam)
 {
 	this->UI_fill_color = colorparam;
+}
+
+void Scene::updateStrokeColor(ofParameter<ofColor> colorparam)
+{
+	this->UI_stroke_color = colorparam;
+}
+
+void Scene::updateStrokeWidth(ofParameter<int> widthparam)
+{
+	UI_stroke_width = widthparam;
 }
 
 void Scene::updateSelectedObjects()

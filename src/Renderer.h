@@ -1,31 +1,6 @@
 #pragma once
 #include "Scene.h"
 
-enum class VectorPrimitiveType
-{
-	// Add your primitive types here
-	none,
-	point,
-	line,
-	rectangle,
-	ellipse,
-	triangle,
-	image
-};
-
-struct VectorPrimitive
-{
-	VectorPrimitiveType type;
-	glm::vec3 position1;
-	glm::vec3 position2;
-	glm::vec3 position3;
-	float radiusx;
-	float radiusy;
-	int stroke_width;
-	ofColor stroke_color;
-	ofColor fill_color;
-};
-
 class Renderer
 {
 private:
