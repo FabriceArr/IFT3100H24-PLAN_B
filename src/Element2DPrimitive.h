@@ -1,4 +1,4 @@
-#pragma once
+#pragma once 
 #include "Object.h"
 #include "ofVbo.h"
 
@@ -27,16 +27,13 @@ struct VectorPrimitive
 	ofColor fill_color;
 };
 
-class Element2D : public Object
+class Element2DPrimitive : public Object
 {
 private:
-	ofImage image;
-	ofVbo square;
 public:
 	std::vector<VectorPrimitive> shapes;
-	Element2D(string primitivetype, string path);
-	Element2D(string name, ofColor color);
-	~Element2D();
+	Element2DPrimitive(string name, ofColor fill_color, ofColor stroke_color, int stroke_width);
+	~Element2DPrimitive();
 
 	void add_vector_shape(VectorPrimitiveType type, float x1, float y1, float x2, float y2, float x3, float y3, float radiusx, float radiusy);
 

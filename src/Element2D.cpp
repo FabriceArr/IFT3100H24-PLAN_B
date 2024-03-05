@@ -24,7 +24,6 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 		this->square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
 		this->square.setIndexData(&square_vertices_ids[0], 6, GL_STATIC_DRAW);
 	}
-
 }
 
 Element2D::~Element2D()

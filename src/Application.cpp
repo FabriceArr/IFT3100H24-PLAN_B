@@ -57,12 +57,12 @@ void Application::draw()
 	cam.end();
 
 	interface.draw();
-
+/*
 	if (renderer.isCursorVisible)
 	{
 		renderer.draw_cursor(renderer.mouse_current_x,
 			renderer.mouse_current_y);
-	}
+	}*/
 	if (isGrabReq) {	// now we're sure the draw is completed
 		renderer.image_export("ScreenGrab", "png");
 		renderer.saveNumber++;
@@ -148,30 +148,40 @@ void Application::keyReleased(int key)
 		saveSceneChanges();
 		scene.selectSubsObject();
 		break;
-
+/*
 	case 49:  // key 1
-		renderer.draw_mode = VectorPrimitiveType::triangle;
-		ofLog() << "<mode: triangle>";
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.create2DObject(0);
 		break;
 
 	case 50:  // key 2
-		renderer.draw_mode = VectorPrimitiveType::point;
-		ofLog() << "<mode: point>";
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.create2DObject(1);
 		break;
 
 	case 51:  // key 3
-		renderer.draw_mode = VectorPrimitiveType::line;
-		ofLog() << "<mode: line>";
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.create2DObject(2);
 		break;
 
 	case 52:  // key 4
-		renderer.draw_mode = VectorPrimitiveType::rectangle;
-		ofLog() << "<mode: rectangle>";
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.create2DObject(3);
 		break;
 
 	case 53:  // key 5
-		renderer.draw_mode = VectorPrimitiveType::ellipse;
-		ofLog() << "<mode: ellipse>";
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.create2DObject(4);
 		break;
 
 	case 'm':
@@ -188,7 +198,7 @@ void Application::keyReleased(int key)
 
 	case 114: // key r
 		renderer.removeLastShape();
-		break;
+		break;*/
 
 	case 'o': //orthogonal camera view switch
 		ofLog() << "Camera Orientation : " << camOrientPersp;
@@ -265,12 +275,7 @@ void Application::mouseReleased(int x, int y, int button)
 
 	renderer.mouse_current_x = x;
 	renderer.mouse_current_y = y;
-
-	// Appel de la fonction add_vector_shape avec les positions spécifiées
-	if (!scene.wasDragging)
-	{
-		renderer.add_vector_shape(renderer.draw_mode, point1.x, point1.y, point2.x, point3.y, point3.x, point3.y , radius.x, radius.y);
-	}		
+	
 	scene.wasDragging = false;
 }
 
