@@ -80,21 +80,7 @@ Element3D::~Element3D()
 
 void Element3D::draw(bool highlight, bool animated)
 {
-	ofMatrix3x3 hold = getCurrentChangeM();
-	ofTranslate(
-		hold.a,
-		hold.b,
-		hold.c);
-	ofRotateXDeg(
-		hold.d);
-	ofRotateYDeg(
-		hold.e);
-	ofRotateZDeg(
-		hold.f);
-	ofScale(
-		hold.g,
-		hold.h,
-		hold.i);
+	
 	if (animated) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
