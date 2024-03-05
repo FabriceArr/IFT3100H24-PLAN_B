@@ -59,7 +59,7 @@ public:
 
 	//creates a new object on the origin of the scene
 	void createObject(bool i);
-
+	void create2DObject(int i);
 	void createImportedObject3D(string path);
 	void createImportedObject2D(string path);
 

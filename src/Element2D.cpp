@@ -44,6 +44,7 @@ GLuint plane_vert_ids[] =
 };
 
 
+
 Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 {
 	if (primitivetype == "Imported") {
@@ -58,7 +59,6 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 		//primitivesLimitBox(1);
 
 	}
-
 }
 
 Element2D::Element2D(string name, ofMesh mesh) : Object(name)
@@ -67,6 +67,25 @@ Element2D::Element2D(string name, ofMesh mesh) : Object(name)
 
 	customBox(mesh);
 
+}
+
+Element2D::Element2D(string primitivetype, ofColor color) : Object(primitivetype)
+{
+	if (primitivetype == "triangle") {
+		add_vector_shape(VectorPrimitiveType::triangle, 0, 0, 0, 1, 1, 0, 0, 0);
+	}
+	else if (primitivetype == "rectangle") {
+		add_vector_shape(VectorPrimitiveType::rectangle, 0, 0, 1, 1, 0, 0, 0, 0);
+	}
+	else if (primitivetype == "ellipse") {
+		add_vector_shape(VectorPrimitiveType::ellipse, 0, 0, 1, 1, 0, 0, 0, 0);
+	}
+	else if (primitivetype == "line") {
+		add_vector_shape(VectorPrimitiveType::line, 0, 0, 1, 1, 0, 0, 0, 0);
+	}
+	else if (primitivetype == "point") {
+		add_vector_shape(VectorPrimitiveType::point, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
 }
 
 Element2D::~Element2D()
@@ -209,4 +228,48 @@ void Element2D::customBox(ofMesh mesh) {
 
 	this->limit_box.setVertexData(&cube_vertices_custom[0], 8, GL_STATIC_DRAW);
 	this->limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
+}
+
+void Element2D::add_vector_shape(VectorPrimitiveType type, float x1, float y1, float x2, float y2, float x3, float y3, float radiusx, float radiusy) {
+    VectorPrimitive newShape;
+    newShape.type = type;
+
+    newShape.position1[0] = x1;
+    newShape.position1[1] = y1;
+
+    newShape.position2[0] = x2;
+    newShape.position2[1] = y2;
+
+    newShape.position3[0] = x3;
+    newShape.position3[1] = y3;
+
+    newShape.radiusx = radiusx;
+    newShape.radiusy = radiusy;
+
+    // Customize this part based on your needs...
+    newShape.stroke_color = ofColor(255, 0, 0);
+    newShape.fill_color = ofColor(0, 255, 0);
+    newShape.stroke_width = 2.0f;
+
+    switch (newShape.type) {
+        case VectorPrimitiveType::point:
+            break;
+
+        case VectorPrimitiveType::line:
+            break;
+
+        case VectorPrimitiveType::rectangle:
+            break;
+
+        case VectorPrimitiveType::ellipse:
+            break;
+
+        case VectorPrimitiveType::triangle:
+            break;
+
+        default:
+            break;
+    }
+
+	shapes.push_back(newShape);
 }
