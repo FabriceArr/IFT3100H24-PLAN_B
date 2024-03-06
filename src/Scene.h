@@ -33,7 +33,7 @@ private:
 
 	//ClickTexture select_mode;
 
-	ofxAssimpModelLoader mesh_loader, pointer;
+	ofxAssimpModelLoader mesh_loader;
 
 	 ofParameter<ofColor> UI_fill_color;
 
