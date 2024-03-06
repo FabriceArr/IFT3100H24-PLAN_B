@@ -5,9 +5,6 @@
 
 void Renderer::setup(Scene* sce)
 {
-	// Initialisation du vecteur
-	shapes.clear(); // Assurez-vous que le vecteur est vide au début
-	shapes.reserve(100); // Réservez de l'espace pour 100 éléments si nécessaire
 
 	mouse_release_button = mouse_button = 10; // set mouse button to none
 	cursorSubOffset += cursorOffset;
@@ -47,42 +44,8 @@ void Renderer::draw()
 
 }
 
-/*
-// Implementation of drawVectorPoint function
-void Renderer::drawVectorPoint(const glm::vec3& position)
-{
-	ofDrawCircle(position.x, position.y, 20);
-}
-
-// Implementation of drawVectorLine function
-void Renderer::drawVectorLine(const glm::vec3& start, const glm::vec3& end)
-{
-	ofDrawLine(start.x, start.y, start.z, end.x, end.y, end.z);
-}
-
-// Implementation of drawVectorRect function
-void Renderer::drawVectorRect(const glm::vec3& position, float width, float height)
-{
-	ofDrawRectangle(position.x, position.y, position.z, width, height);
-}
-
-// Implementation of drawVectorEllipse function
-void Renderer::drawVectorEllipse(const glm::vec3& position, float radiusX, float radiusY)
-{
-	ofDrawEllipse(position.x, position.y, position.z, radiusX, radiusY);
-}
-
-// Implementation of drawVectorTriangle function
-void Renderer::drawVectorTriangle(const glm::vec3& point1, const glm::vec3& point2, const glm::vec3& point3)
-{
-	ofDrawTriangle(point1.x, point1.y, point1.z, point2.x, point2.y, point2.z, point3.x, point3.y, point3.z);
-}*/
-
 void Renderer::update()
 {
-	ofSetColor(strokecolor);
-	ofSetColor(fillcolor);
-	ofSetLineWidth(stroke_weight);
 }
 
 // fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par dÃ©faut

@@ -148,11 +148,11 @@ void Scene::createImportedObject3D(string path) {
 	
 
 }
-/*
+
 void Scene::create2DObject(int i)
 {
 	if (i == 0) {
-		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
 			"triangle",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
@@ -161,7 +161,7 @@ void Scene::create2DObject(int i)
 		));
 	}
 	else if (i == 1) {
-		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
 			"point",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
@@ -170,7 +170,7 @@ void Scene::create2DObject(int i)
 		));
 	}
 	else if (i == 2) {
-		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
 			"ligne",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
@@ -179,7 +179,7 @@ void Scene::create2DObject(int i)
 		));
 	}
 	else if (i == 3) {
-		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
 			"rectangle",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
@@ -188,7 +188,7 @@ void Scene::create2DObject(int i)
 		));
 	}
 	else if (i == 4) {
-		getSelectedObjectsNode()->add(new ObjNode(new Element2D(
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
 			"ellipse",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
@@ -196,7 +196,7 @@ void Scene::create2DObject(int i)
 			getSelectedObjectsNode()
 		));
 	}
-}*/
+}
 
 void Scene::createImportedObject2D(string path) {
 	ofImage imageImport;

@@ -28,8 +28,6 @@ private:
 
 	void updateCamMatrixes();
 public:
-	std::vector<VectorPrimitive> shapes;
-	VectorPrimitiveType draw_mode;
 	ofImage imageImport;
 
 	int mouse_press_x;
@@ -58,24 +56,14 @@ public:
 
 	void setup(Scene* sce);
 	void draw();
-	void drawVectorPoint(const glm::vec3& position);
-	void drawVectorLine(const glm::vec3& start, const glm::vec3& end);
-	void drawVectorRect(const glm::vec3& position, float width, float height);
-	void drawVectorEllipse(const glm::vec3& position, float radiusX, float radiusY);
-	void drawVectorTriangle(const glm::vec3& point1, const glm::vec3& point2, const glm::vec3& point3);
-	void update();
-	void add_vector_shape(VectorPrimitiveType type, float x1, float y1, float x2, float y2, float x3, float y3, float radiusx, float raduisy);
+	
 	void draw_cursor(float x, float y) const;
 	void clear() const;
+	void update();
 
 	void exit();
-	void removeLastShape();
 
 	void image_export(const string name, const string extension);
-
-	void Renderer::add_vector_cross(ofVec3f point1, ofVec3f point2);
-	void Renderer::add_vector_house(ofVec3f point1, ofVec3f point2, ofVec3f point3);
-	void Renderer::add_vector_flower(ofVec3f point1, ofVec3f radius);
 
 };
 
