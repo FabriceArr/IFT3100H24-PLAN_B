@@ -203,18 +203,39 @@ void Application::keyReleased(int key)
 		scene.updateRadius(interface.getRadiusValues());
 		scene.create2DObject(4);
 		break;
-/*
+
 	case 'm':
-		renderer.add_vector_house(point1, point2, point3);
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
+		scene.create2DObject(5);
 		break;
 
 	case 'c':
-		renderer.add_vector_cross(point1, point2);
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
+		scene.create2DObject(6);
 		break;
 
-	case 't':
-		renderer.add_vector_flower(point1, radius);
-		break;*/
+	case 'v':
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
+		scene.create2DObject(7);
+		break;
 
 	case 'o': //orthogonal camera view switch
 		ofLog() << "Camera Orientation : " << camOrientPersp;

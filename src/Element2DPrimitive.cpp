@@ -21,7 +21,7 @@ Element2DPrimitive::Element2DPrimitive(string primitivetype, ofColor fill_color,
 	else if (primitivetype == "ellipse") {
         shape.type = VectorPrimitiveType::ellipse;
 	}
-	else if (primitivetype == "line") {
+	else if (primitivetype == "ligne") {
         shape.type = VectorPrimitiveType::line;
 	}
 	else if (primitivetype == "point") {
@@ -98,6 +98,21 @@ void Element2DPrimitive::draw(bool highlight, bool animated)
         break;
     }
 }
+
+/*
+void Renderer::add_vector_cross(ofVec3f point1, ofVec3f point2) {
+    add_vector_shape(VectorPrimitiveType::line, point1.x, point1.y, point2.x, point2.y, 0, 0, 0, 0);
+    add_vector_shape(VectorPrimitiveType::line, point1.x, point2.y, point2.x, point1.y, 0, 0, 0, 0);
+
+}
+
+void Renderer::add_vector_flower(ofVec3f point1, ofVec3f radius) {
+    add_vector_shape(VectorPrimitiveType::ellipse, point1.x, point1.y, 0, 0, 0, 0, radius.x, radius.x);
+    add_vector_shape(VectorPrimitiveType::ellipse, point1.x + (radius.x / 2), point1.y, 0, 0, 0, 0, radius.x, radius.x);
+    add_vector_shape(VectorPrimitiveType::ellipse, point1.x + (radius.x / 2), point1.y - (radius.x / 2), 0, 0, 0, 0, radius.x, radius.x);
+    add_vector_shape(VectorPrimitiveType::ellipse, point1.x , point1.y - (radius.x / 2), 0, 0, 0, 0, radius.x, radius.x);
+}
+*/
 
 // Implementation of drawVectorPoint function
 void Element2DPrimitive::drawVectorPoint(const glm::vec3& position)

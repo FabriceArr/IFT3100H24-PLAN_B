@@ -39,9 +39,11 @@ private:
 	ofParameter<ofColor> UI_fill_color;
 	ofParameter<ofColor> UI_stroke_color;
 	ofParameter<int> UI_stroke_width;
-	ofVec3f UI_point1, UI_point2, UI_point3, UI_radius;
+	ofVec3f UI_point1, UI_point2, UI_point3, UI_radius, UI_pointToit;
 
 	ofShader anim_shader_rot, anim_shader_bob;
+
+	ofVec3f point1, point2, point3, radius;
 
 public:
 	bool animate;
@@ -76,6 +78,7 @@ public:
 	void updatePoint2(const ofVec3f point2);
 	void updatePoint3(const ofVec3f point3);
 	void updateRadius(const ofVec3f radius);
+	void updatePointToit();
 
 	void updateSelectedObjects();
 
