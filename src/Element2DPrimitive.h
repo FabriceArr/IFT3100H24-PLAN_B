@@ -9,7 +9,7 @@ enum class VectorPrimitiveType
 {
 	none,
 	point,
-	line,
+	ligne,
 	rectangle,
 	ellipse,
 	triangle

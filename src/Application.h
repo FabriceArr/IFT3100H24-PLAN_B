@@ -6,6 +6,15 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 
+enum class drawMode
+{
+	none,
+	point,
+	ligne,
+	rectangle,
+	ellipse,
+	triangle
+};
 
 
 class Application : public ofBaseApp
@@ -24,6 +33,8 @@ private:
 		ofVec3f point2;
 		ofVec3f point3;
 		ofVec3f radius;
+
+		drawMode currentDrawMode;
 
 public:
 	Renderer renderer;

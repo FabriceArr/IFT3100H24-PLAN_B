@@ -150,58 +150,27 @@ void Application::keyReleased(int key)
 		break;
 
 	case 't':
-		scene.updateFillColor(interface.getFillColorSlider());
-		scene.updateStrokeColor(interface.getStrokeColorSlider());
-		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-		scene.updatePoint1(interface.getPoint1Values());
-		scene.updatePoint2(interface.getPoint2Values());
-		scene.updatePoint3(interface.getPoint3Values());
-		scene.updateRadius(interface.getRadiusValues());
-		scene.create2DObject(0);
+		currentDrawMode = drawMode::triangle;
 		break;
 
 	case 'p':
-		scene.updateFillColor(interface.getFillColorSlider());
-		scene.updateStrokeColor(interface.getStrokeColorSlider());
-		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-		scene.updatePoint1(interface.getPoint1Values());
-		scene.updatePoint2(interface.getPoint2Values());
-		scene.updatePoint3(interface.getPoint3Values());
-		scene.updateRadius(interface.getRadiusValues());
-		scene.create2DObject(1);
+		currentDrawMode = drawMode::point;
 		break;
 
 	case 'l':  
-		scene.updateFillColor(interface.getFillColorSlider());
-		scene.updateStrokeColor(interface.getStrokeColorSlider());
-		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-		scene.updatePoint1(interface.getPoint1Values());
-		scene.updatePoint2(interface.getPoint2Values());
-		scene.updatePoint3(interface.getPoint3Values());
-		scene.updateRadius(interface.getRadiusValues());
-		scene.create2DObject(2);
+		currentDrawMode = drawMode::ligne;
 		break;
 
 	case 'r':  
-		scene.updateFillColor(interface.getFillColorSlider());
-		scene.updateStrokeColor(interface.getStrokeColorSlider());
-		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-		scene.updatePoint1(interface.getPoint1Values());
-		scene.updatePoint2(interface.getPoint2Values());
-		scene.updatePoint3(interface.getPoint3Values());
-		scene.updateRadius(interface.getRadiusValues());
-		scene.create2DObject(3);
+		currentDrawMode = drawMode::rectangle;
 		break;
 
 	case 'e':
-		scene.updateFillColor(interface.getFillColorSlider());
-		scene.updateStrokeColor(interface.getStrokeColorSlider());
-		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-		scene.updatePoint1(interface.getPoint1Values());
-		scene.updatePoint2(interface.getPoint2Values());
-		scene.updatePoint3(interface.getPoint3Values());
-		scene.updateRadius(interface.getRadiusValues());
-		scene.create2DObject(4);
+		currentDrawMode = drawMode::ellipse;
+		break;
+
+	case'n':
+		currentDrawMode = drawMode::none;
 		break;
 
 	case 'm':
@@ -312,7 +281,40 @@ void Application::mouseReleased(int x, int y, int button)
 
 	renderer.mouse_current_x = x;
 	renderer.mouse_current_y = y;
-	
+
+	if (!scene.wasDragging)
+	{
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
+
+		switch (currentDrawMode)
+		{
+		case drawMode::triangle:
+			scene.create2DObject(0);
+			break;
+
+		case drawMode::point:
+			scene.create2DObject(1);
+			break;
+
+		case drawMode::ligne:
+			scene.create2DObject(2);
+			break;
+
+		case drawMode::rectangle:
+			scene.create2DObject(3);
+			break;
+
+		case drawMode::ellipse:
+			scene.create2DObject(4);
+			break;
+		}
+	}
 	scene.wasDragging = false;
 }
 
