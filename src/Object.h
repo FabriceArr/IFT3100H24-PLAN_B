@@ -7,6 +7,7 @@ class Object
 private:
 	bool selected = true;
 	string name;
+	ofColor color;
 	ofMatrix3x3 temp;
 
 	deque<ofMatrix3x3> changes_buffer;
@@ -25,6 +26,9 @@ public:
 
 	virtual void addChange(ofMatrix3x3);
 	virtual ofMatrix3x3 getCurrentChangeM();
+
+	virtual void setColor(ofColor color);
+	virtual ofColor getColor();
 
 	virtual bool undoChange();
 	virtual bool recoverChange();

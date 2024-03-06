@@ -8,6 +8,7 @@ private:
 	
 	std::vector<ObjNode*> sub_objects;
 	vector<ofParameter<float>*>* trans, *rot, *sca;
+	ofParameter<ofColor> color;
 
 public:
 	Object* object;
@@ -28,5 +29,7 @@ public:
 	void destroy_subs();
 
 	void setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParameter<float>*>* rot, vector<ofParameter<float>*>* sca);
+
+	void setFillColor(ofParameter<ofColor> colorparam);
 };
 

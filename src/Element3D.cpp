@@ -57,13 +57,9 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 		primitivesLimitBox(1);
 	}
 
-	ofFloatColor* holder = new ofFloatColor[object_buffer.getNumVertices()];
-	for (int i = 0; i < object_buffer.getNumVertices(); i++) {
-		holder[i] = color;
-	}
-	object_buffer.setColorData(&holder[0], object_buffer.getNumVertices(), GL_STATIC_DRAW);
+	updateColorData(color);
 
-	delete[] holder;
+	
 }
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
@@ -102,6 +98,7 @@ void Element3D::draw(bool highlight, bool animated)
 		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
 	if (highlight) {
+		updateColorData(this->getColor());
 		//draw the box
 		ofBeginShape();
 
@@ -203,4 +200,15 @@ void Element3D::customBox(ofMesh mesh) {
 
 	this->limit_box.setVertexData(&cube_vertices_custom[0], 8, GL_STATIC_DRAW);
 	this->limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
+}
+
+void Element3D::updateColorData(ofColor c)
+{
+	ofFloatColor* holder = new ofFloatColor[object_buffer.getNumVertices()];
+	for (int i = 0; i < object_buffer.getNumVertices(); i++) {
+		holder[i] = c;
+	}
+	object_buffer.setColorData(&holder[0], object_buffer.getNumVertices(), GL_STATIC_DRAW);
+
+	delete[] holder;
 }

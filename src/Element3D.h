@@ -21,6 +21,8 @@ public:
 	void primitivesLimitBox(bool type);
 	void customBox(ofMesh mesh);
 
+	void updateColorData(ofColor c);
+
 
 };
 

@@ -35,7 +35,7 @@ private:
 
 	ofxAssimpModelLoader mesh_loader;
 
-	ofParameter<ofColor> UI_fill_color;
+	 ofParameter<ofColor> UI_fill_color;
 
 	ofShader anim_shader_rot, anim_shader_bob;
 
@@ -81,9 +81,6 @@ public:
 	void redoChange();
 
 	void draw();
-	void updateUITransformMat();
-
-	void drawSubObjects(std::vector<Object*>* subVector);
 
 	void PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM);
 
@@ -91,7 +88,6 @@ public:
 
 	void selectNextObject();
 	void selectPreviousObject();
-	void selectParentObject();
 	void selectSubsObject();
 
 

@@ -37,6 +37,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	wasDragging = false;
 
 	animate = false;
+
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	//anim_shader_rot.load("rotateony");
 	//anim_shader_bob.load("bobony");
@@ -101,6 +102,7 @@ void Scene::setSelectedNode()
 {
 	if (getSelectedObjectsNode() != object_tree_head) {
 		getSelectedObjectsNode()->setAsSelected(&UI_trans_output, &UI_rotation_output, &UI_scale_output);
+		getSelectedObjectsNode()->setFillColor(UI_fill_color);
 	}
 }
 

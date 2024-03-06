@@ -10,6 +10,7 @@ Object::Object(string primitivetype)
 	
 	current_change = 0;
 	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
+
 }
 
 
@@ -63,6 +64,16 @@ ofMatrix3x3 Object::getCurrentChangeM()
 		return i;
 	}
 	return (changes_buffer.at(current_change));
+}
+
+void Object::setColor(ofColor color)
+{
+	this->color = color;
+}
+
+ofColor Object::getColor()
+{
+	return this->color;
 }
 
 bool Object::undoChange()

@@ -33,6 +33,7 @@ void ObjNode::draw(bool selected, bool animated)
 	bool selectedpasser = selected;
 	if (trans != nullptr && rot != nullptr && sca != nullptr)
 	{
+		this->object->setColor(color);
 		ofMatrix3x3 hold = this->object->getCurrentChangeM();
 		ofTranslate(
 			hold.a,
@@ -100,4 +101,8 @@ void ObjNode::setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParamet
 	this->trans = trans;
 	this->rot = rot;
 	this->sca = sca;
+}
+
+void ObjNode::setFillColor(ofParameter<ofColor> colorparam) {
+	this->color = colorparam;
 }
