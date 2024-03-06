@@ -76,8 +76,7 @@ Element3D::~Element3D()
 
 void Element3D::draw(bool highlight, bool animated)
 {
-	
-	if (animated) {
+	if (animated && highlight) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
 
@@ -89,6 +88,7 @@ void Element3D::draw(bool highlight, bool animated)
 		//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
 
 	}
+	
 	if (object_buffer.getNumIndices() > 0) {
 
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
@@ -98,6 +98,8 @@ void Element3D::draw(bool highlight, bool animated)
 		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
 	if (highlight) {
+		
+
 		updateColorData(this->getColor());
 		//draw the box
 		ofBeginShape();

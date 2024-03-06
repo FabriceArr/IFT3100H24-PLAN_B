@@ -67,7 +67,7 @@ void Scene::draw()
 
 
 			ofPushMatrix();
-			(*it)->draw();
+			(*it)->draw(false, animate);
 			
 
 
