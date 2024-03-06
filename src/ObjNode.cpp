@@ -42,8 +42,6 @@ void ObjNode::draw(bool selected, bool animated)
 		hold.a,
 		hold.b,
 		hold.c);
-
-
 	ofRotateXDeg(
 		hold.d);
 	ofRotateYDeg(

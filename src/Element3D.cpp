@@ -78,7 +78,7 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
 	if (animated && highlight) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
-		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
+		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100.0f), 360));
 
 
 		//anim_shader_rot.begin();
