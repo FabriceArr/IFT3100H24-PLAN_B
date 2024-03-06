@@ -1,5 +1,8 @@
 #include "ObjNode.h"
 
+
+
+
 ObjNode::ObjNode(Object* object, ObjNode* master)
 {
 	this->object = object;
@@ -10,6 +13,8 @@ ObjNode::ObjNode(Object* object, ObjNode* master)
 	this->sub_objects = vector<ObjNode*>();
 	trans = rot = sca = nullptr;
 	sub_groupe_stage = 0;
+
+	
 }
 
 
@@ -37,6 +42,8 @@ void ObjNode::draw(bool selected, bool animated)
 		hold.a,
 		hold.b,
 		hold.c);
+
+
 	ofRotateXDeg(
 		hold.d);
 	ofRotateYDeg(

@@ -38,6 +38,10 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 
 	animate = false;
 
+	if (!pointer.loadModel("pointer.obj")) {
+		ofLogError() << "Unable to load pointer.obj from data folder";
+	}
+
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	//anim_shader_rot.load("rotateony");
 	//anim_shader_bob.load("bobony");
@@ -66,7 +70,9 @@ void Scene::draw()
 			
 
 			PickingPhase(project_matrice, view_matrice);
-
+			if ((*it) == getSelectedObjectsNode()) {
+				pointer.draw(OF_MESH_FILL);
+			 }
 
 			ofPushMatrix();
 			(*it)->draw(false, animate);

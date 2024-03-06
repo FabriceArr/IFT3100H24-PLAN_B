@@ -56,7 +56,6 @@ void Object::addChange(ofMatrix3x3 mat)
 
 ofMatrix3x3 Object::getCurrentChangeM()
 {
-	ofLog() << "Current change : " << current_change;
 	//fail safe if the queu is somehow empty,
 	//will show as teh object not being visible anymore and will never be visible again
 	if (changes_buffer.size() < 1) {
