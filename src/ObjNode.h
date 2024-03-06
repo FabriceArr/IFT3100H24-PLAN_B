@@ -9,6 +9,9 @@ private:
 	std::vector<ObjNode*> sub_objects;
 	vector<ofParameter<float>*>* trans, *rot, *sca;
 	ofParameter<ofColor> color;
+	unsigned int sub_groupe_stage;
+
+	void increaseSubStage();
 
 public:
 	Object* object;
@@ -31,5 +34,9 @@ public:
 	void setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParameter<float>*>* rot, vector<ofParameter<float>*>* sca);
 
 	void setFillColor(ofParameter<ofColor> colorparam);
+
+	
+
+	void resetSubStage();
 };
 

@@ -15,7 +15,7 @@ public:
 	Element3D(string name, ofMesh mesh);
 	~Element3D();
 
-	void draw(bool highlight, bool animated = false);
+	void draw(bool highlight, bool animated = false, unsigned int substage = 0);
 
 
 	void primitivesLimitBox(bool type);

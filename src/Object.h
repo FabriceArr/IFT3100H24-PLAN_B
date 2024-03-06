@@ -18,7 +18,7 @@ public:
 	Object(string name);
 	~Object();
 
-	virtual void draw(bool highlight, bool animated = false) = 0;
+	virtual void draw(bool highlight, bool animated = false, unsigned int substage = 0) = 0;
 
 	virtual string* getName();
 

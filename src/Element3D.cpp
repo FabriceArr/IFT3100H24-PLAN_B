@@ -74,7 +74,7 @@ Element3D::~Element3D()
 
 }
 
-void Element3D::draw(bool highlight, bool animated)
+void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
 	if (animated && highlight) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
@@ -108,7 +108,7 @@ void Element3D::draw(bool highlight, bool animated)
 		glPointSize(5);
 		limit_box.draw(GL_POINTS, 0, 8);
 		glPointSize(0);
-		ofSetColor(233, 15, 233);
+		ofSetColor((233 - (20 * substage))%255, 15, (233 - (42 * substage)) % 255 );
 
 		glLineWidth(5);
 		limit_box.drawElements(GL_LINES, limit_box.getNumIndices());

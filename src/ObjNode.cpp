@@ -9,6 +9,7 @@ ObjNode::ObjNode(Object* object, ObjNode* master)
 
 	this->sub_objects = vector<ObjNode*>();
 	trans = rot = sca = nullptr;
+	sub_groupe_stage = 0;
 }
 
 
@@ -59,11 +60,12 @@ void ObjNode::draw(bool selected, bool animated)
 		selectedpasser = true;
 	}
 	if (this->object != nullptr) {
-		this->object->draw(selectedpasser, animated);
+		this->object->draw(selectedpasser, animated, sub_groupe_stage);
 	}
 	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
 		
 		if ((*it)->object != nullptr) {
+			(*it)->increaseSubStage();
 			(*it)->draw(selectedpasser, animated);
 		}
 		
@@ -107,4 +109,20 @@ void ObjNode::setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParamet
 
 void ObjNode::setFillColor(ofParameter<ofColor> colorparam) {
 	this->color = colorparam;
+}
+
+void ObjNode::increaseSubStage()
+{
+	this->sub_groupe_stage++;
+	ofLog() << sub_groupe_stage;
+}
+
+void ObjNode::resetSubStage()
+{
+	this->sub_groupe_stage = 0;
+	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
+
+		(*it)->resetSubStage();
+
+	}
 }

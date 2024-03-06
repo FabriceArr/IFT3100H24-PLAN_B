@@ -12,6 +12,6 @@ public:
 	Element2D(string primitivetype, string path);
 	~Element2D();
 
-	void draw(bool highlight, bool animated = false);
+	void draw(bool highlight, bool animated = false, unsigned int substage = 0);
 
 };

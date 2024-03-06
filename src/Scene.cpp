@@ -51,6 +51,8 @@ void Scene::draw()
 	//sets which node will be updated with the ui changes,
 	//this is not apply on the main head if non are selected
 	//Since it would be a bit of a mess
+
+	object_tree_head->resetSubStage();
 	setSelectedNode();
 
 	for (std::vector<ObjNode*>::const_iterator it =

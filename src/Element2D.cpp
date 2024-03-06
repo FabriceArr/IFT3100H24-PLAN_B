@@ -15,7 +15,7 @@ Element2D::~Element2D()
 {
 }
 
-void Element2D::draw(bool highlight, bool animated)
+void Element2D::draw(bool highlight, bool animated, unsigned int substage)
 {
 	this->image.draw(image.getWidth()/-2,0,0);
 }
