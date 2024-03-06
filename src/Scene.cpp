@@ -156,7 +156,11 @@ void Scene::create2DObject(int i)
 			"triangle",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
-			this->UI_stroke_width.get()),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2, 
+			this->UI_point3, 
+			this->UI_radius),
 			getSelectedObjectsNode()
 		));
 	}
@@ -165,7 +169,11 @@ void Scene::create2DObject(int i)
 			"point",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
-			this->UI_stroke_width.get()),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
 			getSelectedObjectsNode()
 		));
 	}
@@ -174,7 +182,11 @@ void Scene::create2DObject(int i)
 			"ligne",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
-			this->UI_stroke_width.get()),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
 			getSelectedObjectsNode()
 		));
 	}
@@ -183,7 +195,11 @@ void Scene::create2DObject(int i)
 			"rectangle",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
-			this->UI_stroke_width.get()),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
 			getSelectedObjectsNode()
 		));
 	}
@@ -192,7 +208,11 @@ void Scene::create2DObject(int i)
 			"ellipse",
 			this->UI_fill_color.get(),
 			this->UI_stroke_color.get(),
-			this->UI_stroke_width.get()),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
 			getSelectedObjectsNode()
 		));
 	}
@@ -233,6 +253,26 @@ void Scene::updateStrokeColor(ofParameter<ofColor> colorparam)
 void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 {
 	UI_stroke_width = widthparam;
+}
+
+void Scene::updatePoint1(const ofVec3f point1)
+{
+	UI_point1 = point1;
+}
+
+void Scene::updatePoint2(const ofVec3f point2)
+{
+	UI_point2 = point2;
+}
+
+void Scene::updatePoint3(const ofVec3f point3)
+{
+	UI_point3 = point3;
+}
+
+void Scene::updateRadius(const ofVec3f radius)
+{
+	UI_radius = radius;
 }
 
 void Scene::updateSelectedObjects()

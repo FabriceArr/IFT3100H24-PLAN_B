@@ -1,34 +1,35 @@
 #include "Element2DPrimitive.h"
 
-Element2DPrimitive::Element2DPrimitive(string primitivetype, ofColor fill_color, ofColor stroke_color, int stroke_width) : Object(primitivetype)
+Element2DPrimitive::Element2DPrimitive(string primitivetype, ofColor fill_color, ofColor stroke_color, int stroke_width, ofVec3f point1, ofVec3f point2, ofVec3f point3, ofVec3f radius) : Object(primitivetype)
 {
-    VectorPrimitive newShape;
-
-    newShape.fill_color = fill_color;
-    newShape.stroke_color = stroke_color;
-    newShape.stroke_width = stroke_width;
+    shape.fill_color = fill_color;
+    shape.stroke_color = stroke_color;
+    shape.stroke_width = stroke_width;
+    shape.position1 = point1;
+    shape.position2 = point2;
+    shape.position3 = point3;
+    shape.radiusx = radius.x;
+    shape.radiusy = radius.y;
    
 
 	if (primitivetype == "triangle") {
-        newShape.type = VectorPrimitiveType::triangle;
+        shape.type = VectorPrimitiveType::triangle;
 	}
 	else if (primitivetype == "rectangle") {
-        newShape.type = VectorPrimitiveType::rectangle;
+        shape.type = VectorPrimitiveType::rectangle;
 	}
 	else if (primitivetype == "ellipse") {
-        newShape.type = VectorPrimitiveType::ellipse;
+        shape.type = VectorPrimitiveType::ellipse;
 	}
 	else if (primitivetype == "line") {
-        newShape.type = VectorPrimitiveType::line;
+        shape.type = VectorPrimitiveType::line;
 	}
 	else if (primitivetype == "point") {
-        newShape.type = VectorPrimitiveType::point;
+        shape.type = VectorPrimitiveType::point;
 	}
     else {
-        newShape.type = VectorPrimitiveType::none;
+        shape.type = VectorPrimitiveType::none;
 	}
-    
-	shape = newShape;
 }
 
 Element2DPrimitive::~Element2DPrimitive()
@@ -85,6 +86,12 @@ void Element2DPrimitive::draw(bool highlight, bool animated)
         ofFill();
         ofSetLineWidth(0);
         ofSetColor(shape.fill_color);
+        drawVectorTriangle(glm::vec3(shape.position1[0], shape.position1[1], 0),
+            glm::vec3(shape.position2[0], shape.position2[1], 0),
+            glm::vec3(shape.position3[0], shape.position3[1], 0));
+        ofNoFill();
+        ofSetLineWidth(shape.stroke_width);
+        ofSetColor(shape.stroke_color);
         drawVectorTriangle(glm::vec3(shape.position1[0], shape.position1[1], 0),
             glm::vec3(shape.position2[0], shape.position2[1], 0),
             glm::vec3(shape.position3[0], shape.position3[1], 0));

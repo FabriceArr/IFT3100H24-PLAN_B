@@ -28,10 +28,10 @@ void Application::update()
 	renderer.fillcolor = interface.getFillColorSlider();
 	renderer.strokecolor = interface.getStrokeColorSlider();
 	renderer.stroke_weight = interface.getStrokeWidthSlider();
-	point1 = *interface.getPoint1Values();
-	point2 = *interface.getPoint2Values();
-	point3 = *interface.getPoint3Values();
-	radius = *interface.getRadiusValues();
+	point1 = interface.getPoint1Values();
+	point2 = interface.getPoint2Values();
+	point3 = interface.getPoint3Values();
+	radius = interface.getRadiusValues();
 	scene.updateFillColor(interface.getFillColorSlider());
 
 	renderer.update();
@@ -148,42 +148,62 @@ void Application::keyReleased(int key)
 		saveSceneChanges();
 		scene.selectSubsObject();
 		break;
-/*
-	case 49:  // key 1
+
+	case 't':
 		scene.updateFillColor(interface.getFillColorSlider());
 		scene.updateStrokeColor(interface.getStrokeColorSlider());
 		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
 		scene.create2DObject(0);
 		break;
 
-	case 50:  // key 2
+	case 'p':
 		scene.updateFillColor(interface.getFillColorSlider());
 		scene.updateStrokeColor(interface.getStrokeColorSlider());
 		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
 		scene.create2DObject(1);
 		break;
 
-	case 51:  // key 3
+	case 'l':  
 		scene.updateFillColor(interface.getFillColorSlider());
 		scene.updateStrokeColor(interface.getStrokeColorSlider());
 		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
 		scene.create2DObject(2);
 		break;
 
-	case 52:  // key 4
+	case 'r':  
 		scene.updateFillColor(interface.getFillColorSlider());
 		scene.updateStrokeColor(interface.getStrokeColorSlider());
 		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
 		scene.create2DObject(3);
 		break;
 
-	case 53:  // key 5
+	case 'e':
 		scene.updateFillColor(interface.getFillColorSlider());
 		scene.updateStrokeColor(interface.getStrokeColorSlider());
 		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
 		scene.create2DObject(4);
 		break;
-
+/*
 	case 'm':
 		renderer.add_vector_house(point1, point2, point3);
 		break;
@@ -194,10 +214,6 @@ void Application::keyReleased(int key)
 
 	case 't':
 		renderer.add_vector_flower(point1, radius);
-		break;
-
-	case 114: // key r
-		renderer.removeLastShape();
 		break;*/
 
 	case 'o': //orthogonal camera view switch

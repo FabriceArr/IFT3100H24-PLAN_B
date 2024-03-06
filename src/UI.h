@@ -99,11 +99,11 @@ public:
 
 	void changeFocus(const Object* Object = nullptr);
 
-	const ofVec3f* UI::getPoint1Values();
-	const ofVec3f* UI::getPoint2Values();
-	const ofVec3f* UI::getPoint3Values();
+	const ofVec3f UI::getPoint1Values();
+	const ofVec3f UI::getPoint2Values();
+	const ofVec3f UI::getPoint3Values();
 
-	const ofVec3f* UI::getRadiusValues();
+	const ofVec3f UI::getRadiusValues();
 
 	const vector<ofParameter<float>*> getPositionSliderValues();
 	const vector<ofParameter<float>*> getRotationSliderValues();

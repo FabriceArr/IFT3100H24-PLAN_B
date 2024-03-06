@@ -37,7 +37,7 @@ private:
 
 public:
 	
-	Element2DPrimitive(string name, ofColor fill_color, ofColor stroke_color, int stroke_width);
+	Element2DPrimitive(string name, ofColor fill_color, ofColor stroke_color, int stroke_width, ofVec3f point1, ofVec3f point2, ofVec3f point3, ofVec3f radius);
 	~Element2DPrimitive();
 
 	void drawVectorPoint(const glm::vec3& position);

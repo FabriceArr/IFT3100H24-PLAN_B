@@ -104,32 +104,32 @@ void UI::draw()
 	interface.draw();
 }
 
-const ofVec3f* UI::getPoint1Values()
+const ofVec3f UI::getPoint1Values()
 {
     point1_values.x = intInputPoint1X;
     point1_values.y = intInputPoint1Y;
-    return &point1_values;
+    return point1_values;
 }
 
-const ofVec3f* UI::getPoint2Values()
+const ofVec3f UI::getPoint2Values()
 {
     point2_values.x = intInputPoint2X;
     point2_values.y = intInputPoint2Y;
-    return &point2_values;
+    return point2_values;
 }
 
-const ofVec3f* UI::getPoint3Values()
+const ofVec3f UI::getPoint3Values()
 {
     point3_values.x = intInputPoint3X;
     point3_values.y = intInputPoint3Y;
-    return &point3_values;
+    return point3_values;
 }
 
-const ofVec3f* UI::getRadiusValues()
+const ofVec3f UI::getRadiusValues()
 {
     radius_values.x = intInputRadiusX;
     radius_values.y = intInputRadiusY;
-    return &radius_values;
+    return radius_values;
 }
 
 const vector<ofParameter<float>*> UI::getPositionSliderValues() {
