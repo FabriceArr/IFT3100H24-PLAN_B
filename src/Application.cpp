@@ -3,7 +3,7 @@
 
 void Application::setup()
 {
-	ofSetWindowTitle("Plan B viewer (m d f 1-5 a t e c o space)");
+	ofSetWindowTitle("Plan B viewer (m d f a t e c o space)");
 
 	interface.setup();
 	interface.getPositionSliderValues();
@@ -15,11 +15,17 @@ void Application::setup()
 	interface.getFillColorSlider();
 	interface.getStrokeColorSlider();
 	interface.getStrokeWidthSlider();
+	interface.getBackgroundColorSlider();
 
 	renderer.setup(&scene);
 	cam.setOrientation(DEFAULTVIEW);
 	isGrabReq = false;
 	isMouseDragRealease = false;
+
+	mouse_release_button = mouse_button = 10; // set mouse button to none
+	cursorSubOffset += cursorOffset;
+	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
+
 }
 
 void Application::update()
@@ -27,11 +33,12 @@ void Application::update()
 	interface.update();
 	renderer.fillcolor = interface.getFillColorSlider();
 	renderer.strokecolor = interface.getStrokeColorSlider();
+	renderer.backgroundColor = interface.getBackgroundColorSlider();
 	renderer.stroke_weight = interface.getStrokeWidthSlider();
-	point1 = *interface.getPoint1Values();
-	point2 = *interface.getPoint2Values();
-	point3 = *interface.getPoint3Values();
-	radius = *interface.getRadiusValues();
+	point1 = interface.getPoint1Values();
+	point2 = interface.getPoint2Values();
+	point3 = interface.getPoint3Values();
+	radius = interface.getRadiusValues();
 	scene.updateFillColor(interface.getFillColorSlider());
 
 	renderer.update();
@@ -57,17 +64,19 @@ void Application::draw()
 	cam.end();
 
 	interface.draw();
-
+/*
 	if (renderer.isCursorVisible)
 	{
 		renderer.draw_cursor(renderer.mouse_current_x,
 			renderer.mouse_current_y);
-	}
+	}*/
 	if (isGrabReq) {	// now we're sure the draw is completed
 		renderer.image_export("ScreenGrab", "png");
 		renderer.saveNumber++;
 		isGrabReq = false;
 	}
+
+	draw_cursor(mouse_current_x, mouse_current_y);
 }
 
 
@@ -149,45 +158,61 @@ void Application::keyReleased(int key)
 		scene.selectSubsObject();
 		break;
 
-	case 49:  // key 1
-		renderer.draw_mode = VectorPrimitiveType::triangle;
-		ofLog() << "<mode: triangle>";
+	case 't':
+		currentDrawMode = drawMode::triangle;
 		break;
 
-	case 50:  // key 2
-		renderer.draw_mode = VectorPrimitiveType::point;
-		ofLog() << "<mode: point>";
+	case 'p':
+		currentDrawMode = drawMode::point;
 		break;
 
-	case 51:  // key 3
-		renderer.draw_mode = VectorPrimitiveType::line;
-		ofLog() << "<mode: line>";
+	case 'l':  
+		currentDrawMode = drawMode::ligne;
 		break;
 
-	case 52:  // key 4
-		renderer.draw_mode = VectorPrimitiveType::rectangle;
-		ofLog() << "<mode: rectangle>";
+	case 'r':  
+		currentDrawMode = drawMode::rectangle;
 		break;
 
-	case 53:  // key 5
-		renderer.draw_mode = VectorPrimitiveType::ellipse;
-		ofLog() << "<mode: ellipse>";
+	case 'e':
+		currentDrawMode = drawMode::ellipse;
+		break;
+
+	case'n':
+		currentDrawMode = drawMode::none;
 		break;
 
 	case 'm':
-		renderer.add_vector_house(point1, point2, point3);
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
+		scene.create2DObject(5);
 		break;
 
 	case 'c':
-		renderer.add_vector_cross(point1, point2);
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
+		scene.create2DObject(6);
 		break;
 
-	case 't':
-		renderer.add_vector_flower(point1, radius);
-		break;
-
-	case 114: // key r
-		renderer.removeLastShape();
+	case 'v':
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
+		scene.create2DObject(7);
 		break;
 
 	case 'o': //orthogonal camera view switch
@@ -220,15 +245,14 @@ void Application::keyReleased(int key)
 
 void Application::mouseMoved(int x, int y)
 {
-	renderer.mouse_current_x = x;
-	renderer.mouse_current_y = y;
-	//isMouseDragRealease = renderer.mouse_pressed;
+	mouse_current_x = x;
+	mouse_current_y = y;
 }
 
 void Application::mouseDragged(int x, int y, int button)
 {
-	renderer.mouse_current_x = x;
-	renderer.mouse_current_y = y;
+	mouse_current_x = x;
+	mouse_current_y = y;
 	scene.wasDragging = true;
 }
 
@@ -236,54 +260,82 @@ void Application::mousePressed(int x, int y, int button)
 {
 
 	//make sure that when you get a value from this, your logic isnt faulty and takes an old released number
-	renderer.mouse_release_x = -1;
-	renderer.mouse_release_y = -1;
+	mouse_release_x = -1;
+	mouse_release_y = -1;
 
 
-	renderer.mouse_pressed = true;
-	renderer.mouse_released = false;
-	renderer.mouse_current_x = x;
-	renderer.mouse_current_y = y;
+	mouse_pressed = true;
+	mouse_released = false;
+	mouse_current_x = x;
+	mouse_current_y = y;
 
-	renderer.mouse_button = button;
-	renderer.mouse_release_button = 10;
-	ofLog() << "mouse pressed: " << button;
+	mouse_button = button;
+	mouse_release_button = 10;
+	//ofLog() << "mouse pressed: " << button;
 
 }
 
 void Application::mouseReleased(int x, int y, int button)
 {
 
-	renderer.mouse_pressed = false;
-	renderer.mouse_released = true;
+	mouse_pressed = false;
+	mouse_released = true;
 
-	renderer.mouse_button = 10;
-	renderer.mouse_release_button = button;
+	mouse_button = 10;
+	mouse_release_button = button;
 
-	renderer.mouse_release_x = x;
-	renderer.mouse_release_y = y;
+	mouse_release_x = x;
+	mouse_release_y = y;
 
-	renderer.mouse_current_x = x;
-	renderer.mouse_current_y = y;
+	mouse_current_x = x;
+	mouse_current_y = y;
 
-	// Appel de la fonction add_vector_shape avec les positions spécifiées
 	if (!scene.wasDragging)
 	{
-		renderer.add_vector_shape(renderer.draw_mode, point1.x, point1.y, point2.x, point3.y, point3.x, point3.y , radius.x, radius.y);
-	}		
+		scene.updateFillColor(interface.getFillColorSlider());
+		scene.updateStrokeColor(interface.getStrokeColorSlider());
+		scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+		scene.updatePoint1(interface.getPoint1Values());
+		scene.updatePoint2(interface.getPoint2Values());
+		scene.updatePoint3(interface.getPoint3Values());
+		scene.updateRadius(interface.getRadiusValues());
+
+		switch (currentDrawMode)
+		{
+		case drawMode::triangle:
+			scene.create2DObject(0);
+			break;
+
+		case drawMode::point:
+			scene.create2DObject(1);
+			break;
+
+		case drawMode::ligne:
+			scene.create2DObject(2);
+			break;
+
+		case drawMode::rectangle:
+			scene.create2DObject(3);
+			break;
+
+		case drawMode::ellipse:
+			scene.create2DObject(4);
+			break;
+		}
+	}
 	scene.wasDragging = false;
 }
 
 void Application::mouseEntered(int x, int y)
 {
-	renderer.mouse_current_x = x;
-	renderer.mouse_current_y = y;
-	renderer.isCursorVisible = true;
+	mouse_current_x = x;
+	mouse_current_y = y;
+	//isCursorVisible = true;
 }
 
 void Application::mouseExited(int x, int y)
 {
-	renderer.isCursorVisible = false;
+	//isCursorVisible = false;
 }
 
 void Application::windowResized(int w, int h)
@@ -292,20 +344,12 @@ void Application::windowResized(int w, int h)
 
 void Application::dragEvent(ofDragInfo dragInfo)
 {
-	//ofLog() << "<app::ofDragInfo file[0]: " << dragInfo.files.at(0)
-	//	<< " at : " << dragInfo.position << ">";
-	//	
-
-	//// importer le premier fichier déposé sur la fenêtre si c'est une image (attention : aucune validation du type de fichier)
-	//renderer.imageImport.load(dragInfo.files.at(0));
-
 	for (std::vector<string>::iterator it = dragInfo.files.begin(); it != dragInfo.files.end(); it++)
 	{
 		if ((*it).substr((*it).length() - 4, 4) == ".png" ||
 			(*it).substr((*it).length() - 4, 4) == ".jpg" ||
 			(*it).substr((*it).length() - 4, 4) == ".gif") {
-			// importer le premier fichier depose sur la fenetre si c'est une image des types supportee
-			//image.load((*it));
+			// importer le ou les fichier depose sur la fenetre si c'est une image des types supportee
 			scene.createImportedObject2D((*it));
 		}
 
@@ -336,4 +380,70 @@ void Application::saveSceneChanges() {
 	interface.setPositionSliderValues();
 	interface.setRotationSliderValues();
 	interface.setScaleSliderValues();
+}
+
+void Application::draw_cursor(float x, float y) const
+{
+	ofSetLineWidth(2);
+	if (mouse_button == 0)
+	{
+		// left mouse button pressed down
+		ofSetColor(255);
+
+		ofDrawLine(x - cursorOffset - cursorLength, y - cursorOffset - cursorLength, x - cursorOffset, y - cursorOffset); //TL
+		ofDrawLine(x - cursorOffset - cursorLength, y + cursorOffset + cursorLength, x - cursorOffset, y + cursorOffset); //BL
+		ofDrawLine(x + cursorOffset + cursorLength, y + cursorOffset + cursorLength, x + cursorOffset, y + cursorOffset); // BR
+		if(currentDrawMode == drawMode::none) // on ne veut pas que le trait couvre le mode de création 2D
+			ofDrawLine(x + cursorOffset + cursorLength, y - cursorOffset - cursorLength, x + cursorOffset, y - cursorOffset); // TR
+	}
+	else		// no mouse button pressed
+
+	{
+		ofSetColor(31);
+
+		ofDrawLine(x + cursorOffset, y, x + cursorOffset + cursorLength, y);
+		ofDrawLine(x - cursorOffset, y, x - cursorOffset - cursorLength, y);
+		ofDrawLine(x, y + cursorOffset, x, y + cursorOffset + cursorLength);
+		ofDrawLine(x, y - cursorOffset, x, y - cursorOffset - cursorLength);
+
+	}
+	switch (currentDrawMode)
+	{
+	case drawMode::point:
+		ofFill();
+		ofDrawCircle(x + cursorSubOffset, y - cursorSubOffset, cursorLength / 5);
+		break;
+
+	case drawMode::ligne:
+		ofDrawLine(x + cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset, //TL
+			x - cursorLength / 2 + cursorSubOffset, y + cursorLength / 2 - cursorSubOffset);//BR
+		break;
+
+	case drawMode::rectangle:
+		ofNoFill();
+		ofDrawRectangle(glm::vec2(x + 2 * cursorSubOffset, y - 2 * cursorSubOffset),
+			-cursorSubOffset, cursorSubOffset);
+
+		break;
+
+	case drawMode::ellipse:
+		ofNoFill();
+		ofDrawCircle(x + cursorSubOffset, y - cursorSubOffset, cursorLength / 2);
+		break;
+
+	case drawMode::triangle:
+		ofNoFill();
+		ofDrawTriangle(
+			x + cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TR
+			x - cursorLength / 2 + cursorSubOffset, y - cursorLength / 2 - cursorSubOffset,	 //TL
+			x + cursorSubOffset, y + cursorLength / 2 - cursorSubOffset); //B
+
+		break;
+
+
+	default:
+		break;
+	}
+
+
 }

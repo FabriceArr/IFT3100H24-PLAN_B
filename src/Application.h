@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning
 
 #include "Renderer.h"
 #include "UI.h"
@@ -6,6 +7,15 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 
+enum class drawMode
+{
+	none,
+	point,
+	ligne,
+	rectangle,
+	ellipse,
+	triangle
+};
 
 
 class Application : public ofBaseApp
@@ -24,6 +34,24 @@ private:
 		ofVec3f point2;
 		ofVec3f point3;
 		ofVec3f radius;
+
+		drawMode currentDrawMode;
+		int mouse_current_x;
+		int mouse_current_y;
+
+		const float cursorLength = 10.0f;
+		const float cursorOffset = 5.0f;
+		float cursorSubOffset = 5.0f;
+		bool mouse_pressed;
+		bool mouse_released;
+		int mouse_button;
+		int mouse_release_button;
+		int mouse_press_x;
+		int mouse_press_y;
+		int mouse_release_x;
+		int mouse_release_y;
+
+
 
 public:
 	Renderer renderer;
@@ -55,7 +83,9 @@ public:
 
 	void saveSceneChanges();
 
-	void mouseDragRelease();
+	//void mouseDragRelease();
+
+	void draw_cursor(float x, float y) const;
 
 
 	ofxPanel test;
