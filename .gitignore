@@ -63,3 +63,6 @@ obj/x64/Debug/IFT3100H.7FD42DF7.tlog/link.secondary.1.tlog
 poop.cpp
 poop.h
 obj/x64/Debug/IFT3100H.7FD42DF7.tlog/CL.10340.write.1.tlog
+*.stl
+*.obj
+*.fbx
