@@ -72,8 +72,8 @@ void Element2DPrimitive::draw(bool highlight, bool animated, unsigned int substa
         drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
             shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
         ofNoFill();
-        ofSetLineWidth(this->getStrokeWidth());
-        ofSetColor(this->getStrokeColor());
+        ofSetLineWidth(shape.stroke_width);
+        ofSetColor(shape.stroke_color);
         drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
             shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
         break;
