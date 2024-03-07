@@ -14,19 +14,24 @@ Element2DPrimitive::Element2DPrimitive(string primitivetype, ofColor fill_color,
 
 	if (primitivetype == "triangle") {
         shape.type = VectorPrimitiveType::triangle;
+        setUp3PointBox(shape.position1, shape.position2, shape.position3);
 
 	}
 	else if (primitivetype == "rectangle") {
         shape.type = VectorPrimitiveType::rectangle;
+        setUp2PointBox(shape.position1, shape.position2);
 	}
 	else if (primitivetype == "ellipse") {
         shape.type = VectorPrimitiveType::ellipse;
+        setUpCircleBox(shape.position1, shape.radiusx, shape.radiusy);
 	}
 	else if (primitivetype == "ligne") {
         shape.type = VectorPrimitiveType::ligne;
+        setUp2PointBox(shape.position1, shape.position2);
 	}
 	else if (primitivetype == "point") {
         shape.type = VectorPrimitiveType::point;
+        setUpCircleBox(shape.position1, shape.stroke_width, shape.stroke_width);
 	}
     else {
         shape.type = VectorPrimitiveType::none;
@@ -134,12 +139,14 @@ void Element2DPrimitive::setUp2PointBox(ofVec3f p1, ofVec3f p2)
 
     GLuint square_vertices_ids[] =
     {
-        0, 1, 2,
-        1, 2, 3
+        0, 1,
+        1, 3,
+        3, 2,
+        2, 0
     };
 
     this->select_Square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
-    this->select_Square.setIndexData(&square_vertices_ids[0], 6, GL_STATIC_DRAW);
+    this->select_Square.setIndexData(&square_vertices_ids[0], 8, GL_STATIC_DRAW);
 
 }
 
@@ -164,13 +171,40 @@ void Element2DPrimitive::setUp3PointBox(ofVec3f p1, ofVec3f p2, ofVec3f p3)
 
     GLuint square_vertices_ids[] =
     {
-        0, 1, 2,
-        1, 2, 3
+        0, 1,
+        1, 3,
+        3, 2,
+        2, 0
     };
     
 
     this->select_Square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
-    this->select_Square.setIndexData(&square_vertices_ids[0], 6, GL_STATIC_DRAW);
+    this->select_Square.setIndexData(&square_vertices_ids[0], 8, GL_STATIC_DRAW);
+
+}
+
+void Element2DPrimitive::setUpCircleBox(ofVec3f p1, float w, float h)
+{
+    ofVec3f square_vertices_custom[] =
+    {
+        ofVec3f(p1.x - (w / 2), p1.y + (h / 2), 0),//0
+        ofVec3f(p1.x + (w / 2), p1.x + (h / 2), 0),//1
+        ofVec3f(p1.x - (w / 2), p1.x - (h / 2),  0),//2
+        ofVec3f(p1.x + (w / 2), p1.x - (h / 2), 0),//3
+    };
+
+
+    GLuint square_vertices_ids[] =
+    {
+        0, 1,
+        1, 3,
+        3, 2,
+        2, 0
+    };
+
+
+    this->select_Square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
+    this->select_Square.setIndexData(&square_vertices_ids[0], 8, GL_STATIC_DRAW);
 
 }
 

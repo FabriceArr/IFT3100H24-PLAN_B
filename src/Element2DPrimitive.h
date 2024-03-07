@@ -52,6 +52,7 @@ public:
 
 	void setUp2PointBox(ofVec3f p1, ofVec3f p2);
 	void setUp3PointBox(ofVec3f p1, ofVec3f p2, ofVec3f p3);
+	void setUpCircleBox(ofVec3f p1, float w, float h);
 
 	void draw_selectSquare(bool select);
 };
