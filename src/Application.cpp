@@ -39,7 +39,11 @@ void Application::update()
 	point2 = interface.getPoint2Values();
 	point3 = interface.getPoint3Values();
 	radius = interface.getRadiusValues();
+
+
 	scene.updateFillColor(interface.getFillColorSlider());
+	scene.updateStrokeColor(interface.getStrokeColorSlider());
+	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
 
 	renderer.update();
 	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;
@@ -50,11 +54,6 @@ void Application::draw()
 {
 	
 	cam.begin();
-	
-	/*scene.PickingPhase(cam.getProjectionMatrix(), ofGetCurrentViewMatrix());
-	if (scene.getSceneContent()->getSubs()->size()) {
-		scene.findSelectedObject(5, 5); for the moment this makes the cam create an access violation
-	}*/
 	
 	
 	renderer.draw();
@@ -135,25 +134,21 @@ void Application::keyReleased(int key)
 		break;
 
 	case OF_KEY_RIGHT:
-		ofLog() << "next object select ordered";
 		saveSceneChanges();
 		scene.selectNextObject();
 		break;
 
 	case OF_KEY_LEFT:
-		ofLog() << "previous object select ordered";
 		saveSceneChanges();
 		scene.selectPreviousObject();
 		break;
 
 	case OF_KEY_UP:
-		ofLog() << "previous object select ordered";
 		saveSceneChanges();
 		scene.deSelectObject();
 		break;
 
 	case OF_KEY_DOWN:
-		ofLog() << "previous object select ordered";
 		saveSceneChanges();
 		scene.selectSubsObject();
 		break;
@@ -216,7 +211,6 @@ void Application::keyReleased(int key)
 		break;
 
 	case 'o': //orthogonal camera view switch
-		ofLog() << "Camera Orientation : " << camOrientPersp;
 
 		if (!cam.getOrtho()) // Cam is in perspective
 		{
@@ -230,7 +224,6 @@ void Application::keyReleased(int key)
 		}
 
 		cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
-		ofLog() << "Ortho : " << (cam.getOrtho() ? "True": "False");
 		
 		break;
 
@@ -271,7 +264,6 @@ void Application::mousePressed(int x, int y, int button)
 
 	mouse_button = button;
 	mouse_release_button = 10;
-	//ofLog() << "mouse pressed: " << button;
 
 }
 

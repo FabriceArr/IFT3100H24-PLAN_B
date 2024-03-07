@@ -30,7 +30,7 @@ Element2D::~Element2D()
 {
 }
 
-void Element2D::draw(bool highlight, bool animated)
+void Element2D::draw(bool highlight, bool animated, unsigned int substage)
 {
 	if (highlight) {
 		//draw the box

@@ -1,5 +1,8 @@
 #include "ObjNode.h"
 
+
+
+
 ObjNode::ObjNode(Object* object, ObjNode* master)
 {
 	this->object = object;
@@ -9,6 +12,9 @@ ObjNode::ObjNode(Object* object, ObjNode* master)
 
 	this->sub_objects = vector<ObjNode*>();
 	trans = rot = sca = nullptr;
+	sub_groupe_stage = 0;
+
+	
 }
 
 
@@ -30,6 +36,7 @@ void ObjNode::remove()
 
 void ObjNode::draw(bool selected, bool animated)
 {
+	bool selectedpasser = selected;
 	ofMatrix3x3 hold = this->object->getCurrentChangeM();
 	ofTranslate(
 		hold.a,
@@ -45,9 +52,12 @@ void ObjNode::draw(bool selected, bool animated)
 		hold.g,
 		hold.h,
 		hold.i);
-	bool selectedpasser = selected;
+
 	if (trans != nullptr && rot != nullptr && sca != nullptr)
 	{
+		this->object->setColor(color);
+		this->object->setStrokeColor(stroke_color);
+		this->object->setStrokeWidth(stroke_width);
 		
 		ofTranslate(*this->trans->at(0), *this->trans->at(1), *this->trans->at(2));
 		ofRotateXDeg(*this->rot->at(0));
@@ -57,11 +67,12 @@ void ObjNode::draw(bool selected, bool animated)
 		selectedpasser = true;
 	}
 	if (this->object != nullptr) {
-		this->object->draw(selectedpasser, animated);
+		this->object->draw(selectedpasser, animated, sub_groupe_stage);
 	}
 	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
 		
 		if ((*it)->object != nullptr) {
+			(*it)->increaseSubStage();
 			(*it)->draw(selectedpasser, animated);
 		}
 		
@@ -101,4 +112,34 @@ void ObjNode::setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParamet
 	this->trans = trans;
 	this->rot = rot;
 	this->sca = sca;
+}
+
+void ObjNode::setFillColor(ofParameter<ofColor> colorparam) {
+	this->color = colorparam;
+}
+
+void ObjNode::setStrokeColor(ofParameter<ofColor> colorparam)
+{
+	this->stroke_color = colorparam;
+}
+
+void ObjNode::setStrokeWidth(ofParameter<int> widthparam)
+{
+	this->stroke_width = widthparam;
+}
+
+void ObjNode::increaseSubStage()
+{
+	this->sub_groupe_stage++;
+	ofLog() << sub_groupe_stage;
+}
+
+void ObjNode::resetSubStage()
+{
+	this->sub_groupe_stage = 0;
+	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
+
+		(*it)->resetSubStage();
+
+	}
 }

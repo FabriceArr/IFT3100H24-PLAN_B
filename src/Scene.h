@@ -7,7 +7,6 @@
 #include "Element2DPrimitive.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
-//#include "ClickTexture.h"
 #include "ofxAssimpModelLoader.h"
 #include "OBJLoader.h"
 #include <vector>
@@ -95,9 +94,6 @@ public:
 	void redoChange();
 
 	void draw();
-	void updateUITransformMat();
-
-	void drawSubObjects(std::vector<Object*>* subVector);
 
 	void PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM);
 
@@ -105,7 +101,6 @@ public:
 
 	void selectNextObject();
 	void selectPreviousObject();
-	void selectParentObject();
 	void selectSubsObject();
 
 

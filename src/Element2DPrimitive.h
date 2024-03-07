@@ -46,6 +46,8 @@ public:
 	void drawVectorTriangle(const glm::vec3& point1, const glm::vec3& point2, const glm::vec3& point3);
 	void drawVectorRect(const glm::vec3& position, float width, float height);
 
-	void draw(bool highlight, bool animated = false);
+	void draw(bool highlight, bool animated = false, unsigned int substage = 0);
+
+	void updateShapeData();
 
 };

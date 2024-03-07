@@ -57,13 +57,9 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 		primitivesLimitBox(1);
 	}
 
-	ofFloatColor* holder = new ofFloatColor[object_buffer.getNumVertices()];
-	for (int i = 0; i < object_buffer.getNumVertices(); i++) {
-		holder[i] = color;
-	}
-	object_buffer.setColorData(&holder[0], object_buffer.getNumVertices(), GL_STATIC_DRAW);
+	updateColorData(color);
 
-	delete[] holder;
+	
 }
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
@@ -78,15 +74,15 @@ Element3D::~Element3D()
 
 }
 
-void Element3D::draw(bool highlight, bool animated)
+void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
-	
-	if (animated) {
+	if (animated && highlight) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
-		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100), 360));
+		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100.0f), 360));
 
 
 	}
+	
 	if (object_buffer.getNumIndices() > 0) {
 
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
@@ -96,6 +92,9 @@ void Element3D::draw(bool highlight, bool animated)
 		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
 	if (highlight) {
+		
+
+		updateColorData(this->getColor());
 		//draw the box
 		ofBeginShape();
 
@@ -103,7 +102,7 @@ void Element3D::draw(bool highlight, bool animated)
 		glPointSize(5);
 		limit_box.draw(GL_POINTS, 0, 8);
 		glPointSize(0);
-		ofSetColor(233, 15, 233);
+		ofSetColor((233 + (20 * substage))%255,( 15 + (10 * substage)) % 255, (233 + (42 * substage)) % 255 );
 
 		glLineWidth(5);
 		limit_box.drawElements(GL_LINES, limit_box.getNumIndices());
@@ -197,4 +196,15 @@ void Element3D::customBox(ofMesh mesh) {
 
 	this->limit_box.setVertexData(&cube_vertices_custom[0], 8, GL_STATIC_DRAW);
 	this->limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
+}
+
+void Element3D::updateColorData(ofColor c)
+{
+	ofFloatColor* holder = new ofFloatColor[object_buffer.getNumVertices()];
+	for (int i = 0; i < object_buffer.getNumVertices(); i++) {
+		holder[i] = c;
+	}
+	object_buffer.setColorData(&holder[0], object_buffer.getNumVertices(), GL_STATIC_DRAW);
+
+	delete[] holder;
 }

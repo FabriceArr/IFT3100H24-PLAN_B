@@ -37,9 +37,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	wasDragging = false;
 
 	animate = false;
-	//ofSetLogLevel(OF_LOG_VERBOSE);
-	//anim_shader_rot.load("rotateony");
-	//anim_shader_bob.load("bobony");
+
 }
 
 void Scene::draw()
@@ -50,6 +48,8 @@ void Scene::draw()
 	//sets which node will be updated with the ui changes,
 	//this is not apply on the main head if non are selected
 	//Since it would be a bit of a mess
+
+	object_tree_head->resetSubStage();
 	setSelectedNode();
 
 	for (std::vector<ObjNode*>::const_iterator it =
@@ -64,9 +64,8 @@ void Scene::draw()
 
 			PickingPhase(project_matrice, view_matrice);
 
-
 			ofPushMatrix();
-			(*it)->draw();
+			(*it)->draw(false, animate);
 			
 
 
@@ -101,6 +100,9 @@ void Scene::setSelectedNode()
 {
 	if (getSelectedObjectsNode() != object_tree_head) {
 		getSelectedObjectsNode()->setAsSelected(&UI_trans_output, &UI_rotation_output, &UI_scale_output);
+		getSelectedObjectsNode()->setFillColor(UI_fill_color);
+		getSelectedObjectsNode()->setStrokeColor(UI_stroke_color);
+		getSelectedObjectsNode()->setStrokeWidth(UI_stroke_width);
 	}
 }
 

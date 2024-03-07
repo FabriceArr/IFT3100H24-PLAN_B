@@ -8,6 +8,11 @@ private:
 	
 	std::vector<ObjNode*> sub_objects;
 	vector<ofParameter<float>*>* trans, *rot, *sca;
+	ofParameter<ofColor> color, stroke_color;
+	ofParameter<int> stroke_width;
+	unsigned int sub_groupe_stage;
+
+	void increaseSubStage();
 
 public:
 	Object* object;
@@ -28,5 +33,11 @@ public:
 	void destroy_subs();
 
 	void setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParameter<float>*>* rot, vector<ofParameter<float>*>* sca);
+
+	void setFillColor(ofParameter<ofColor> colorparam);
+	void setStrokeColor(ofParameter<ofColor> colorparam);
+	void setStrokeWidth(ofParameter<int> widthparam);
+
+	void resetSubStage();
 };
 
