@@ -6,6 +6,12 @@ void UI::setup()
 
 	interface.setup();
 
+    // Setup for Background color input
+    interface.add(background_color_slider.set("background Color", ofColor(255), ofColor(0, 0), ofColor(255, 255)));
+    interface.add(h_slider_background.set("Hue_background", 0, 0, 360));
+    interface.add(s_slider_background.set("Saturation_background", 0, 0, 1));
+    interface.add(v_slider_background.set("Value_background", 1, 0, 1));
+
 	//setup for translation input
 	position_slider_group.x = new ofParameter<float>();
 	position_slider_group.y = new ofParameter<float>();
@@ -66,10 +72,15 @@ void UI::setup()
     interface.add(&group_point);
 	
     // Ajoutez des callbacks pour les sliders RGB
+    background_color_slider.addListener(this, &UI::backgroundColorRGBChanged);
     fill_color_slider.addListener(this, &UI::fillColorRGBChanged);
     stroke_color_slider.addListener(this, &UI::strokeColorRGBChanged);
 
     // Ajoutez des callbacks pour les sliders HSV
+    h_slider_background.addListener(this, &UI::hueChanged_background);
+    s_slider_background.addListener(this, &UI::saturationChanged_background);
+    v_slider_background.addListener(this, &UI::valueChanged_background);
+
     h_slider_fill.addListener(this, &UI::hueChanged_fill);
     s_slider_fill.addListener(this, &UI::saturationChanged_fill);
     v_slider_fill.addListener(this, &UI::valueChanged_fill);
@@ -147,6 +158,11 @@ const vector<ofParameter<float>*> UI::getScaleSliderValues()
 {
 
 	return scale_sliders_pointer;
+}
+
+const ofParameter<ofColor> UI::getBackgroundColorSlider()
+{
+	return background_color_slider;
 }
 
 
@@ -362,6 +378,32 @@ void UI::fillColorRGBChanged(ofColor& color)
 void UI::strokeColorRGBChanged(ofColor& color)
 {
     setHSVSlidersFromRGB(color, false);
+}
+
+void UI::backgroundColorRGBChanged(ofColor& color)
+{
+	setHSVSlidersFromRGB(color, false);
+}
+
+void UI::hueChanged_background(float& value)
+{
+	// Mettez � jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+	ofColor rgbColor_background = hsvToRGB({ h_slider_background, s_slider_background, v_slider_background });
+	background_color_slider = rgbColor_background;
+}
+
+void UI::saturationChanged_background(float& value)
+{
+	// Mettez � jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+	ofColor rgbColor_background = hsvToRGB({ h_slider_background, s_slider_background, v_slider_background });
+	background_color_slider = rgbColor_background;
+}
+
+void UI::valueChanged_background(float& value)
+{
+	// Mettez � jour les sliders de couleur RGB en fonction des sliders de couleur HSV
+	ofColor rgbColor_background = hsvToRGB({ h_slider_background, s_slider_background, v_slider_background });
+	background_color_slider = rgbColor_background;
 }
 
 void UI::hueChanged_fill(float& value)

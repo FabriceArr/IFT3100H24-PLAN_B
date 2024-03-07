@@ -49,6 +49,7 @@ public:
 
 	ofColor strokecolor;
 	ofColor fillcolor;
+	ofColor backgroundColor;
 
 	int stroke_weight;
 

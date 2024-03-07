@@ -32,6 +32,12 @@ private:
 	Object* holder;
 	const Object* selected_object;
 
+	ofParameter<ofColor> background_color_slider;
+
+	ofParameter<float> h_slider_background;
+	ofParameter<float> s_slider_background;
+	ofParameter<float> v_slider_background;
+
 	parameterVectorGroup position_slider_group;
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
@@ -81,6 +87,11 @@ private:
 
 	void fillColorRGBChanged(ofColor& color);
 	void strokeColorRGBChanged(ofColor& color);
+	void backgroundColorRGBChanged(ofColor& color);
+
+	void hueChanged_background(float& value);
+	void saturationChanged_background(float& value);
+	void valueChanged_background(float& value);
 
 	void hueChanged_fill(float& value);
 	void saturationChanged_fill(float& value);
@@ -108,6 +119,7 @@ public:
 	const vector<ofParameter<float>*> getPositionSliderValues();
 	const vector<ofParameter<float>*> getRotationSliderValues();
 	const vector<ofParameter<float>*> getScaleSliderValues();
+	const ofParameter<ofColor> getBackgroundColorSlider();
 	const ofParameter<ofColor> getFillColorSlider();	
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();

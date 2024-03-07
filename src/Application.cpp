@@ -15,6 +15,7 @@ void Application::setup()
 	interface.getFillColorSlider();
 	interface.getStrokeColorSlider();
 	interface.getStrokeWidthSlider();
+	interface.getBackgroundColorSlider();
 
 	renderer.setup(&scene);
 	cam.setOrientation(DEFAULTVIEW);
@@ -27,6 +28,7 @@ void Application::update()
 	interface.update();
 	renderer.fillcolor = interface.getFillColorSlider();
 	renderer.strokecolor = interface.getStrokeColorSlider();
+	renderer.backgroundColor = interface.getBackgroundColorSlider();
 	renderer.stroke_weight = interface.getStrokeWidthSlider();
 	point1 = interface.getPoint1Values();
 	point2 = interface.getPoint2Values();

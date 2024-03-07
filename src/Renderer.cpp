@@ -13,19 +13,9 @@ void Renderer::setup(Scene* sce)
 
 	ofSetFrameRate(60);
 
-	clear_color.r = 128;
-	clear_color.g = 128;
-	clear_color.b = 128;
+	ofSetBackgroundColor(backgroundColor);
 
-	ofSetBackgroundAuto(true);
-
-	ofSetBackgroundColor(clear_color);
-
-	//ofSetBackgroundAuto(false);
-
-	ofSetBackgroundColor(clear_color);
-
-	ofBackground(clear_color);
+	ofBackground(backgroundColor);
 	scene = sce;
 
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
@@ -51,7 +41,7 @@ void Renderer::update()
 // fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par dÃ©faut
 void Renderer::clear() const
 {
-	ofBackground(clear_color);
+	ofBackground(backgroundColor);
 }
 
 void Renderer::exit()
