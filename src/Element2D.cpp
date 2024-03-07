@@ -17,12 +17,14 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 
 		GLuint square_vertices_ids[] =
 		{
-			0, 1, 2,
-			1, 2, 3
+			0, 1,
+			1, 3,
+			3, 2,
+			2, 0
 		};
 
 		this->square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
-		this->square.setIndexData(&square_vertices_ids[0], 6, GL_STATIC_DRAW);
+		this->square.setIndexData(&square_vertices_ids[0], 8, GL_STATIC_DRAW);
 	}
 }
 
