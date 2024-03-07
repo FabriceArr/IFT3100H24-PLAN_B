@@ -3,7 +3,7 @@
 
 void Application::setup()
 {
-	ofSetWindowTitle("Plan B viewer (m d f 1-5 a t e c o space)");
+	ofSetWindowTitle("Plan B viewer (m d f a t e c o space)");
 
 	interface.setup();
 	interface.getPositionSliderValues();
