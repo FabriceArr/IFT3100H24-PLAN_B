@@ -38,6 +38,10 @@ Element2DPrimitive::~Element2DPrimitive()
 
 void Element2DPrimitive::draw(bool highlight, bool animated, unsigned int substage)
 {
+    if (highlight) {
+        updateShapeData();
+    }
+
     switch (shape.type)
     {
     case VectorPrimitiveType::point:
@@ -62,8 +66,8 @@ void Element2DPrimitive::draw(bool highlight, bool animated, unsigned int substa
         drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
             shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
         ofNoFill();
-        ofSetLineWidth(shape.stroke_width);
-        ofSetColor(shape.stroke_color);
+        ofSetLineWidth(this->getStrokeWidth());
+        ofSetColor(this->getStrokeColor());
         drawVectorRect(glm::vec3(shape.position1[0], shape.position1[1], 0),
             shape.position2[0] - shape.position1[0], shape.position2[1] - shape.position1[1]);
         break;
@@ -97,6 +101,13 @@ void Element2DPrimitive::draw(bool highlight, bool animated, unsigned int substa
             glm::vec3(shape.position3[0], shape.position3[1], 0));
         break;
     }
+}
+
+void Element2DPrimitive::updateShapeData()
+{
+    shape.fill_color = this->getColor();
+    shape.stroke_color = this->getStrokeColor();
+    shape.stroke_width = this->getStrokeWidth();
 }
 
 // Implementation of drawVectorPoint function

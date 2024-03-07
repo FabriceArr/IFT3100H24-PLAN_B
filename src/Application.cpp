@@ -39,7 +39,11 @@ void Application::update()
 	point2 = interface.getPoint2Values();
 	point3 = interface.getPoint3Values();
 	radius = interface.getRadiusValues();
+
+
 	scene.updateFillColor(interface.getFillColorSlider());
+	scene.updateStrokeColor(interface.getStrokeColorSlider());
+	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
 
 	renderer.update();
 	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;

@@ -56,6 +56,8 @@ void ObjNode::draw(bool selected, bool animated)
 	if (trans != nullptr && rot != nullptr && sca != nullptr)
 	{
 		this->object->setColor(color);
+		this->object->setStrokeColor(stroke_color);
+		this->object->setStrokeWidth(stroke_width);
 		
 		ofTranslate(*this->trans->at(0), *this->trans->at(1), *this->trans->at(2));
 		ofRotateXDeg(*this->rot->at(0));
@@ -114,6 +116,16 @@ void ObjNode::setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParamet
 
 void ObjNode::setFillColor(ofParameter<ofColor> colorparam) {
 	this->color = colorparam;
+}
+
+void ObjNode::setStrokeColor(ofParameter<ofColor> colorparam)
+{
+	this->stroke_color = colorparam;
+}
+
+void ObjNode::setStrokeWidth(ofParameter<int> widthparam)
+{
+	this->stroke_width = widthparam;
 }
 
 void ObjNode::increaseSubStage()

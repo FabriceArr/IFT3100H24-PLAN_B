@@ -48,4 +48,6 @@ public:
 
 	void draw(bool highlight, bool animated = false, unsigned int substage = 0);
 
+	void updateShapeData();
+
 };

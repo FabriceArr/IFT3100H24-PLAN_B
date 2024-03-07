@@ -11,6 +11,8 @@ Object::Object(string primitivetype)
 	current_change = 0;
 	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
 
+	this->stroke_width = 1;
+
 }
 
 
@@ -73,6 +75,26 @@ void Object::setColor(ofColor color)
 ofColor Object::getColor()
 {
 	return this->color;
+}
+
+void Object::setStrokeColor(ofColor color)
+{
+	this->stroke_color = color;
+}
+
+ofColor Object::getStrokeColor()
+{
+	return this->stroke_color;
+}
+
+void Object::setStrokeWidth(unsigned int width)
+{
+	this->stroke_width = width;
+}
+
+unsigned int Object::getStrokeWidth()
+{
+	return this->stroke_width;
 }
 
 bool Object::undoChange()

@@ -7,7 +7,8 @@ class Object
 private:
 	bool selected = true;
 	string name;
-	ofColor color;
+	ofColor color, stroke_color;
+	unsigned int stroke_width;
 	ofMatrix3x3 temp;
 
 	deque<ofMatrix3x3> changes_buffer;
@@ -29,6 +30,12 @@ public:
 
 	virtual void setColor(ofColor color);
 	virtual ofColor getColor();
+
+	virtual void setStrokeColor(ofColor color);
+	virtual ofColor getStrokeColor();
+
+	virtual void setStrokeWidth(unsigned int width);
+	virtual unsigned int getStrokeWidth();
 
 	virtual bool undoChange();
 	virtual bool recoverChange();
