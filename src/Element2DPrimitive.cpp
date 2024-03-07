@@ -14,6 +14,7 @@ Element2DPrimitive::Element2DPrimitive(string primitivetype, ofColor fill_color,
 
 	if (primitivetype == "triangle") {
         shape.type = VectorPrimitiveType::triangle;
+
 	}
 	else if (primitivetype == "rectangle") {
         shape.type = VectorPrimitiveType::rectangle;
@@ -101,6 +102,8 @@ void Element2DPrimitive::draw(bool highlight, bool animated, unsigned int substa
             glm::vec3(shape.position3[0], shape.position3[1], 0));
         break;
     }
+
+    draw_selectSquare(highlight);
 }
 
 void Element2DPrimitive::updateShapeData()
@@ -108,6 +111,88 @@ void Element2DPrimitive::updateShapeData()
     shape.fill_color = this->getColor();
     shape.stroke_color = this->getStrokeColor();
     shape.stroke_width = this->getStrokeWidth();
+}
+
+void Element2DPrimitive::setUp2PointBox(ofVec3f p1, ofVec3f p2)
+{
+    float max_x, min_x, max_y, min_y;
+
+    min_x = min(p1.x, p2.x);
+    max_x = max(p1.x, p2.x);
+
+    min_y = min(p1.y, p2.y);
+    max_y = max(p1.y, p2.y);
+
+    ofVec3f square_vertices_custom[] =
+    {
+        ofVec3f(min_x ,  max_y, 0),//0
+        ofVec3f(max_x , max_y, 0),//1
+        ofVec3f(min_x , min_y,  0),//2
+        ofVec3f(max_x , min_y, 0),//3
+    };
+
+
+    GLuint square_vertices_ids[] =
+    {
+        0, 1, 2,
+        1, 2, 3
+    };
+
+    this->select_Square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
+    this->select_Square.setIndexData(&square_vertices_ids[0], 6, GL_STATIC_DRAW);
+
+}
+
+void Element2DPrimitive::setUp3PointBox(ofVec3f p1, ofVec3f p2, ofVec3f p3)
+{
+    float max_x, min_x, max_y, min_y;
+
+    min_x = min({ p1.x, p2.x, p3.x });
+    max_x = max({ p1.x, p2.x, p3.x });
+
+    min_y = min({ p1.y, p2.y, p3.y });
+    max_y = max({p1.y, p2.y, p3.y});
+
+    ofVec3f square_vertices_custom[] =
+    {
+        ofVec3f(min_x ,  max_y, 0),//0
+        ofVec3f(max_x , max_y, 0),//1
+        ofVec3f(min_x , min_y,  0),//2
+        ofVec3f(max_x , min_y, 0),//3
+    };
+
+
+    GLuint square_vertices_ids[] =
+    {
+        0, 1, 2,
+        1, 2, 3
+    };
+    
+
+    this->select_Square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
+    this->select_Square.setIndexData(&square_vertices_ids[0], 6, GL_STATIC_DRAW);
+
+}
+
+void Element2DPrimitive::draw_selectSquare(bool select)
+{
+    if (select) {
+        //draw the box
+        ofBeginShape();
+
+        ofSetColor(232, 247, 14);
+        glPointSize(5);
+        select_Square.draw(GL_POINTS, 0, 8);
+        glPointSize(0);
+        ofSetColor(233, 15, 233);
+
+        glLineWidth(5);
+        select_Square.drawElements(GL_LINES, select_Square.getNumIndices());
+        glLineWidth(0);
+        ofSetColor(255);
+
+        ofEndShape();
+    }
 }
 
 // Implementation of drawVectorPoint function

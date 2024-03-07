@@ -34,7 +34,7 @@ class Element2DPrimitive : public Object
 {
 private:
 	VectorPrimitive shape;
-
+	ofVbo select_Square;
 public:
 	
 	Element2DPrimitive(string name, ofColor fill_color, ofColor stroke_color, int stroke_width, ofVec3f point1, ofVec3f point2, ofVec3f point3, ofVec3f radius);
@@ -50,4 +50,8 @@ public:
 
 	void updateShapeData();
 
+	void setUp2PointBox(ofVec3f p1, ofVec3f p2);
+	void setUp3PointBox(ofVec3f p1, ofVec3f p2, ofVec3f p3);
+
+	void draw_selectSquare(bool select);
 };
