@@ -188,9 +188,9 @@ void Element2DPrimitive::setUpCircleBox(ofVec3f p1, float w, float h)
     ofVec3f square_vertices_custom[] =
     {
         ofVec3f(p1.x - (w / 2), p1.y + (h / 2), 0),//0
-        ofVec3f(p1.x + (w / 2), p1.x + (h / 2), 0),//1
-        ofVec3f(p1.x - (w / 2), p1.x - (h / 2),  0),//2
-        ofVec3f(p1.x + (w / 2), p1.x - (h / 2), 0),//3
+        ofVec3f(p1.x + (w / 2), p1.y + (h / 2), 0),//1
+        ofVec3f(p1.x - (w / 2), p1.y - (h / 2),  0),//2
+        ofVec3f(p1.x + (w / 2), p1.y - (h / 2), 0),//3
     };
 
 
