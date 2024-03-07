@@ -36,7 +36,7 @@ Element2DPrimitive::~Element2DPrimitive()
 {
 }
 
-void Element2DPrimitive::draw(bool highlight, bool animated)
+void Element2DPrimitive::draw(bool highlight, bool animated, unsigned int substage)
 {
     switch (shape.type)
     {
