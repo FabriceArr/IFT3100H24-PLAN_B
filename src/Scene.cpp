@@ -152,6 +152,195 @@ void Scene::createImportedObject3D(string path) {
 
 }
 
+void Scene::create2DObject(int i)
+{
+	if (i == 0) {
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
+			"triangle",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2, 
+			this->UI_point3, 
+			this->UI_radius),
+			getSelectedObjectsNode()
+		));
+	}
+	else if (i == 1) {
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
+			"point",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
+			getSelectedObjectsNode()
+		));
+	}
+	else if (i == 2) {
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
+			"ligne",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
+			getSelectedObjectsNode()
+		));
+	}
+	else if (i == 3) {
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
+			"rectangle",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
+			getSelectedObjectsNode()
+		));
+	}
+	else if (i == 4) {
+		getSelectedObjectsNode()->add(new ObjNode(new Element2DPrimitive(
+			"ellipse",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
+			getSelectedObjectsNode()
+		));
+	}
+	else if (i == 5) {
+		ObjNode* obj = new ObjNode(new Element2DPrimitive(
+			"rectangle",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius), 
+			getSelectedObjectsNode());
+
+		getSelectedObjectsNode()->add(obj);
+
+		point1.set(UI_point1.x, UI_point2.y,0);
+
+		obj->add(new ObjNode(new Element2DPrimitive(
+			"triangle",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
+			obj
+		));
+	}
+	else if (i == 6) {
+		ObjNode* obj = new ObjNode(new Element2DPrimitive(
+			"ligne",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->UI_radius),
+			getSelectedObjectsNode());
+
+		getSelectedObjectsNode()->add(obj);
+
+		point2.set(UI_point1.x, UI_point2.y, 0);
+		point3.set(UI_point2.x, UI_point1.y, 0);
+
+		obj->add(new ObjNode(new Element2DPrimitive(
+			"ligne",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->point2,
+			this->point3,
+			this->UI_point3,
+			this->UI_radius),
+			obj
+		));
+	}
+	else if (i == 7) {
+		
+		radius.set(UI_radius.x, UI_radius.x, 0);
+
+		ObjNode* obj = new ObjNode(new Element2DPrimitive(
+			"ellipse",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->UI_point1,
+			this->UI_point2,
+			this->UI_point3,
+			this->radius),
+			getSelectedObjectsNode()
+		);
+
+		getSelectedObjectsNode()->add(obj);
+
+		point3.set(UI_point1.x + (radius.x /2), UI_point1.y, 0);
+		radius.set(UI_radius.x, UI_radius.x, 0);
+
+		obj->add(new ObjNode(new Element2DPrimitive(
+			"ellipse",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->point3,
+			this->UI_point2,
+			this->UI_point3,
+			this->radius),
+			obj
+		));
+
+		point3.set(UI_point1.x + (radius.x / 2), UI_point1.y - (radius.x / 2), 0);
+		radius.set(UI_radius.x, UI_radius.x, 0);
+
+		obj->add(new ObjNode(new Element2DPrimitive(
+			"ellipse",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->point3,
+			this->UI_point2,
+			this->UI_point3,
+			this->radius),
+			obj
+		));
+
+		point3.set(UI_point1.x, UI_point1.y - (radius.x / 2), 0);
+		radius.set(UI_radius.x, UI_radius.x, 0);
+
+		obj->add(new ObjNode(new Element2DPrimitive(
+			"ellipse",
+			this->UI_fill_color.get(),
+			this->UI_stroke_color.get(),
+			this->UI_stroke_width.get(),
+			this->point3,
+			this->UI_point2,
+			this->UI_point3,
+			this->radius),
+			obj
+		));
+		}
+}
+
 void Scene::createImportedObject2D(string path) {
 	ofImage imageImport;
 	// importer le premier fichier déposé sur la fenêtre si c'est une image (attention : aucune validation du type de fichier)
@@ -177,6 +366,36 @@ void Scene::changeSelectedMatrice(ofMatrix3x3 change)
 void Scene::updateFillColor(ofParameter<ofColor> colorparam)
 {
 	this->UI_fill_color = colorparam;
+}
+
+void Scene::updateStrokeColor(ofParameter<ofColor> colorparam)
+{
+	this->UI_stroke_color = colorparam;
+}
+
+void Scene::updateStrokeWidth(ofParameter<int> widthparam)
+{
+	UI_stroke_width = widthparam;
+}
+
+void Scene::updatePoint1(const ofVec3f point1)
+{
+	UI_point1 = point1;
+}
+
+void Scene::updatePoint2(const ofVec3f point2)
+{
+	UI_point2 = point2;
+}
+
+void Scene::updatePoint3(const ofVec3f point3)
+{
+	UI_point3 = point3;
+}
+
+void Scene::updateRadius(const ofVec3f radius)
+{
+	UI_radius = radius;
 }
 
 void Scene::updateSelectedObjects()

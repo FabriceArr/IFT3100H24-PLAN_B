@@ -58,3 +58,7 @@ obj/x64/Debug/vc143.pdb
 obj/x64/Debug/vc142.pdb
 obj/x64/Debug/IFT3100H.7FD42DF7.tlog/CL.write.1.tlog
 *.png
+obj/x64/Debug/Build/src/Debug/Element2DPrimitive.obj
+obj/x64/Debug/IFT3100H.7FD42DF7.tlog/link.secondary.1.tlog
+poop.cpp
+poop.h

@@ -81,12 +81,6 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100.0f), 360));
 
 
-		//anim_shader_rot.begin();
-		//anim_shader_bob.begin();
-
-		//anim_shader_rot.setUniform1f("time", fmod((ofGetElapsedTimef() * 100), 360));
-		//anim_shader_bob.setUniform1f("time", ofGetElapsedTimef());
-
 	}
 	
 	if (object_buffer.getNumIndices() > 0) {
