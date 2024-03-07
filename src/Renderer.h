@@ -6,12 +6,7 @@ class Renderer
 private:
 
 	Scene* scene;
-	//ofCamera* cam;
 	ofMatrix4x4 viewM, projectM;
-
-	const float cursorLength = 10.0f;
-	const float cursorOffset = 5.0f;
-	float cursorSubOffset = 5.0f;
 
 	bool has_changed;
 
@@ -26,26 +21,10 @@ private:
 	ofColor clear_color;
 
 
-	void updateCamMatrixes();
+	//void updateCamMatrixes();
 public:
 	ofImage imageImport;
 
-	int mouse_press_x;
-	int mouse_press_y;
-	int mouse_release_x;
-	int mouse_release_y;
-
-	bool mouse_pressed;
-	bool mouse_released;
-
-	int mouse_button;
-	int mouse_release_button;
-
-	int mouse_current_x;
-	int mouse_current_y;
-
-	bool isCursorVisible;
-	bool isSelectable;
 
 	ofColor strokecolor;
 	ofColor fillcolor;
@@ -58,7 +37,6 @@ public:
 	void setup(Scene* sce);
 	void draw();
 	
-	void draw_cursor(float x, float y) const;
 	void clear() const;
 	void update();
 
