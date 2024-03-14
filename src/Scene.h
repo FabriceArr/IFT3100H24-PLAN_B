@@ -44,6 +44,10 @@ private:
 
 	ofVec3f point1, point2, point3, radius;
 
+	float UI_tone_mapping_exposure;
+	float UI_tone_mapping_gamma;
+	bool UI_tone_mapping_toggle;
+
 public:
 	bool animate;
 	bool isOrtho;
@@ -77,7 +81,9 @@ public:
 	void updatePoint2(const ofVec3f point2);
 	void updatePoint3(const ofVec3f point3);
 	void updateRadius(const ofVec3f radius);
-	void updatePointToit();
+	void update_tone_mapping_exposure(float exposure);
+	void update_tone_mapping_gamma(float gamma);
+	void update_tone_mapping_toggle(bool toggle);
 
 	void updateSelectedObjects();
 

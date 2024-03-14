@@ -347,7 +347,10 @@ void Scene::createImportedObject2D(string path) {
 
 	getSelectedObjectsNode()->add(new ObjNode(new Element2D(
 		"Imported",
-		path
+		path,
+		this->UI_tone_mapping_exposure,
+		this->UI_tone_mapping_gamma,
+		this->UI_tone_mapping_toggle
 	), getSelectedObjectsNode()));
 
 }
@@ -375,6 +378,21 @@ void Scene::updateStrokeColor(ofParameter<ofColor> colorparam)
 void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 {
 	this->UI_stroke_width = widthparam;
+}
+
+void Scene::update_tone_mapping_exposure(float exposure)
+{
+	this->UI_tone_mapping_exposure = exposure;
+}
+
+void Scene::update_tone_mapping_gamma(float gamma)
+{
+	this->UI_tone_mapping_gamma = gamma;
+}
+
+void Scene::update_tone_mapping_toggle(bool toggle)
+{
+	this->UI_tone_mapping_toggle = toggle;
 }
 
 void Scene::updatePoint1(const ofVec3f point1)
