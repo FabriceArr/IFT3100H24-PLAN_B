@@ -2,9 +2,10 @@
 #include "Application.h"
 
 int main() {
-	ofGLWindowSettings settings;
+	ofGLFWWindowSettings settings;
 	settings.setGLVersion(3, 2);
 	settings.setSize(1024, 768);
+	settings.numSamples = 4;
 	settings.windowMode = OF_WINDOW; //can also be OF_FULLSCREEN
 
 	auto window = ofCreateWindow(settings);
