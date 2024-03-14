@@ -3,11 +3,12 @@
 #include "Object.h"
 #include "ofVbo.h"
 #include "ofxAssimpModelLoader.h"
+#include "Element2D.h"
 
 class Element3D : public Object
 {
 private:
-	ofTexture texture;
+	Element2D texture;
 	ofVbo object_buffer, limit_box;
 
 public:

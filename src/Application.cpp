@@ -63,6 +63,7 @@ void Application::draw()
 	cam.end();
 
 	interface.draw();
+	
 /*
 	if (renderer.isCursorVisible)
 	{

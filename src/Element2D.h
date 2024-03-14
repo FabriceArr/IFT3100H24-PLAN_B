@@ -9,7 +9,10 @@ private:
 	ofVbo square;
 public:
 	Element2D(string primitivetype, string path);
+	Element2D();
 	~Element2D();
+
+	ofImage getImage();
 
 	void draw(bool highlight, bool animated = false, unsigned int substage = 0);
 

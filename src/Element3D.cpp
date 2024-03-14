@@ -13,6 +13,34 @@ ofVec3f cube_vertices[] =
 	ofVec3f(-1.0f,  -1.0f, 1.0f)//7
 };
 
+ofVec3f cube_normals[] =
+{
+	ofVec3f(0.0f ,  1.0f, 0.0f),//0
+	ofVec3f(0.0f , 0.0f, 1.0f),//1
+	ofVec3f(-1.0f ,  0.0f,  0.0f),//2
+	ofVec3f(0.0f , -1.0f,  0.0f),//3
+	ofVec3f(1.0f,  0.0f, 0.0f),//4
+	ofVec3f(0.0f, 0.0f, -1.0f)//5
+};
+
+ofVec2f cube_uvs[] =
+{
+	ofVec2f(0.875f, 0.5f),
+	ofVec2f(0.625f, 0.75f),
+	ofVec2f(0.625f, 0.5f),
+	ofVec2f(0.375, 1.0f),
+	ofVec2f(0.375, 0.75f),
+	ofVec2f(0.625, 0.0f),
+	ofVec2f(0.375, 0.25f),
+	ofVec2f(0.375, 0.0f),
+	ofVec2f(0.375, 0.5f),
+	ofVec2f(0.125, 0.75f),
+	ofVec2f(0.125, 0.50f),
+	ofVec2f(0.625, 0.25f),
+	ofVec2f(0.875, 0.75f),
+	ofVec2f(0.625, 1.0f)
+};
+
 GLuint cube_vertices_ids[] =
 {
 	0, 1, 2,
@@ -30,6 +58,34 @@ GLuint cube_vertices_ids[] =
 
 };
 
+GLuint cube_uv_ids[] =
+{
+	0,1,2,
+	1,3,4,
+	5,6,7,
+	8,9,10,
+	2,4,8,
+	11,8,6,
+	0,12,1,
+	1,13,3,
+	5,11,6,
+	8,4,9,
+	2,1,4,
+	11,2,8
+
+};
+
+GLuint cube_nomrs_ids[] =
+{
+	0,0,0,
+	1,1,1,
+	2,2,2,
+	3,3,3,
+	4,4,4,
+	5,5,5
+
+};
+
 ofVec3f plane_vertices[] =
 {
 	ofVec3f(-1.0f, 1.0f,  0.0f),//0
@@ -43,6 +99,9 @@ GLuint plane_vert_ids[] =
 	0, 1, 2,
 	1, 2, 3
 };
+
+
+
 
 Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 {
@@ -85,7 +144,9 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 	
 	if (object_buffer.getNumIndices() > 0) {
 
+		texture.getImage().bind();
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
+		texture.getImage().unbind();
 	}
 	else {
 		int i = object_buffer.getNumIndices();

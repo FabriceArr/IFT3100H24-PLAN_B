@@ -4,15 +4,19 @@
 void Renderer::setup(Scene* sce)
 {
 	//ofHideCursor();
-
+	
 	ofSetFrameRate(60);
 
 	ofSetBackgroundColor(backgroundColor);
 
 	ofBackground(backgroundColor);
+
+	
 	scene = sce;
 
 	saveNumber = 1;
+
+	
 }
 
 void Renderer::draw()
