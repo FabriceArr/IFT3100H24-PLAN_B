@@ -17,9 +17,9 @@ void UI::setup()
 	position_slider_group.y = new ofParameter<float>();
 	position_slider_group.z = new ofParameter<float>();
 
-	interface.add(position_slider_group.x->set("xtrans", 0.f, -20.f, 20.f));
-	interface.add(position_slider_group.y->set("ytrans", 0.f, -20.f, 20.f));
-	interface.add(position_slider_group.z->set("ztrans", 0.f, -20.f, 20.f));
+	interface.add(position_slider_group.x->set("xtrans", 0.f, -100.f, 100.f));
+	interface.add(position_slider_group.y->set("ytrans", 0.f, -100.f, 100.f));
+	interface.add(position_slider_group.z->set("ztrans", 0.f, -100.f, 100.f));
 
 	//setup for rotation input
 	rotation_slider_group.x = new ofParameter<float>();

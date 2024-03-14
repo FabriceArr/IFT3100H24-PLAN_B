@@ -374,7 +374,7 @@ void Scene::updateStrokeColor(ofParameter<ofColor> colorparam)
 
 void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 {
-	UI_stroke_width = widthparam;
+	this->UI_stroke_width = widthparam;
 }
 
 void Scene::updatePoint1(const ofVec3f point1)
