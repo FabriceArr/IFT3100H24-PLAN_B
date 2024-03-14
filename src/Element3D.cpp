@@ -96,10 +96,10 @@ ofVec3f plane_vertices[] =
 
 ofVec2f plane_uvs[] =
 {
-	ofVec2f(0.0f, 1.0f),//0
-	ofVec2f(1.0f, 1.0f),//1
+	ofVec2f(0.0f, 256.0f),//0
+	ofVec2f(256.0f, 256.0f),//1
 	ofVec2f(0.0f, 0.0f),//2
-	ofVec2f(1.0f, 0.0f)//3
+	ofVec2f(256.0f, 0.0f)//3
 };
 
 
