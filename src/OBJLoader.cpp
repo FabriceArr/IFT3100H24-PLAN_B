@@ -184,10 +184,17 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 	for (int i = 0; i < vert.size(); i++) {
 		mesh.addVertex(vert.at(i));
 	}
+	for (int i = 0; i < norm.size(); i++) {
+		mesh.addNormal(norm.at(i));
+	}
+	for (int i = 0; i < uv.size(); i++) {
+		mesh.addTexCoord(uv.at(i));
+	}
+
 	for (int i = 0; i < vertid.size() / 3; i++) {
 		
 		mesh.addIndex(vertid.at(i*3));
-
+		
 		
 		mesh.addIndex(vertid.at(i*3+1));
 

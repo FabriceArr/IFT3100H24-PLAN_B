@@ -12,7 +12,7 @@ public:
 	Element2D();
 	~Element2D();
 
-	ofImage getImage();
+	ofImage* getImage();
 
 	void draw(bool highlight, bool animated = false, unsigned int substage = 0);
 

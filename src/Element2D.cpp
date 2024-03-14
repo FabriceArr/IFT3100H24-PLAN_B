@@ -42,9 +42,9 @@ Element2D::~Element2D()
 {
 }
 
-ofImage Element2D::getImage()
+ofImage* Element2D::getImage()
 {
-	return this->image;
+	return &this->image;
 }
 
 void Element2D::draw(bool highlight, bool animated, unsigned int substage)

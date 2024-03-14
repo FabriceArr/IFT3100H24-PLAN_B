@@ -25,8 +25,8 @@ ofVec3f cube_normals[] =
 
 ofVec2f cube_uvs[] =
 {
-	ofVec2f(0.875f, 0.5f),
-	ofVec2f(0.625f, 0.75f),
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
 	ofVec2f(0.625f, 0.5f),
 	ofVec2f(0.375, 1.0f),
 	ofVec2f(0.375, 0.75f),
@@ -88,11 +88,20 @@ GLuint cube_nomrs_ids[] =
 
 ofVec3f plane_vertices[] =
 {
-	ofVec3f(-1.0f, 1.0f,  0.0f),//0
-	ofVec3f(1.0f, 1.0f,  0.0f),//1
-	ofVec3f(-1.0f, -1.0f,  0.0f),//2
-	ofVec3f(1.0f, -1.0f,  0.0f)//3
+	ofVec3f(-500.0f, 500.0f,  0.0f),//0
+	ofVec3f(500.0f, 500.0f,  0.0f),//1
+	ofVec3f(-500.0f, -500.0f,  0.0f),//2
+	ofVec3f(500.0f, -500.0f,  0.0f)//3
 };
+
+ofVec2f plane_uvs[] =
+{
+	ofVec2f(0.0f, 1.0f),//0
+	ofVec2f(1.0f, 1.0f),//1
+	ofVec2f(0.0f, 0.0f),//2
+	ofVec2f(1.0f, 0.0f)//3
+};
+
 
 GLuint plane_vert_ids[] =
 {
@@ -108,23 +117,25 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&cube_vertices_ids[0], 36, GL_STATIC_DRAW);
+		object_buffer.getUsingTexCoords();
+		//object_buffer.setTexCoordData(&cube_uvs[0], 14, GL_STATIC_DRAW);
 		primitivesLimitBox(0);
 	}
 	else if (primitivetype == "plane") {
 		object_buffer.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&plane_vert_ids[0], 6, GL_STATIC_DRAW);
+		object_buffer.setTexCoordData(&plane_uvs[0], 4, GL_STATIC_DRAW);
 		primitivesLimitBox(1);
 	}
 
-	updateColorData(color);
-
-	
+	texture.getImage()->getTexture().setTextureWrap(GL_REPEAT, GL_REPEAT);
 }
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
 {
 	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
-
+	//object_buffer.setTexCoordData()
+	texture.getImage()->getTexture().setTextureWrap(GL_REPEAT, GL_REPEAT);
 	customBox(mesh);
 }
 
@@ -143,10 +154,10 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 	}
 	
 	if (object_buffer.getNumIndices() > 0) {
-
-		texture.getImage().bind();
+		texture.getImage()->draw(0,0);
+		texture.getImage()->bind();
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
-		texture.getImage().unbind();
+		texture.getImage()->unbind();
 	}
 	else {
 		int i = object_buffer.getNumIndices();
@@ -154,8 +165,6 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 	}
 	if (highlight) {
 		
-
-		updateColorData(this->getColor());
 		//draw the box
 		ofBeginShape();
 
@@ -257,15 +266,4 @@ void Element3D::customBox(ofMesh mesh) {
 
 	this->limit_box.setVertexData(&cube_vertices_custom[0], 8, GL_STATIC_DRAW);
 	this->limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
-}
-
-void Element3D::updateColorData(ofColor c)
-{
-	ofFloatColor* holder = new ofFloatColor[object_buffer.getNumVertices()];
-	for (int i = 0; i < object_buffer.getNumVertices(); i++) {
-		holder[i] = c;
-	}
-	object_buffer.setColorData(&holder[0], object_buffer.getNumVertices(), GL_STATIC_DRAW);
-
-	delete[] holder;
 }
