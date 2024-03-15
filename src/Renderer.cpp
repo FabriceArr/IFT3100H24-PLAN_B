@@ -13,7 +13,6 @@ void Renderer::setup(Scene* sce)
 	scene = sce;
 
 	saveNumber = 1;
-	shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl");
 }
 
 void Renderer::draw()

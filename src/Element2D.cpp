@@ -29,6 +29,10 @@ Element2D::Element2D(string primitivetype, string path, float tone_mapping_expos
 		this->tone_mapping_gamma = tone_mapping_gamma;
 		this->tone_mapping_toggle = tone_mapping_toggle;
 	}
+	if (!shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl")) {
+		ofLogError("Element2D") << "Shader tone mapping failed to load";
+	}
+	shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl");
 }
 
 Element2D::~Element2D()
