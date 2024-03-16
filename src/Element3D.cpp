@@ -1,6 +1,6 @@
 #include "Element3D.h"
 #define MAXCHANGEBUFFERSIZE 10
-#define OBJECT_SCALE 500
+#define OBJECT_SCALE 200
 
 const ofVec3f cube_vertices[] =
 {
@@ -26,64 +26,30 @@ const ofVec3f cube_normals[] =
 
 const ofVec2f cube_uvs[] =
 {
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
-	ofVec2f(0.625f, 0.5f),
-	ofVec2f(0.375, 1.0f),
-	ofVec2f(0.375, 0.75f),
-	ofVec2f(0.625, 0.0f),
-	ofVec2f(0.375, 0.25f),
-	ofVec2f(0.375, 0.0f),
-	ofVec2f(0.375, 0.5f),
-	ofVec2f(0.125, 0.75f),
-	ofVec2f(0.125, 0.50f),
-	ofVec2f(0.625, 0.25f),
-	ofVec2f(0.875, 0.75f),
-	ofVec2f(0.625, 1.0f)
+	ofVec2f(0.0f, 1.0f),//0
+	ofVec2f(1.0f, 1.0f),//1
+	ofVec2f(0.0f, 0.0f),//2
+	ofVec2f(1.0f, 0.0f),//3
+	ofVec2f(0.0f, 1.0f),//0
+	ofVec2f(1.0f, 1.0f),//1
+	ofVec2f(0.0f, 0.0f),//2
+	ofVec2f(1.0f, 0.0f)//3
 };
 
 const const GLuint cube_vertices_ids[] =
 {
 	0, 1, 2,
-	0, 1, 5,
-	0, 2, 4,
-	0, 4, 5,
 	1, 2, 3,
+	2, 3, 6,
+	3, 6, 7,
+	4, 6, 7,
+	4, 5, 7,
+	0, 1, 5,
+	0, 4, 5,
+	0, 2, 6,
+	0, 4, 6,
 	1, 3, 5,
-	2, 3, 7,
-	2, 4, 7,
-	2, 6, 7,
-	3, 5, 7,
-	4, 5, 6,
-	5, 6, 7
-
-};
-
-GLuint cube_uv_ids[] =
-{
-	0,1,2,
-	1,3,4,
-	5,6,7,
-	8,9,10,
-	2,4,8,
-	11,8,6,
-	0,12,1,
-	1,13,3,
-	5,11,6,
-	8,4,9,
-	2,1,4,
-	11,2,8
-
-};
-
-GLuint cube_nomrs_ids[] =
-{
-	0,0,0,
-	1,1,1,
-	2,2,2,
-	3,3,3,
-	4,4,4,
-	5,5,5
+	3, 5, 7
 
 };
 
@@ -93,6 +59,7 @@ ofVec3f plane_vertices[] =
 	ofVec3f(1.0f, 1.0f,  0.0f),//1
 	ofVec3f(-1.0f, -1.0f,  0.0f),//2
 	ofVec3f(1.0f, -1.0f,  0.0f)//3
+
 };
 
 ofVec2f plane_uvs[] =
@@ -118,7 +85,7 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&cube_vertices_ids[0], 36, GL_STATIC_DRAW);
-		updateTextureData(&cube_uvs[0], 36);
+		updateTextureData(&cube_uvs[0], 8);
 		primitivesLimitBox(0);
 	}
 	else if (primitivetype == "plane") {
@@ -281,7 +248,7 @@ void Element3D::updateTextureData(const ofVec2f *uvs, unsigned int size)
 		holder[i].x *= texture.getImage()->getWidth();
 		holder[i].y *= texture.getImage()->getHeight();
 	}
-	object_buffer.setTexCoordData(&holder[0], 4, GL_STATIC_DRAW);
+	object_buffer.setTexCoordData(&holder[0], size, GL_STATIC_DRAW);
 
 	delete [] holder;
 }
