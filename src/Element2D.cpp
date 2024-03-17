@@ -29,9 +29,7 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 		this->square.setIndexData(&square_vertices_ids[0], 8, GL_STATIC_DRAW);
 	}
 
-	tone_mapping_exposure = this->getToneMapping;
-	tone_mapping_gamma = 1.0;
-	tone_mapping_toggle = true;
+	
 	if (!shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl")) {
 		ofLogError("Element2D") << "Shader tone mapping failed to load";
 	}
@@ -67,9 +65,9 @@ void Element2D::draw(bool highlight, bool animated, unsigned int substage)
 	// passer les attributs uniformes au shader
 	shader.setUniformTexture("image", image.getTexture(), 1);
 
-	shader.setUniform1f("tone_mapping_exposure", 15.0);
-	shader.setUniform1f("tone_mapping_gamma", 15.0);
-	shader.setUniform1i("tone_mapping_toggle", true);
+	shader.setUniform1f("tone_mapping_exposure", getExposure());
+	shader.setUniform1f("tone_mapping_gamma", getGamma());
+	shader.setUniform1i("tone_mapping_toggle", getToneMapping());
 
 	this->image.draw(image.getWidth()/-2,0,0);
 
