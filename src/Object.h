@@ -11,6 +11,10 @@ private:
 	unsigned int stroke_width;
 	ofMatrix3x3 temp;
 
+	float exposure;
+	float gamma;
+	bool tone_mapping;
+
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
 	
@@ -36,6 +40,11 @@ public:
 
 	virtual void setStrokeWidth(unsigned int width);
 	virtual unsigned int getStrokeWidth();
+
+	virtual void setToneMapping(float exposure, float gamma, bool tone_mapping);
+	virtual float getExposure();
+	virtual float getGamma();
+	virtual bool getToneMapping();
 
 	virtual bool undoChange();
 	virtual bool recoverChange();

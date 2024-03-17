@@ -97,6 +97,28 @@ unsigned int Object::getStrokeWidth()
 	return this->stroke_width;
 }
 
+void Object::setToneMapping(float exposure, float gamma, bool tone_mapping)
+{
+	this->exposure = exposure;
+	this->gamma = gamma;
+	this->tone_mapping = tone_mapping;
+}
+
+float Object::getExposure()
+{
+	return this->exposure;
+}
+
+float Object::getGamma()
+{
+	return this->gamma;
+}
+
+bool Object::getToneMapping()
+{
+	return this->tone_mapping;
+}
+
 bool Object::undoChange()
 {
 	//no more changes to undo, first change is default location

@@ -1,10 +1,12 @@
 #include "Element2D.h"
 
 
-Element2D::Element2D(string primitivetype, string path, float tone_mapping_exposure, float tone_mapping_gamma, bool tone_mapping_toggle) : Object(primitivetype)
+Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 {
 	if (primitivetype == "Imported") {
-
+		if (!this->image.load(path)) {
+						ofLogNotice("Element2D") << "Image not loaded";
+		}
 		this->image.load(path);
 
 		ofVec3f square_vertices_custom[] =
@@ -25,10 +27,11 @@ Element2D::Element2D(string primitivetype, string path, float tone_mapping_expos
 
 		this->square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
 		this->square.setIndexData(&square_vertices_ids[0], 8, GL_STATIC_DRAW);
-		this->tone_mapping_exposure = tone_mapping_exposure;
-		this->tone_mapping_gamma = tone_mapping_gamma;
-		this->tone_mapping_toggle = tone_mapping_toggle;
 	}
+
+	tone_mapping_exposure = this->getToneMapping;
+	tone_mapping_gamma = 1.0;
+	tone_mapping_toggle = true;
 	if (!shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl")) {
 		ofLogError("Element2D") << "Shader tone mapping failed to load";
 	}
@@ -64,9 +67,9 @@ void Element2D::draw(bool highlight, bool animated, unsigned int substage)
 	// passer les attributs uniformes au shader
 	shader.setUniformTexture("image", image.getTexture(), 1);
 
-	shader.setUniform1f("tone_mapping_exposure", this->tone_mapping_exposure);
-	shader.setUniform1f("tone_mapping_gamma", this->tone_mapping_gamma);
-	shader.setUniform1i("tone_mapping_toggle", this->tone_mapping_toggle);
+	shader.setUniform1f("tone_mapping_exposure", 15.0);
+	shader.setUniform1f("tone_mapping_gamma", 15.0);
+	shader.setUniform1i("tone_mapping_toggle", true);
 
 	this->image.draw(image.getWidth()/-2,0,0);
 

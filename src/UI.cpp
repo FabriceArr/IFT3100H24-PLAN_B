@@ -110,8 +110,6 @@ void UI::setup()
     slider_exposure.set("exposure", tone_mapping_exposure, 0.0f, 5.0f);
     slider_gamma.set("gamma", tone_mapping_gamma, 0.0f, 5.0f);
 
-    
-
     group_tone_mapping.setup("tone mapping");
 
     group_tone_mapping.add(slider_exposure);
@@ -124,8 +122,8 @@ void UI::setup()
 void UI::update()
 {
     tone_mapping_exposure = slider_exposure;
-	tone_mapping_gamma = slider_gamma;
-	tone_mapping_toggle = toggle_tone_mapping;
+    tone_mapping_gamma = slider_gamma;
+    tone_mapping_toggle = toggle_tone_mapping;
 }
 
 void UI::draw()
@@ -226,19 +224,37 @@ ofVec3f* UI::setScaleSliderValues()
 	return nullptr;
 }
 
-const ofParameter<float> UI::getExposureSlider()
+float* UI::setExposureSlider()
 {
-	return slider_exposure;
+	slider_exposure.reInit();
+	return nullptr;
 }
 
-const ofParameter<float> UI::getGammaSlider()
+float* UI::setGammaSlider()
 {
-	return slider_gamma;
+	slider_gamma.reInit();
+	return nullptr;
 }
 
-const ofParameter<bool> UI::getToneMappingToggle()
+bool* UI::setToneMappingToggle()
 {
-	return toggle_tone_mapping;
+	toggle_tone_mapping.reInit();
+	return nullptr;
+}
+
+ofParameter<float>* UI::getExposureSlider()
+{
+	return &slider_exposure;
+}
+
+ofParameter<float>* UI::getGammaSlider()
+{
+	return &slider_gamma;
+}
+
+ofParameter<bool>* UI::getToneMappingToggle()
+{
+	return &toggle_tone_mapping;
 }
 
 

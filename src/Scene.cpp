@@ -5,7 +5,10 @@
 
 void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	const vector<ofParameter<float>*> UIrot,
-	const vector<ofParameter<float>*> UIscale)
+	const vector<ofParameter<float>*> UIscale,
+	ofParameter<float>* UIExposure,
+	ofParameter<float>* UIGamma,
+	ofParameter<bool>* UIToneMapping)
 {
 	//Doit etre le SEUL object initialiser comme ceci
 	object_tree_head = new ObjNode(nullptr);
@@ -25,6 +28,10 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	UI_scale_output.push_back(UIscale.at(0));//x
 	UI_scale_output.push_back(UIscale.at(1));//y
 	UI_scale_output.push_back(UIscale.at(2));//z
+
+	UI_exposure = UIExposure;
+	UI_gamma = UIGamma;
+	UI_tone_mapping = UIToneMapping;
 
 	//select_mode.Init(ofGetWindowWidth(), ofGetWindowHeight());
 
@@ -89,6 +96,10 @@ void Scene::exit()
 	UI_rotation_output.clear();
 	UI_scale_output.clear();
 
+	UI_exposure = nullptr;
+	UI_gamma = nullptr;
+
+
 	delete sub_level_selected;
 
 	anim_shader_rot.unload();
@@ -103,6 +114,7 @@ void Scene::setSelectedNode()
 		getSelectedObjectsNode()->setFillColor(UI_fill_color);
 		getSelectedObjectsNode()->setStrokeColor(UI_stroke_color);
 		getSelectedObjectsNode()->setStrokeWidth(UI_stroke_width);
+		getSelectedObjectsNode()->setToneMapping(UI_exposure, UI_gamma, UI_tone_mapping);
 	}
 }
 
@@ -347,10 +359,7 @@ void Scene::createImportedObject2D(string path) {
 
 	getSelectedObjectsNode()->add(new ObjNode(new Element2D(
 		"Imported",
-		path,
-		this->UI_tone_mapping_exposure,
-		this->UI_tone_mapping_gamma,
-		this->UI_tone_mapping_toggle
+		path
 	), getSelectedObjectsNode()));
 
 }
@@ -378,21 +387,6 @@ void Scene::updateStrokeColor(ofParameter<ofColor> colorparam)
 void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 {
 	this->UI_stroke_width = widthparam;
-}
-
-void Scene::update_tone_mapping_exposure(float exposure)
-{
-	this->UI_tone_mapping_exposure = exposure;
-}
-
-void Scene::update_tone_mapping_gamma(float gamma)
-{
-	this->UI_tone_mapping_gamma = gamma;
-}
-
-void Scene::update_tone_mapping_toggle(bool toggle)
-{
-	this->UI_tone_mapping_toggle = toggle;
 }
 
 void Scene::updatePoint1(const ofVec3f point1)

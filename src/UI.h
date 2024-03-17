@@ -87,7 +87,7 @@ private:
 
 	ofxGuiGroup group_tone_mapping;
 	ofParameter<float> slider_exposure;
-	ofParameter<float> slider_gamma;
+	ofParameter<float> slider_gamma;\
 	ofParameter<bool> toggle_tone_mapping;
 
 	float tone_mapping_exposure;
@@ -137,9 +137,13 @@ public:
 	ofVec3f* setRotationSliderValues();
 	ofVec3f* setScaleSliderValues();
 
-	const ofParameter<float> getExposureSlider();
-	const ofParameter<float> getGammaSlider();
-	const ofParameter<bool> getToneMappingToggle();
+	float* setExposureSlider();
+	float* setGammaSlider();
+	bool* setToneMappingToggle();
+	
+	ofParameter<float>* getExposureSlider();
+	ofParameter<float>* getGammaSlider();
+	ofParameter<bool>* getToneMappingToggle();
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
 };

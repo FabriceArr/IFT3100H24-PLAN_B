@@ -9,7 +9,10 @@ void Application::setup()
 	interface.getPositionSliderValues();
 	scene.setup(interface.getPositionSliderValues(),
 		interface.getRotationSliderValues(), 
-		interface.getScaleSliderValues());
+		interface.getScaleSliderValues(),
+		interface.getExposureSlider(),
+		interface.getGammaSlider(),
+		interface.getToneMappingToggle());
 	auto i = interface.getPositionSliderValues();
 
 	interface.getFillColorSlider();
@@ -42,10 +45,6 @@ void Application::update()
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-
-	scene.update_tone_mapping_exposure(interface.getExposureSlider());
-	scene.update_tone_mapping_gamma(interface.getGammaSlider());
-	scene.update_tone_mapping_toggle(interface.getToneMappingToggle());
 
 	renderer.update();
 	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;
@@ -373,6 +372,9 @@ void Application::saveSceneChanges() {
 	interface.setPositionSliderValues();
 	interface.setRotationSliderValues();
 	interface.setScaleSliderValues();
+	interface.setExposureSlider();
+	interface.setGammaSlider();
+	interface.setToneMappingToggle();
 }
 
 void Application::draw_cursor(float x, float y) const
