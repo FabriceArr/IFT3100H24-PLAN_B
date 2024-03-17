@@ -13,6 +13,10 @@ Object::Object(string primitivetype)
 
 	this->stroke_width = 1;
 
+	this->exposure = 2.2f;
+	this->gamma = 1.0f;
+	this->tone_mapping = true;
+
 }
 
 
