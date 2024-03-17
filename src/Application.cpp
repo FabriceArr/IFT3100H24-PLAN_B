@@ -348,7 +348,7 @@ void Application::dragEvent(ofDragInfo dragInfo)
 		//checks the file format of the dragged files are any of the 3 supported 3D shape formats
 		else if ((*it).substr((*it).length() - 4, 4) == ".obj"||
 				(*it).substr((*it).length() - 4, 4) == ".fbx"||
-				(*it).substr((*it).length() - 4, 4) == ".dae") {
+				(*it).substr((*it).length() - 4, 4) == ".stl") {
 
 			scene.createImportedObject3D((*it));
 		}
