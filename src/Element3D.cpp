@@ -27,49 +27,57 @@ const ofVec3f cube_normals[] =
 const ofVec2f cube_uvs[] =
 {
 	ofVec2f(0.0f, 1.0f),//0
-	ofVec2f(1.0f, 1.0f),//1
-	ofVec2f(0.0f, 0.0f),//2
+	ofVec2f(0.0f, 0.0f),//1
+	ofVec2f(1.0f, 1.0f),//2
 	ofVec2f(1.0f, 0.0f),//3
 
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
+	ofVec2f(1.0f, 1.0f),//6
+	ofVec2f(1.0f, 0.0f),//7
+	ofVec2f(0.0f, 1.0f),//2
+	ofVec2f(0.0f, 0.0f),//3
 
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
+	ofVec2f(0.0f, 1.0f),//4
+	ofVec2f(1.0f, 1.0f),//6
+	ofVec2f(0.0f, 0.0f),//5
+	ofVec2f(1.0f, 0.0f),//7
 
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
+	ofVec2f(1.0f, 1.0f),//0
+	ofVec2f(1.0f, 0.0f),//1
+	ofVec2f(0.0f, 1.0f),//4
+	ofVec2f(0.0f, 0.0f),//5
 
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
-	ofVec2f(0.0f, 0.0f),
-	ofVec2f(1.0f, 1.0f),
-
-	ofVec2f(0.0f, 1.0f),//0
-	ofVec2f(1.0f, 1.0f),//1
-	ofVec2f(0.0f, 0.0f),//2
-	ofVec2f(1.0f, 0.0f),//3
-
+	ofVec2f(1.0f, 1.0f),//6
+	ofVec2f(0.0f, 0.0f),//0
+	ofVec2f(1.0f, 0.0f),//4
+	
+	ofVec2f(0.0f, 1.0f),//2
+	
+	ofVec2f(0.0f, 1.0f),//1
+	ofVec2f(1.0f, 1.0f),//3
+	ofVec2f(0.0f, 0.0f),//5
+	ofVec2f(1.0f, 0.0f),//7
+	
 };
 
 const const GLuint cube_vertices_ids[] =
 {
+	
+	
 	0, 1, 2,
 	1, 2, 3,
+
 	2, 3, 6,
 	3, 6, 7,
+
 	4, 6, 7,
 	4, 5, 7,
+
 	0, 1, 5,
 	0, 4, 5,
+
 	0, 2, 6,
 	0, 4, 6,
+
 	1, 3, 5,
 	3, 5, 7
 
@@ -90,6 +98,7 @@ ofVec2f plane_uvs[] =
 	ofVec2f(1.0f, 1.0f),//1
 	ofVec2f(0.0f, 0.0f),//2
 	ofVec2f(1.0f, 0.0f)//3
+
 };
 
 
@@ -107,7 +116,9 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&cube_vertices_ids[0], 36, GL_STATIC_DRAW);
+		texture.getImage()->getTexture().setTextureWrap(GL_REPEAT, GL_REPEAT);
 		updateTextureData(&cube_uvs[0], 24);
+		
 		primitivesLimitBox(0);
 	}
 	else if (primitivetype == "plane") {
@@ -118,7 +129,7 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 		primitivesLimitBox(1);
 	}
 
-	texture.getImage()->getTexture().setTextureWrap(GL_REPEAT, GL_REPEAT);
+	
 	
 }
 
@@ -263,11 +274,15 @@ void Element3D::customBox(ofMesh mesh) {
 
 void Element3D::updateTextureData(const ofVec2f *uvs, unsigned int size)
 {
-
+	//copies the coords to keep normalized map for future textures
 	ofVec2f* holder = new ofVec2f[size];
+	texture.getImage()->mirror(false, true);
+	//resizes map to fit texture coords
 	for (int i = 0; i < size; i++) {
 		holder[i] = uvs[i];
 		holder[i].x *= texture.getImage()->getWidth();
+		//invert the y
+		holder[i].y = abs(1.0f - holder[i].y);
 		holder[i].y *= texture.getImage()->getHeight();
 	}
 	object_buffer.setTexCoordData(&holder[0], size, GL_STATIC_DRAW);
