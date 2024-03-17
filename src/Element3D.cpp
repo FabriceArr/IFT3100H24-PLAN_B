@@ -30,10 +30,32 @@ const ofVec2f cube_uvs[] =
 	ofVec2f(1.0f, 1.0f),//1
 	ofVec2f(0.0f, 0.0f),//2
 	ofVec2f(1.0f, 0.0f),//3
+
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
+
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
+
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
+
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
+	ofVec2f(0.0f, 0.0f),
+	ofVec2f(1.0f, 1.0f),
+
 	ofVec2f(0.0f, 1.0f),//0
 	ofVec2f(1.0f, 1.0f),//1
 	ofVec2f(0.0f, 0.0f),//2
-	ofVec2f(1.0f, 0.0f)//3
+	ofVec2f(1.0f, 0.0f),//3
+
 };
 
 const const GLuint cube_vertices_ids[] =
@@ -85,7 +107,7 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&cube_vertices_ids[0], 36, GL_STATIC_DRAW);
-		updateTextureData(&cube_uvs[0], 8);
+		updateTextureData(&cube_uvs[0], 24);
 		primitivesLimitBox(0);
 	}
 	else if (primitivetype == "plane") {
