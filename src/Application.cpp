@@ -397,7 +397,7 @@ void Application::draw_cursor(float x, float y) const
 		ofDrawLine(x - cursorOffset, y, x - cursorOffset - cursorLength, y);
 		ofDrawLine(x, y + cursorOffset, x, y + cursorOffset + cursorLength);
 		ofDrawLine(x, y - cursorOffset, x, y - cursorOffset - cursorLength);
-
+		ofSetColor(255);
 	}
 	switch (currentDrawMode)
 	{
