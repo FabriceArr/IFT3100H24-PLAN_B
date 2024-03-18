@@ -55,16 +55,14 @@ void Application::draw()
 	
 	cam.begin();
 	
-	ofEnableDepthTest();
+	
 	renderer.draw();
 	if(renderer.imageImport.isAllocated())
 		renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
 
-	ofDisableDepthTest();
 	cam.end();
 
 	interface.draw();
-	
 /*
 	if (renderer.isCursorVisible)
 	{
@@ -389,8 +387,6 @@ void Application::draw_cursor(float x, float y) const
 		ofDrawLine(x + cursorOffset + cursorLength, y + cursorOffset + cursorLength, x + cursorOffset, y + cursorOffset); // BR
 		if(currentDrawMode == drawMode::none) // on ne veut pas que le trait couvre le mode de création 2D
 			ofDrawLine(x + cursorOffset + cursorLength, y - cursorOffset - cursorLength, x + cursorOffset, y - cursorOffset); // TR
-
-		ofSetColor(255);
 	}
 	else		// no mouse button pressed
 
@@ -401,9 +397,7 @@ void Application::draw_cursor(float x, float y) const
 		ofDrawLine(x - cursorOffset, y, x - cursorOffset - cursorLength, y);
 		ofDrawLine(x, y + cursorOffset, x, y + cursorOffset + cursorLength);
 		ofDrawLine(x, y - cursorOffset, x, y - cursorOffset - cursorLength);
-
 		ofSetColor(255);
-
 	}
 	switch (currentDrawMode)
 	{
