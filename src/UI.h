@@ -56,18 +56,12 @@ private:
 	ofParameter<ofColor> fill_color_slider;
 
 	// Image Filter with dropdown
-	ofxDropdown_<string> imageFilter_dropdown{ "Image filter" };
-
-	//ofParameter<string> options;
-	//ofParameter<int> intOptions;
-	//unique_ptr<ofxDropdown> strDropdown;
-	//unique_ptr<ofxIntDropdown> intDropdown;
+	ofxDropdown_<string> imageFilter_dropdown;
+	string imageFilter_dropdown_selected = "Aucun";
+	//vector<ofParameter<string>*> filter_vector{ "Aucun","Teinte" };
+	std::vector<string> filter_vector{ "Aucun","Teinte" };
 
 	ofParameter<ofColor> color_picker;
-	//ofParameter<float> imageFilter_slider;
-	//float imageFilterMix;
-	//parameterVectorGroup imageFilterCombo;
-	//vector<string> imageFilterComboOptions;
 
 	ofParameter<ofColor> stroke_color_slider;
 
