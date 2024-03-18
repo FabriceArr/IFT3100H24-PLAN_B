@@ -59,7 +59,7 @@ private:
 	ofxDropdown_<string> imageFilter_dropdown;
 	string imageFilter_dropdown_selected = "Aucun";
 	//vector<ofParameter<string>*> filter_vector{ "Aucun","Teinte" };
-	std::vector<string> filter_vector{ "Aucun","Teinte" };
+	std::vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
 
 	ofParameter<ofColor> color_picker;
 
