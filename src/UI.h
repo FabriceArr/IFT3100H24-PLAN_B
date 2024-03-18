@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "ofxDropdown.h"
 #include "scene.h"
 #include <vector>
 
@@ -11,6 +12,8 @@ struct parameterVectorGroup {
 	ofParameter<float>* z;
 	ofParameter<ofColor> fill_color_slider;
 	ofParameter<ofColor> stroke_color_slider;
+
+
 };
 
 struct hsv {
@@ -51,6 +54,21 @@ private:
 	ofParameter<int> stroke_width_slider;
 
 	ofParameter<ofColor> fill_color_slider;
+
+	// Image Filter with dropdown
+	ofxDropdown_<string> imageFilter_dropdown{ "Image filter" };
+
+	//ofParameter<string> options;
+	//ofParameter<int> intOptions;
+	//unique_ptr<ofxDropdown> strDropdown;
+	//unique_ptr<ofxIntDropdown> intDropdown;
+
+	ofParameter<ofColor> color_picker;
+	//ofParameter<float> imageFilter_slider;
+	//float imageFilterMix;
+	//parameterVectorGroup imageFilterCombo;
+	//vector<string> imageFilterComboOptions;
+
 	ofParameter<ofColor> stroke_color_slider;
 
 	ofParameter<float> h_slider_fill;
@@ -64,7 +82,6 @@ private:
 
 	hsv rgbToHSV(ofColor color);
 	ofColor hsvToRGB(hsv hsvColor);
-
 	ofxIntField intInputPoint1X;
 	ofxIntField intInputPoint1Y;
 	ofxIntField intInputPoint1Z;
@@ -84,8 +101,11 @@ private:
 	ofVec3f radius_values;
 
 	ofxGuiGroup group_point;
+	//ofxGuiGroup group_imageFilters;
 
 	void fillColorRGBChanged(ofColor& color);
+	//void imageFilterMixChanged(float& mix);
+	void onFilterChange(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
 
@@ -129,6 +149,7 @@ public:
 	ofVec3f* setScaleSliderValues();
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
+	void setImageFilterMix(float mix);
 };
 
 

@@ -49,6 +49,11 @@ void UI::setup()
     interface.add(s_slider_fill.set("Saturation_fill", 0, 0, 1));
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
+    // Setup for Image filter dropdown
+    imageFilter_dropdown.setup("test dropdown");
+    imageFilter_dropdown.add("options1", "option2");
+    imageFilter_dropdown.addListener(this, &UI::onFilterChange);
+
     // Setup for stroke color input
     interface.add(stroke_color_slider.set("Stroke Color", ofColor(0), ofColor(0, 0), ofColor(255, 255)));
     interface.add(h_slider_stroke.set("Hue_stroke", 0, 0, 360));
@@ -74,6 +79,7 @@ void UI::setup()
     // Ajoutez des callbacks pour les sliders RGB
     background_color_slider.addListener(this, &UI::backgroundColorRGBChanged);
     fill_color_slider.addListener(this, &UI::fillColorRGBChanged);
+    //imageFilter_slider.addListener(this, &UI::imageFilterMixChanged);
     stroke_color_slider.addListener(this, &UI::strokeColorRGBChanged);
 
     // Ajoutez des callbacks pour les sliders HSV
@@ -369,9 +375,23 @@ void UI::setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor)
     }
 }
 
+//void UI::setImageFilterMix(float mix)
+//{
+//    imageFilterMix = mix;
+//}
+
 void UI::fillColorRGBChanged(ofColor& color)
 {
     setHSVSlidersFromRGB(color, true);
+}
+//void UI::imageFilterMixChanged(float& mix)
+//{
+//    setImageFilterMix(mix);
+//}
+
+void UI::onFilterChange(string& filter)
+{
+    ofLog() << "Filter changed: " << filter;
 }
 
 void UI::strokeColorRGBChanged(ofColor& color)
