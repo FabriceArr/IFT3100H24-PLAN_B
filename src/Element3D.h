@@ -23,6 +23,7 @@ public:
 	void primitivesLimitBox(bool type);
 	void customBox(ofMesh mesh);
 
+	void updateVertData(const ofVec3f* vecs, const GLuint* ids, unsigned int size);
 	void updateTextureData(const ofVec2f* uvs, const GLuint* ids, unsigned int size);
 
 
