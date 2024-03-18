@@ -9,7 +9,10 @@ void Application::setup()
 	interface.getPositionSliderValues();
 	scene.setup(interface.getPositionSliderValues(),
 		interface.getRotationSliderValues(), 
-		interface.getScaleSliderValues());
+		interface.getScaleSliderValues(),
+		interface.getExposureSlider(),
+		interface.getGammaSlider(),
+		interface.getToneMappingToggle());
 	auto i = interface.getPositionSliderValues();
 
 	interface.getFillColorSlider();
@@ -25,7 +28,6 @@ void Application::setup()
 	mouse_release_button = mouse_button = 10; // set mouse button to none
 	cursorSubOffset += cursorOffset;
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
-
 }
 
 void Application::update()
@@ -40,14 +42,12 @@ void Application::update()
 	point3 = interface.getPoint3Values();
 	radius = interface.getRadiusValues();
 
-
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
 
 	renderer.update();
 	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;
-
 }
 
 void Application::draw()
@@ -372,6 +372,9 @@ void Application::saveSceneChanges() {
 	interface.setPositionSliderValues();
 	interface.setRotationSliderValues();
 	interface.setScaleSliderValues();
+	interface.setExposureSlider();
+	interface.setGammaSlider();
+	interface.setToneMappingToggle();
 }
 
 void Application::draw_cursor(float x, float y) const

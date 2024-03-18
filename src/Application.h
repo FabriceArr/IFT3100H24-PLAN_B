@@ -51,8 +51,6 @@ private:
 		int mouse_release_x;
 		int mouse_release_y;
 
-
-
 public:
 	Renderer renderer;
 	Scene scene;

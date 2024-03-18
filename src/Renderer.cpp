@@ -6,7 +6,7 @@ void Renderer::setup(Scene* sce)
 	//ofHideCursor();
 
 	ofSetFrameRate(60);
-
+	ofDisableArbTex();
 	ofSetBackgroundColor(backgroundColor);
 
 	ofBackground(backgroundColor);

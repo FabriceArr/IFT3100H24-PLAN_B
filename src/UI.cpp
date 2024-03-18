@@ -6,6 +6,10 @@ void UI::setup()
 
 	interface.setup();
 
+    tone_mapping_exposure = 1.0f;
+    tone_mapping_gamma = 2.2f;
+    tone_mapping_toggle = true;
+
     // Setup for Background color input
     interface.add(background_color_slider.set("background Color", ofColor(255), ofColor(0, 0), ofColor(255, 255)));
     interface.add(h_slider_background.set("Hue_background", 0, 0, 360));
@@ -103,15 +107,31 @@ void UI::setup()
 	scale_sliders_pointer.push_back(scale_slider_group.y);
 	scale_sliders_pointer.push_back(scale_slider_group.z);
 
-    
+    slider_exposure.set("exposure", tone_mapping_exposure, 0.0f, 5.0f);
+    slider_gamma.set("gamma", tone_mapping_gamma, 0.0f, 5.0f);
+
+    group_tone_mapping.setup("tone mapping");
+
+    group_tone_mapping.add(slider_exposure);
+    group_tone_mapping.add(slider_gamma);
+    group_tone_mapping.add(toggle_tone_mapping);
+
+    interface.add(&group_tone_mapping);
 }
 
 void UI::update()
 {
+    tone_mapping_exposure = slider_exposure;
+    tone_mapping_gamma = slider_gamma;
+    tone_mapping_toggle = toggle_tone_mapping;
 }
 
 void UI::draw()
 {
+    if (tone_mapping_toggle)
+        toggle_tone_mapping.set("aces filmic", true);
+    else
+        toggle_tone_mapping.set("reinhard", false);
 	interface.draw();
 }
 
@@ -202,6 +222,39 @@ ofVec3f* UI::setScaleSliderValues()
 	scale_slider_group.y->reInit();
 	scale_slider_group.z->reInit();
 	return nullptr;
+}
+
+float* UI::setExposureSlider()
+{
+	slider_exposure.reInit();
+	return nullptr;
+}
+
+float* UI::setGammaSlider()
+{
+	slider_gamma.reInit();
+	return nullptr;
+}
+
+bool* UI::setToneMappingToggle()
+{
+	toggle_tone_mapping.reInit();
+	return nullptr;
+}
+
+ofParameter<float>* UI::getExposureSlider()
+{
+	return &slider_exposure;
+}
+
+ofParameter<float>* UI::getGammaSlider()
+{
+	return &slider_gamma;
+}
+
+ofParameter<bool>* UI::getToneMappingToggle()
+{
+	return &toggle_tone_mapping;
 }
 
 

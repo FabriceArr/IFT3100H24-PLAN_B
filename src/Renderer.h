@@ -8,6 +8,8 @@ private:
 	Scene* scene;
 	ofMatrix4x4 viewM, projectM;
 
+	ofShader shader;
+
 	bool has_changed;
 
 	
@@ -31,7 +33,7 @@ public:
 	ofColor backgroundColor;
 
 	int stroke_weight;
-
+	
 	int saveNumber;
 
 	void setup(Scene* sce);
