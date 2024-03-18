@@ -54,7 +54,7 @@ void UI::setup()
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
     // Setup for Image filter dropdown
-    interface.add(imageFilter_dropdown.setup("Filtres"));
+    interface.add(imageFilter_dropdown.setup("Filtrage de Texture"));
     imageFilter_dropdown.add(filter_vector);
     imageFilter_dropdown.setSelectedValueByName(imageFilter_dropdown_selected, true);
     imageFilter_dropdown.addListener(this, &UI::onFilterChange);
