@@ -10,7 +10,6 @@ class Element3D : public Object
 private:
 	Element2D texture;
 	ofVbo object_buffer, limit_box;
-	ofVec2f holder_uvs[];
 
 public:
 	Element3D(string primitivetype, ofColor color);

@@ -26,10 +26,10 @@ const ofVec3f cube_normals[] =
 
 const ofVec2f cube_uvs[] =
 {
-	ofVec2f(0.0f, 1.0f),//0
-	ofVec2f(1.0f, 1.0f),//1
-	ofVec2f(0.0f, 0.0f),//2
-	ofVec2f(1.0f, 0.0f),//3
+	ofVec2f(1.0f, 1.0f),//0
+	ofVec2f(1.0f, 0.0f),//1
+	ofVec2f(0.0f, 1.0f),//2
+	ofVec2f(0.0f, 0.0f)//3
 	
 };
 
@@ -89,7 +89,8 @@ ofVec2f plane_uvs[] =
 
 const const GLuint plane_uvs_ids[] =
 {
-	0,1,2,3
+	0,1,2,
+	1,2,3
 
 };
 
@@ -107,14 +108,13 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 {
 	if (primitivetype == "cube") {
 		updateVertData(&cube_vertices[0], &cube_vertices_ids[0], 36);
-		
-		updateTextureData(&cube_uvs[0],&cube_uv_ids[0], 6);
+		updateTextureData(&cube_uvs[0],&cube_uv_ids[0], 36);
 		
 		primitivesLimitBox(0);
 	}
 	else if (primitivetype == "plane") {
 		updateVertData(&plane_vertices[0], &plane_vert_ids[0], 6);
-		updateTextureData(&plane_uvs[0],&plane_uvs_ids[0], 4);
+		updateTextureData(&plane_uvs[0],&plane_uvs_ids[0], 6);
 		
 		primitivesLimitBox(1);
 	}
@@ -281,7 +281,7 @@ void Element3D::updateTextureData(const ofVec2f *uvs, const GLuint *ids,  unsign
 		holder[i] = uvs[ids[i]];
 		holder[i].x *= texture.getImage()->getWidth();
 		//invert the y
-		holder[i].y = abs(1.0f - holder[ids[i]].y);
+		holder[i].y = abs(1.0f - holder[i].y);
 		holder[i].y *= texture.getImage()->getHeight();
 	}
 	object_buffer.setTexCoordData(&holder[0], size, GL_STATIC_DRAW);
