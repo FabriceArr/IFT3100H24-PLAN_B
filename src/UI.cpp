@@ -54,8 +54,9 @@ void UI::setup()
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
     // Setup for Image filter dropdown
-    imageFilter_dropdown.setup("test dropdown");
-    imageFilter_dropdown.add("options1", "option2");
+    interface.add(imageFilter_dropdown.setup("Filtres"));
+    imageFilter_dropdown.add(filter_vector);
+    imageFilter_dropdown.setSelectedValueByName(imageFilter_dropdown_selected, true);
     imageFilter_dropdown.addListener(this, &UI::onFilterChange);
 
     // Setup for stroke color input
