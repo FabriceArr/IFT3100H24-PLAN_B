@@ -27,8 +27,8 @@ const ofVec3f cube_normals[] =
 const ofVec2f cube_uvs[] =
 {
 	ofVec2f(0.0f, 1.0f),//0
-	ofVec2f(0.0f, 0.0f),//1
-	ofVec2f(1.0f, 1.0f),//2
+	ofVec2f(1.0f, 1.0f),//1
+	ofVec2f(0.0f, 0.0f),//2
 	ofVec2f(1.0f, 0.0f),//3
 	
 };
@@ -59,7 +59,12 @@ const const GLuint cube_vertices_ids[] =
 
 const const GLuint cube_uv_ids[] =
 {
-	0,2,1,2,1,3,
+	0,1,2,1,2,3,
+	0,1,2,1,2,3,
+	2,0,1,2,3,1,
+	2,3,1,2,0,1,
+	1,3,2,1,0,2,
+	0,2,1,2,1,3
 	
 
 };
