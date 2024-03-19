@@ -103,6 +103,7 @@ void Scene::setSelectedNode()
 		getSelectedObjectsNode()->setFillColor(UI_fill_color);
 		getSelectedObjectsNode()->setStrokeColor(UI_stroke_color);
 		getSelectedObjectsNode()->setStrokeWidth(UI_stroke_width);
+		getSelectedObjectsNode()->setFilter(UI_filter);
 	}
 }
 
@@ -375,6 +376,11 @@ void Scene::updateStrokeColor(ofParameter<ofColor> colorparam)
 void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 {
 	this->UI_stroke_width = widthparam;
+}
+
+void Scene::updateFilter(unsigned int filterparam)
+{
+	this->UI_filter = filterparam;
 }
 
 void Scene::updatePoint1(const ofVec3f point1)
