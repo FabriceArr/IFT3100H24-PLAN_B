@@ -54,10 +54,14 @@ void UI::setup()
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
     // Setup for Image filter dropdown
+    imageFilter_dropdown_selected = 0;
     interface.add(imageFilter_dropdown.setup("Filtrage de Texture"));
     imageFilter_dropdown.add(filter_vector);
-    imageFilter_dropdown.setSelectedValueByName(imageFilter_dropdown_selected, true);
-    imageFilter_dropdown.addListener(this, &UI::onFilterChange);
+    imageFilter_dropdown.disableMultipleSelection();
+    imageFilter_dropdown.enableCollapseOnSelection();
+    imageFilter_dropdown.setSelectedValueByIndex(imageFilter_dropdown_selected, true);
+    //imageFilter_dropdown.setSelectedValueByName(imageFilter_dropdown_selected, true);
+    imageFilter_dropdown.addListener(this, &UI::onFilterChangeStr);
 
     // Setup for stroke color input
     interface.add(stroke_color_slider.set("Stroke Color", ofColor(0), ofColor(0, 0), ofColor(255, 255)));
@@ -207,6 +211,10 @@ const ofParameter<int> UI::getStrokeWidthSlider()
     return stroke_width_slider;
 }
 
+const unsigned int UI::getFilter()
+{
+    return imageFilter_dropdown_selected;
+}
 ofVec3f* UI::setPositionSliderValues()
 {
 	position_slider_group.x->reInit();
@@ -438,14 +446,17 @@ void UI::fillColorRGBChanged(ofColor& color)
 {
     setHSVSlidersFromRGB(color, true);
 }
-//void UI::imageFilterMixChanged(float& mix)
-//{
-//    setImageFilterMix(mix);
-//}
 
-void UI::onFilterChange(string& filter)
+void UI::onFilterChangeStr(string& filter)
 {
-    ofLog() << "Filter changed: " << filter;
+    if (filter == "Aucun")
+        imageFilter_dropdown_selected = 0;
+    if (filter == "Bilinéaire")
+        imageFilter_dropdown_selected = 1;
+    if (filter == "Trilinéaire")
+        imageFilter_dropdown_selected = 2;
+    if (filter == "Anistropique")
+        imageFilter_dropdown_selected = 3;
 }
 
 void UI::strokeColorRGBChanged(ofColor& color)

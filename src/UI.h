@@ -57,9 +57,8 @@ private:
 
 	// Image Filter with dropdown
 	ofxDropdown_<string> imageFilter_dropdown;
-	string imageFilter_dropdown_selected = "Aucun";
-	//vector<ofParameter<string>*> filter_vector{ "Aucun","Teinte" };
-	std::vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
+	unsigned int imageFilter_dropdown_selected = 0;
+	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
 
 	ofParameter<ofColor> color_picker;
 
@@ -95,7 +94,6 @@ private:
 	ofVec3f radius_values;
 
 	ofxGuiGroup group_point;
-	//ofxGuiGroup group_imageFilters;
 
 	ofxGuiGroup group_tone_mapping;
 	ofParameter<float> slider_exposure;
@@ -107,8 +105,7 @@ private:
 	bool tone_mapping_toggle;
 
 	void fillColorRGBChanged(ofColor& color);
-	//void imageFilterMixChanged(float& mix);
-	void onFilterChange(string& filter);
+	void onFilterChangeStr(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
 
@@ -147,6 +144,8 @@ public:
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
 
+	const unsigned int getFilter();
+
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();
 	ofVec3f* setScaleSliderValues();
@@ -160,7 +159,6 @@ public:
 	ofParameter<bool>* getToneMappingToggle();
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
-	void setImageFilterMix(float mix);
 };
 
 
