@@ -95,6 +95,15 @@ private:
 
 	ofxGuiGroup group_point;
 
+	ofxGuiGroup group_tone_mapping;
+	ofParameter<float> slider_exposure;
+	ofParameter<float> slider_gamma;\
+	ofParameter<bool> toggle_tone_mapping;
+
+	float tone_mapping_exposure;
+	float tone_mapping_gamma;
+	bool tone_mapping_toggle;
+
 	void fillColorRGBChanged(ofColor& color);
 	void onFilterChangeStr(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
@@ -140,6 +149,14 @@ public:
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();
 	ofVec3f* setScaleSliderValues();
+
+	float* setExposureSlider();
+	float* setGammaSlider();
+	bool* setToneMappingToggle();
+	
+	ofParameter<float>* getExposureSlider();
+	ofParameter<float>* getGammaSlider();
+	ofParameter<bool>* getToneMappingToggle();
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
 };

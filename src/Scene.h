@@ -23,6 +23,10 @@ private:
 	vector<ofParameter<float>*> UI_trans_output;
 	vector<ofParameter<float>*> UI_rotation_output;
 	vector<ofParameter<float>*> UI_scale_output;
+
+	ofParameter<float>* UI_exposure;
+	ofParameter<float>* UI_gamma;
+	ofParameter<bool>* UI_tone_mapping;
 	
 	//points to the vector of elements currently selected
 	int selected_obj_ind;
@@ -54,7 +58,10 @@ public:
 	//set all defaults and settings
 	void setup(const vector<ofParameter<float>*> UIposition, 
 		const vector<ofParameter<float>*> UIrot, 
-		const vector<ofParameter<float>*> UIscale);
+		const vector<ofParameter<float>*> UIscale,
+		ofParameter<float>* UIExposure,
+		ofParameter<float>* UIGamma,
+		ofParameter<bool>* UIToneMapping);
 
 	//clean up the scene from memory
 	void exit();
@@ -79,7 +86,6 @@ public:
 	void updatePoint2(const ofVec3f point2);
 	void updatePoint3(const ofVec3f point3);
 	void updateRadius(const ofVec3f radius);
-	void updatePointToit();
 
 	void updateSelectedObjects();
 
