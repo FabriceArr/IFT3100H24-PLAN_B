@@ -31,10 +31,7 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 Element2D::Element2D() : Object("Default_texture")
 {
 	//default texture loading
-
-	if (!this->image.load("image.png")) {
-		ofLogFatalError() << "Unable to load default texture from data folder! Please make sure Default_texture.png is present";
-	}
+	this->image = TexTGen::generateTextureDefault(6);
 
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "ofVbo.h"
+#include "TextGen.h"
 
 class Element2D : public Object
 {
