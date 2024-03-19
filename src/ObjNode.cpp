@@ -136,6 +136,11 @@ void ObjNode::setStrokeWidth(ofParameter<int> widthparam)
 	this->stroke_width = widthparam;
 }
 
+void ObjNode::setFilter(unsigned int filterparam)
+{
+	this->filter = filterparam;
+}
+
 void ObjNode::increaseSubStage()
 {
 	this->sub_groupe_stage++;

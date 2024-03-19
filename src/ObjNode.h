@@ -14,6 +14,7 @@ private:
 	ofParameter<float> *exposure;
 	ofParameter<float> *gamma;
 	ofParameter<bool> *tone_mapping;
+	unsigned int filter;
 
 	void increaseSubStage();
 
@@ -40,6 +41,7 @@ public:
 	void setFillColor(ofParameter<ofColor> colorparam);
 	void setStrokeColor(ofParameter<ofColor> colorparam);
 	void setStrokeWidth(ofParameter<int> widthparam);
+	void setFilter(unsigned int filterparam);
 
 	void resetSubStage();
 };
