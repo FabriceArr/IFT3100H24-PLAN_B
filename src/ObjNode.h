@@ -11,6 +11,9 @@ private:
 	ofParameter<ofColor> color, stroke_color;
 	ofParameter<int> stroke_width;
 	unsigned int sub_groupe_stage;
+	ofParameter<float> *exposure;
+	ofParameter<float> *gamma;
+	ofParameter<bool> *tone_mapping;
 
 	void increaseSubStage();
 
@@ -33,7 +36,7 @@ public:
 	void destroy_subs();
 
 	void setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParameter<float>*>* rot, vector<ofParameter<float>*>* sca);
-
+	void setToneMapping(ofParameter<float>* exposure, ofParameter<float>* gamma, ofParameter<bool>* tone_mapping);
 	void setFillColor(ofParameter<ofColor> colorparam);
 	void setStrokeColor(ofParameter<ofColor> colorparam);
 	void setStrokeWidth(ofParameter<int> widthparam);

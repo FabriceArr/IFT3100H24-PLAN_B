@@ -4,7 +4,9 @@
 Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 {
 	if (primitivetype == "Imported") {
-
+		if (!this->image.load(path)) {
+						ofLogNotice("Element2D") << "Image not loaded";
+		}
 		this->image.load(path);
 
 		ofVec3f square_vertices_custom[] =
@@ -26,6 +28,12 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 		this->square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
 		this->square.setIndexData(&square_vertices_ids[0], 8, GL_STATIC_DRAW);
 	}
+
+	
+	if (!shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl")) {
+		ofLogError("Element2D") << "Shader tone mapping failed to load";
+	}
+	shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl");
 }
 
 Element2D::Element2D() : Object("Default_texture")
@@ -63,6 +71,18 @@ void Element2D::draw(bool highlight, bool animated, unsigned int substage)
 
 		ofEndShape();
 	}
-	
+	// activer le filtre
+	shader.begin();
+
+	// passer les attributs uniformes au shader
+	shader.setUniformTexture("image", image.getTexture(), 1);
+
+	shader.setUniform1f("tone_mapping_exposure", getExposure());
+	shader.setUniform1f("tone_mapping_gamma", getGamma());
+	shader.setUniform1i("tone_mapping_toggle", getToneMapping());
+
 	this->image.draw(image.getWidth()/-2,0,0);
+
+	// désactiver le filtre
+	shader.end();
 }

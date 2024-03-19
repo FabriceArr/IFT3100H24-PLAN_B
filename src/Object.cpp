@@ -13,6 +13,10 @@ Object::Object(string primitivetype)
 
 	this->stroke_width = 1;
 
+	this->exposure = 2.2f;
+	this->gamma = 1.0f;
+	this->tone_mapping = true;
+
 }
 
 
@@ -95,6 +99,28 @@ void Object::setStrokeWidth(unsigned int width)
 unsigned int Object::getStrokeWidth()
 {
 	return this->stroke_width;
+}
+
+void Object::setToneMapping(float exposure, float gamma, bool tone_mapping)
+{
+	this->exposure = exposure;
+	this->gamma = gamma;
+	this->tone_mapping = tone_mapping;
+}
+
+float Object::getExposure()
+{
+	return this->exposure;
+}
+
+float Object::getGamma()
+{
+	return this->gamma;
+}
+
+bool Object::getToneMapping()
+{
+	return this->tone_mapping;
 }
 
 bool Object::undoChange()
