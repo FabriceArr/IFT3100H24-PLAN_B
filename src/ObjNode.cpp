@@ -136,6 +136,11 @@ void ObjNode::setStrokeWidth(ofParameter<int> widthparam)
 	this->stroke_width = widthparam;
 }
 
+void ObjNode::setIllumModel(unsigned int illumparam)
+{
+	this->setIllumModel(illumparam);
+}
+
 void ObjNode::increaseSubStage()
 {
 	this->sub_groupe_stage++;

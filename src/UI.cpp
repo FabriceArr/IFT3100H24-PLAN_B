@@ -53,14 +53,13 @@ void UI::setup()
     interface.add(s_slider_fill.set("Saturation_fill", 0, 0, 1));
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
-    // Setup for Image filter dropdown
+    // Setup for Illumination Model dropdown
     illuminationModel_dropdown_selected = 0;
-    interface.add(IlluminationModel_dropdown.setup("Filtrage de Texture"));
+    interface.add(IlluminationModel_dropdown.setup("Modele d'Illumination"));
     IlluminationModel_dropdown.add(illuminationModel_vector);
     IlluminationModel_dropdown.disableMultipleSelection();
     IlluminationModel_dropdown.enableCollapseOnSelection();
     IlluminationModel_dropdown.setSelectedValueByIndex(illuminationModel_dropdown_selected, true);
-    //imageFilter_dropdown.setSelectedValueByName(illuminationModel_dropdown_selected, true);
     IlluminationModel_dropdown.addListener(this, &UI::onFilterChangeStr);
 
     // Setup for stroke color input
@@ -215,6 +214,7 @@ const unsigned int UI::get_illuminationModel()
 {
     return illuminationModel_dropdown_selected;
 }
+
 ofVec3f* UI::setPositionSliderValues()
 {
 	position_slider_group.x->reInit();

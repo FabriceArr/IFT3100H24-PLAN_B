@@ -115,7 +115,7 @@ void Scene::setSelectedNode()
 		getSelectedObjectsNode()->setStrokeColor(UI_stroke_color);
 		getSelectedObjectsNode()->setStrokeWidth(UI_stroke_width);
 		getSelectedObjectsNode()->setToneMapping(UI_exposure, UI_gamma, UI_tone_mapping);
-		getSelectedObjectsNode()->setFilter(UI_filter);
+		getSelectedObjectsNode()->setIllumModel(UI_illumModel);
 	}
 }
 
@@ -392,7 +392,7 @@ void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 
 void Scene::updateFilter(unsigned int filterparam)
 {
-	this->UI_filter = filterparam;
+	this->UI_illumModel = filterparam;
 }
 
 void Scene::updatePoint1(const ofVec3f point1)

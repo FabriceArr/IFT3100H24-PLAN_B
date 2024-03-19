@@ -55,10 +55,10 @@ private:
 
 	ofParameter<ofColor> fill_color_slider;
 
-	// Image Filter with dropdown
+	// Illumination Model with dropdown
 	ofxDropdown_<string> IlluminationModel_dropdown;
 	unsigned int illuminationModel_dropdown_selected = 0;
-	vector<string> illuminationModel_vector{ "Aucun","Lambert", "Gouraud", "Phong "};
+	vector<string> illuminationModel_vector{ "flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
 
 	ofParameter<ofColor> color_picker;
 

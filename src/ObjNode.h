@@ -40,6 +40,7 @@ public:
 	void setFillColor(ofParameter<ofColor> colorparam);
 	void setStrokeColor(ofParameter<ofColor> colorparam);
 	void setStrokeWidth(ofParameter<int> widthparam);
+	void setIllumModel(unsigned int illumparam);
 
 	void resetSubStage();
 };
