@@ -10,15 +10,11 @@ ofImage TexTGen::generateTextureDefault(unsigned int size)
 	for(int y = 0; y < pixels_hold.getHeight(); y++){
 		for (int x = 0; x < pixels_hold.getWidth(); x++)
 		{
-			if ((x / 32) % 2 < 1 && (x / 32) % 2 >= 0) {
+			if ((( (x + 32 * (y / 32 % 2)) / 32) % 2) < 1 && ((x + 32 * (y / 32 % 2)) / 32) % 2 >= 0) {
 				pixels_hold.setColor(x, y, 120);
 			}
-			else if ((x / 32) % 2 < 2 && (x / 32) % 2 >= 1) {
+			else{
 				pixels_hold.setColor(x, y, 60);
-			}
-			else {
-				//failsafe
-				pixels_hold.setColor(x, y, { 255,0,132 });
 			}
 		}
 		//the size of the squares are the lengh of the strips of pixels

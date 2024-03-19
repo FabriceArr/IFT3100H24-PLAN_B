@@ -31,7 +31,7 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 Element2D::Element2D() : Object("Default_texture")
 {
 	//default texture loading
-	this->image = TexTGen::generateTextureDefault(6);
+	this->image = TexTGen::generateTextureDefault(8);
 
 }
 
