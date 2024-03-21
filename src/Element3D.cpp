@@ -138,8 +138,6 @@ Element3D::~Element3D()
 
 void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
-	updateTextureData(&cube_uvs[0], &cube_uv_ids[0], 36);
-	texture.getImage()->getTextureReference();
 	ofScale(OBJECT_SCALE);
 
 
