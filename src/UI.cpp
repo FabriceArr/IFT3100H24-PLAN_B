@@ -54,14 +54,14 @@ void UI::setup()
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
     // Setup for Image filter dropdown
-    imageFilter_dropdown_selected = 0;
-    interface.add(imageFilter_dropdown.setup("Filtrage de Texture"));
-    imageFilter_dropdown.add(filter_vector);
-    imageFilter_dropdown.disableMultipleSelection();
-    imageFilter_dropdown.enableCollapseOnSelection();
-    imageFilter_dropdown.setSelectedValueByIndex(imageFilter_dropdown_selected, true);
-    //imageFilter_dropdown.setSelectedValueByName(imageFilter_dropdown_selected, true);
-    imageFilter_dropdown.addListener(this, &UI::onFilterChangeStr);
+    illuminationModel_dropdown_selected = 0;
+    interface.add(IlluminationModel_dropdown.setup("Filtrage de Texture"));
+    IlluminationModel_dropdown.add(illuminationModel_vector);
+    IlluminationModel_dropdown.disableMultipleSelection();
+    IlluminationModel_dropdown.enableCollapseOnSelection();
+    IlluminationModel_dropdown.setSelectedValueByIndex(illuminationModel_dropdown_selected, true);
+    //imageFilter_dropdown.setSelectedValueByName(illuminationModel_dropdown_selected, true);
+    IlluminationModel_dropdown.addListener(this, &UI::onFilterChangeStr);
 
     // Setup for stroke color input
     interface.add(stroke_color_slider.set("Stroke Color", ofColor(0), ofColor(0, 0), ofColor(255, 255)));
@@ -211,9 +211,9 @@ const ofParameter<int> UI::getStrokeWidthSlider()
     return stroke_width_slider;
 }
 
-const unsigned int UI::getFilter()
+const unsigned int UI::get_illuminationModel()
 {
-    return imageFilter_dropdown_selected;
+    return illuminationModel_dropdown_selected;
 }
 ofVec3f* UI::setPositionSliderValues()
 {
@@ -450,13 +450,13 @@ void UI::fillColorRGBChanged(ofColor& color)
 void UI::onFilterChangeStr(string& filter)
 {
     if (filter == "Aucun")
-        imageFilter_dropdown_selected = 0;
+        illuminationModel_dropdown_selected = 0;
     if (filter == "Bilinéaire")
-        imageFilter_dropdown_selected = 1;
+        illuminationModel_dropdown_selected = 1;
     if (filter == "Trilinéaire")
-        imageFilter_dropdown_selected = 2;
+        illuminationModel_dropdown_selected = 2;
     if (filter == "Anistropique")
-        imageFilter_dropdown_selected = 3;
+        illuminationModel_dropdown_selected = 3;
 }
 
 void UI::strokeColorRGBChanged(ofColor& color)

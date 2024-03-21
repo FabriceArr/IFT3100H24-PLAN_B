@@ -56,9 +56,9 @@ private:
 	ofParameter<ofColor> fill_color_slider;
 
 	// Image Filter with dropdown
-	ofxDropdown_<string> imageFilter_dropdown;
-	unsigned int imageFilter_dropdown_selected = 0;
-	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
+	ofxDropdown_<string> IlluminationModel_dropdown;
+	unsigned int illuminationModel_dropdown_selected = 0;
+	vector<string> illuminationModel_vector{ "Aucun","Lambert", "Gouraud", "Phong "};
 
 	ofParameter<ofColor> color_picker;
 
@@ -144,7 +144,7 @@ public:
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
 
-	const unsigned int getFilter();
+	const unsigned int get_illuminationModel();
 
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();
