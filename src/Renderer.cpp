@@ -7,6 +7,7 @@ void Renderer::setup(Scene* sce)
 	
 	ofSetFrameRate(60);
 	ofDisableArbTex();
+	ofEnableNormalizedTexCoords();
 	ofSetBackgroundColor(backgroundColor);
 
 	ofBackground(backgroundColor);
