@@ -138,6 +138,7 @@ Element3D::~Element3D()
 
 void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
+	texture.getImage()->getTextureReference();
 	ofScale(OBJECT_SCALE);
 
 
