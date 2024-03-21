@@ -138,6 +138,7 @@ Element3D::~Element3D()
 
 void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
+	updateTextureData(&cube_uvs[0], &cube_uv_ids[0], 36);
 	texture.getImage()->getTextureReference();
 	ofScale(OBJECT_SCALE);
 
@@ -280,10 +281,10 @@ void Element3D::updateTextureData(const ofVec2f *uvs, const GLuint *ids,  unsign
 	//resizes map to fit texture coords
 	for (int i = 0; i < size; i++) {
 		holder[i] = uvs[ids[i]];
-		holder[i].x *= texture.getImage()->getWidth();
+		//holder[i].x *= texture.getImage()->getWidth();
 		//invert the y
 		holder[i].y = abs(1.0f - holder[i].y);
-		holder[i].y *= texture.getImage()->getHeight();
+		//holder[i].y *= texture.getImage()->getHeight();
 	}
 	object_buffer.setTexCoordData(&holder[0], size, GL_STATIC_DRAW);
 
