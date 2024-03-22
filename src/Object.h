@@ -15,6 +15,8 @@ private:
 	float gamma;
 	bool tone_mapping;
 
+	ofMaterial material;
+
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
 	
@@ -45,6 +47,9 @@ public:
 	virtual float getExposure();
 	virtual float getGamma();
 	virtual bool getToneMapping();
+
+	virtual void setMaterial(ofMaterial material);
+	virtual ofMaterial getmaterial();
 
 	virtual bool undoChange();
 	virtual bool recoverChange();

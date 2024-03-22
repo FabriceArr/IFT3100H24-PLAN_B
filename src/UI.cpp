@@ -116,6 +116,23 @@ void UI::setup()
     group_tone_mapping.add(slider_gamma);
     group_tone_mapping.add(toggle_tone_mapping);
 
+    slider_diffuse_color.set("diffuse color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_specular_color.set("specular color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_emissive_color.set("emissive color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_ambiant_color.set("ambiant color", ofColor(255), ofColor(0, 0), ofColor(255, 255)); 
+    slider_shininess.set("shininess", material_shininess, 0.0f, 20.0f);
+
+    group_material.setup("material");
+
+    group_material.add(slider_ambiant_color);
+    group_material.add(slider_diffuse_color);
+    group_material.add(slider_emissive_color);
+    group_material.add(slider_specular_color);
+    group_material.add(slider_shininess);
+
+
+   
+
     interface.add(&group_tone_mapping);
 }
 
@@ -255,6 +272,26 @@ ofParameter<float>* UI::getGammaSlider()
 ofParameter<bool>* UI::getToneMappingToggle()
 {
 	return &toggle_tone_mapping;
+}
+
+ofMaterial* UI::getMaterial()
+{
+	material.setAmbientColor(slider_ambiant_color.get());
+	material.setDiffuseColor(slider_diffuse_color.get());
+	material.setEmissiveColor(slider_emissive_color.get());
+	material.setSpecularColor(slider_specular_color.get());
+	material.setShininess(slider_shininess);
+	return &material;
+}
+
+ofMaterial* UI::setMaterial()
+{
+    slider_ambiant_color.reInit();
+	slider_diffuse_color.reInit();
+	slider_emissive_color.reInit();
+	slider_specular_color.reInit();
+	slider_shininess.reInit();
+	return nullptr;
 }
 
 

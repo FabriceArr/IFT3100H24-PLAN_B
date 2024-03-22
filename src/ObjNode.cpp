@@ -59,6 +59,7 @@ void ObjNode::draw(bool selected, bool animated)
 		this->object->setStrokeColor(stroke_color);
 		this->object->setStrokeWidth(stroke_width);
 		this->object->setToneMapping(*this->exposure, *this->gamma, *this->tone_mapping);
+		this->object->setMaterial(*this->material);
 		
 		ofTranslate(*this->trans->at(0), *this->trans->at(1), *this->trans->at(2));
 		ofRotateXDeg(*this->rot->at(0));
@@ -120,6 +121,11 @@ void ObjNode::setToneMapping(ofParameter<float>* exposure,ofParameter<float>* ga
 	this->exposure = exposure;
 	this->gamma = gamma;
 	this->tone_mapping = tone_mapping;
+}
+
+void ObjNode::setMaterial(ofMaterial* material)
+{
+	this->material = material;
 }
 
 void ObjNode::setFillColor(ofParameter<ofColor> colorparam) {

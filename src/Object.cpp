@@ -123,6 +123,16 @@ bool Object::getToneMapping()
 	return this->tone_mapping;
 }
 
+void Object::setMaterial(ofMaterial material)
+{
+	this->material = material;
+}
+
+ofMaterial Object::getmaterial()
+{
+	return this->material;
+}
+
 bool Object::undoChange()
 {
 	//no more changes to undo, first change is default location

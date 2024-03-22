@@ -8,7 +8,8 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	const vector<ofParameter<float>*> UIscale,
 	ofParameter<float>* UIExposure,
 	ofParameter<float>* UIGamma,
-	ofParameter<bool>* UIToneMapping)
+	ofParameter<bool>* UIToneMapping,
+	ofMaterial* UIMaterial)
 {
 	//Doit etre le SEUL object initialiser comme ceci
 	object_tree_head = new ObjNode(nullptr);
@@ -32,6 +33,8 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	UI_exposure = UIExposure;
 	UI_gamma = UIGamma;
 	UI_tone_mapping = UIToneMapping;
+
+	UI_material = UIMaterial;
 
 	//select_mode.Init(ofGetWindowWidth(), ofGetWindowHeight());
 
@@ -99,6 +102,7 @@ void Scene::exit()
 	UI_exposure = nullptr;
 	UI_gamma = nullptr;
 
+	UI_material = nullptr;
 
 	delete sub_level_selected;
 
@@ -115,6 +119,7 @@ void Scene::setSelectedNode()
 		getSelectedObjectsNode()->setStrokeColor(UI_stroke_color);
 		getSelectedObjectsNode()->setStrokeWidth(UI_stroke_width);
 		getSelectedObjectsNode()->setToneMapping(UI_exposure, UI_gamma, UI_tone_mapping);
+		getSelectedObjectsNode()->setMaterial(UI_material);
 	}
 }
 

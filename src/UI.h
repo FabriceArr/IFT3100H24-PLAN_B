@@ -87,12 +87,25 @@ private:
 
 	ofxGuiGroup group_tone_mapping;
 	ofParameter<float> slider_exposure;
-	ofParameter<float> slider_gamma;\
+	ofParameter<float> slider_gamma;
 	ofParameter<bool> toggle_tone_mapping;
 
 	float tone_mapping_exposure;
 	float tone_mapping_gamma;
 	bool tone_mapping_toggle;
+
+
+	ofParameter<ofColor> slider_ambiant_color;
+	ofParameter<ofColor> slider_diffuse_color;
+	ofParameter<ofColor> slider_emissive_color;
+	ofParameter<ofColor> slider_specular_color;
+	ofParameter<float> slider_shininess;
+
+	float material_shininess;
+	ofMaterial material;
+
+	ofxGuiGroup group_material;
+
 
 	void fillColorRGBChanged(ofColor& color);
 	void strokeColorRGBChanged(ofColor& color);
@@ -144,6 +157,9 @@ public:
 	ofParameter<float>* getExposureSlider();
 	ofParameter<float>* getGammaSlider();
 	ofParameter<bool>* getToneMappingToggle();
+
+	ofMaterial* setMaterial();
+	ofMaterial* getMaterial();
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
 };

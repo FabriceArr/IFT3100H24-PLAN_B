@@ -27,6 +27,8 @@ private:
 	ofParameter<float>* UI_exposure;
 	ofParameter<float>* UI_gamma;
 	ofParameter<bool>* UI_tone_mapping;
+
+	ofMaterial* UI_material;
 	
 	//points to the vector of elements currently selected
 	int selected_obj_ind;
@@ -60,7 +62,8 @@ public:
 		const vector<ofParameter<float>*> UIscale,
 		ofParameter<float>* UIExposure,
 		ofParameter<float>* UIGamma,
-		ofParameter<bool>* UIToneMapping);
+		ofParameter<bool>* UIToneMapping,
+		ofMaterial* UIMaterial);
 
 	//clean up the scene from memory
 	void exit();
