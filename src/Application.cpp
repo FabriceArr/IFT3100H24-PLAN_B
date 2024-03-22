@@ -56,11 +56,11 @@ void Application::draw()
 	
 	cam.begin();
 	
-	
+	ofEnableDepthTest();
 	renderer.draw();
 	if(renderer.imageImport.isAllocated())
 		renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
-
+	ofDisableDepthTest();
 	cam.end();
 
 	interface.draw();
