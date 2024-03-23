@@ -10,7 +10,11 @@ Object::Object(string primitivetype)
 	
 	current_change = 0;
 	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
-
+	filterSelection = 0; /* Aucun = 0
+						 Bilinéaire = 1
+						 Trilinéaire = 2
+						 Anistropique = 3 */
+	//this->setFilter(filterSelection);
 	this->stroke_width = 1;
 
 	this->exposure = 2.2f;
@@ -159,4 +163,47 @@ bool Object::isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b) {
 	}
 	return true;
 
+}
+
+
+
+void Object::setFilter(unsigned int filter_setting)
+{
+	GLfloat largest_anisotropy = GL_EXT_texture_filter_anisotropic;
+
+	switch (filter_setting)
+	{
+	case 0:
+		ofLog() << "Object filter setting is Aucun" ;
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	case 1:
+		ofLog() << "Object filter setting is bilineaire" ;
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	case 2:
+		ofLog() << "Object filter setting is trilineaire" ;
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+	case 3:
+		ofLog() << "Object filter setting is anistropique" ;
+		// avec GL_ARB_texture_filter_anisotropic si OpenGL 4.6
+		// avec GL_EXT_texture_filter_anisotropic sinon
+		//GLfloat largest_anisotropy = GL_EXT_texture_filter_anisotropic;
+		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &largest_anisotropy);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, largest_anisotropy);
+
+	default:
+		break;
+	}
+
+	this->filterSelection = filter_setting;
+}
+
+unsigned int Object::getFilter()
+{
+	return filterSelection;
 }

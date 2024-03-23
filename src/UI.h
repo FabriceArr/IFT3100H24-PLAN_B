@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "ofxDropdown.h"
 #include "scene.h"
 #include <vector>
 
@@ -11,6 +12,8 @@ struct parameterVectorGroup {
 	ofParameter<float>* z;
 	ofParameter<ofColor> fill_color_slider;
 	ofParameter<ofColor> stroke_color_slider;
+
+
 };
 
 struct hsv {
@@ -51,6 +54,14 @@ private:
 	ofParameter<int> stroke_width_slider;
 
 	ofParameter<ofColor> fill_color_slider;
+
+	// Illumination Model with dropdown
+	ofxDropdown_<string> IlluminationModel_dropdown;
+	unsigned int illuminationModel_dropdown_selected = 0;
+	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
+
+	ofParameter<ofColor> color_picker;
+
 	ofParameter<ofColor> stroke_color_slider;
 
 	ofParameter<float> h_slider_fill;
@@ -64,7 +75,6 @@ private:
 
 	hsv rgbToHSV(ofColor color);
 	ofColor hsvToRGB(hsv hsvColor);
-
 	ofxIntField intInputPoint1X;
 	ofxIntField intInputPoint1Y;
 	ofxIntField intInputPoint1Z;
@@ -95,6 +105,7 @@ private:
 	bool tone_mapping_toggle;
 
 	void fillColorRGBChanged(ofColor& color);
+	void onIllumModelChangeStr(string& illum);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
 
@@ -132,6 +143,8 @@ public:
 	const ofParameter<ofColor> getFillColorSlider();	
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
+
+	const unsigned int get_illuminationModel();
 
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();
