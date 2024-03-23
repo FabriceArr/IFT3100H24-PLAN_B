@@ -26,7 +26,7 @@ private:
 	//void updateCamMatrixes();
 public:
 	ofImage imageImport;
-
+	ofLight defaultLight;
 
 	ofColor strokecolor;
 	ofColor fillcolor;

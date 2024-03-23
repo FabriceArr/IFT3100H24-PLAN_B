@@ -12,7 +12,10 @@ void Renderer::setup(Scene* sce)
 	ofSetBackgroundColor(backgroundColor);
 
 	ofBackground(backgroundColor);
+	defaultLight.setDirectional();
 
+	defaultLight.setOrientation(glm::quat(0.0f, -1.0f, 0.0f, 0.0f));
+	ofLog() << "default Light orientation: " << defaultLight.getOrientationQuat();
 	
 	scene = sce;
 
@@ -31,6 +34,12 @@ void Renderer::draw()
 
 void Renderer::update()
 {
+	defaultLight.setGlobalPosition(
+		ofMap(ofGetMouseX() / (float)ofGetWidth(), 0.0f, 1.0f, -ofGetWidth() / 2.0f, ofGetWidth() / 2.0f),
+		ofMap(ofGetMouseY() / (float)ofGetHeight(), 0.0f, 1.0f, -ofGetHeight() / 2.0f, ofGetHeight() / 2.0f),
+		//-offset_z * 1.5f);
+		1.5f);
+
 }
 
 // fonction qui efface le contenu du framebuffer actif et le remplace par une couleur par dÃ©faut
