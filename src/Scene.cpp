@@ -390,9 +390,9 @@ void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 	this->UI_stroke_width = widthparam;
 }
 
-void Scene::updateFilter(unsigned int filterparam)
+void Scene::updateIllumModel(unsigned int illumparam)
 {
-	this->UI_illumModel = filterparam;
+	this->UI_illumModel = illumparam;
 }
 
 void Scene::updatePoint1(const ofVec3f point1)

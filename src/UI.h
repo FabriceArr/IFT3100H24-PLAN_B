@@ -58,7 +58,7 @@ private:
 	// Illumination Model with dropdown
 	ofxDropdown_<string> IlluminationModel_dropdown;
 	unsigned int illuminationModel_dropdown_selected = 0;
-	vector<string> illuminationModel_vector{ "flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
+	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
 
 	ofParameter<ofColor> color_picker;
 
@@ -105,7 +105,7 @@ private:
 	bool tone_mapping_toggle;
 
 	void fillColorRGBChanged(ofColor& color);
-	void onFilterChangeStr(string& filter);
+	void onIllumModelChangeStr(string& illum);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
 

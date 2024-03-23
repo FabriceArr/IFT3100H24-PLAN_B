@@ -81,7 +81,7 @@ public:
 	void updateFillColor(ofParameter<ofColor> colorparam);
 	void updateStrokeColor(ofParameter<ofColor> colorparam);
 	void updateStrokeWidth(ofParameter<int> widthparam);
-	void updateFilter(unsigned int filterparam);
+	void updateIllumModel(unsigned int illumparam);
 	void updatePoint1(const ofVec3f point1);
 	void updatePoint2(const ofVec3f point2);
 	void updatePoint3(const ofVec3f point3);

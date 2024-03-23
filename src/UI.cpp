@@ -60,7 +60,7 @@ void UI::setup()
     IlluminationModel_dropdown.disableMultipleSelection();
     IlluminationModel_dropdown.enableCollapseOnSelection();
     IlluminationModel_dropdown.setSelectedValueByIndex(illuminationModel_dropdown_selected, true);
-    IlluminationModel_dropdown.addListener(this, &UI::onFilterChangeStr);
+    IlluminationModel_dropdown.addListener(this, &UI::onIllumModelChangeStr);
 
     // Setup for stroke color input
     interface.add(stroke_color_slider.set("Stroke Color", ofColor(0), ofColor(0, 0), ofColor(255, 255)));
@@ -87,7 +87,6 @@ void UI::setup()
     // Ajoutez des callbacks pour les sliders RGB
     background_color_slider.addListener(this, &UI::backgroundColorRGBChanged);
     fill_color_slider.addListener(this, &UI::fillColorRGBChanged);
-    //imageFilter_slider.addListener(this, &UI::imageFilterMixChanged);
     stroke_color_slider.addListener(this, &UI::strokeColorRGBChanged);
 
     // Ajoutez des callbacks pour les sliders HSV
@@ -437,26 +436,24 @@ void UI::setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor)
     }
 }
 
-//void UI::setImageFilterMix(float mix)
-//{
-//    imageFilterMix = mix;
-//}
-
 void UI::fillColorRGBChanged(ofColor& color)
 {
     setHSVSlidersFromRGB(color, true);
 }
 
-void UI::onFilterChangeStr(string& filter)
+void UI::onIllumModelChangeStr(string& illum)
 {
-    if (filter == "Aucun")
+    //"flat", "Lambert", "Gouraud", "Phong", "Blinn-Phong"
+    if (illum == "Flat")
         illuminationModel_dropdown_selected = 0;
-    if (filter == "Bilinéaire")
+    if (illum == "Lambert")
         illuminationModel_dropdown_selected = 1;
-    if (filter == "Trilinéaire")
+    if (illum == "Gouraud")
         illuminationModel_dropdown_selected = 2;
-    if (filter == "Anistropique")
+    if (illum == "Phong")
         illuminationModel_dropdown_selected = 3;
+    if (illum == "Blinn-Phong")
+        illuminationModel_dropdown_selected = 4;
 }
 
 void UI::strokeColorRGBChanged(ofColor& color)
