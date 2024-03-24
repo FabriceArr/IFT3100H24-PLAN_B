@@ -104,10 +104,14 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 		glPointSize(0);
 		ofSetColor((233 + (20 * substage))%255,( 15 + (10 * substage)) % 255, (233 + (42 * substage)) % 255 );
 
+		ofMaterial material = getMaterial();
+
+		material.begin();
 		glLineWidth(5);
 		limit_box.drawElements(GL_LINES, limit_box.getNumIndices());
 		glLineWidth(0);
 		ofSetColor(255);
+		material.end();
 
 		ofEndShape();
 	}

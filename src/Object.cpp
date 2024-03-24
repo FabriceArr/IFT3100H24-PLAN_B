@@ -128,7 +128,7 @@ void Object::setMaterial(ofMaterial material)
 	this->material = material;
 }
 
-ofMaterial Object::getmaterial()
+ofMaterial Object::getMaterial()
 {
 	return this->material;
 }

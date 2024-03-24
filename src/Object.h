@@ -49,7 +49,7 @@ public:
 	virtual bool getToneMapping();
 
 	virtual void setMaterial(ofMaterial material);
-	virtual ofMaterial getmaterial();
+	virtual ofMaterial getMaterial();
 
 	virtual bool undoChange();
 	virtual bool recoverChange();
