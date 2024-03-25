@@ -45,6 +45,7 @@ void Application::update()
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
+	scene.updateIllumModel(interface.get_illuminationModel());
 	scene.updateFilter(interface.getFilter());
 
 	renderer.update();
@@ -56,11 +57,11 @@ void Application::draw()
 	
 	cam.begin();
 	
-	
+	ofEnableDepthTest();
 	renderer.draw();
 	if(renderer.imageImport.isAllocated())
 		renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
-
+	ofDisableDepthTest();
 	cam.end();
 
 	interface.draw();

@@ -53,6 +53,15 @@ void UI::setup()
     interface.add(s_slider_fill.set("Saturation_fill", 0, 0, 1));
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
+    // Setup for Illumination Model dropdown
+    illuminationModel_dropdown_selected = 0;
+    interface.add(IlluminationModel_dropdown.setup("Modele d'Illumination"));
+    IlluminationModel_dropdown.add(illuminationModel_vector);
+    IlluminationModel_dropdown.disableMultipleSelection();
+    IlluminationModel_dropdown.enableCollapseOnSelection();
+    IlluminationModel_dropdown.setSelectedValueByIndex(illuminationModel_dropdown_selected, true);
+    IlluminationModel_dropdown.addListener(this, &UI::onIllumModelChangeStr);
+
     // Setup for Image filter dropdown
     imageFilter_dropdown_selected = 0;
     interface.add(imageFilter_dropdown.setup("Filtrage de Texture"));
@@ -209,6 +218,11 @@ const ofParameter<ofColor> UI::getStrokeColorSlider()
 const ofParameter<int> UI::getStrokeWidthSlider()
 {
     return stroke_width_slider;
+}
+
+const unsigned int UI::get_illuminationModel()
+{
+    return illuminationModel_dropdown_selected;
 }
 
 const unsigned int UI::getFilter()
@@ -445,6 +459,21 @@ void UI::setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor)
 void UI::fillColorRGBChanged(ofColor& color)
 {
     setHSVSlidersFromRGB(color, true);
+}
+
+void UI::onIllumModelChangeStr(string& illum)
+{
+    //"flat", "Lambert", "Gouraud", "Phong", "Blinn-Phong"
+    if (illum == "Flat")
+        illuminationModel_dropdown_selected = 0;
+    if (illum == "Lambert")
+        illuminationModel_dropdown_selected = 1;
+    if (illum == "Gouraud")
+        illuminationModel_dropdown_selected = 2;
+    if (illum == "Phong")
+        illuminationModel_dropdown_selected = 3;
+    if (illum == "Blinn-Phong")
+        illuminationModel_dropdown_selected = 4;
 }
 
 void UI::onFilterChangeStr(string& filter)

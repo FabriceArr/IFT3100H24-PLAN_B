@@ -55,6 +55,14 @@ private:
 
 	ofParameter<ofColor> fill_color_slider;
 
+	// Illumination Model with dropdown
+	ofxDropdown_<string> IlluminationModel_dropdown;
+	unsigned int illuminationModel_dropdown_selected = 0;
+	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
+
+	ofParameter<ofColor> color_picker;
+
+
 	// Image Filter with dropdown
 	ofxDropdown_<string> imageFilter_dropdown;
 	unsigned int imageFilter_dropdown_selected = 0;
@@ -105,6 +113,7 @@ private:
 	bool tone_mapping_toggle;
 
 	void fillColorRGBChanged(ofColor& color);
+	void onIllumModelChangeStr(string& illum);
 	void onFilterChangeStr(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
@@ -143,6 +152,8 @@ public:
 	const ofParameter<ofColor> getFillColorSlider();	
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
+
+	const unsigned int get_illuminationModel();
 
 	const unsigned int getFilter();
 

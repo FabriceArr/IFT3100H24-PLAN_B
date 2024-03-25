@@ -10,13 +10,13 @@ private:
 	ofColor color, stroke_color;
 	unsigned int stroke_width;
 	ofMatrix3x3 temp;
+	unsigned int filterSelection;
 	ofImage image;
 
 	float exposure;
 	float gamma;
 	bool tone_mapping;
 	unsigned int filterSelection;
-
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
