@@ -43,6 +43,7 @@ private:
 	ofParameter<ofColor> UI_stroke_color;
 	ofParameter<int> UI_stroke_width;
 	unsigned int UI_illumModel;
+	unsigned int UI_filter;
 	ofVec3f UI_point1, UI_point2, UI_point3, UI_radius, UI_pointToit;
 
 	ofShader anim_shader_rot, anim_shader_bob;
@@ -82,6 +83,7 @@ public:
 	void updateStrokeColor(ofParameter<ofColor> colorparam);
 	void updateStrokeWidth(ofParameter<int> widthparam);
 	void updateIllumModel(unsigned int illumparam);
+	void updateFilter(unsigned int filterparam);
 	void updatePoint1(const ofVec3f point1);
 	void updatePoint2(const ofVec3f point2);
 	void updatePoint3(const ofVec3f point3);

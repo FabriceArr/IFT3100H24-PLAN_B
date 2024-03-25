@@ -28,7 +28,7 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 		this->square.setVertexData(&square_vertices_custom[0], 4, GL_STATIC_DRAW);
 		this->square.setIndexData(&square_vertices_ids[0], 8, GL_STATIC_DRAW);
 	}
-
+	this->TextureConfigure(image,0);
 	
 	if (!shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl")) {
 		ofLogError("Element2D") << "Shader tone mapping failed to load";

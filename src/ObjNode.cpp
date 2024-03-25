@@ -141,6 +141,11 @@ void ObjNode::setIllumModel(ofParameter<int> illumparam)
 	this->illumModel_setting = illumparam;
 }
 
+void ObjNode::setFilter(unsigned int filterparam)
+{
+	this->filter = filterparam;
+}
+
 void ObjNode::increaseSubStage()
 {
 	this->sub_groupe_stage++;

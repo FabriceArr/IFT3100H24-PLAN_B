@@ -46,6 +46,7 @@ void Application::update()
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
 	scene.updateIllumModel(interface.get_illuminationModel());
+	scene.updateFilter(interface.getFilter());
 
 	renderer.update();
 	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;

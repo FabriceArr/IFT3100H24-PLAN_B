@@ -15,6 +15,7 @@ private:
 	ofParameter<float> *gamma;
 	ofParameter<bool> *tone_mapping;
 	ofParameter<int> illumModel_setting;
+	unsigned int filter;
 
 	void increaseSubStage();
 
@@ -42,6 +43,7 @@ public:
 	void setStrokeColor(ofParameter<ofColor> colorparam);
 	void setStrokeWidth(ofParameter<int> widthparam);
 	void setIllumModel(ofParameter<int> illumparam);
+	void setFilter(unsigned int filterparam);
 
 	void resetSubStage();
 };

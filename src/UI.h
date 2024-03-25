@@ -62,6 +62,12 @@ private:
 
 	ofParameter<ofColor> color_picker;
 
+
+	// Image Filter with dropdown
+	ofxDropdown_<string> imageFilter_dropdown;
+	unsigned int imageFilter_dropdown_selected = 0;
+	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
+
 	ofParameter<ofColor> stroke_color_slider;
 
 	ofParameter<float> h_slider_fill;
@@ -106,6 +112,7 @@ private:
 
 	void fillColorRGBChanged(ofColor& color);
 	void onIllumModelChangeStr(string& illum);
+	void onFilterChangeStr(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
 
@@ -145,6 +152,8 @@ public:
 	const ofParameter<int> getStrokeWidthSlider();
 
 	const unsigned int get_illuminationModel();
+
+	const unsigned int getFilter();
 
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();
