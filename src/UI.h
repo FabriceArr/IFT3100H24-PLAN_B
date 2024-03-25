@@ -68,8 +68,6 @@ private:
 	unsigned int imageFilter_dropdown_selected = 0;
 	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
 
-	ofParameter<ofColor> color_picker;
-
 	ofParameter<ofColor> stroke_color_slider;
 
 	ofParameter<float> h_slider_fill;

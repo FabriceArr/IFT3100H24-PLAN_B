@@ -16,7 +16,6 @@ private:
 	float exposure;
 	float gamma;
 	bool tone_mapping;
-	unsigned int filterSelection;
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
