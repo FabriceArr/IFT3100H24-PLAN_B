@@ -1,7 +1,8 @@
 #include "Element3D.h"
 #define MAXCHANGEBUFFERSIZE 10
+#define OBJECT_SCALE 200
 
-ofVec3f cube_vertices[] =
+const ofVec3f cube_vertices[] =
 {
 	ofVec3f(1.0f ,  1.0f, -1.0f),//0
 	ofVec3f(1.0f , -1.0f, -1.0f),//1
@@ -13,20 +14,58 @@ ofVec3f cube_vertices[] =
 	ofVec3f(-1.0f,  -1.0f, 1.0f)//7
 };
 
-GLuint cube_vertices_ids[] =
+const ofVec3f cube_normals[] =
 {
+	ofVec3f(0.0f ,  1.0f, 0.0f),//0
+	ofVec3f(0.0f , 0.0f, 1.0f),//1
+	ofVec3f(-1.0f ,  0.0f,  0.0f),//2
+	ofVec3f(0.0f , -1.0f,  0.0f),//3
+	ofVec3f(1.0f,  0.0f, 0.0f),//4
+	ofVec3f(0.0f, 0.0f, -1.0f)//5
+};
+
+const ofVec2f cube_uvs[] =
+{
+	ofVec2f(1.0f, 1.0f),//0
+	ofVec2f(1.0f, 0.0f),//1
+	ofVec2f(0.0f, 1.0f),//2
+	ofVec2f(0.0f, 0.0f)//3
+	
+};
+
+const const GLuint cube_vertices_ids[] =
+{
+	
+	
 	0, 1, 2,
-	0, 1, 5,
-	0, 2, 4,
-	0, 4, 5,
 	1, 2, 3,
+
+	2, 3, 6,
+	3, 6, 7,
+
+	4, 6, 7,
+	4, 5, 7,
+
+	0, 1, 5,
+	0, 4, 5,
+
+	0, 2, 6,
+	0, 4, 6,
+
 	1, 3, 5,
-	2, 3, 7,
-	2, 4, 7,
-	2, 6, 7,
-	3, 5, 7,
-	4, 5, 6,
-	5, 6, 7
+	3, 5, 7
+
+};
+
+const const GLuint cube_uv_ids[] =
+{
+	0,1,2,1,2,3,
+	0,1,2,1,2,3,
+	2,0,1,2,3,1,
+	2,3,1,2,0,1,
+	1,3,2,1,0,2,
+	0,2,1,2,1,3
+	
 
 };
 
@@ -36,7 +75,25 @@ ofVec3f plane_vertices[] =
 	ofVec3f(1.0f, 1.0f,  0.0f),//1
 	ofVec3f(-1.0f, -1.0f,  0.0f),//2
 	ofVec3f(1.0f, -1.0f,  0.0f)//3
+
 };
+
+ofVec2f plane_uvs[] =
+{
+	ofVec2f(0.0f, 1.0f),//0
+	ofVec2f(1.0f, 1.0f),//1
+	ofVec2f(0.0f, 0.0f),//2
+	ofVec2f(1.0f, 0.0f)//3
+
+};
+
+const const GLuint plane_uvs_ids[] =
+{
+	0,1,2,
+	1,2,3
+
+};
+
 
 GLuint plane_vert_ids[] =
 {
@@ -44,30 +101,35 @@ GLuint plane_vert_ids[] =
 	1, 2, 3
 };
 
+
+
+
 Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 {
 	
 
 	if (primitivetype == "cube") {
-		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
-		object_buffer.setIndexData(&cube_vertices_ids[0], 36, GL_STATIC_DRAW);
+		updateVertData(&cube_vertices[0], &cube_vertices_ids[0], 36);
+		updateTextureData(&cube_uvs[0],&cube_uv_ids[0], 36);
+		
 		primitivesLimitBox(0);
 	}
 	else if (primitivetype == "plane") {
-		object_buffer.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
-		object_buffer.setIndexData(&plane_vert_ids[0], 6, GL_STATIC_DRAW);
+		updateVertData(&plane_vertices[0], &plane_vert_ids[0], 6);
+		updateTextureData(&plane_uvs[0],&plane_uvs_ids[0], 6);
+		
 		primitivesLimitBox(1);
 	}
 
-	updateColorData(color);
-
+	
 	
 }
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
 {
 	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
-
+	//object_buffer.setTexCoordData()
+	texture.getImage()->getTexture().setTextureWrap(GL_REPEAT, GL_REPEAT);
 	customBox(mesh);
 }
 
@@ -78,6 +140,9 @@ Element3D::~Element3D()
 
 void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
+	ofScale(OBJECT_SCALE);
+
+
 	if (animated && highlight) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100.0f), 360));
@@ -87,18 +152,17 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 	material = getMaterial();
 	material.begin();
 	
-	if (object_buffer.getNumIndices() > 0) {
-		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
+	if (object_buffer.getNumVertices() > 0) {
+		texture.getImage()->bind();
+		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumVertices());
+		texture.getImage()->unbind();
 	}
 	else {
-		int i = object_buffer.getNumIndices();
-		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
+		ofLogError() << "Object with no vertices drawn";
 	}
 	material.end();
 	if (highlight) {
 		
-
-		updateColorData(this->getColor());
 		//draw the box
 		ofBeginShape();
 
@@ -202,13 +266,30 @@ void Element3D::customBox(ofMesh mesh) {
 	this->limit_box.setIndexData(&cube_vertices_ids[0], 24, GL_STATIC_DRAW);
 }
 
-void Element3D::updateColorData(ofColor c)
+void Element3D::updateVertData(const ofVec3f* vecs, const GLuint* ids, unsigned int size)
 {
-	ofFloatColor* holder = new ofFloatColor[object_buffer.getNumVertices()];
-	for (int i = 0; i < object_buffer.getNumVertices(); i++) {
-		holder[i] = c;
+	ofVec3f* holder = new ofVec3f[size];
+	for (int i = 0; i < size; i++) {
+		holder[i] = vecs[ids[i]];
 	}
-	object_buffer.setColorData(&holder[0], object_buffer.getNumVertices(), GL_STATIC_DRAW);
+	object_buffer.setVertexData(&holder[0], size, GL_STATIC_DRAW);
 
 	delete[] holder;
+}
+
+void Element3D::updateTextureData(const ofVec2f *uvs, const GLuint *ids,  unsigned int size)
+{
+	//copies the coords to keep normalized map for future textures
+	ofVec2f* holder = new ofVec2f[size];
+	//resizes map to fit texture coords
+	for (int i = 0; i < size; i++) {
+		holder[i] = uvs[ids[i]];
+		//holder[i].x *= texture.getImage()->getWidth();
+		//invert the y
+		holder[i].y = abs(1.0f - holder[i].y);
+		//holder[i].y *= texture.getImage()->getHeight();
+	}
+	object_buffer.setTexCoordData(&holder[0], size, GL_STATIC_DRAW);
+
+	delete [] holder;
 }

@@ -10,7 +10,11 @@ Object::Object(string primitivetype)
 	
 	current_change = 0;
 	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
-
+	filterSelection = 0; /* Aucun = 0
+						 Bilinéaire = 1
+						 Trilinéaire = 2
+						 Anistropique = 3 */
+	//this->setFilter(filterSelection);
 	this->stroke_width = 1;
 
 	this->exposure = 2.2f;
@@ -22,15 +26,17 @@ Object::Object(string primitivetype)
 	this->material.setSpecularColor(ofColor(255, 255, 255, 255));
 	this->material.setShininess(18.0f);
 
-
+	//this->filterSelection = 0; /* Aucun = 0
+	//					 Bilinéaire = 1
+	//					 Trilinéaire = 2
+	//					 Anistropique = 3 */
+	//this->TextureConfigure(image, 0);
 }
-
 
 Object::~Object()
 {
 	
 }
-
 
 string* Object::getName()
 {
@@ -63,7 +69,6 @@ void Object::addChange(ofMatrix3x3 mat)
 		changes_buffer.push_back(mat);
 		current_change = changes_buffer.size() - 1;
 	}
-	
 }
 
 ofMatrix3x3 Object::getCurrentChangeM()
@@ -149,8 +154,6 @@ bool Object::undoChange()
 		current_change--;
 		return true;
 	}
-	
-	
 }
 
 bool Object::recoverChange()
@@ -175,4 +178,85 @@ bool Object::isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b) {
 	}
 	return true;
 
+}
+
+void Object::setFilter(unsigned int filter_setting)
+{
+	this->filterSelection = filter_setting;
+}
+
+unsigned int Object::getFilter()
+{
+	return filterSelection;
+}
+
+void Object::TextureConfigure(ofImage image, unsigned int filterOption)
+{
+	// 1. ouvrir un fichier image en mode lecture et en extraire les propriétés
+	int image_width = image.getWidth();
+	int image_height = image.getHeight();
+	int image_component = 3;
+
+	// 2. allocation de l'espace mémoire pour les pixels de l'image
+	int image_size = image_width * image_height * image_component;
+	GLubyte* pixels = (GLubyte*)std::malloc(image_size * sizeof(GLubyte));
+
+	//image.loadImage(image.getTextureReference());
+
+	int index = 0;
+	glActiveTexture(GL_TEXTURE0 + index);
+
+	// 4. création d'une texture à partir des données de l'image
+	GLuint texture_id;
+	glGenTextures(1, &texture_id);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+	// 5. définir les paramètres d'enveloppement aux extrémités de la texture active
+	// mode d'enveloppement de texture : GL_CLAMP_TO_BORDER
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+	/* on utilise juste 1 par défaut
+	// mode d'enveloppement de texture : GL_CLAMP_TO_EDGE
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	// mode d'enveloppement de texture : GL_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// mode d'enveloppement de texture : GL_MIRRORED_REPEAT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	*/
+	
+	switch (filterOption)
+	{
+		//GLfloat largest_anisotropy = GL_EXT_texture_filter_anisotropic;
+
+	case 0:// pas de filtrage		
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	case 1: // filtrage bilinéaire
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	case 2: // filtrage trilinéaire
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	case 3: // filtrage anisotropique
+		// avec GL_ARB_texture_filter_anisotropic si OpenGL 4.6
+		// avec GL_EXT_texture_filter_anisotropic sinon
+		GLfloat largest_anisotropy = GL_EXT_texture_filter_anisotropic;
+		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &largest_anisotropy);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, largest_anisotropy);
+	//default:
+	//	break;
+	}
+
+	// 7. mipmapping
+	// générer les différents niveaux de mipmapping de la texture
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	//this->setFilter(filterOption);
 }
