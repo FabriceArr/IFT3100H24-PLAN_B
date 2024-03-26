@@ -46,6 +46,8 @@ GLuint plane_vert_ids[] =
 
 Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 {
+	
+
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
 		object_buffer.setIndexData(&cube_vertices_ids[0], 36, GL_STATIC_DRAW);
@@ -82,15 +84,17 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 
 
 	}
+	material = getMaterial();
+	material.begin();
 	
 	if (object_buffer.getNumIndices() > 0) {
-
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
 	}
 	else {
 		int i = object_buffer.getNumIndices();
 		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
+	material.end();
 	if (highlight) {
 		
 
@@ -104,14 +108,10 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 		glPointSize(0);
 		ofSetColor((233 + (20 * substage))%255,( 15 + (10 * substage)) % 255, (233 + (42 * substage)) % 255 );
 
-		ofMaterial material = getMaterial();
-
-		material.begin();
 		glLineWidth(5);
 		limit_box.drawElements(GL_LINES, limit_box.getNumIndices());
 		glLineWidth(0);
 		ofSetColor(255);
-		material.end();
 
 		ofEndShape();
 	}

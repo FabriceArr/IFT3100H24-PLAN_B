@@ -9,6 +9,7 @@ class Element3D : public Object
 private:
 	ofTexture texture;
 	ofVbo object_buffer, limit_box;
+	ofMaterial material;
 
 public:
 	Element3D(string primitivetype, ofColor color);

@@ -134,6 +134,7 @@ void UI::setup()
    
 
     interface.add(&group_tone_mapping);
+    interface.add(&group_material);
 }
 
 void UI::update()
