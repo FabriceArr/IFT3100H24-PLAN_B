@@ -136,7 +136,7 @@ void ObjNode::setStrokeWidth(ofParameter<int> widthparam)
 	this->stroke_width = widthparam;
 }
 
-void ObjNode::setIllumModel(ofParameter<int> illumparam)
+void ObjNode::setIllumModel(ofParameter<illuminationModel_enum> illumparam)
 {
 	this->illumModel_setting = illumparam;
 }

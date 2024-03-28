@@ -1,6 +1,9 @@
 #pragma once
 #include "Scene.h"
 
+//// énumération des types de shader
+//enum class ShaderType { color_fill, lambert, gouraud, phong, blinn_phong };
+//
 class Renderer
 {
 private:
@@ -26,11 +29,24 @@ private:
 	//void updateCamMatrixes();
 public:
 	ofImage imageImport;
-	ofLight defaultLight;
+	//ofLight defaultLight;
+	//ofLight light;
 
 	ofColor strokecolor;
 	ofColor fillcolor;
 	ofColor backgroundColor;
+
+	//ShaderType shader_active;
+
+	//ofShader shader_color_fill;
+	//ofShader shader_lambert;
+	//ofShader shader_gouraud;
+	//ofShader shader_phong;
+	//ofShader shader_blinn_phong;
+
+	//ofShader* shader;
+
+	//string shader_name;
 
 	int stroke_weight;
 	

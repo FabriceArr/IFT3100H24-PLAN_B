@@ -1,6 +1,13 @@
 #pragma once
 #include "ofMain.h"
 
+enum illuminationModel_enum {
+	Flat,
+	Lambert,
+	Gouraud,
+	Phong,
+	BlinnPhong
+};
 
 class Object
 {
@@ -17,6 +24,10 @@ private:
 	float gamma;
 	bool tone_mapping;
 
+	//unsigned int illuminationModel;
+	illuminationModel_enum illuminationModel;
+
+
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
 	
@@ -24,6 +35,8 @@ private:
 public:
 	Object(string name);
 	~Object();
+
+	//illuminationModel_enum illuminationModel;
 
 	virtual void draw(bool highlight, bool animated = false, unsigned int substage = 0) = 0;
 
@@ -44,9 +57,13 @@ public:
 	virtual unsigned int getStrokeWidth();
 
 	virtual void setToneMapping(float exposure, float gamma, bool tone_mapping);
+	//virtual void setIlluminationModel(unsigned int illum);
+	virtual void setIlluminationModel(illuminationModel_enum illum);
 	virtual float getExposure();
 	virtual float getGamma();
 	virtual bool getToneMapping();
+	//virtual unsigned int getIlluminationModel();
+	virtual illuminationModel_enum getIlluminationModel();
 
 	virtual bool undoChange();
 	virtual bool recoverChange();

@@ -1,5 +1,6 @@
 #include "scene.h"
 #include <algorithm>
+#include "Object.h"
 
 
 
@@ -8,7 +9,8 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	const vector<ofParameter<float>*> UIscale,
 	ofParameter<float>* UIExposure,
 	ofParameter<float>* UIGamma,
-	ofParameter<bool>* UIToneMapping)
+	ofParameter<bool>* UIToneMapping,
+	ofParameter<illuminationModel_enum>* UIIllumination)
 {
 	//Doit etre le SEUL object initialiser comme ceci
 	object_tree_head = new ObjNode(nullptr);
@@ -45,10 +47,47 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 
 	animate = false;
 
+	defaultLight.setDirectional();
+
+	defaultLight.setOrientation(glm::quat(0.0f, -1.0f, 0.0f, 0.0f));
+	ofLog() << "default Light orientation: " << defaultLight.getOrientationQuat();
+
+	shader_color_fill.load(
+		"shader/color_fill_330_vs.glsl",
+		"shader/color_fill_330_fs.glsl");
+
+	shader_lambert.load(
+		"shader/lambert_330_vs.glsl",
+		"shader/lambert_330_fs.glsl");
+
+	shader_gouraud.load(
+		"shader/gouraud_330_vs.glsl",
+		"shader/gouraud_330_fs.glsl");
+
+	shader_phong.load(
+		"shader/phong_330_vs.glsl",
+		"shader/phong_330_fs.glsl");
+
+	shader_blinn_phong.load(
+		"shader/blinn_phong_330_vs.glsl",
+		"shader/blinn_phong_330_fs.glsl");
+
+	// shader actif au lancement de la scène
+	shader_active = ShaderType::blinn_phong;
+
 }
 
 void Scene::draw()
 {
+	// activer l'éclairage dynamique
+	ofEnableLighting();
+
+	// activer la lumière dynamique
+	light.enable();
+
+	// activer le shader
+	//shader->begin();
+
 	isOrtho ? ofDrawGrid(100, 12, false, false, false, true) :
 		ofDrawGrid(100, 12, false, false, true, false);
 
@@ -83,6 +122,92 @@ void Scene::draw()
 
 	}
 
+	// désactiver le shader
+	//shader->end();
+
+	// désactiver la lumière
+	light.disable();
+
+	// désactiver l'éclairage dynamique
+	ofDisableLighting();
+
+}
+
+void Scene::update()
+{
+	defaultLight.setGlobalPosition(
+		ofMap(ofGetMouseX() / (float)ofGetWidth(), 0.0f, 1.0f, -ofGetWidth() / 2.0f, ofGetWidth() / 2.0f),
+		ofMap(ofGetMouseY() / (float)ofGetHeight(), 0.0f, 1.0f, -ofGetHeight() / 2.0f, ofGetHeight() / 2.0f),
+		//-offset_z * 1.5f);
+		1.5f);
+
+	// mise à jour d'une valeur numérique animée par un oscillateur
+	//float oscillation = oscillate(ofGetElapsedTimeMillis(), oscillation_frequency, oscillation_amplitude) + oscillation_amplitude;
+
+	// passer les attributs uniformes au shader de sommets
+	switch (shader_active)
+	{
+	case ShaderType::color_fill:
+		shader_name = "Color Fill";
+		shader = &shader_color_fill;
+		shader->begin();
+		shader->setUniform3f("color", 1.0f, 1.0f, 0.0f);
+		shader->end();
+		break;
+
+	case ShaderType::lambert:
+		shader_name = "Lambert";
+		shader = &shader_lambert;
+		shader->begin();
+		shader->setUniform3f("color_ambient", 0.1f, 0.1f, 0.1f);
+		shader->setUniform3f("color_diffuse", 0.6f, 0.6f, 0.6f);
+		shader->setUniform3f("light_position", light.getGlobalPosition());
+		shader->end();
+		break;
+
+	case ShaderType::gouraud:
+		shader_name = "Gouraud";
+		shader = &shader_gouraud;
+		shader->begin();
+		shader->setUniform3f("color_ambient", 0.1f, 0.1f, 0.1f);
+		shader->setUniform3f("color_diffuse", 0.6f, 0.6f, 0.0f);
+		shader->setUniform3f("color_specular", 1.0f, 1.0f, 0.0f);
+		//shader->setUniform1f("brightness", oscillation);
+		shader->setUniform1f("brightness", 1.0f);
+		shader->setUniform3f("light_position", light.getGlobalPosition());
+		shader->end();
+		break;
+
+	case ShaderType::phong:
+		shader_name = "Phong";
+		shader = &shader_phong;
+		shader->begin();
+		shader->setUniform3f("color_ambient", 0.1f, 0.1f, 0.1f);
+		shader->setUniform3f("color_diffuse", 0.6f, 0.0f, 0.6f);
+		shader->setUniform3f("color_specular", 1.0f, 1.0f, 0.0f);
+		//shader->setUniform1f("brightness", oscillation);
+		shader->setUniform1f("brightness", 1.0f);
+		shader->setUniform3f("light_position", light.getGlobalPosition());
+		shader->end();
+		break;
+
+	case ShaderType::blinn_phong:
+		shader_name = "Blinn-Phong";
+		shader = &shader_blinn_phong;
+		shader->begin();
+		shader->setUniform3f("color_ambient", 0.1f, 0.1f, 0.1f);
+		shader->setUniform3f("color_diffuse", 0.0f, 0.6f, 0.6f);
+		shader->setUniform3f("color_specular", 1.0f, 1.0f, 0.0f);
+		//shader->setUniform1f("brightness", oscillation);
+		shader->setUniform1f("brightness", 1.0f);
+		shader->setUniform3f("light_position", light.getGlobalPosition());
+		shader->end();
+		break;
+
+	default:
+		break;
+	}
+
 }
 
 void Scene::exit()
@@ -104,6 +229,12 @@ void Scene::exit()
 
 	anim_shader_rot.unload();
 	anim_shader_bob.unload();
+
+	shader_color_fill.unload();
+	shader_gouraud.unload();
+	shader_lambert.unload();
+	shader_phong.unload();
+	shader_blinn_phong.unload();
 
 }
 
@@ -391,7 +522,7 @@ void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 	this->UI_stroke_width = widthparam;
 }
 
-void Scene::updateIllumModel(unsigned int illumparam)
+void Scene::updateIllumModel(ofParameter<illuminationModel_enum> illumparam)
 {
 	this->UI_illumModel = illumparam;
 }

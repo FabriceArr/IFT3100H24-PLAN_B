@@ -7,12 +7,16 @@ void Application::setup()
 
 	interface.setup();
 	interface.getPositionSliderValues();
-	scene.setup(interface.getPositionSliderValues(),
+	scene.setup(
+		interface.getPositionSliderValues(),
 		interface.getRotationSliderValues(), 
 		interface.getScaleSliderValues(),
 		interface.getExposureSlider(),
 		interface.getGammaSlider(),
-		interface.getToneMappingToggle());
+		interface.getToneMappingToggle(),
+		interface.get_illuminationModel()
+		);
+	
 	auto i = interface.getPositionSliderValues();
 
 	interface.getFillColorSlider();
@@ -45,8 +49,8 @@ void Application::update()
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-	scene.updateIllumModel(interface.get_illuminationModel());
-	scene.updateFilter(interface.getFilter());
+	//scene.updateIllumModel(interface.get_illuminationModel());
+	//scene.updateFilter(interface.getFilter());
 
 	renderer.update();
 	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;

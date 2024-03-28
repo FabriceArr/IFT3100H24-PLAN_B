@@ -56,9 +56,22 @@ private:
 	ofParameter<ofColor> fill_color_slider;
 
 	// Illumination Model with dropdown
-	ofxDropdown_<string> IlluminationModel_dropdown;
-	unsigned int illuminationModel_dropdown_selected = 0;
-	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
+	//ofxDropdown_<string> illuminationModel_dropdown;
+	//enum illuminationModel_enum {
+	//	Flat = true,
+	//	Lambert = false,
+	//	Gouraud = false,
+	//	Phong = false,
+	//	BlinnPhong = false };
+	const vector<string> illuminationModel_dropdown_string{
+		"Flat",	"Lambert", "Gouraud", "Phong", "BlinnPhong"};
+	//ofxDropdown_<illuminationModel_enum> illuminationModel_dropdown;
+	ofxDropdown_<vector<string>> illuminationModel_dropdown;
+	illuminationModel_enum illuminationModel_dropdown_enum;
+	//unsigned int illuminationModel_dropdown_selected = 0;
+	//ofParameter<vector<string>>* illum_pointer;
+	//ofParameter<illuminationModel_enum>* illuminationModel_dropdownEnum;
+	//vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
 
 	ofParameter<ofColor> color_picker;
 
@@ -105,13 +118,16 @@ private:
 	ofParameter<float> slider_exposure;
 	ofParameter<float> slider_gamma;\
 	ofParameter<bool> toggle_tone_mapping;
+	//ofParameter<vector<string>> illuminationModel_vector;
+	ofParameter<illuminationModel_enum> illuminationParam;
 
 	float tone_mapping_exposure;
 	float tone_mapping_gamma;
 	bool tone_mapping_toggle;
 
 	void fillColorRGBChanged(ofColor& color);
-	void onIllumModelChangeStr(string& illum);
+	//void onIllumModelChangeStr(string& illum);
+	void onIllumModelChangeStr(illuminationModel_enum illum);
 	void onFilterChangeStr(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
@@ -151,7 +167,7 @@ public:
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
 
-	const unsigned int get_illuminationModel();
+	//const unsigned int get_illuminationModel();
 
 	const unsigned int getFilter();
 
@@ -162,12 +178,15 @@ public:
 	float* setExposureSlider();
 	float* setGammaSlider();
 	bool* setToneMappingToggle();
+	illuminationModel_enum* setIlluminationModel();
 	
 	ofParameter<float>* getExposureSlider();
 	ofParameter<float>* getGammaSlider();
 	ofParameter<bool>* getToneMappingToggle();
+	ofParameter<illuminationModel_enum>* get_illuminationModel();
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
+	vector<string> createStringFromEnum(enum enumList);
 };
 
 

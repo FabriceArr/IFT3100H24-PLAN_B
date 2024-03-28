@@ -20,11 +20,14 @@ Object::Object(string primitivetype)
 	this->exposure = 2.2f;
 	this->gamma = 1.0f;
 	this->tone_mapping = true;
+	this->illuminationModel = Flat;
+
 	//this->filterSelection = 0; /* Aucun = 0
 	//					 Bilinéaire = 1
 	//					 Trilinéaire = 2
 	//					 Anistropique = 3 */
 	//this->TextureConfigure(image, 0);
+
 }
 
 Object::~Object()
@@ -113,6 +116,16 @@ void Object::setToneMapping(float exposure, float gamma, bool tone_mapping)
 	this->tone_mapping = tone_mapping;
 }
 
+//void Object::setIlluminationModel(unsigned int illum)
+//{
+//	this->illuminationModel = illum;
+//}
+
+void Object::setIlluminationModel(illuminationModel_enum illum)
+{
+	this->illuminationModel = illum;
+}
+
 float Object::getExposure()
 {
 	return this->exposure;
@@ -127,6 +140,17 @@ bool Object::getToneMapping()
 {
 	return this->tone_mapping;
 }
+
+illuminationModel_enum Object::getIlluminationModel()
+{
+	return this->illuminationModel;
+}
+
+//unsigned int Object::getIlluminationModel()
+//{
+//	return this->illuminationModel;
+//}
+
 
 bool Object::undoChange()
 {

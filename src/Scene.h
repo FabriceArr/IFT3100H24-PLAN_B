@@ -11,6 +11,9 @@
 #include "OBJLoader.h"
 #include <vector>
 
+// énumération des types de shader
+enum class ShaderType { color_fill, lambert, gouraud, phong, blinn_phong };
+
 class Scene
 {
 private:
@@ -42,11 +45,26 @@ private:
 	ofParameter<ofColor> UI_fill_color;
 	ofParameter<ofColor> UI_stroke_color;
 	ofParameter<int> UI_stroke_width;
-	unsigned int UI_illumModel;
+	ofParameter<illuminationModel_enum> UI_illumModel;
 	unsigned int UI_filter;
 	ofVec3f UI_point1, UI_point2, UI_point3, UI_radius, UI_pointToit;
 
 	ofShader anim_shader_rot, anim_shader_bob;
+
+	ShaderType shader_active;
+
+	ofShader shader_color_fill;
+	ofShader shader_lambert;
+	ofShader shader_gouraud;
+	ofShader shader_phong;
+	ofShader shader_blinn_phong;
+
+	ofShader* shader;
+
+	string shader_name;
+
+	ofLight defaultLight;
+	ofLight light;
 
 	ofVec3f point1, point2, point3, radius;
 
@@ -62,7 +80,8 @@ public:
 		const vector<ofParameter<float>*> UIscale,
 		ofParameter<float>* UIExposure,
 		ofParameter<float>* UIGamma,
-		ofParameter<bool>* UIToneMapping);
+		ofParameter<bool>* UIToneMapping,
+		ofParameter<illuminationModel_enum>* UIIllumination);
 
 	//clean up the scene from memory
 	void exit();
@@ -82,7 +101,7 @@ public:
 	void updateFillColor(ofParameter<ofColor> colorparam);
 	void updateStrokeColor(ofParameter<ofColor> colorparam);
 	void updateStrokeWidth(ofParameter<int> widthparam);
-	void updateIllumModel(unsigned int illumparam);
+	void updateIllumModel(ofParameter<illuminationModel_enum> illumparam);
 	void updateFilter(unsigned int filterparam);
 	void updatePoint1(const ofVec3f point1);
 	void updatePoint2(const ofVec3f point2);
@@ -104,6 +123,7 @@ public:
 	void redoChange();
 
 	void draw();
+	void update();
 
 	void PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM);
 
