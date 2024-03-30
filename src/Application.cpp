@@ -253,6 +253,16 @@ void Application::mouseDragged(int x, int y, int button)
 
 void Application::mousePressed(int x, int y, int button)
 {
+	//the vector for the ray that is shot in the direction of the click to select
+	//the start is the position of the camera
+	//the direction is calculated by transforming the projection coord of the canvas into 
+	//normalized device coordinate space. Using the fov to find the distance of the projection
+	//canvas from the camera itself.
+	unsigned int depth = 1 / tan(cam.getFov());
+	scene.PickingPhase(cam.getGlobalPosition(),
+						ofVec3f(x / depth, 
+								y / depth * cam.getAspectRatio(),
+								1));
 
 	//make sure that when you get a value from this, your logic isnt faulty and takes an old released number
 	mouse_release_x = -1;

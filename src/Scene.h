@@ -105,9 +105,8 @@ public:
 
 	void draw();
 
-	void PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM);
+	void PickingPhase(ofVec3f camPos, ofVec3f clickDirect);
 
-	void findSelectedObject(int x, int y);
 
 	void selectNextObject();
 	void selectPreviousObject();

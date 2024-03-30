@@ -563,38 +563,9 @@ void Scene::redoChange()
 
 
 
-void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
+void Scene::PickingPhase(ofVec3f camPos, ofVec3f clickDirect)
 {
-	/*select_mode.EnableWriting();
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	for (std::vector<ObjNode*>::const_iterator it =
-		object_tree_head->getSubs()->begin(); it !=
-		object_tree_head->getSubs()->end(); it++)
-	{
-		// Background is zero, the real objects start at 1
-
-		ofMatrix4x4 World = (*it)->object->getCurrentChangeM();
-		ofMatrix4x4 WVP = projectM * viewM * World;
-		select_mode.SetWVP(WVP);
-		select_mode.SetObjPointer(1);
-		//turns on the clickshader
-		select_mode.enable();
-
-		(*it)->object->getObject()->draw();
-
-		//turns off the clickshader so the next WVP and item pointer can be loaded
-		select_mode.disable();
-	}
-
-	select_mode.DisableWriting();
-	*/
-}
-
-void Scene::findSelectedObject(int x, int y) {
-	//need to invert the y since the coord of textures are opeosite of the ones of screen pixels
-	//ofLog() << select_mode.ReadPixel(x, ofGetWindowHeight() - y - 1);
+	
 }
 
 
