@@ -10,8 +10,6 @@ private:
 	ofColor color, stroke_color;
 	unsigned int stroke_width;
 	ofMatrix3x3 temp;
-	unsigned int filterSelection;
-	ofImage image;
 
 	float exposure;
 	float gamma;
@@ -55,10 +53,6 @@ public:
 
 	virtual bool undoChange();
 	virtual bool recoverChange();
-
-	virtual void setFilter(unsigned int filter_setting);
-	virtual unsigned int getFilter();
-	virtual void TextureConfigure(ofImage image, unsigned int filterOption);
 
 	bool isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b);
 };

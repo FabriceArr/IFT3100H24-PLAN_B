@@ -3,12 +3,11 @@
 #include "Object.h"
 #include "ofVbo.h"
 #include "ofxAssimpModelLoader.h"
-#include "Element2D.h"
 
 class Element3D : public Object
 {
 private:
-	Element2D texture;
+	ofTexture texture;
 	ofVbo object_buffer, limit_box;
 	ofMaterial material;
 
@@ -23,8 +22,7 @@ public:
 	void primitivesLimitBox(bool type);
 	void customBox(ofMesh mesh);
 
-	void updateVertData(const ofVec3f* vecs, const GLuint* ids, unsigned int size);
-	void updateTextureData(const ofVec2f* uvs, const GLuint* ids, unsigned int size);
+	void updateColorData(ofColor c);
 
 
 };
