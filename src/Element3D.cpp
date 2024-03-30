@@ -85,8 +85,8 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 
 	}
 	material = getMaterial();
-	material.begin();
 	
+	material.begin();
 	if (object_buffer.getNumIndices() > 0) {
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
 	}

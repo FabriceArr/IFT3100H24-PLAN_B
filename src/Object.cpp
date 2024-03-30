@@ -17,12 +17,11 @@ Object::Object(string primitivetype)
 	this->gamma = 1.0f;
 	this->tone_mapping = true;
 
-	this->material.setAmbientColor(ofColor(255, 255, 255, 255));
-	this->material.setDiffuseColor(ofColor(255, 255, 255, 255));
-	this->material.setSpecularColor(ofColor(255, 255, 255, 255));
+	this->material.setAmbientColor(ofFloatColor(0.2, 0.2, 0.2));
+	this->material.setDiffuseColor(ofFloatColor(0.2, 0.2, 0.2));
+	this->material.setSpecularColor(ofFloatColor(0.2, 0.2, 0.2));
+	this->material.setEmissiveColor(ofFloatColor(0.2, 0.2, 0.2));
 	this->material.setShininess(18.0f);
-
-
 }
 
 
