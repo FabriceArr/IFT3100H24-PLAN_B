@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "RayCaster.h"
 
 
 class ObjNode
@@ -30,6 +31,8 @@ public:
 	void remove();
 
 	void draw(bool selected = false, bool animated = false);
+
+	bool isSelected(ofVec3f origin, ofVec3f direction);
 
 	void add(ObjNode* objnode);
 

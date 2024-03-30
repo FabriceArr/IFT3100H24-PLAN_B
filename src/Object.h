@@ -4,6 +4,10 @@
 
 class Object
 {
+protected:
+	//dimensions of the bounding boxes
+	ofVec3f obb_min, obb_max;
+
 private:
 	bool selected = true;
 	string name;
@@ -19,6 +23,7 @@ private:
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
+	
 	
 
 public:
@@ -42,6 +47,9 @@ public:
 
 	virtual void setStrokeWidth(unsigned int width);
 	virtual unsigned int getStrokeWidth();
+
+	virtual ofVec3f getObbMin();
+	virtual ofVec3f getObbMax();
 
 	virtual void setToneMapping(float exposure, float gamma, bool tone_mapping);
 	virtual float getExposure();

@@ -87,6 +87,16 @@ void ObjNode::draw(bool selected, bool animated)
 	
 }
 
+bool ObjNode::isSelected(ofVec3f origin, ofVec3f direction)
+{
+	return RayCaster::CastRay(origin, direction, 
+								this->object->getObbMin(),
+								this->object->getObbMax(),
+								this->object->getCurrentChangeM());
+}
+
+
+
 //adds a child to this one
 void ObjNode::add(ObjNode* objnode)
 {

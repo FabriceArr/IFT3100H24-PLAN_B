@@ -257,7 +257,7 @@ void Application::mousePressed(int x, int y, int button)
 	//the start is the position of the camera
 	//the direction is calculated by transforming the projection coord of the canvas into 
 	//normalized device coordinate space. Using the fov to find the distance of the projection
-	//canvas from the camera itself.
+	//canvas from the camera itself. The vector is normalez on Z for ease of check.
 	unsigned int depth = 1 / tan(cam.getFov());
 	scene.PickingPhase(cam.getGlobalPosition(),
 						ofVec3f(x / depth, 

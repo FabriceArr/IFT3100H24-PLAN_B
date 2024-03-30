@@ -67,9 +67,6 @@ void Scene::draw()
 
 			//only apply transform if selected
 			//draw others normally
-			
-
-			PickingPhase(project_matrice, view_matrice);
 
 			ofPushMatrix();
 			(*it)->draw(false, animate);
