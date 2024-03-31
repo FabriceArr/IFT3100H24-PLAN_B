@@ -262,7 +262,7 @@ void Application::mousePressed(int x, int y, int button)
 	if (button == 0) {
 		//normalizes it to the size of the screen
 		float xclick = (2.0f * x) / ofGetWindowWidth() - 1.0f;
-		float yclick = 1.0f - (2.0f * y) / ofGetWindowWidth();
+		float yclick = 1.0f - (2.0f * y) / ofGetWindowHeight();
 		
 		glm::vec4 rayDirectionNDS = glm::vec4(xclick, yclick, -1, 1);
 		glm::vec4 rayeye = glm::inverse(cam.getProjectionMatrix()) * rayDirectionNDS;

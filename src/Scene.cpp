@@ -572,7 +572,7 @@ void Scene::PickingPhase(ofVec3f camPos, ofVec3f clickDirect)
 	
 	camdebug.setGlobalPosition(camPos);
 	camdebug.setRadius(2);
-	clickdebug.setGlobalPosition(camPos + 10 * clickDirect);
+	clickdebug.setGlobalPosition(camPos + ofVec3f(10 * clickDirect.x, 10 * clickDirect.y, 10 * clickDirect.z) );
 	clickdebug.setRadius(2);
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin(); it !=
