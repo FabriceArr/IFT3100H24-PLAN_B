@@ -14,6 +14,8 @@
 class Scene
 {
 private:
+	ofSpherePrimitive camdebug, clickdebug;
+
 	ofVec3f origin_pos;
 
 	ofMatrix4x4 project_matrice, view_matrice;
@@ -105,9 +107,8 @@ public:
 
 	void draw();
 
-	void PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM);
+	void PickingPhase(ofVec3f camPos, ofVec3f clickDirect);
 
-	void findSelectedObject(int x, int y);
 
 	void selectNextObject();
 	void selectPreviousObject();

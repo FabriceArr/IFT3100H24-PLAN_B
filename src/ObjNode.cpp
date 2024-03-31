@@ -87,6 +87,26 @@ void ObjNode::draw(bool selected, bool animated)
 	
 }
 
+bool ObjNode::isSelected(ofVec3f origin, ofVec3f direction)
+//uses obb raycasting to see if the object is selected by the mouse, origin is the cam pos and direction is clac from click
+{
+	if (this->object != nullptr) {
+		return RayCaster::CastRay(origin, direction,
+			this->object->getObbMin(),
+			this->object->getObbMax(),
+			this->object->getCurrentChangeM());
+	}
+	for (auto it = begin(sub_objects); it != end(sub_objects); it++) {
+
+		if ((*it)->object != nullptr) {
+			(*it)->isSelected(origin, direction);
+		}
+
+	}
+}
+
+
+
 //adds a child to this one
 void ObjNode::add(ObjNode* objnode)
 {
