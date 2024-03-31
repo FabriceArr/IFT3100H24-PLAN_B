@@ -253,16 +253,27 @@ void Application::mouseDragged(int x, int y, int button)
 
 void Application::mousePressed(int x, int y, int button)
 {
+	
 	//the vector for the ray that is shot in the direction of the click to select
 	//the start is the position of the camera
 	//the direction is calculated by transforming the projection coord of the canvas into 
 	//normalized device coordinate space. Using the fov to find the distance of the projection
 	//canvas from the camera itself. The vector is normalez on Z for ease of check.
-	unsigned int depth = 1 / tan(cam.getFov());
-	scene.PickingPhase(cam.getGlobalPosition(),
-						ofVec3f(x / depth, 
-								y / depth * cam.getAspectRatio(),
-								1));
+	if (button == 0) {
+		//normalizes it to the size of the screen
+		float xclick = (2.0f * x) / ofGetWindowWidth() - 1.0f;
+		float yclick = 1.0f - (2.0f * y) / ofGetWindowWidth();
+		
+		glm::vec4 rayDirectionNDS = glm::vec4(xclick, yclick, -1, 1);
+		glm::vec4 rayeye = glm::inverse(cam.getProjectionMatrix()) * rayDirectionNDS;
+		rayeye = ofVec4f(rayeye.x, rayeye.y, -1.0, 0.0);
+
+		glm::vec3 world = glm::inverse(cam.getModelViewMatrix()) * rayeye;
+		scene.PickingPhase(
+			cam.getGlobalPosition(),
+			glm::normalize(world));
+	}
+	
 
 	//make sure that when you get a value from this, your logic isnt faulty and takes an old released number
 	mouse_release_x = -1;

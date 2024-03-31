@@ -14,6 +14,8 @@
 class Scene
 {
 private:
+	ofNode camdebug, clickdebug;
+
 	ofVec3f origin_pos;
 
 	ofMatrix4x4 project_matrice, view_matrice;
