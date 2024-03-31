@@ -561,7 +561,21 @@ void Scene::redoChange()
 
 
 void Scene::PickingPhase(ofVec3f camPos, ofVec3f clickDirect)
+//scans all objects to see which one have an obb that intersecs with the ray from the camera to click direction
 {
+
+	for (std::vector<ObjNode*>::const_iterator it =
+		object_tree_head->getSubs()->begin(); it !=
+		object_tree_head->getSubs()->end(); it++)
+	{
+		if (*it) {
+
+			ofLog() << "Object clicked" << (*it)->isSelected(camPos, clickDirect);
+
+		}
+
+
+	}
 	
 }
 
