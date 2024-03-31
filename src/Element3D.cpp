@@ -193,6 +193,8 @@ void Element3D::primitivesLimitBox(bool type) {
 			6, 7,
 			6, 4
 		};
+		this->obb_min = ofVec3f(-1.0f, -1.0f, -1.0f);
+		this->obb_max = ofVec3f(1.0f, 1.0f, 1.0f);
 
 		this->limit_box.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
 		this->limit_box.setIndexData(&vertices_ids[0], 24, GL_STATIC_DRAW);
@@ -205,6 +207,9 @@ void Element3D::primitivesLimitBox(bool type) {
 			2, 3,
 			2, 0
 		};
+
+		this->obb_min = ofVec3f(-1.0f, -1.0f, 0.0f);
+		this->obb_max = ofVec3f(1.0f, 1.0f, 0.0f);
 
 		this->limit_box.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
 		this->limit_box.setIndexData(&vertices_ids[0], 8, GL_STATIC_DRAW);

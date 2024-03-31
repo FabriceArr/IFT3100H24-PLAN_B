@@ -14,6 +14,7 @@
 class Scene
 {
 private:
+	bool raydebugbool;
 	ofSpherePrimitive camdebug, clickdebug;
 
 	ofVec3f origin_pos;

@@ -32,7 +32,7 @@ public:
 
 	void draw(bool selected = false, bool animated = false);
 
-	bool isSelected(ofVec3f origin, ofVec3f direction);
+	bool isSelected(ofVec3f origin, ofVec3f direction, float &distance);
 
 	void add(ObjNode* objnode);
 
