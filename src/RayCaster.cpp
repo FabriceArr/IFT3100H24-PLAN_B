@@ -1,8 +1,9 @@
+//Following the https://www.opengl-tutorial.org/miscellaneous/clicking-on-objects/picking-with-custom-ray-obb-function/ 
+
 #include "RayCaster.h"
 
  bool RayCaster::CastRay(ofVec3f ray_org, ofVec3f ray_direct, ofVec3f target_min, ofVec3f target_max, ofMatrix3x3 box_transform, float& hit)
 {
-    bool resultx = true,resulty = true, resultz = true;
     float min_depth = 0.0f;
     float max_depth = 999999.0f;
 

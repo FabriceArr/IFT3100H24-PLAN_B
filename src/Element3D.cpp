@@ -222,7 +222,6 @@ void Element3D::customBox(ofMesh mesh) {
 	//define limts for the limit box
 	for (int i = 0; i < mesh.getNumVertices(); i++) {
 		hold = mesh.getVertex(i);
-
 		if (hold.x < this->obb_min.x) { this->obb_min.x = hold.x; }
 		if (hold.x > this->obb_max.x) { this->obb_max.x = hold.x; }
 
