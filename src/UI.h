@@ -6,6 +6,8 @@
 #include "scene.h"
 #include <vector>
 
+enum illum_enum {	flat, lambert, gouraud, phong, blinnPhong };
+
 struct parameterVectorGroup {
 	ofParameter<float>* x;
 	ofParameter<float>* y;
@@ -57,15 +59,17 @@ private:
 
 	// Illumination Model with dropdown
 	ofxDropdown_<string> IlluminationModel_dropdown;
-	unsigned int illuminationModel_dropdown_selected = 0;
+	//unsigned int illuminationModel_dropdown_selected = 0;
 	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
+	illum_enum illum_enum_list ;
 
 	ofParameter<ofColor> color_picker;
 
 
 	// Image Filter with dropdown
 	ofxDropdown_<string> imageFilter_dropdown;
-	unsigned int imageFilter_dropdown_selected = 0;
+	//ofxDropdown_<illum_enum> imageFilter_dropdown;
+	//unsigned int imageFilter_dropdown_selected = 0;
 	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
 
 	ofParameter<ofColor> stroke_color_slider;
@@ -111,8 +115,8 @@ private:
 	bool tone_mapping_toggle;
 
 	void fillColorRGBChanged(ofColor& color);
-	void onIllumModelChangeStr(string& illum);
-	void onFilterChangeStr(string& filter);
+	//void onIllumModelChangeStr(string& illum);
+	//void onFilterChangeStr(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
 
@@ -151,9 +155,9 @@ public:
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
 
-	const unsigned int get_illuminationModel();
+	//const unsigned int get_illuminationModel();
 
-	const unsigned int getFilter();
+	//const unsigned int getFilter();
 
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();

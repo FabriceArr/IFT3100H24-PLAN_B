@@ -54,23 +54,24 @@ void UI::setup()
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
     // Setup for Illumination Model dropdown
-    illuminationModel_dropdown_selected = 0;
+    //illuminationModel_dropdown_selected = 0;
     interface.add(IlluminationModel_dropdown.setup("Modele d'Illumination"));
     IlluminationModel_dropdown.add(illuminationModel_vector);
     IlluminationModel_dropdown.disableMultipleSelection();
     IlluminationModel_dropdown.enableCollapseOnSelection();
-    IlluminationModel_dropdown.setSelectedValueByIndex(illuminationModel_dropdown_selected, true);
-    IlluminationModel_dropdown.addListener(this, &UI::onIllumModelChangeStr);
+    //IlluminationModel_dropdown.setSelectedValueByIndex(illuminationModel_dropdown_selected, true);
+    //IlluminationModel_dropdown.addListener(this, &UI::onIllumModelChangeStr);
 
     // Setup for Image filter dropdown
-    imageFilter_dropdown_selected = 0;
+    //imageFilter_dropdown_selected = 0;
     interface.add(imageFilter_dropdown.setup("Filtrage de Texture"));
     imageFilter_dropdown.add(filter_vector);
+    //imageFilter_dropdown.add(illum_enum_list);
     imageFilter_dropdown.disableMultipleSelection();
     imageFilter_dropdown.enableCollapseOnSelection();
-    imageFilter_dropdown.setSelectedValueByIndex(imageFilter_dropdown_selected, true);
+    //imageFilter_dropdown.setSelectedValueByIndex(imageFilter_dropdown_selected, true);
     //imageFilter_dropdown.setSelectedValueByName(imageFilter_dropdown_selected, true);
-    imageFilter_dropdown.addListener(this, &UI::onFilterChangeStr);
+    //imageFilter_dropdown.addListener(this, &UI::onFilterChangeStr);
 
     // Setup for stroke color input
     interface.add(stroke_color_slider.set("Stroke Color", ofColor(0), ofColor(0, 0), ofColor(255, 255)));
@@ -220,15 +221,16 @@ const ofParameter<int> UI::getStrokeWidthSlider()
     return stroke_width_slider;
 }
 
-const unsigned int UI::get_illuminationModel()
-{
-    return illuminationModel_dropdown_selected;
-}
+//const unsigned int UI::get_illuminationModel()
+//{
+//    return illuminationModel_dropdown_selected;
+//}
 
-const unsigned int UI::getFilter()
-{
-    return imageFilter_dropdown_selected;
-}
+//const unsigned int UI::getFilter()
+//{
+//    return imageFilter_dropdown_selected;
+//}
+
 ofVec3f* UI::setPositionSliderValues()
 {
 	position_slider_group.x->reInit();
@@ -461,32 +463,32 @@ void UI::fillColorRGBChanged(ofColor& color)
     setHSVSlidersFromRGB(color, true);
 }
 
-void UI::onIllumModelChangeStr(string& illum)
-{
-    //"flat", "Lambert", "Gouraud", "Phong", "Blinn-Phong"
-    if (illum == "Flat")
-        illuminationModel_dropdown_selected = 0;
-    if (illum == "Lambert")
-        illuminationModel_dropdown_selected = 1;
-    if (illum == "Gouraud")
-        illuminationModel_dropdown_selected = 2;
-    if (illum == "Phong")
-        illuminationModel_dropdown_selected = 3;
-    if (illum == "Blinn-Phong")
-        illuminationModel_dropdown_selected = 4;
-}
+//void UI::onIllumModelChangeStr(string& illum)
+//{
+//    //"flat", "Lambert", "Gouraud", "Phong", "Blinn-Phong"
+//    if (illum == "Flat")
+//        illuminationModel_dropdown_selected = 0;
+//    if (illum == "Lambert")
+//        illuminationModel_dropdown_selected = 1;
+//    if (illum == "Gouraud")
+//        illuminationModel_dropdown_selected = 2;
+//    if (illum == "Phong")
+//        illuminationModel_dropdown_selected = 3;
+//    if (illum == "Blinn-Phong")
+//        illuminationModel_dropdown_selected = 4;
+//}
 
-void UI::onFilterChangeStr(string& filter)
-{
-    if (filter == "Aucun")
-        imageFilter_dropdown_selected = 0;
-    if (filter == "Bilinéaire")
-        imageFilter_dropdown_selected = 1;
-    if (filter == "Trilinéaire")
-        imageFilter_dropdown_selected = 2;
-    if (filter == "Anistropique")
-        imageFilter_dropdown_selected = 3;
-}
+//void UI::onFilterChangeStr(string& filter)
+//{
+//    if (filter == "Aucun")
+//        imageFilter_dropdown_selected = 0;
+//    if (filter == "Bilinéaire")
+//        imageFilter_dropdown_selected = 1;
+//    if (filter == "Trilinéaire")
+//        imageFilter_dropdown_selected = 2;
+//    if (filter == "Anistropique")
+//        imageFilter_dropdown_selected = 3;
+//}
 
 void UI::strokeColorRGBChanged(ofColor& color)
 {
