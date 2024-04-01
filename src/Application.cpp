@@ -259,7 +259,7 @@ void Application::mousePressed(int x, int y, int button)
 	//the direction is calculated by transforming the projection coord of the canvas into 
 	//normalized device coordinate space. Using the fov to find the distance of the projection
 	//canvas from the camera itself. The vector is normalez on Z for ease of check.
-	if (button == 0) {
+	if (button == 1) {
 		//normalizes it to the size of the screen
 		float xclick = (2.0f * x) / ofGetWindowWidth() - 1.0f;
 		float yclick = 1.0f - (2.0f * y) / ofGetWindowHeight();

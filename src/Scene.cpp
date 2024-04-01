@@ -58,10 +58,15 @@ void Scene::draw()
 
 	object_tree_head->resetSubStage();
 	setSelectedNode();
-
 	ofSetColor(52, 52, 52);
 	camdebug.draw();
 	clickdebug.draw();
+
+	ofSetColor(128, 0, 0);
+
+	if (raydebugbool)
+		ofSetColor(0, 128, 0);
+	
 	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
 	ofSetColor(255);
 
@@ -569,24 +574,27 @@ void Scene::redoChange()
 void Scene::PickingPhase(ofVec3f camPos, ofVec3f clickDirect)
 //scans all objects to see which one have an obb that intersecs with the ray from the camera to click direction
 {
-	
-	camdebug.setGlobalPosition(camPos);
-	camdebug.setRadius(2);
-	clickdebug.setGlobalPosition(camPos + ofVec3f(10 * clickDirect.x, 10 * clickDirect.y, 10 * clickDirect.z) );
-	clickdebug.setRadius(2);
+	raydebugbool = false;
+	float distance = 10.0f;
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin(); it !=
 		object_tree_head->getSubs()->end(); it++)
 	{
 		if (*it) {
 
-			ofLog() << "Object clicked" << (*it)->isSelected(camPos, clickDirect);
+			if ((*it)->isSelected(camPos, clickDirect, distance)) {
+				raydebugbool = true;
+			}
 
 		}
 
 
 	}
-	
+	ofLog() << "ObjectHit" << raydebugbool;
+	camdebug.setGlobalPosition(camPos);
+	camdebug.setRadius(2);
+	clickdebug.setGlobalPosition(camPos + distance * clickDirect);
+	clickdebug.setRadius(2);
 }
 
 

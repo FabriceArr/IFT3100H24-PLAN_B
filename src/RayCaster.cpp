@@ -1,10 +1,11 @@
+//Following the https://www.opengl-tutorial.org/miscellaneous/clicking-on-objects/picking-with-custom-ray-obb-function/ 
+
 #include "RayCaster.h"
 
-bool RayCaster::CastRay(ofVec3f ray_org, ofVec3f ray_direct, ofVec3f target_min, ofVec3f target_max, ofMatrix3x3 box_transform)
+ bool RayCaster::CastRay(ofVec3f ray_org, ofVec3f ray_direct, ofVec3f target_min, ofVec3f target_max, ofMatrix3x3 box_transform, float& hit)
 {
-
     float min_depth = 0.0f;
-    float max_depth = 5000.0f;
+    float max_depth = 999999.0f;
 
 
     ofMatrix4x4 translate = ofMatrix4x4(1, 0, 0, box_transform.a,
@@ -146,7 +147,7 @@ bool RayCaster::CastRay(ofVec3f ray_org, ofVec3f ray_direct, ofVec3f target_min,
         }
     }
 
-    //intersection_distance = min_depth;
+    hit = min_depth;
 
 
     return true;
