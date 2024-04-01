@@ -14,7 +14,11 @@ private:
 	ofParameter<float> *exposure;
 	ofParameter<float> *gamma;
 	ofParameter<bool> *tone_mapping;
-	ofMaterial *material;
+	ofParameter<ofColor>* ambiantColor;
+	ofParameter<ofColor>* diffuseColor;
+	ofParameter<ofColor>* specularColor;
+	ofParameter<ofColor>* emissiveColor;
+	ofParameter<float>* shininess;
 
 	void increaseSubStage();
 
@@ -38,7 +42,11 @@ public:
 
 	void setAsSelected(vector<ofParameter<float>*>* trans, vector<ofParameter<float>*>* rot, vector<ofParameter<float>*>* sca);
 	void setToneMapping(ofParameter<float>* exposure, ofParameter<float>* gamma, ofParameter<bool>* tone_mapping);
-	void setMaterial(ofMaterial* material);
+	void setAmbiantColor(ofParameter<ofColor>* color);
+	void setDiffuseColor(ofParameter<ofColor>* color);
+	void setSpecularColor(ofParameter<ofColor>* color);
+	void setEmissiveColor(ofParameter<ofColor>* color);
+	void setShininess(ofParameter<float>* shininess);
 	void setFillColor(ofParameter<ofColor> colorparam);
 	void setStrokeColor(ofParameter<ofColor> colorparam);
 	void setStrokeWidth(ofParameter<int> widthparam);

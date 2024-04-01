@@ -17,11 +17,11 @@ Object::Object(string primitivetype)
 	this->gamma = 1.0f;
 	this->tone_mapping = true;
 
-	this->material.setAmbientColor(ofFloatColor(0.2, 0.2, 0.2));
-	this->material.setDiffuseColor(ofFloatColor(0.2, 0.2, 0.2));
-	this->material.setSpecularColor(ofFloatColor(0.2, 0.2, 0.2));
-	this->material.setEmissiveColor(ofFloatColor(0.2, 0.2, 0.2));
-	this->material.setShininess(18.0f);
+	this->material.setAmbientColor(ofColor(160, 200, 78));
+	this->material.setDiffuseColor(ofColor(160, 200, 78));
+	this->material.setSpecularColor(ofColor(160, 200, 78));
+	this->material.setEmissiveColor(ofColor(160, 200, 78));
+	this->material.setShininess(40.0f);
 }
 
 
@@ -128,14 +128,54 @@ bool Object::getToneMapping()
 	return this->tone_mapping;
 }
 
-void Object::setMaterial(ofMaterial material)
+void Object::setAmbiantColor(ofColor color)
 {
-	this->material = material;
+	this->ambiantColor = color;
 }
 
-ofMaterial Object::getMaterial()
+void Object::setDiffuseColor(ofColor color)
 {
-	return this->material;
+	this->diffuseColor = color;
+}
+
+void Object::setSpecularColor(ofColor color)
+{
+	this->specularColor = color;
+}
+
+void Object::setEmissiveColor(ofColor color)
+{
+	this->emissiveColor = color;
+}
+
+void Object::setShininess(float shininess)
+{
+	this->shininess = shininess;
+}
+
+ofColor Object::getAmbiantColor()
+{
+	return this->ambiantColor;
+}
+
+ofColor Object::getDiffuseColor()
+{
+	return this->diffuseColor;
+}
+
+ofColor Object::getSpecularColor()
+{
+	return this->specularColor;
+}
+
+ofColor Object::getEmissiveColor()
+{
+	return this->emissiveColor;
+}
+
+float Object::getShininess()
+{
+	return this->shininess;
 }
 
 bool Object::undoChange()
@@ -148,7 +188,6 @@ bool Object::undoChange()
 		current_change--;
 		return true;
 	}
-	
 	
 }
 

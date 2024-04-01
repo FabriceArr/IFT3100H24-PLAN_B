@@ -158,8 +158,19 @@ public:
 	ofParameter<float>* getGammaSlider();
 	ofParameter<bool>* getToneMappingToggle();
 
-	ofMaterial* setMaterial();
-	ofMaterial* getMaterial();
+	ofParameter<ofColor>* getAmbiantColor();
+	ofParameter<ofColor>* getDiffuseColor();
+	ofParameter<ofColor>* getEmissiveColor();
+	ofParameter<ofColor>* getSpecularColor();
+	ofParameter<float>* getShininess();
+	
+	ofColor* setAmbiantColor();
+	ofColor* setDiffuseColor();
+	ofColor* setEmissiveColor();
+	ofColor* setSpecularColor();
+	float* setShininess();
+
+
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
 };

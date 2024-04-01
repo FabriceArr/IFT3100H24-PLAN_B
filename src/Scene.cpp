@@ -9,7 +9,12 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	ofParameter<float>* UIExposure,
 	ofParameter<float>* UIGamma,
 	ofParameter<bool>* UIToneMapping,
-	ofMaterial* UIMaterial)
+	ofParameter<ofColor>* UIAmbiantColor,
+	ofParameter<ofColor>* UIDiffuseColor,
+	ofParameter<ofColor>* UISpecularColor,
+	ofParameter<ofColor>* UIEmmissiveColor,
+	ofParameter<float>* UIshininess
+	)
 {
 	//Doit etre le SEUL object initialiser comme ceci
 	object_tree_head = new ObjNode(nullptr);
@@ -34,7 +39,12 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	UI_gamma = UIGamma;
 	UI_tone_mapping = UIToneMapping;
 
-	UI_material = UIMaterial;
+	UI_ambiant_Color = UIAmbiantColor;
+	UI_Diffuse_Color = UIDiffuseColor;
+	UI_Specular_Color = UISpecularColor;
+	UI_Emissive_Color = UIEmmissiveColor;
+	UI_shininess = UIshininess;
+
 
 	//select_mode.Init(ofGetWindowWidth(), ofGetWindowHeight());
 
@@ -102,7 +112,11 @@ void Scene::exit()
 	UI_exposure = nullptr;
 	UI_gamma = nullptr;
 
-	UI_material = nullptr;
+	UI_ambiant_Color = nullptr;
+	UI_Diffuse_Color = nullptr;
+	UI_Specular_Color = nullptr;
+	UI_Emissive_Color = nullptr;
+	UI_shininess = nullptr;
 
 	delete sub_level_selected;
 
@@ -119,7 +133,11 @@ void Scene::setSelectedNode()
 		getSelectedObjectsNode()->setStrokeColor(UI_stroke_color);
 		getSelectedObjectsNode()->setStrokeWidth(UI_stroke_width);
 		getSelectedObjectsNode()->setToneMapping(UI_exposure, UI_gamma, UI_tone_mapping);
-		getSelectedObjectsNode()->setMaterial(UI_material);
+		getSelectedObjectsNode()->setAmbiantColor(UI_ambiant_Color);
+		getSelectedObjectsNode()->setDiffuseColor(UI_Diffuse_Color);
+		getSelectedObjectsNode()->setSpecularColor(UI_Specular_Color);
+		getSelectedObjectsNode()->setEmissiveColor(UI_Emissive_Color);
+		getSelectedObjectsNode()->setShininess(UI_shininess);
 	}
 }
 

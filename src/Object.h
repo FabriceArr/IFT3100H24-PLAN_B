@@ -15,6 +15,12 @@ private:
 	float gamma;
 	bool tone_mapping;
 
+	ofColor ambiantColor;
+	ofColor diffuseColor;
+	ofColor specularColor;
+	ofColor emissiveColor;
+	float shininess;
+
 	ofMaterial material;
 
 	deque<ofMatrix3x3> changes_buffer;
@@ -48,8 +54,17 @@ public:
 	virtual float getGamma();
 	virtual bool getToneMapping();
 
-	virtual void setMaterial(ofMaterial material);
-	virtual ofMaterial getMaterial();
+	virtual void setAmbiantColor(ofColor ambiantColor);
+	virtual void setDiffuseColor(ofColor diffuseColor);
+	virtual void setSpecularColor(ofColor specularColor);
+	virtual void setEmissiveColor(ofColor emissiveColor);
+	virtual void setShininess(float shininess);
+	virtual ofColor getAmbiantColor();
+	virtual ofColor getDiffuseColor();
+	virtual ofColor getSpecularColor();
+	virtual ofColor getEmissiveColor();
+	virtual float getShininess();
+
 
 	virtual bool undoChange();
 	virtual bool recoverChange();

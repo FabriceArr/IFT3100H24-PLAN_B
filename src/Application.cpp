@@ -13,7 +13,12 @@ void Application::setup()
 		interface.getExposureSlider(),
 		interface.getGammaSlider(),
 		interface.getToneMappingToggle(),
-		interface.getMaterial());
+		interface.getAmbiantColor(),
+		interface.getDiffuseColor(),
+		interface.getSpecularColor(),
+		interface.getEmissiveColor(),
+		interface.getShininess()
+		);
 	auto i = interface.getPositionSliderValues();
 
 	interface.getFillColorSlider();
@@ -376,7 +381,11 @@ void Application::saveSceneChanges() {
 	interface.setExposureSlider();
 	interface.setGammaSlider();
 	interface.setToneMappingToggle();
-	interface.setMaterial();
+	interface.setAmbiantColor();
+	interface.setDiffuseColor();
+	interface.setEmissiveColor();
+	interface.setSpecularColor();
+	interface.setShininess();
 }
 
 void Application::draw_cursor(float x, float y) const

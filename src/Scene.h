@@ -28,7 +28,11 @@ private:
 	ofParameter<float>* UI_gamma;
 	ofParameter<bool>* UI_tone_mapping;
 
-	ofMaterial* UI_material;
+	ofParameter<ofColor>* UI_ambiant_Color;
+	ofParameter<ofColor>* UI_Diffuse_Color;
+	ofParameter<ofColor>* UI_Specular_Color;
+	ofParameter<ofColor>* UI_Emissive_Color;
+	ofParameter<float>* UI_shininess;
 	
 	//points to the vector of elements currently selected
 	int selected_obj_ind;
@@ -63,7 +67,12 @@ public:
 		ofParameter<float>* UIExposure,
 		ofParameter<float>* UIGamma,
 		ofParameter<bool>* UIToneMapping,
-		ofMaterial* UIMaterial);
+		ofParameter<ofColor>* UIAmbiantColor,
+		ofParameter<ofColor>* UIDiffuseColor,
+		ofParameter<ofColor>* UISpecularColor,
+		ofParameter<ofColor>* UIEmissiveColor,
+		ofParameter<float>* UIShininess
+		);
 
 	//clean up the scene from memory
 	void exit();
