@@ -105,7 +105,7 @@
                 max_depth = t2;
             if (t1 > min_depth)
                 min_depth = t1;
-            if (min_depth > min_depth)
+            if (max_depth > min_depth)
                 return false;
 
         }
@@ -133,11 +133,11 @@
 
             if (t1 > t2) { float w = t1; t1 = t2; t2 = w; }
 
-            if (t2 < min_depth)
+            if (t2 < max_depth)
                 min_depth = t2;
             if (t1 > min_depth)
                 min_depth = t1;
-            if (min_depth > min_depth)
+            if (max_depth > min_depth)
                 return false;
 
         }
