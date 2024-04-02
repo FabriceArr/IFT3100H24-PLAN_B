@@ -130,52 +130,52 @@ bool Object::getToneMapping()
 
 void Object::setAmbiantColor(ofColor color)
 {
-	this->ambiantColor = color;
+	this->material.setAmbientColor(color);
 }
 
 void Object::setDiffuseColor(ofColor color)
 {
-	this->diffuseColor = color;
+	this->material.setDiffuseColor(color);
 }
 
 void Object::setSpecularColor(ofColor color)
 {
-	this->specularColor = color;
+	this->material.setSpecularColor(color);
 }
 
 void Object::setEmissiveColor(ofColor color)
 {
-	this->emissiveColor = color;
+	this->material.setEmissiveColor(color);
 }
 
 void Object::setShininess(float shininess)
 {
-	this->shininess = shininess;
+	this->material.setShininess(shininess);
 }
 
 ofColor Object::getAmbiantColor()
 {
-	return this->ambiantColor;
+	return this->material.getAmbientColor();
 }
 
 ofColor Object::getDiffuseColor()
 {
-	return this->diffuseColor;
+	return this->material.getDiffuseColor();
 }
 
 ofColor Object::getSpecularColor()
 {
-	return this->specularColor;
+	return this->material.getSpecularColor();
 }
 
 ofColor Object::getEmissiveColor()
 {
-	return this->emissiveColor;
+	return this->material.getEmissiveColor();
 }
 
 float Object::getShininess()
 {
-	return this->shininess;
+	return this->material.getShininess();
 }
 
 bool Object::undoChange()

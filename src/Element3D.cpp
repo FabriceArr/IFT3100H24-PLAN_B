@@ -61,7 +61,6 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 
 	updateColorData(color);
 
-	
 }
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
@@ -84,11 +83,7 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 
 
 	}
-	material.getAmbientColor();
-	material.getDiffuseColor();
-	material.getSpecularColor();
-	material.getEmissiveColor();
-	material.getShininess();
+	
 	material.begin();
 	if (object_buffer.getNumIndices() > 0) {
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
