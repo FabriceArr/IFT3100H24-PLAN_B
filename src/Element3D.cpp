@@ -83,7 +83,12 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 
 
 	}
-	
+	material.setAmbientColor(getAmbiantColor());
+	material.setDiffuseColor(getDiffuseColor());
+	material.setSpecularColor(getSpecularColor());	
+	material.setShininess(getShininess());
+	material.setEmissiveColor(getEmissiveColor());
+
 	material.begin();
 	if (object_buffer.getNumIndices() > 0) {
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
