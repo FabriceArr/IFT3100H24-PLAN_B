@@ -21,12 +21,6 @@ void Renderer::draw()
 
 	scene->draw();
 
-	ofEnableLighting();
-	ofLight light;
-	light.setPosition(100, 100, 100);
-	light.enable();
-
-
 }
 
 void Renderer::update()
