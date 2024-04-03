@@ -106,6 +106,16 @@ unsigned int Object::getStrokeWidth()
 	return this->stroke_width;
 }
 
+ofVec3f Object::getObbMin()
+{
+	return this->obb_min;
+}
+
+ofVec3f Object::getObbMax()
+{
+	return this->obb_max;
+}
+
 void Object::setToneMapping(float exposure, float gamma, bool tone_mapping)
 {
 	this->exposure = exposure;

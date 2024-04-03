@@ -137,6 +137,8 @@ void Element3D::primitivesLimitBox(bool type) {
 			6, 7,
 			6, 4
 		};
+		this->obb_min = ofVec3f(-1.0f, -1.0f, -1.0f);
+		this->obb_max = ofVec3f(1.0f, 1.0f, 1.0f);
 
 		this->limit_box.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
 		this->limit_box.setIndexData(&vertices_ids[0], 24, GL_STATIC_DRAW);
@@ -150,40 +152,40 @@ void Element3D::primitivesLimitBox(bool type) {
 			2, 0
 		};
 
+		this->obb_min = ofVec3f(-1.0f, -1.0f, 0.0f);
+		this->obb_max = ofVec3f(1.0f, 1.0f, 0.0f);
+
 		this->limit_box.setVertexData(&plane_vertices[0], 4, GL_STATIC_DRAW);
 		this->limit_box.setIndexData(&vertices_ids[0], 8, GL_STATIC_DRAW);
 	}
 }
 
 void Element3D::customBox(ofMesh mesh) {
-	float max_x, min_x, max_y, min_y, max_z, min_z;
-	max_x = min_x = max_y = min_y = max_z = min_z = 0.0f;
 	ofVec3f hold;
 
 	//define limts for the limit box
 	for (int i = 0; i < mesh.getNumVertices(); i++) {
 		hold = mesh.getVertex(i);
+		if (hold.x < this->obb_min.x) { this->obb_min.x = hold.x; }
+		if (hold.x > this->obb_max.x) { this->obb_max.x = hold.x; }
 
-		if (hold.x < min_x) { min_x = hold.x; }
-		if (hold.x > max_x) { max_x = hold.x; }
+		if (hold.y < this->obb_min.y) { this->obb_min.y = hold.y; }
+		if (hold.y > this->obb_max.y) { this->obb_max.y = hold.y; }
 
-		if (hold.y < min_y) { min_y = hold.y; }
-		if (hold.y > max_y) { max_y = hold.y; }
-
-		if (hold.z < min_z) { min_z = hold.z; }
-		if (hold.z > max_z) { max_z = hold.z; }
+		if (hold.z < this->obb_min.z) { this->obb_min.z = hold.z; }
+		if (hold.z > this->obb_max.z) { this->obb_max.z = hold.z; }
 	}
 
 	ofVec3f cube_vertices_custom[] =
 	{
-		ofVec3f(max_x ,  max_y, min_z),//0
-		ofVec3f(max_x , min_y, min_z),//1
-		ofVec3f(max_x , max_y,  max_z),//2
-		ofVec3f(max_x , min_y, max_z),//3
-		ofVec3f(min_x,  max_y, min_z),//4
-		ofVec3f(min_x, min_y, min_z),//5
-		ofVec3f(min_x,  max_y,  max_z),//6
-		ofVec3f(min_x,  min_y, max_z)//7
+		ofVec3f(this->obb_max.x ,  this->obb_max.y, this->obb_min.z),//0
+		ofVec3f(this->obb_max.x , this->obb_min.y, this->obb_min.z),//1
+		ofVec3f(this->obb_max.x , this->obb_max.y,  this->obb_max.z),//2
+		ofVec3f(this->obb_max.x , this->obb_min.y, this->obb_max.z),//3
+		ofVec3f(this->obb_min.x,  this->obb_max.y, this->obb_min.z),//4
+		ofVec3f(this->obb_min.x, this->obb_min.y, this->obb_min.z),//5
+		ofVec3f(this->obb_min.x,  this->obb_max.y,  this->obb_max.z),//6
+		ofVec3f(this->obb_min.x,  this->obb_min.y, this->obb_max.z)//7
 	};
 	GLuint cube_vertices_ids[] =
 	{

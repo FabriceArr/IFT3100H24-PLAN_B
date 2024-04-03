@@ -71,6 +71,17 @@ void Scene::draw()
 
 	object_tree_head->resetSubStage();
 	setSelectedNode();
+	ofSetColor(52, 52, 52);
+	camdebug.draw();
+	clickdebug.draw();
+
+	ofSetColor(128, 0, 0);
+
+	if (raydebugbool)
+		ofSetColor(0, 128, 0);
+	
+	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
+	ofSetColor(255);
 
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
@@ -80,9 +91,6 @@ void Scene::draw()
 
 			//only apply transform if selected
 			//draw others normally
-			
-
-			PickingPhase(project_matrice, view_matrice);
 
 			ofPushMatrix();
 			(*it)->draw(false, animate);
@@ -574,38 +582,30 @@ void Scene::redoChange()
 
 
 
-void Scene::PickingPhase(ofMatrix4x4 projectM, ofMatrix4x4 viewM)
+void Scene::PickingPhase(ofVec3f camPos, ofVec3f clickDirect)
+//scans all objects to see which one have an obb that intersecs with the ray from the camera to click direction
 {
-	/*select_mode.EnableWriting();
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	raydebugbool = false;
+	float distance = 10.0f;
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin(); it !=
 		object_tree_head->getSubs()->end(); it++)
 	{
-		// Background is zero, the real objects start at 1
+		if (*it) {
 
-		ofMatrix4x4 World = (*it)->object->getCurrentChangeM();
-		ofMatrix4x4 WVP = projectM * viewM * World;
-		select_mode.SetWVP(WVP);
-		select_mode.SetObjPointer(1);
-		//turns on the clickshader
-		select_mode.enable();
+			if ((*it)->isSelected(camPos, clickDirect, distance)) {
+				raydebugbool = true;
+			}
 
-		(*it)->object->getObject()->draw();
+		}
 
-		//turns off the clickshader so the next WVP and item pointer can be loaded
-		select_mode.disable();
+
 	}
-
-	select_mode.DisableWriting();
-	*/
-}
-
-void Scene::findSelectedObject(int x, int y) {
-	//need to invert the y since the coord of textures are opeosite of the ones of screen pixels
-	//ofLog() << select_mode.ReadPixel(x, ofGetWindowHeight() - y - 1);
+	ofLog() << "ObjectHit" << raydebugbool;
+	camdebug.setGlobalPosition(camPos);
+	camdebug.setRadius(2);
+	clickdebug.setGlobalPosition(camPos + distance * clickDirect);
+	clickdebug.setRadius(2);
 }
 
 
