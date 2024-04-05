@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
-#include "ofxDropdown.h"
 #include "scene.h"
 #include <vector>
 
@@ -12,8 +11,6 @@ struct parameterVectorGroup {
 	ofParameter<float>* z;
 	ofParameter<ofColor> fill_color_slider;
 	ofParameter<ofColor> stroke_color_slider;
-
-
 };
 
 struct hsv {
@@ -54,20 +51,6 @@ private:
 	ofParameter<int> stroke_width_slider;
 
 	ofParameter<ofColor> fill_color_slider;
-
-	// Illumination Model with dropdown
-	ofxDropdown_<string> IlluminationModel_dropdown;
-	unsigned int illuminationModel_dropdown_selected = 0;
-	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
-
-	ofParameter<ofColor> color_picker;
-
-
-	// Image Filter with dropdown
-	ofxDropdown_<string> imageFilter_dropdown;
-	unsigned int imageFilter_dropdown_selected = 0;
-	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
-
 	ofParameter<ofColor> stroke_color_slider;
 
 	ofParameter<float> h_slider_fill;
@@ -81,6 +64,7 @@ private:
 
 	hsv rgbToHSV(ofColor color);
 	ofColor hsvToRGB(hsv hsvColor);
+
 	ofxIntField intInputPoint1X;
 	ofxIntField intInputPoint1Y;
 	ofxIntField intInputPoint1Z;
@@ -103,16 +87,27 @@ private:
 
 	ofxGuiGroup group_tone_mapping;
 	ofParameter<float> slider_exposure;
-	ofParameter<float> slider_gamma;\
+	ofParameter<float> slider_gamma;
 	ofParameter<bool> toggle_tone_mapping;
 
 	float tone_mapping_exposure;
 	float tone_mapping_gamma;
 	bool tone_mapping_toggle;
 
+
+	ofParameter<ofColor> slider_ambiant_color;
+	ofParameter<ofColor> slider_diffuse_color;
+	ofParameter<ofColor> slider_emissive_color;
+	ofParameter<ofColor> slider_specular_color;
+	ofParameter<float> slider_shininess;
+
+	float material_shininess;
+	ofMaterial material;
+
+	ofxGuiGroup group_material;
+
+
 	void fillColorRGBChanged(ofColor& color);
-	void onIllumModelChangeStr(string& illum);
-	void onFilterChangeStr(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
 
@@ -151,10 +146,6 @@ public:
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
 
-	const unsigned int get_illuminationModel();
-
-	const unsigned int getFilter();
-
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();
 	ofVec3f* setScaleSliderValues();
@@ -166,6 +157,20 @@ public:
 	ofParameter<float>* getExposureSlider();
 	ofParameter<float>* getGammaSlider();
 	ofParameter<bool>* getToneMappingToggle();
+
+	ofParameter<ofColor>* getAmbiantColor();
+	ofParameter<ofColor>* getDiffuseColor();
+	ofParameter<ofColor>* getEmissiveColor();
+	ofParameter<ofColor>* getSpecularColor();
+	ofParameter<float>* getShininess();
+	
+	ofColor* setAmbiantColor();
+	ofColor* setDiffuseColor();
+	ofColor* setEmissiveColor();
+	ofColor* setSpecularColor();
+	float* setShininess();
+
+
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
 };

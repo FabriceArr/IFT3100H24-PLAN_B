@@ -14,12 +14,18 @@ private:
 	ofColor color, stroke_color;
 	unsigned int stroke_width;
 	ofMatrix3x3 temp;
-	unsigned int filterSelection;
-	ofImage image;
 
 	float exposure;
 	float gamma;
 	bool tone_mapping;
+
+	ofColor ambiantColor;
+	ofColor diffuseColor;
+	ofColor specularColor;
+	ofColor emissiveColor;
+	float shininess;
+
+	ofMaterial material;
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
@@ -56,12 +62,20 @@ public:
 	virtual float getGamma();
 	virtual bool getToneMapping();
 
+	virtual void setAmbiantColor(ofColor ambiantColor);
+	virtual void setDiffuseColor(ofColor diffuseColor);
+	virtual void setSpecularColor(ofColor specularColor);
+	virtual void setEmissiveColor(ofColor emissiveColor);
+	virtual void setShininess(float shininess);
+	virtual ofColor getAmbiantColor();
+	virtual ofColor getDiffuseColor();
+	virtual ofColor getSpecularColor();
+	virtual ofColor getEmissiveColor();
+	virtual float getShininess();
+
+
 	virtual bool undoChange();
 	virtual bool recoverChange();
-
-	virtual void setFilter(unsigned int filter_setting);
-	virtual unsigned int getFilter();
-	virtual void TextureConfigure(ofImage image, unsigned int filterOption);
 
 	bool isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b);
 };

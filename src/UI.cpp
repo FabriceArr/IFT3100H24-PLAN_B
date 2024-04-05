@@ -53,25 +53,6 @@ void UI::setup()
     interface.add(s_slider_fill.set("Saturation_fill", 0, 0, 1));
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
-    // Setup for Illumination Model dropdown
-    illuminationModel_dropdown_selected = 0;
-    interface.add(IlluminationModel_dropdown.setup("Modele d'Illumination"));
-    IlluminationModel_dropdown.add(illuminationModel_vector);
-    IlluminationModel_dropdown.disableMultipleSelection();
-    IlluminationModel_dropdown.enableCollapseOnSelection();
-    IlluminationModel_dropdown.setSelectedValueByIndex(illuminationModel_dropdown_selected, true);
-    IlluminationModel_dropdown.addListener(this, &UI::onIllumModelChangeStr);
-
-    // Setup for Image filter dropdown
-    imageFilter_dropdown_selected = 0;
-    interface.add(imageFilter_dropdown.setup("Filtrage de Texture"));
-    imageFilter_dropdown.add(filter_vector);
-    imageFilter_dropdown.disableMultipleSelection();
-    imageFilter_dropdown.enableCollapseOnSelection();
-    imageFilter_dropdown.setSelectedValueByIndex(imageFilter_dropdown_selected, true);
-    //imageFilter_dropdown.setSelectedValueByName(imageFilter_dropdown_selected, true);
-    imageFilter_dropdown.addListener(this, &UI::onFilterChangeStr);
-
     // Setup for stroke color input
     interface.add(stroke_color_slider.set("Stroke Color", ofColor(0), ofColor(0, 0), ofColor(255, 255)));
     interface.add(h_slider_stroke.set("Hue_stroke", 0, 0, 360));
@@ -97,7 +78,6 @@ void UI::setup()
     // Ajoutez des callbacks pour les sliders RGB
     background_color_slider.addListener(this, &UI::backgroundColorRGBChanged);
     fill_color_slider.addListener(this, &UI::fillColorRGBChanged);
-    //imageFilter_slider.addListener(this, &UI::imageFilterMixChanged);
     stroke_color_slider.addListener(this, &UI::strokeColorRGBChanged);
 
     // Ajoutez des callbacks pour les sliders HSV
@@ -136,7 +116,22 @@ void UI::setup()
     group_tone_mapping.add(slider_gamma);
     group_tone_mapping.add(toggle_tone_mapping);
 
+    slider_diffuse_color.set("diffuse color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_specular_color.set("specular color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_emissive_color.set("emissive color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_ambiant_color.set("ambiant color", ofColor(255), ofColor(0, 0), ofColor(255, 255)); 
+    slider_shininess.set("shininess", material_shininess, 0.0f, 40.0f);
+
+    group_material.setup("material");
+
+    group_material.add(slider_ambiant_color);
+    group_material.add(slider_diffuse_color);
+    group_material.add(slider_emissive_color);
+    group_material.add(slider_specular_color);
+    group_material.add(slider_shininess);
+
     interface.add(&group_tone_mapping);
+    interface.add(&group_material);
 }
 
 void UI::update()
@@ -220,15 +215,6 @@ const ofParameter<int> UI::getStrokeWidthSlider()
     return stroke_width_slider;
 }
 
-const unsigned int UI::get_illuminationModel()
-{
-    return illuminationModel_dropdown_selected;
-}
-
-const unsigned int UI::getFilter()
-{
-    return imageFilter_dropdown_selected;
-}
 ofVec3f* UI::setPositionSliderValues()
 {
 	position_slider_group.x->reInit();
@@ -286,6 +272,60 @@ ofParameter<bool>* UI::getToneMappingToggle()
 	return &toggle_tone_mapping;
 }
 
+ofParameter<ofColor>* UI::getAmbiantColor()
+{
+	return &slider_ambiant_color;
+}
+
+ofParameter<ofColor>* UI::getDiffuseColor()
+{
+	return &slider_diffuse_color;
+}
+
+ofParameter<ofColor>* UI::getEmissiveColor()
+{
+	return &slider_emissive_color;
+}
+
+ofParameter<ofColor>* UI::getSpecularColor()
+{
+	return &slider_specular_color;
+}
+
+ofParameter<float>* UI::getShininess()
+{
+	return &slider_shininess;
+}
+
+ofColor* UI::setAmbiantColor()
+{
+	slider_ambiant_color.reInit();
+    return nullptr;
+}
+
+ofColor* UI::setDiffuseColor()
+{
+	slider_diffuse_color.reInit();
+	return nullptr;
+}
+
+ofColor* UI::setEmissiveColor()
+{
+	slider_emissive_color.reInit();
+	return nullptr;
+}
+
+ofColor* UI::setSpecularColor()
+{
+	slider_specular_color.reInit();
+    return nullptr;
+}
+
+float* UI::setShininess()
+{
+	slider_shininess.reInit();
+    return nullptr;
+}
 
 void UI::changeFocus(const Object* Obj) {
 	//si la fonction demande de changer le focus vers rien, 
@@ -296,7 +336,6 @@ void UI::changeFocus(const Object* Obj) {
 	else {
         selected_object = nullptr;
 	}
-	
 }
 
 void UI::exit()
@@ -451,41 +490,9 @@ void UI::setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor)
     }
 }
 
-//void UI::setImageFilterMix(float mix)
-//{
-//    imageFilterMix = mix;
-//}
-
 void UI::fillColorRGBChanged(ofColor& color)
 {
     setHSVSlidersFromRGB(color, true);
-}
-
-void UI::onIllumModelChangeStr(string& illum)
-{
-    //"flat", "Lambert", "Gouraud", "Phong", "Blinn-Phong"
-    if (illum == "Flat")
-        illuminationModel_dropdown_selected = 0;
-    if (illum == "Lambert")
-        illuminationModel_dropdown_selected = 1;
-    if (illum == "Gouraud")
-        illuminationModel_dropdown_selected = 2;
-    if (illum == "Phong")
-        illuminationModel_dropdown_selected = 3;
-    if (illum == "Blinn-Phong")
-        illuminationModel_dropdown_selected = 4;
-}
-
-void UI::onFilterChangeStr(string& filter)
-{
-    if (filter == "Aucun")
-        imageFilter_dropdown_selected = 0;
-    if (filter == "Bilinéaire")
-        imageFilter_dropdown_selected = 1;
-    if (filter == "Trilinéaire")
-        imageFilter_dropdown_selected = 2;
-    if (filter == "Anistropique")
-        imageFilter_dropdown_selected = 3;
 }
 
 void UI::strokeColorRGBChanged(ofColor& color)
