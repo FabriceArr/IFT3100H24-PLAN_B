@@ -30,6 +30,12 @@ private:
 	ofParameter<float>* UI_exposure;
 	ofParameter<float>* UI_gamma;
 	ofParameter<bool>* UI_tone_mapping;
+
+	ofParameter<ofColor>* UI_ambiant_Color;
+	ofParameter<ofColor>* UI_Diffuse_Color;
+	ofParameter<ofColor>* UI_Specular_Color;
+	ofParameter<ofColor>* UI_Emissive_Color;
+	ofParameter<float>* UI_shininess;
 	
 	//points to the vector of elements currently selected
 	int selected_obj_ind;
@@ -45,8 +51,6 @@ private:
 	ofParameter<ofColor> UI_fill_color;
 	ofParameter<ofColor> UI_stroke_color;
 	ofParameter<int> UI_stroke_width;
-	unsigned int UI_illumModel;
-	unsigned int UI_filter;
 	ofVec3f UI_point1, UI_point2, UI_point3, UI_radius, UI_pointToit;
 
 	ofShader anim_shader_rot, anim_shader_bob;
@@ -65,7 +69,13 @@ public:
 		const vector<ofParameter<float>*> UIscale,
 		ofParameter<float>* UIExposure,
 		ofParameter<float>* UIGamma,
-		ofParameter<bool>* UIToneMapping);
+		ofParameter<bool>* UIToneMapping,
+		ofParameter<ofColor>* UIAmbiantColor,
+		ofParameter<ofColor>* UIDiffuseColor,
+		ofParameter<ofColor>* UISpecularColor,
+		ofParameter<ofColor>* UIEmissiveColor,
+		ofParameter<float>* UIShininess
+		);
 
 	//clean up the scene from memory
 	void exit();
@@ -85,8 +95,6 @@ public:
 	void updateFillColor(ofParameter<ofColor> colorparam);
 	void updateStrokeColor(ofParameter<ofColor> colorparam);
 	void updateStrokeWidth(ofParameter<int> widthparam);
-	void updateIllumModel(unsigned int illumparam);
-	void updateFilter(unsigned int filterparam);
 	void updatePoint1(const ofVec3f point1);
 	void updatePoint2(const ofVec3f point2);
 	void updatePoint3(const ofVec3f point3);

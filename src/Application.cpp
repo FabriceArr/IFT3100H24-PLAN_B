@@ -12,7 +12,13 @@ void Application::setup()
 		interface.getScaleSliderValues(),
 		interface.getExposureSlider(),
 		interface.getGammaSlider(),
-		interface.getToneMappingToggle());
+		interface.getToneMappingToggle(),
+		interface.getAmbiantColor(),
+		interface.getDiffuseColor(),
+		interface.getSpecularColor(),
+		interface.getEmissiveColor(),
+		interface.getShininess()
+		);
 	auto i = interface.getPositionSliderValues();
 
 	interface.getFillColorSlider();
@@ -45,8 +51,6 @@ void Application::update()
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-	scene.updateIllumModel(interface.get_illuminationModel());
-	scene.updateFilter(interface.getFilter());
 
 	renderer.update();
 	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;
@@ -57,11 +61,11 @@ void Application::draw()
 	
 	cam.begin();
 	
-	ofEnableDepthTest();
+	
 	renderer.draw();
 	if(renderer.imageImport.isAllocated())
 		renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
-	ofDisableDepthTest();
+
 	cam.end();
 
 	interface.draw();
@@ -398,6 +402,11 @@ void Application::saveSceneChanges() {
 	interface.setExposureSlider();
 	interface.setGammaSlider();
 	interface.setToneMappingToggle();
+	interface.setAmbiantColor();
+	interface.setDiffuseColor();
+	interface.setEmissiveColor();
+	interface.setSpecularColor();
+	interface.setShininess();
 }
 
 void Application::draw_cursor(float x, float y) const

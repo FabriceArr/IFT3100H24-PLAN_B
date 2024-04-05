@@ -59,6 +59,12 @@ void ObjNode::draw(bool selected, bool animated)
 		this->object->setStrokeColor(stroke_color);
 		this->object->setStrokeWidth(stroke_width);
 		this->object->setToneMapping(*this->exposure, *this->gamma, *this->tone_mapping);
+		this->object->setAmbiantColor(*this->ambiantColor);
+		this->object->setDiffuseColor(*this->diffuseColor);
+		this->object->setSpecularColor(*this->specularColor);
+		this->object->setEmissiveColor(*this->emissiveColor);
+		this->object->setShininess(*this->shininess);
+
 		
 		ofTranslate(*this->trans->at(0), *this->trans->at(1), *this->trans->at(2));
 		ofRotateXDeg(*this->rot->at(0));
@@ -143,6 +149,31 @@ void ObjNode::setToneMapping(ofParameter<float>* exposure,ofParameter<float>* ga
 	this->tone_mapping = tone_mapping;
 }
 
+void ObjNode::setAmbiantColor(ofParameter<ofColor>* color)
+{
+	this->ambiantColor = color;
+}
+
+void ObjNode::setDiffuseColor(ofParameter<ofColor>* color)
+{
+	this->diffuseColor = color;
+}
+
+void ObjNode::setSpecularColor(ofParameter<ofColor>* color)
+{
+	this->specularColor = color;
+}
+
+void ObjNode::setEmissiveColor(ofParameter<ofColor>* color)
+{
+	this->emissiveColor = color;
+}
+
+void ObjNode::setShininess(ofParameter<float>* shininess)
+{
+	this->shininess = shininess;
+}
+
 void ObjNode::setFillColor(ofParameter<ofColor> colorparam) {
 	this->color = colorparam;
 }
@@ -155,16 +186,6 @@ void ObjNode::setStrokeColor(ofParameter<ofColor> colorparam)
 void ObjNode::setStrokeWidth(ofParameter<int> widthparam)
 {
 	this->stroke_width = widthparam;
-}
-
-void ObjNode::setIllumModel(ofParameter<int> illumparam)
-{
-	this->illumModel_setting = illumparam;
-}
-
-void ObjNode::setFilter(unsigned int filterparam)
-{
-	this->filter = filterparam;
 }
 
 void ObjNode::increaseSubStage()
