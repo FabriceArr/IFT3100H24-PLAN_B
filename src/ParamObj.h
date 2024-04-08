@@ -5,8 +5,11 @@ class ParamObj : public Object
 private:
 	vector<ofVec3f> points;
 	ofShader* brazier_curve_shader;
+	GLuint vaoHandle;
 
 public:
-	ParamObj(unsigned int NumbSeg);
+	ParamObj(ofShader* TesselShader);
+
+	void draw(bool highlight, bool animated, unsigned int substage);
 };
 
