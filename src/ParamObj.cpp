@@ -1,6 +1,6 @@
 #include "ParamObj.h"
 
-ParamObj::ParamObj(ofShader* TesselShader) : Object("Curve")
+ParamObj::ParamObj(ofShader* TesselShader, ofEasyCam* cam) : Object("Curve")
 {
 	//pointeur du shader
 	this->brazier_curve_shader = TesselShader;
@@ -34,6 +34,10 @@ ParamObj::ParamObj(ofShader* TesselShader) : Object("Curve")
 	glBindVertexArray(0);
 
 	glPatchParameteri(GL_PATCH_VERTICES, 4);
+	//test for MVP
+	ofMatrix4x4 VP =  cam->getModelViewProjectionMatrix();
+	//just need to transform this to normal change mat
+	this->getCurrentChangeM();
 }
 
 void ParamObj::draw(bool highlight, bool animated, unsigned int substage)

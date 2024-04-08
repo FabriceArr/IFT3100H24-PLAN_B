@@ -4,7 +4,7 @@
 void Application::setup()
 {
 	ofSetWindowTitle("Plan B viewer (m d f a t e c o space)");
-
+	cam = new ofEasyCam();
 	interface.setup();
 	interface.getPositionSliderValues();
 	scene.setup(interface.getPositionSliderValues(),
@@ -17,7 +17,8 @@ void Application::setup()
 		interface.getDiffuseColor(),
 		interface.getSpecularColor(),
 		interface.getEmissiveColor(),
-		interface.getShininess()
+		interface.getShininess(),
+		cam
 		);
 	auto i = interface.getPositionSliderValues();
 
@@ -25,9 +26,9 @@ void Application::setup()
 	interface.getStrokeColorSlider();
 	interface.getStrokeWidthSlider();
 	interface.getBackgroundColorSlider();
-
+	
 	renderer.setup(&scene);
-	cam.setOrientation(DEFAULTVIEW);
+	cam->setOrientation(DEFAULTVIEW);
 	isGrabReq = false;
 	isMouseDragRealease = false;
 
@@ -48,6 +49,7 @@ void Application::update()
 	point3 = interface.getPoint3Values();
 	radius = interface.getRadiusValues();
 
+
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
@@ -59,14 +61,14 @@ void Application::update()
 void Application::draw()
 {
 	
-	cam.begin();
+	cam->begin();
 	
 	
 	renderer.draw();
 	if(renderer.imageImport.isAllocated())
 		renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
 
-	cam.end();
+	cam->end();
 
 	interface.draw();
 /*
@@ -218,18 +220,18 @@ void Application::keyReleased(int key)
 
 	case 'o': //orthogonal camera view switch
 
-		if (!cam.getOrtho()) // Cam is in perspective
+		if (!cam->getOrtho()) // Cam is in perspective
 		{
-			camOrientPersp = cam.getOrientationQuat();
-			cam.setOrientation(FRONTVIEW);
+			camOrientPersp = cam->getOrientationQuat();
+			cam->setOrientation(FRONTVIEW);
 			scene.isOrtho = true;
 		}
 		else {		// Cam is in Ortho
-			cam.setOrientation(camOrientPersp);
+			cam->setOrientation(camOrientPersp);
 			scene.isOrtho = false;
 		}
 
-		cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
+		cam->getOrtho() ? cam->disableOrtho() : cam->enableOrtho();
 		
 		break;
 
@@ -269,12 +271,12 @@ void Application::mousePressed(int x, int y, int button)
 		float yclick = 1.0f - (2.0f * y) / ofGetWindowHeight();
 		
 		glm::vec4 rayDirectionNDS = glm::vec4(xclick, yclick, -1, 1);
-		glm::vec4 rayeye = glm::inverse(cam.getProjectionMatrix()) * rayDirectionNDS;
+		glm::vec4 rayeye = glm::inverse(cam->getProjectionMatrix()) * rayDirectionNDS;
 		rayeye = ofVec4f(rayeye.x, rayeye.y, -1.0, 0.0);
 
-		glm::vec3 world = glm::inverse(cam.getModelViewMatrix()) * rayeye;
+		glm::vec3 world = glm::inverse(cam->getModelViewMatrix()) * rayeye;
 		scene.PickingPhase(
-			cam.getGlobalPosition(),
+			cam->getGlobalPosition(),
 			glm::normalize(world));
 	}
 	

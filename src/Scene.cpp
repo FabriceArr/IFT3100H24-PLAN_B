@@ -13,7 +13,8 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	ofParameter<ofColor>* UIDiffuseColor,
 	ofParameter<ofColor>* UISpecularColor,
 	ofParameter<ofColor>* UIEmmissiveColor,
-	ofParameter<float>* UIshininess
+	ofParameter<float>* UIshininess,
+	ofEasyCam* cam
 	)
 {
 	//Doit etre le SEUL object initialiser comme ceci
@@ -58,6 +59,8 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 
 	animate = false;
 	loadShaders();
+
+	ParamObj test = ParamObj(tesselation_Shader, cam);
 }
 
 void Scene::draw()

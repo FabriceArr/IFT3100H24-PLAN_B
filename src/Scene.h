@@ -5,6 +5,7 @@
 #include "Element3D.h"
 #include "Element2D.h"
 #include "Element2DPrimitive.h"
+#include "ParamObj.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
 #include "ofxAssimpModelLoader.h"
@@ -59,6 +60,8 @@ private:
 
 	ofShader* tesselation_Shader;
 
+	ofEasyCam* camera;
+
 public:
 	bool animate;
 	bool isOrtho;
@@ -76,7 +79,8 @@ public:
 		ofParameter<ofColor>* UIDiffuseColor,
 		ofParameter<ofColor>* UISpecularColor,
 		ofParameter<ofColor>* UIEmissiveColor,
-		ofParameter<float>* UIShininess
+		ofParameter<float>* UIShininess,
+		ofEasyCam* cam
 		);
 
 	//clean up the scene from memory
