@@ -7,6 +7,6 @@ private:
 	ofShader* brazier_curve_shader;
 
 public:
-	ParamObj
+	ParamObj(unsigned int NumbSeg);
 };
 

@@ -57,6 +57,8 @@ private:
 
 	ofVec3f point1, point2, point3, radius;
 
+	ofShader* tesselation_Shader;
+
 public:
 	bool animate;
 	bool isOrtho;
@@ -122,6 +124,8 @@ public:
 	void selectNextObject();
 	void selectPreviousObject();
 	void selectSubsObject();
+
+	void loadShaders();
 
 
 };

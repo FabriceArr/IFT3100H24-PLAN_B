@@ -57,7 +57,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	wasDragging = false;
 
 	animate = false;
-
+	loadShaders();
 }
 
 void Scene::draw()
@@ -535,6 +535,16 @@ void Scene::selectSubsObject()
 		sub_level_selected = hold->getSubs();
 		selected_obj_ind = -1;
 	}
+}
+
+void Scene::loadShaders()
+{
+	tesselation_Shader = new ofShader();
+	tesselation_Shader->setupShaderFromFile(GL_VERTEX_SHADER, "Tesselation/tess.vert");
+	tesselation_Shader->setupShaderFromFile(GL_TESS_EVALUATION_SHADER, "Tesselation/tess.tese");
+	tesselation_Shader->setupShaderFromFile(GL_TESS_CONTROL_SHADER, "Tesselation/tess.tesc");
+	tesselation_Shader->setupShaderFromFile(GL_FRAGMENT_SHADER, "Tesselation/tess.frag");
+	tesselation_Shader->linkProgram();
 }
 
 void Scene::deSelectObject()
