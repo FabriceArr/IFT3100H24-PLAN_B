@@ -13,5 +13,7 @@ public:
 	ParamObj(ofShader* TesselShader, ofEasyCam* cam);
 
 	void draw(bool highlight, bool animated, unsigned int substage);
+
+	void update();
 };
 

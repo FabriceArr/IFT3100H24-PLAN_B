@@ -36,24 +36,51 @@ ParamObj::ParamObj(ofShader* TesselShader, ofEasyCam* cam) : Object("Curve")
 	glBindVertexArray(0);
 
 	glPatchParameteri(GL_PATCH_VERTICES, 4);
-	//test for MVP
-	ofMatrix4x4 VP =  cam->getModelViewProjectionMatrix();
-	//just need to transform this to normal change mat
-	this->getCurrentChangeM();
 }
 
 void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 {
-	/*brazier_curve_shader->begin();
-	
+	ofMatrix3x3 hold = this->getCurrentChangeM();
+	ofTranslate(
+		hold.a,
+		hold.b,
+		hold.c);
+	ofRotateXDeg(
+		hold.d);
+	ofRotateYDeg(
+		hold.e);
+	ofRotateZDeg(
+		hold.f);
+	ofScale(
+		hold.g,
+		hold.h,
+		hold.i);
+
+	brazier_curve_shader->begin();
+
+	scene_cam->getModelViewProjectionMatrix();
+
+	brazier_curve_shader->setUniformMatrix4f("modelViewProjectionMatrix", scene_cam->getModelViewProjectionMatrix());
 	brazier_curve_shader->setUniform1i("NumSegments", 50);
 	brazier_curve_shader->setUniform1i("NumStrips", 1);
-	brazier_curve_shader->setUniform4f("LineColor", ofVec4f(1.0f, 1.0f, 0.5f, 1.0f));*/
-	glBindVertexArray(vaoHandle);
-	glDrawArrays(GL_POINTS, 0, 5);
-	glFinish();
+	brazier_curve_shader->setUniform4f("LineColor", ofVec4f(5.0f, 5.0f, 0.5f, 1.0f));
 
-	//brazier_curve_shader->end();
+	glBindVertexArray(vaoHandle);
+	glDrawArrays(GL_PATCHES, 0, 4);
+	
+	
+	brazier_curve_shader->end();
+	glDrawArrays(GL_POINTS, 0, 4);
+	
+
+	glFinish();
 }
+
+void ParamObj::update()
+{
+	
+}
+
+
 
 

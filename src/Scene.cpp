@@ -73,18 +73,18 @@ void Scene::draw()
 	//Since it would be a bit of a mess
 
 	object_tree_head->resetSubStage();
-	setSelectedNode();
+	/*setSelectedNode();
 	ofSetColor(52, 52, 52);
 	camdebug.draw();
 	clickdebug.draw();
 
 	ofSetColor(128, 0, 0);
-
+	E
 	if (raydebugbool)
 		ofSetColor(0, 128, 0);
 	
 	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
-	ofSetColor(255);
+	ofSetColor(255);*/
 
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
