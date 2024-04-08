@@ -2,8 +2,8 @@
 
 #version 400
 
-layout(isolines) in;
 uniform mat4 modelViewProjectionMatrix;
+layout(isolines) in;
 
 
 

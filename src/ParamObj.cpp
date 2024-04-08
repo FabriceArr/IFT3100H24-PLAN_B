@@ -40,27 +40,38 @@ ParamObj::ParamObj(ofShader* TesselShader, ofEasyCam* cam) : Object("Curve")
 
 void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 {
-	ofMatrix3x3 hold = this->getCurrentChangeM();
-	ofTranslate(
-		hold.a,
-		hold.b,
-		hold.c);
-	ofRotateXDeg(
-		hold.d);
-	ofRotateYDeg(
-		hold.e);
-	ofRotateZDeg(
-		hold.f);
-	ofScale(
-		hold.g,
-		hold.h,
-		hold.i);
+	ofMatrix4x4 translate = ofMatrix4x4(1, 0, 0, this->getCurrentChangeM().a,
+		0, 1, 0, this->getCurrentChangeM().b,
+		0, 0, 1, this->getCurrentChangeM().c,
+		0, 0, 0, 1);
+
+	ofMatrix4x4 rotx = ofMatrix4x4(1, 0, 0, 0,
+		0, cos(this->getCurrentChangeM().d), sin(this->getCurrentChangeM().d), 0,
+		0, -sin(this->getCurrentChangeM().d), cos(this->getCurrentChangeM().d), 0,
+		0, 0, 0, 1);
+
+	ofMatrix4x4 roty = ofMatrix4x4(cos(this->getCurrentChangeM().e), 0, -sin(this->getCurrentChangeM().e), 0,
+		0, 1, 0, 0,
+		sin(this->getCurrentChangeM().e), 0, cos(this->getCurrentChangeM().e), 0,
+		0, 0, 0, 1);
+
+	ofMatrix4x4 rotz = ofMatrix4x4(cos(this->getCurrentChangeM().f), -sin(this->getCurrentChangeM().f), 0, 0,
+		sin(this->getCurrentChangeM().f), cos(this->getCurrentChangeM().f), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+
+	ofMatrix4x4 scale = ofMatrix4x4(this->getCurrentChangeM().g, 0, 0, 0,
+		0, this->getCurrentChangeM().h, 0, 0,
+		0, 0, this->getCurrentChangeM().i, 0,
+		0, 0, 0, 1);
+
+
+	ofMatrix4x4 fullTransform = translate * (rotx * roty * rotz) * scale;
 
 	brazier_curve_shader->begin();
 
 	scene_cam->getModelViewProjectionMatrix();
-
-	brazier_curve_shader->setUniformMatrix4f("modelViewProjectionMatrix", scene_cam->getModelViewProjectionMatrix());
+	
 	brazier_curve_shader->setUniform1i("NumSegments", 50);
 	brazier_curve_shader->setUniform1i("NumStrips", 1);
 	brazier_curve_shader->setUniform4f("LineColor", ofVec4f(5.0f, 5.0f, 0.5f, 1.0f));
@@ -70,8 +81,8 @@ void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 	
 	
 	brazier_curve_shader->end();
-	glDrawArrays(GL_POINTS, 0, 4);
 	
+	glDrawArrays(GL_POINTS, 0, 4);
 
 	glFinish();
 }
