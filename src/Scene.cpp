@@ -539,12 +539,15 @@ void Scene::selectSubsObject()
 
 void Scene::loadShaders()
 {
+	ofSetLogLevel(OF_LOG_VERBOSE);
 	tesselation_Shader = new ofShader();
-	tesselation_Shader->setupShaderFromFile(GL_VERTEX_SHADER, "Tesselation/tess.vert");
-	tesselation_Shader->setupShaderFromFile(GL_TESS_EVALUATION_SHADER, "Tesselation/tess.tese");
-	tesselation_Shader->setupShaderFromFile(GL_TESS_CONTROL_SHADER, "Tesselation/tess.tesc");
-	tesselation_Shader->setupShaderFromFile(GL_FRAGMENT_SHADER, "Tesselation/tess.frag");
-	tesselation_Shader->linkProgram();
+	ofLog() << "Shader1; " << tesselation_Shader->setupShaderFromFile(GL_VERTEX_SHADER, "Tesselation/tess.vert");
+	ofLog() << "Shader2; " << tesselation_Shader->setupShaderFromFile(GL_TESS_EVALUATION_SHADER, "Tesselation/tess.tese");
+	ofLog() << "Shader3; " << tesselation_Shader->setupShaderFromFile(GL_TESS_CONTROL_SHADER, "Tesselation/tess.tesc");
+	ofLog() << "Shader4; " << tesselation_Shader->setupShaderFromFile(GL_FRAGMENT_SHADER, "Tesselation/tess.frag");
+	ofLog() << "Shader5; " << tesselation_Shader->linkProgram();
+
+	tesselation_Shader->isLoaded();
 }
 
 void Scene::deSelectObject()
