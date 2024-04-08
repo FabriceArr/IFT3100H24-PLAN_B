@@ -6,7 +6,8 @@ private:
 	vector<ofVec3f> points;
 	ofShader* brazier_curve_shader;
 	GLuint vaoHandle;
-	ofMatrix4x4* vue,* project;
+	ofEasyCam* scene_cam;
+	ofVbo test;
 
 public:
 	ParamObj(ofShader* TesselShader, ofEasyCam* cam);

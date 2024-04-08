@@ -61,6 +61,7 @@ private:
 	ofShader* tesselation_Shader;
 
 	ofEasyCam* camera;
+	ParamObj* test;
 
 public:
 	bool animate;

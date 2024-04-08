@@ -13,9 +13,11 @@ ParamObj::ParamObj(ofShader* TesselShader, ofEasyCam* cam) : Object("Curve")
 	points.push_back(ofVec3f(0,0,0));
 	points.push_back(ofVec3f(0,-5,5));
 	points.push_back(ofVec3f(0,5,10));
+
+	scene_cam = cam;
 	
 	// Set up patch VBO
-	float v[] = { -1.0f, -1.0f, -0.5f, 1.0f, 0.5f, -1.0f, 1.0f, 1.0f };
+	float v[] = { -10.0f, -10.0f, -5.0f, 10.0f, 5.0f, -10.0f, 10.0f, 10.0f };
 
 	GLuint vboHandle;
 	glGenBuffers(1, &vboHandle);
@@ -42,15 +44,16 @@ ParamObj::ParamObj(ofShader* TesselShader, ofEasyCam* cam) : Object("Curve")
 
 void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 {
-	brazier_curve_shader->begin();
+	/*brazier_curve_shader->begin();
 	
 	brazier_curve_shader->setUniform1i("NumSegments", 50);
 	brazier_curve_shader->setUniform1i("NumStrips", 1);
-	brazier_curve_shader->setUniform4f("LineColor", ofVec4f(1.0f, 1.0f, 0.5f, 1.0f));
+	brazier_curve_shader->setUniform4f("LineColor", ofVec4f(1.0f, 1.0f, 0.5f, 1.0f));*/
+	glBindVertexArray(vaoHandle);
+	glDrawArrays(GL_POINTS, 0, 5);
+	glFinish();
 
-	glDrawArrays(GL_PATCHES, 0, 5);
-
-	brazier_curve_shader->end();
+	//brazier_curve_shader->end();
 }
 
 

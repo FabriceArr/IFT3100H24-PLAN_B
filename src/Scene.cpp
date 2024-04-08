@@ -60,7 +60,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	animate = false;
 	loadShaders();
 
-	ParamObj test = ParamObj(tesselation_Shader, cam);
+	test = new ParamObj(tesselation_Shader, cam);
 }
 
 void Scene::draw()
@@ -106,7 +106,7 @@ void Scene::draw()
 
 
 	}
-
+	test->draw(0,0,0);
 }
 
 void Scene::exit()
