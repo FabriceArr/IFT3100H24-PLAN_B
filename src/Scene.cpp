@@ -13,8 +13,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	ofParameter<ofColor>* UIDiffuseColor,
 	ofParameter<ofColor>* UISpecularColor,
 	ofParameter<ofColor>* UIEmmissiveColor,
-	ofParameter<float>* UIshininess,
-	ofEasyCam* cam
+	ofParameter<float>* UIshininess
 	)
 {
 	//Doit etre le SEUL object initialiser comme ceci
@@ -60,7 +59,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	animate = false;
 	loadShaders();
 
-	test = new ParamObj(tesselation_Shader, cam);
+	test = new ParamObj(tesselation_Shader);
 }
 
 void Scene::draw()
@@ -551,6 +550,15 @@ void Scene::loadShaders()
 	ofLog() << "Shader5; " << tesselation_Shader->linkProgram();
 
 	tesselation_Shader->isLoaded();
+
+	tesselation_Plane_Shader = new ofShader();
+	ofLog() << "Shader1; " << tesselation_Plane_Shader->setupShaderFromFile(GL_VERTEX_SHADER, "TesselationPlane/tess.vert");
+	ofLog() << "Shader3; " << tesselation_Plane_Shader->setupShaderFromFile(GL_TESS_CONTROL_SHADER, "TesselationPlane/tess.tesc");
+	ofLog() << "Shader2; " << tesselation_Plane_Shader->setupShaderFromFile(GL_TESS_EVALUATION_SHADER, "TesselationPlane/tess.tese");
+	ofLog() << "Shader4; " << tesselation_Plane_Shader->setupShaderFromFile(GL_FRAGMENT_SHADER, "TesselationPlane/tess.frag");
+	ofLog() << "Shader5; " << tesselation_Plane_Shader->linkProgram();
+
+	tesselation_Plane_Shader->isLoaded();
 }
 
 void Scene::deSelectObject()

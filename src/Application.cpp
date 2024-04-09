@@ -17,8 +17,7 @@ void Application::setup()
 		interface.getDiffuseColor(),
 		interface.getSpecularColor(),
 		interface.getEmissiveColor(),
-		interface.getShininess(),
-		cam
+		interface.getShininess()
 		);
 	auto i = interface.getPositionSliderValues();
 

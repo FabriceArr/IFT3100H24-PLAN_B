@@ -1,11 +1,11 @@
-#include "ParamObj.h"
+#include "ParamPlane.h"
 
-ParamObj::ParamObj(ofShader* TesselShader) : Object("Curve")
+ParamPlane::ParamPlane(ofShader* TesselShader) : Object("Curve")
 {
 	//pointeur du shader
-	this->brazier_curve_shader = TesselShader;
-	if (!this->brazier_curve_shader->isLoaded()) {
-		ofLogFatalError() << "Brezier shader not loaded in param curve pointer!!!" ;
+	this->brazier_surface_shader = TesselShader;
+	if (!this->brazier_surface_shader->isLoaded()) {
+		ofLogFatalError() << "Brezier surface shader not loaded in param curve pointer!!!" ;
 	}
 	//default control points
 	points.push_back(ofVec3f(0,0,-10));
@@ -13,15 +13,23 @@ ParamObj::ParamObj(ofShader* TesselShader) : Object("Curve")
 	points.push_back(ofVec3f(0,0,0));
 	points.push_back(ofVec3f(0,-5,5));
 	points.push_back(ofVec3f(0,5,10));
+
 	
 	// Set up patch VBO
-	float v[] = { -10.0f, -10.0f, -5.0f, 10.0f, 5.0f, -10.0f, 10.0f, 10.0f };
+	float v[] = { -10.0f, 10.0f, 10.0f,
+				10.0f, 10.0f, 10.0f,
+				-10.0f, 10.0f, -10.0f,
+				10.0f, 10.0f, -10.0f,
+				-5.0f, -5.0f, 5.0f,
+				5.0f, -5.0f, 5.0f,
+				-5.0f, -5.0f, -5.0f,
+				5.0f, -5.0f, -5.0f, };
 
 	GLuint vboHandle;
 	glGenBuffers(1, &vboHandle);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-	glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), v, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), v, GL_STATIC_DRAW);
 
 	// Set up patch VAO
 	glGenVertexArrays(1, &vaoHandle);
@@ -33,10 +41,10 @@ ParamObj::ParamObj(ofShader* TesselShader) : Object("Curve")
 
 	glBindVertexArray(0);
 
-	glPatchParameteri(GL_PATCH_VERTICES, 4);
+	glPatchParameteri(GL_PATCH_VERTICES, 8);
 }
 
-void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
+void ParamPlane::draw(bool highlight, bool animated, unsigned int substage)
 {
 	ofPushMatrix();
 	ofMatrix3x3 hold = this->getCurrentChangeM();
@@ -55,26 +63,23 @@ void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 		hold.h,
 		hold.i);
 
-	brazier_curve_shader->begin();
+	brazier_surface_shader->begin();
 
 	
-	brazier_curve_shader->setUniform1i("NumSegments", 50);
-	brazier_curve_shader->setUniform1i("NumStrips", 1);
-	brazier_curve_shader->setUniform4f("LineColor", ofVec4f(5.0f, 5.0f, 0.5f, 1.0f));
 
 	glBindVertexArray(vaoHandle);
-	glDrawArrays(GL_PATCHES, 0, 4);
+	glDrawArrays(GL_PATCHES, 0, 8);
 	
 	
-	brazier_curve_shader->end();
+	brazier_surface_shader->end();
 	
-	glDrawArrays(GL_POINTS, 0, 4);
+	glDrawArrays(GL_POINTS, 0, 8);
 
 	glFinish();
 	ofPopMatrix();
 }
 
-void ParamObj::update()
+void ParamPlane::update()
 {
 	
 }

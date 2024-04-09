@@ -1,14 +1,14 @@
 #pragma once
 #include "Object.h"
-class ParamObj : public Object
+class ParamPlane : public Object
 {
 private:
 	vector<ofVec3f> points;
-	ofShader* brazier_curve_shader;
+	ofShader* brazier_surface_shader;
 	GLuint vaoHandle;
 
 public:
-	ParamObj(ofShader* TesselShader);
+	ParamPlane(ofShader* TesselShader);
 
 	void draw(bool highlight, bool animated, unsigned int substage);
 

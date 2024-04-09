@@ -6,6 +6,7 @@
 #include "Element2D.h"
 #include "Element2DPrimitive.h"
 #include "ParamObj.h"
+#include "ParamPlane.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
 #include "ofxAssimpModelLoader.h"
@@ -58,7 +59,7 @@ private:
 
 	ofVec3f point1, point2, point3, radius;
 
-	ofShader* tesselation_Shader;
+	ofShader* tesselation_Shader, *tesselation_Plane_Shader;
 
 	ofEasyCam* camera;
 	ParamObj* test;
@@ -80,8 +81,7 @@ public:
 		ofParameter<ofColor>* UIDiffuseColor,
 		ofParameter<ofColor>* UISpecularColor,
 		ofParameter<ofColor>* UIEmissiveColor,
-		ofParameter<float>* UIShininess,
-		ofEasyCam* cam
+		ofParameter<float>* UIShininess
 		);
 
 	//clean up the scene from memory
