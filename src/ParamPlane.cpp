@@ -36,7 +36,7 @@ ParamPlane::ParamPlane(ofShader* TesselShader) : Object("Curve")
 	glBindVertexArray(vaoHandle);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
 
 	glBindVertexArray(0);
@@ -65,7 +65,8 @@ void ParamPlane::draw(bool highlight, bool animated, unsigned int substage)
 
 	brazier_surface_shader->begin();
 
-	
+	brazier_surface_shader->setUniform1i("NumSegments", 50);
+	brazier_surface_shader->setUniform4f("LineColor", ofVec4f(5.0f, 5.0f, 0.5f, 1.0f));
 
 	glBindVertexArray(vaoHandle);
 	glDrawArrays(GL_PATCHES, 0, 8);

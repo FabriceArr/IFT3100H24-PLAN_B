@@ -61,9 +61,6 @@ private:
 
 	ofShader* tesselation_Shader, *tesselation_Plane_Shader;
 
-	ofEasyCam* camera;
-	ParamObj* test;
-
 public:
 	bool animate;
 	bool isOrtho;

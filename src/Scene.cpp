@@ -58,8 +58,6 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 
 	animate = false;
 	loadShaders();
-
-	test = new ParamObj(tesselation_Shader);
 }
 
 void Scene::draw()
@@ -107,7 +105,6 @@ void Scene::draw()
 
 
 	}
-	test->draw(0,0,0);
 }
 
 void Scene::exit()
