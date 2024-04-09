@@ -398,6 +398,7 @@ void Application::saveSceneChanges() {
 	interface.setExposureSlider();
 	interface.setGammaSlider();
 	interface.setToneMappingToggle();
+	interface.setIllumModel();
 }
 
 void Application::draw_cursor(float x, float y) const

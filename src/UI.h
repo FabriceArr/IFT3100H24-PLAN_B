@@ -6,7 +6,7 @@
 #include "scene.h"
 #include <vector>
 
-enum illum_enum {	flat, lambert, gouraud, phong, blinnPhong };
+enum illum_enum { flat, lambert, gouraud, phong, blinnPhong };
 
 struct parameterVectorGroup {
 	ofParameter<float>* x;
@@ -14,8 +14,6 @@ struct parameterVectorGroup {
 	ofParameter<float>* z;
 	ofParameter<ofColor> fill_color_slider;
 	ofParameter<ofColor> stroke_color_slider;
-
-
 };
 
 struct hsv {
@@ -46,7 +44,7 @@ private:
 	parameterVectorGroup position_slider_group;
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
-    
+
 	ofxTextField selected_object_name_field;
 
 	vector<ofParameter<float>*> trans_sliders_pointer;
@@ -59,18 +57,14 @@ private:
 
 	// Illumination Model with dropdown
 	ofxDropdown_<string> IlluminationModel_dropdown;
-	//unsigned int illuminationModel_dropdown_selected = 0;
-	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong"};
-	illum_enum illum_enum_list ;
+	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong" };
+	//illum_enum illum_enum_list ;
 
 	ofParameter<ofColor> color_picker;
 
-
 	// Image Filter with dropdown
 	ofxDropdown_<string> imageFilter_dropdown;
-	//ofxDropdown_<illum_enum> imageFilter_dropdown;
-	//unsigned int imageFilter_dropdown_selected = 0;
-	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique"};
+	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique" };
 
 	ofParameter<ofColor> stroke_color_slider;
 
@@ -81,7 +75,7 @@ private:
 	ofParameter<float> h_slider_stroke;
 	ofParameter<float> s_slider_stroke;
 	ofParameter<float> v_slider_stroke;
-	
+
 
 	hsv rgbToHSV(ofColor color);
 	ofColor hsvToRGB(hsv hsvColor);
@@ -107,12 +101,14 @@ private:
 
 	ofxGuiGroup group_tone_mapping;
 	ofParameter<float> slider_exposure;
-	ofParameter<float> slider_gamma;\
+	ofParameter<float> slider_gamma;
 	ofParameter<bool> toggle_tone_mapping;
+	ofParameter<illum_enum> illumination_model;
 
 	float tone_mapping_exposure;
 	float tone_mapping_gamma;
 	bool tone_mapping_toggle;
+	illum_enum illuminationModel_selection;
 
 	void fillColorRGBChanged(ofColor& color);
 	//void onIllumModelChangeStr(string& illum);
@@ -151,11 +147,9 @@ public:
 	const vector<ofParameter<float>*> getRotationSliderValues();
 	const vector<ofParameter<float>*> getScaleSliderValues();
 	const ofParameter<ofColor> getBackgroundColorSlider();
-	const ofParameter<ofColor> getFillColorSlider();	
+	const ofParameter<ofColor> getFillColorSlider();
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
-
-	//const unsigned int get_illuminationModel();
 
 	//const unsigned int getFilter();
 
@@ -166,10 +160,13 @@ public:
 	float* setExposureSlider();
 	float* setGammaSlider();
 	bool* setToneMappingToggle();
-	
+	illum_enum* setIllumModel();
+
 	ofParameter<float>* getExposureSlider();
 	ofParameter<float>* getGammaSlider();
 	ofParameter<bool>* getToneMappingToggle();
+	ofParameter<illum_enum>* getIllumModel();
+
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);
 };

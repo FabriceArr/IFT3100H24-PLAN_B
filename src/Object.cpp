@@ -186,6 +186,7 @@ unsigned int Object::getFilter()
 
 void Object::TextureConfigure(ofImage image, unsigned int filterOption)
 {
+	/*
 	// 1. ouvrir un fichier image en mode lecture et en extraire les propriétés
 	int image_width = image.getWidth();
 	int image_height = image.getHeight();
@@ -208,8 +209,9 @@ void Object::TextureConfigure(ofImage image, unsigned int filterOption)
 
 	// 5. définir les paramètres d'enveloppement aux extrémités de la texture active
 	// mode d'enveloppement de texture : GL_CLAMP_TO_BORDER
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	*/
 
 	/* on utilise juste 1 par défaut
 	// mode d'enveloppement de texture : GL_CLAMP_TO_EDGE
@@ -224,7 +226,8 @@ void Object::TextureConfigure(ofImage image, unsigned int filterOption)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 	*/
-	
+
+	/*
 	switch (filterOption)
 	{
 		//GLfloat largest_anisotropy = GL_EXT_texture_filter_anisotropic;
@@ -253,4 +256,5 @@ void Object::TextureConfigure(ofImage image, unsigned int filterOption)
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	//this->setFilter(filterOption);
+	*/
 }

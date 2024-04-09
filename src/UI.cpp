@@ -54,23 +54,19 @@ void UI::setup()
     interface.add(v_slider_fill.set("Value_fill", 1, 0, 1));
 
     // Setup for Illumination Model dropdown
-    //illuminationModel_dropdown_selected = 0;
     interface.add(IlluminationModel_dropdown.setup("Modele d'Illumination"));
     IlluminationModel_dropdown.add(illuminationModel_vector);
     IlluminationModel_dropdown.disableMultipleSelection();
     IlluminationModel_dropdown.enableCollapseOnSelection();
-    //IlluminationModel_dropdown.setSelectedValueByIndex(illuminationModel_dropdown_selected, true);
+    IlluminationModel_dropdown.setSelectedValueByIndex(0, true);
     //IlluminationModel_dropdown.addListener(this, &UI::onIllumModelChangeStr);
 
     // Setup for Image filter dropdown
-    //imageFilter_dropdown_selected = 0;
     interface.add(imageFilter_dropdown.setup("Filtrage de Texture"));
     imageFilter_dropdown.add(filter_vector);
-    //imageFilter_dropdown.add(illum_enum_list);
     imageFilter_dropdown.disableMultipleSelection();
     imageFilter_dropdown.enableCollapseOnSelection();
-    //imageFilter_dropdown.setSelectedValueByIndex(imageFilter_dropdown_selected, true);
-    //imageFilter_dropdown.setSelectedValueByName(imageFilter_dropdown_selected, true);
+    imageFilter_dropdown.setSelectedValueByIndex(0, true);
     //imageFilter_dropdown.addListener(this, &UI::onFilterChangeStr);
 
     // Setup for stroke color input
@@ -145,6 +141,8 @@ void UI::update()
     tone_mapping_exposure = slider_exposure;
     tone_mapping_gamma = slider_gamma;
     tone_mapping_toggle = toggle_tone_mapping;
+    illuminationModel_selection = illumination_model;
+    //IlluminationModel_dropdown.getAllSelected()[0]
 }
 
 void UI::draw()
@@ -153,6 +151,21 @@ void UI::draw()
         toggle_tone_mapping.set("aces filmic", true);
     else
         toggle_tone_mapping.set("reinhard", false);
+
+    /*
+    string temp = IlluminationModel_dropdown.getAllSelected()[0];
+    //ofLog() << "Illum model : " << temp;
+    if (temp == "flat")
+        illumination_model.set(flat);
+    else if (temp == "lambert")
+        illumination_model.set(lambert);
+    else if (temp == "gouraud")
+        illumination_model.set(gouraud);
+    else if (temp == "phong")
+        illumination_model.set(phong);
+    else if (temp == "blinnPhong")
+        illumination_model.set(blinnPhong);
+        */
 	interface.draw();
 }
 
@@ -221,16 +234,6 @@ const ofParameter<int> UI::getStrokeWidthSlider()
     return stroke_width_slider;
 }
 
-//const unsigned int UI::get_illuminationModel()
-//{
-//    return illuminationModel_dropdown_selected;
-//}
-
-//const unsigned int UI::getFilter()
-//{
-//    return imageFilter_dropdown_selected;
-//}
-
 ofVec3f* UI::setPositionSliderValues()
 {
 	position_slider_group.x->reInit();
@@ -273,6 +276,12 @@ bool* UI::setToneMappingToggle()
 	return nullptr;
 }
 
+illum_enum* UI::setIllumModel()
+{
+    illumination_model.reInit();
+    return nullptr;
+}
+
 ofParameter<float>* UI::getExposureSlider()
 {
 	return &slider_exposure;
@@ -286,6 +295,11 @@ ofParameter<float>* UI::getGammaSlider()
 ofParameter<bool>* UI::getToneMappingToggle()
 {
 	return &toggle_tone_mapping;
+}
+
+ofParameter<illum_enum>* UI::getIllumModel()
+{
+    return &illumination_model;
 }
 
 
@@ -453,42 +467,10 @@ void UI::setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor)
     }
 }
 
-//void UI::setImageFilterMix(float mix)
-//{
-//    imageFilterMix = mix;
-//}
-
 void UI::fillColorRGBChanged(ofColor& color)
 {
     setHSVSlidersFromRGB(color, true);
 }
-
-//void UI::onIllumModelChangeStr(string& illum)
-//{
-//    //"flat", "Lambert", "Gouraud", "Phong", "Blinn-Phong"
-//    if (illum == "Flat")
-//        illuminationModel_dropdown_selected = 0;
-//    if (illum == "Lambert")
-//        illuminationModel_dropdown_selected = 1;
-//    if (illum == "Gouraud")
-//        illuminationModel_dropdown_selected = 2;
-//    if (illum == "Phong")
-//        illuminationModel_dropdown_selected = 3;
-//    if (illum == "Blinn-Phong")
-//        illuminationModel_dropdown_selected = 4;
-//}
-
-//void UI::onFilterChangeStr(string& filter)
-//{
-//    if (filter == "Aucun")
-//        imageFilter_dropdown_selected = 0;
-//    if (filter == "Bilinéaire")
-//        imageFilter_dropdown_selected = 1;
-//    if (filter == "Trilinéaire")
-//        imageFilter_dropdown_selected = 2;
-//    if (filter == "Anistropique")
-//        imageFilter_dropdown_selected = 3;
-//}
 
 void UI::strokeColorRGBChanged(ofColor& color)
 {
