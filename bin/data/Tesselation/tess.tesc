@@ -1,6 +1,6 @@
 #version 400
 
-layout( vertices=4 ) out;
+layout( vertices=5 ) out;
 
 uniform int NumSegments;
 uniform int NumStrips;

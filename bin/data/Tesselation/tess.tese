@@ -7,24 +7,20 @@ uniform mat4x4 projectionMatrix;
 
 void main()
 {
-    float u = gl_TessCoord.x;
+    float u = gl_TessCoord.x;//t
+    float t1 = (1.0 - u);
 
     vec3 p0 = gl_in[0].gl_Position.xyz;
     vec3 p1 = gl_in[1].gl_Position.xyz;
     vec3 p2 = gl_in[2].gl_Position.xyz;
     vec3 p3 = gl_in[3].gl_Position.xyz;
+    vec3 p4 = gl_in[4].gl_Position.xyz;
 
-    float u1 = (1.0 - u);
-    float u2 = u * u;
-
-    // Bernstein polynomials
-    float b3 = u2 * u;
-    float b2 = 3.0 * u2 * u1;
-    float b1 = 3.0 * u * u1 * u1;
-    float b0 = u1 * u1 * u1;
-
-    // Cubic Bezier interpolation
-    vec3 p = p0 * b0 + p1 * b1 + p2 * b2 + p3 * b3;
+    vec3 p = p0 * pow(t1, 4) +
+             p1 * 4.0 * pow(t1, 3) * u + 
+             p2 * 6.0 * pow(t1, 2) * pow(u, 2) + 
+             p3 * 4.0 * t1 * pow(u, 3) + 
+             p4 * pow(u, 4);
 
     gl_Position =  projectionMatrix * modelViewMatrix * vec4(p, 1.0);
 

@@ -15,25 +15,29 @@ ParamObj::ParamObj(ofShader* TesselShader) : Object("Curve")
 	points.push_back(ofVec3f(0,5,10));
 	
 	// Set up patch VBO
-	float v[] = { -10.0f, -10.0f, -5.0f, 10.0f, 5.0f, -10.0f, 10.0f, 10.0f };
+	float v[] = { -10.0f, -10.0f, 0.0f,
+				-5.0f, 10.0f, 0.0f,
+				5.0f, -10.0f, 0.0f,
+				10.0f, 10.0f, 0.0f, 
+				15.0f, 20.0f, 5.0f };
 
 	GLuint vboHandle;
 	glGenBuffers(1, &vboHandle);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-	glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), v, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 15 * sizeof(float), v, GL_STATIC_DRAW);
 
 	// Set up patch VAO
 	glGenVertexArrays(1, &vaoHandle);
 	glBindVertexArray(vaoHandle);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboHandle);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
 
 	glBindVertexArray(0);
 
-	glPatchParameteri(GL_PATCH_VERTICES, 4);
+	glPatchParameteri(GL_PATCH_VERTICES, 5);
 }
 
 void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
@@ -63,12 +67,12 @@ void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 	brazier_curve_shader->setUniform4f("LineColor", ofVec4f(5.0f, 5.0f, 0.5f, 1.0f));
 
 	glBindVertexArray(vaoHandle);
-	glDrawArrays(GL_PATCHES, 0, 4);
+	glDrawArrays(GL_PATCHES, 0, 5);
 	
 	
 	brazier_curve_shader->end();
 	
-	glDrawArrays(GL_POINTS, 0, 4);
+	glDrawArrays(GL_POINTS, 0, 5);
 
 	glFinish();
 	ofPopMatrix();
