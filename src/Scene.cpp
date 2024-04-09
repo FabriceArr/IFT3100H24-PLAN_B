@@ -57,7 +57,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	wasDragging = false;
 
 	animate = false;
-
+	loadShaders();
 }
 
 void Scene::draw()
@@ -70,7 +70,7 @@ void Scene::draw()
 	//Since it would be a bit of a mess
 
 	object_tree_head->resetSubStage();
-	setSelectedNode();
+	/*setSelectedNode();
 	ofSetColor(52, 52, 52);
 	camdebug.draw();
 	clickdebug.draw();
@@ -83,7 +83,7 @@ void Scene::draw()
 		ofSetColor(0, 128, 0);
 	
 	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
-	ofSetColor(255);
+	ofSetColor(255);*/
 
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
@@ -105,7 +105,6 @@ void Scene::draw()
 
 
 	}
-
 }
 
 void Scene::exit()
@@ -537,6 +536,28 @@ void Scene::selectSubsObject()
 		sub_level_selected = hold->getSubs();
 		selected_obj_ind = -1;
 	}
+}
+
+void Scene::loadShaders()
+{
+	ofSetLogLevel(OF_LOG_VERBOSE);
+	tesselation_Shader = new ofShader();
+	ofLog() << "Shader1; " << tesselation_Shader->setupShaderFromFile(GL_VERTEX_SHADER, "Tesselation/tess.vert");
+	ofLog() << "Shader3; " << tesselation_Shader->setupShaderFromFile(GL_TESS_CONTROL_SHADER, "Tesselation/tess.tesc");
+	ofLog() << "Shader2; " << tesselation_Shader->setupShaderFromFile(GL_TESS_EVALUATION_SHADER, "Tesselation/tess.tese");
+	ofLog() << "Shader4; " << tesselation_Shader->setupShaderFromFile(GL_FRAGMENT_SHADER, "Tesselation/tess.frag");
+	ofLog() << "Shader5; " << tesselation_Shader->linkProgram();
+
+	tesselation_Shader->isLoaded();
+
+	tesselation_Plane_Shader = new ofShader();
+	ofLog() << "Shader1; " << tesselation_Plane_Shader->setupShaderFromFile(GL_VERTEX_SHADER, "TesselationPlane/tess.vert");
+	ofLog() << "Shader3; " << tesselation_Plane_Shader->setupShaderFromFile(GL_TESS_CONTROL_SHADER, "TesselationPlane/tess.tesc");
+	ofLog() << "Shader2; " << tesselation_Plane_Shader->setupShaderFromFile(GL_TESS_EVALUATION_SHADER, "TesselationPlane/tess.tese");
+	ofLog() << "Shader4; " << tesselation_Plane_Shader->setupShaderFromFile(GL_FRAGMENT_SHADER, "TesselationPlane/tess.frag");
+	ofLog() << "Shader5; " << tesselation_Plane_Shader->linkProgram();
+
+	tesselation_Plane_Shader->isLoaded();
 }
 
 void Scene::deSelectObject()

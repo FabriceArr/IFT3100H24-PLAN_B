@@ -5,6 +5,8 @@
 #include "Element3D.h"
 #include "Element2D.h"
 #include "Element2DPrimitive.h"
+#include "ParamObj.h"
+#include "ParamPlane.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
 #include "ofxAssimpModelLoader.h"
@@ -56,6 +58,8 @@ private:
 	ofShader anim_shader_rot, anim_shader_bob;
 
 	ofVec3f point1, point2, point3, radius;
+
+	ofShader* tesselation_Shader, *tesselation_Plane_Shader;
 
 public:
 	bool animate;
@@ -122,6 +126,8 @@ public:
 	void selectNextObject();
 	void selectPreviousObject();
 	void selectSubsObject();
+
+	void loadShaders();
 
 
 };
