@@ -38,7 +38,7 @@ Skybox::Skybox()
 		6, 2, 3
 	};
 	
-	unsigned int skyboxVAO, skyboxVBO, skyboxEBO;
+	
 	glGenVertexArrays(1, &skyboxVAO);
 	glGenBuffers(1, &skyboxVBO);
 	glGenBuffers(1, &skyboxEBO);
@@ -63,7 +63,7 @@ Skybox::Skybox()
 		"back.jpg"
 	};
 
-	unsigned int cubemapTexture;
+	
 	glGenTextures(1, &cubemapTexture);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -74,11 +74,13 @@ Skybox::Skybox()
 
 	for (unsigned int i = 0; i < 6; i++)
 	{
-		int width, height, nrChannels;
-		unsigned char* data = stbi_load(facesCubemap[i].c_str(), &width, &height, &nrChannels, 0);
-		if (data)
+		ofPixels pixels;
+		if (ofLoadImage(pixels, facesCubemap[i]))
 		{
-			stbi_set_flip_vertically_on_load(false);
+			int width = pixels.getWidth();
+			int height = pixels.getHeight();
+			unsigned char* data = pixels.getData();
+
 			glTexImage2D
 			(
 				GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
@@ -91,12 +93,10 @@ Skybox::Skybox()
 				GL_UNSIGNED_BYTE,
 				data
 			);
-			stbi_image_free(data);
 		}
 		else
 		{
 			std::cout << "Failed to load texture: " << facesCubemap[i] << std::endl;
-			stbi_image_free(data);
 		}
 	}
 
@@ -106,5 +106,14 @@ Skybox::Skybox()
 
 Skybox::~Skybox()
 {
+}
+
+void Skybox::draw()
+{
+	glBindVertexArray(skyboxVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 }
 
