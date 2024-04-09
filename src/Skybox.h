@@ -5,6 +5,5 @@ class Skybox
 	public:
 	Skybox();
 	~Skybox();
-	void draw();
 };
 
