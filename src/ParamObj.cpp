@@ -5,7 +5,7 @@ ParamObj::ParamObj(ofShader* TesselShader, ofEasyCam* cam) : Object("Curve")
 	//pointeur du shader
 	this->brazier_curve_shader = TesselShader;
 	if (!this->brazier_curve_shader->isLoaded()) {
-		ofLogError() << "Brezier shader not loaded in param curve pointer!!!" ;
+		ofLogFatalError() << "Brezier shader not loaded in param curve pointer!!!" ;
 	}
 	//default control points
 	points.push_back(ofVec3f(0,0,-10));
@@ -40,33 +40,22 @@ ParamObj::ParamObj(ofShader* TesselShader, ofEasyCam* cam) : Object("Curve")
 
 void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 {
-	ofMatrix4x4 translate = ofMatrix4x4(1, 0, 0, this->getCurrentChangeM().a,
-		0, 1, 0, this->getCurrentChangeM().b,
-		0, 0, 1, this->getCurrentChangeM().c,
-		0, 0, 0, 1);
-
-	ofMatrix4x4 rotx = ofMatrix4x4(1, 0, 0, 0,
-		0, cos(this->getCurrentChangeM().d), sin(this->getCurrentChangeM().d), 0,
-		0, -sin(this->getCurrentChangeM().d), cos(this->getCurrentChangeM().d), 0,
-		0, 0, 0, 1);
-
-	ofMatrix4x4 roty = ofMatrix4x4(cos(this->getCurrentChangeM().e), 0, -sin(this->getCurrentChangeM().e), 0,
-		0, 1, 0, 0,
-		sin(this->getCurrentChangeM().e), 0, cos(this->getCurrentChangeM().e), 0,
-		0, 0, 0, 1);
-
-	ofMatrix4x4 rotz = ofMatrix4x4(cos(this->getCurrentChangeM().f), -sin(this->getCurrentChangeM().f), 0, 0,
-		sin(this->getCurrentChangeM().f), cos(this->getCurrentChangeM().f), 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0, 1);
-
-	ofMatrix4x4 scale = ofMatrix4x4(this->getCurrentChangeM().g, 0, 0, 0,
-		0, this->getCurrentChangeM().h, 0, 0,
-		0, 0, this->getCurrentChangeM().i, 0,
-		0, 0, 0, 1);
-
-
-	ofMatrix4x4 fullTransform = translate * (rotx * roty * rotz) * scale;
+	ofPushMatrix();
+	ofMatrix3x3 hold = this->getCurrentChangeM();
+	ofTranslate(
+		hold.a,
+		hold.b,
+		hold.c);
+	ofRotateXDeg(
+		hold.d);
+	ofRotateYDeg(
+		hold.e);
+	ofRotateZDeg(
+		hold.f);
+	ofScale(
+		hold.g,
+		hold.h,
+		hold.i);
 
 	brazier_curve_shader->begin();
 
@@ -85,6 +74,7 @@ void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 	glDrawArrays(GL_POINTS, 0, 4);
 
 	glFinish();
+	ofPopMatrix();
 }
 
 void ParamObj::update()
