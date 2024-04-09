@@ -78,7 +78,9 @@ void Scene::draw()
 	clickdebug.draw();
 
 	ofSetColor(128, 0, 0);
-	E
+
+
+
 	if (raydebugbool)
 		ofSetColor(0, 128, 0);
 	
