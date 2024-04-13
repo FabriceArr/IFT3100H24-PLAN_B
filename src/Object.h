@@ -1,5 +1,6 @@
 #pragma once
 #include "ofMain.h"
+#include "UI.h"
 
 enum class illum_enum { flat, lambert, gouraud, phong, blinnPhong };
 

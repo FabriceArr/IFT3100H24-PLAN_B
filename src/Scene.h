@@ -10,6 +10,7 @@
 #include "ofxAssimpModelLoader.h"
 #include "OBJLoader.h"
 #include <vector>
+#include "UI.h"
 
 class Scene
 {
