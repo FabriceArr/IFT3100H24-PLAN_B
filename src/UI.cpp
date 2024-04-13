@@ -9,6 +9,7 @@ void UI::setup()
     tone_mapping_exposure = 1.0f;
     tone_mapping_gamma = 2.2f;
     tone_mapping_toggle = true;
+    illuminationModel_selection = illum_enum::flat;
 
     // Setup for Background color input
     interface.add(background_color_slider.set("background Color", ofColor(255), ofColor(0, 0), ofColor(255, 255)));
@@ -141,7 +142,7 @@ void UI::update()
     tone_mapping_exposure = slider_exposure;
     tone_mapping_gamma = slider_gamma;
     tone_mapping_toggle = toggle_tone_mapping;
-    illuminationModel_selection = illumination_model;
+    illuminationModel_selection = static_cast<illum_enum>(illumination_model.get());
     //IlluminationModel_dropdown.getAllSelected()[0]
 }
 
@@ -278,6 +279,7 @@ bool* UI::setToneMappingToggle()
 
 illum_enum* UI::setIllumModel()
 {
+    //illumination_model.set(static_cast<int>(illuminationModel_selection));
     illumination_model.reInit();
     return nullptr;
 }
@@ -297,7 +299,7 @@ ofParameter<bool>* UI::getToneMappingToggle()
 	return &toggle_tone_mapping;
 }
 
-ofParameter<illum_enum>* UI::getIllumModel()
+ofParameter<int>* UI::getIllumModel()
 {
     return &illumination_model;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 
+enum class illum_enum { flat, lambert, gouraud, phong, blinnPhong };
 
 class Object
 {
@@ -14,12 +15,13 @@ private:
 	ofColor color, stroke_color;
 	unsigned int stroke_width;
 	ofMatrix3x3 temp;
-	unsigned int filterSelection;
+	//unsigned int filterSelection;
 	ofImage image;
 
 	float exposure;
 	float gamma;
 	bool tone_mapping;
+	illum_enum illumModel;
 
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
@@ -52,15 +54,15 @@ public:
 	virtual ofVec3f getObbMax();
 
 	virtual void setToneMapping(float exposure, float gamma, bool tone_mapping);
+	virtual void setIllumModel(illum_enum illumModel);
 	virtual float getExposure();
 	virtual float getGamma();
 	virtual bool getToneMapping();
+	virtual illum_enum getIllumModel();
 
 	virtual bool undoChange();
 	virtual bool recoverChange();
 
-	virtual void setFilter(unsigned int filter_setting);
-	virtual unsigned int getFilter();
 	virtual void TextureConfigure(ofImage image, unsigned int filterOption);
 
 	bool isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b);

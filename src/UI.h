@@ -6,7 +6,7 @@
 #include "scene.h"
 #include <vector>
 
-enum illum_enum { flat, lambert, gouraud, phong, blinnPhong };
+//enum class illum_enum { flat, lambert, gouraud, phong, blinnPhong };
 
 struct parameterVectorGroup {
 	ofParameter<float>* x;
@@ -103,7 +103,7 @@ private:
 	ofParameter<float> slider_exposure;
 	ofParameter<float> slider_gamma;
 	ofParameter<bool> toggle_tone_mapping;
-	ofParameter<illum_enum> illumination_model;
+	ofParameter<int> illumination_model;
 
 	float tone_mapping_exposure;
 	float tone_mapping_gamma;
@@ -165,7 +165,7 @@ public:
 	ofParameter<float>* getExposureSlider();
 	ofParameter<float>* getGammaSlider();
 	ofParameter<bool>* getToneMappingToggle();
-	ofParameter<illum_enum>* getIllumModel();
+	ofParameter<int>* getIllumModel();
 
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);

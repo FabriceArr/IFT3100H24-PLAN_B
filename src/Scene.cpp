@@ -8,7 +8,8 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	const vector<ofParameter<float>*> UIscale,
 	ofParameter<float>* UIExposure,
 	ofParameter<float>* UIGamma,
-	ofParameter<bool>* UIToneMapping)
+	ofParameter<bool>* UIToneMapping,
+	ofParameter<int>* UIIllumModel)
 {
 	//Doit etre le SEUL object initialiser comme ceci
 	object_tree_head = new ObjNode(nullptr);
@@ -32,6 +33,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	UI_exposure = UIExposure;
 	UI_gamma = UIGamma;
 	UI_tone_mapping = UIToneMapping;
+	UI_illumination_Model = UIIllumModel;
 
 	//select_mode.Init(ofGetWindowWidth(), ofGetWindowHeight());
 
@@ -123,8 +125,8 @@ void Scene::setSelectedNode()
 		getSelectedObjectsNode()->setStrokeColor(UI_stroke_color);
 		getSelectedObjectsNode()->setStrokeWidth(UI_stroke_width);
 		getSelectedObjectsNode()->setToneMapping(UI_exposure, UI_gamma, UI_tone_mapping);
-		getSelectedObjectsNode()->setIllumModel(UI_illumModel);
-		getSelectedObjectsNode()->setFilter(UI_filter);
+		getSelectedObjectsNode()->setIllumModel(UI_illumination_Model);
+		//getSelectedObjectsNode()->setFilter(UI_filter);
 	}
 }
 
@@ -399,15 +401,15 @@ void Scene::updateStrokeWidth(ofParameter<int> widthparam)
 	this->UI_stroke_width = widthparam;
 }
 
-void Scene::updateIllumModel(unsigned int illumparam)
-{
-	this->UI_illumModel = illumparam;
-}
+//void Scene::updateIllumModel(ofParameter<enum illum_enum> illumparam)
+//{
+//	this->UI_illumModel = illumparam;
+//}
 
-void Scene::updateFilter(unsigned int filterparam)
-{
-	this->UI_filter = filterparam;
-}
+//void Scene::updateFilter(unsigned int filterparam)
+//{
+//	this->UI_filter = filterparam;
+//}
 
 void Scene::updatePoint1(const ofVec3f point1)
 {

@@ -12,7 +12,8 @@ void Application::setup()
 		interface.getScaleSliderValues(),
 		interface.getExposureSlider(),
 		interface.getGammaSlider(),
-		interface.getToneMappingToggle());
+		interface.getToneMappingToggle(),
+		interface.getIllumModel());
 	auto i = interface.getPositionSliderValues();
 
 	interface.getFillColorSlider();
@@ -45,7 +46,7 @@ void Application::update()
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-	//scene.updateIllumModel(interface.get_illuminationModel());
+	//scene.updateIllumModel(interface.getIllumModel());
 	//scene.updateFilter(interface.getFilter());
 
 	renderer.update();

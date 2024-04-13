@@ -10,20 +10,12 @@ Object::Object(string primitivetype)
 	
 	current_change = 0;
 	changes_buffer.push_back(ofMatrix3x3(0,0,0,0,0,0,1,1,1));
-	filterSelection = 0; /* Aucun = 0
-						 Bilinéaire = 1
-						 Trilinéaire = 2
-						 Anistropique = 3 */
-	//this->setFilter(filterSelection);
 	this->stroke_width = 1;
 
 	this->exposure = 2.2f;
 	this->gamma = 1.0f;
 	this->tone_mapping = true;
-	//this->filterSelection = 0; /* Aucun = 0
-	//					 Bilinéaire = 1
-	//					 Trilinéaire = 2
-	//					 Anistropique = 3 */
+	this->illumModel = illum_enum::flat;
 	//this->TextureConfigure(image, 0);
 }
 
@@ -123,6 +115,11 @@ void Object::setToneMapping(float exposure, float gamma, bool tone_mapping)
 	this->tone_mapping = tone_mapping;
 }
 
+void Object::setIllumModel(illum_enum illumModel)
+{
+	this->illumModel = illumModel;
+}
+
 float Object::getExposure()
 {
 	return this->exposure;
@@ -136,6 +133,11 @@ float Object::getGamma()
 bool Object::getToneMapping()
 {
 	return this->tone_mapping;
+}
+
+illum_enum Object::getIllumModel()
+{
+	return this->illumModel;
 }
 
 bool Object::undoChange()
@@ -174,15 +176,15 @@ bool Object::isSameMatrix(ofMatrix3x3 a, ofMatrix3x3 b) {
 
 }
 
-void Object::setFilter(unsigned int filter_setting)
-{
-	this->filterSelection = filter_setting;
-}
-
-unsigned int Object::getFilter()
-{
-	return filterSelection;
-}
+//void Object::setFilter(unsigned int filter_setting)
+//{
+//	this->filterSelection = filter_setting;
+//}
+//
+//unsigned int Object::getFilter()
+//{
+//	return filterSelection;
+//}
 
 void Object::TextureConfigure(ofImage image, unsigned int filterOption)
 {
