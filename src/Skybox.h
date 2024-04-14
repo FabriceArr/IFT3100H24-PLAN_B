@@ -1,10 +1,14 @@
 #pragma once
+#include "ofMain.h"
+#include "ofxCubeMap.h"
 
 class Skybox
 {
 	private:
-		unsigned int skyboxVAO, skyboxVBO, skyboxEBO;
-		unsigned int cubemapTexture;
+		ofxCubeMap myCubeMap;
+		ofShader cubeMapShader;
+		ofxCubeMap myFboCubeMap;
+		
 
 	public:
 	Skybox();
