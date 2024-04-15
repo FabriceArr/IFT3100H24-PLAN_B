@@ -1,8 +1,10 @@
 #version 400
 
-layout (location = 0) in vec3 vertexPosition;
+layout (location = 0) in vec2 vertexPosition;
+out vec2 fragUV;
 
 void main()
 {
-    gl_Position = vec4(vertexPosition, 1.0);
+    fragUV = vertexPosition;
+    gl_Position = vec4(vertexPosition, 0.0 , 1.0);
 }
