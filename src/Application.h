@@ -55,7 +55,7 @@ private:
 public:
 	Renderer renderer;
 	Scene scene;
-	ofEasyCam* cam; // add mouse controls for camera movement
+	ofEasyCam cam; // add mouse controls for camera movement
 	glm::quat camOrientPersp;
 	ofImage image;
 	bool isMouseDragRealease;
