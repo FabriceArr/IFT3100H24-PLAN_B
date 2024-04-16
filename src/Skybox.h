@@ -1,13 +1,14 @@
 #pragma once
 #include "ofMain.h"
-#include "ofxCubeMap.h"
+#include "ofxSkyBox.h"
+#include "Scene.h"
 
 class Skybox
 {
 	private:
-		ofxCubeMap myCubeMap;
-		ofShader cubeMapShader;
-		ofxCubeMap myFboCubeMap;
+		ofxSkyBox skybox;
+		ofEasyCam camera;
+		ofVec3f sphereCenter;
 		
 
 	public:
