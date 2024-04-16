@@ -323,7 +323,27 @@ ofParameter<float>* UI::getShininess()
     return &slider_shininess;
 }
 
+ofColor* UI::setAmbiantColor()
+{
+    return nullptr;
+}
+
+ofColor* UI::setDiffuseColor()
+{
+    return nullptr;
+}
+
 ofColor* UI::setEmissiveColor()
+{
+    return nullptr;
+}
+
+ofColor* UI::setSpecularColor()
+{
+    return nullptr;
+}
+
+float* UI::setShininess()
 {
     return nullptr;
 }
