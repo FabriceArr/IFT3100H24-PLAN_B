@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
-#include "ofxDropdown.h"
 #include "scene.h"
 #include <vector>
 
@@ -79,6 +78,7 @@ private:
 
 	hsv rgbToHSV(ofColor color);
 	ofColor hsvToRGB(hsv hsvColor);
+
 	ofxIntField intInputPoint1X;
 	ofxIntField intInputPoint1Y;
 	ofxIntField intInputPoint1Z;
@@ -109,6 +109,19 @@ private:
 	float tone_mapping_gamma;
 	bool tone_mapping_toggle;
 	illum_enum illuminationModel_selection;
+
+
+	ofParameter<ofColor> slider_ambiant_color;
+	ofParameter<ofColor> slider_diffuse_color;
+	ofParameter<ofColor> slider_emissive_color;
+	ofParameter<ofColor> slider_specular_color;
+	ofParameter<float> slider_shininess;
+
+	float material_shininess;
+	ofMaterial material;
+
+	ofxGuiGroup group_material;
+
 
 	void fillColorRGBChanged(ofColor& color);
 	//void onIllumModelChangeStr(string& illum);
@@ -166,6 +179,20 @@ public:
 	ofParameter<float>* getGammaSlider();
 	ofParameter<bool>* getToneMappingToggle();
 	ofParameter<int>* getIllumModel();
+
+
+	ofParameter<ofColor>* getAmbiantColor();
+	ofParameter<ofColor>* getDiffuseColor();
+	ofParameter<ofColor>* getEmissiveColor();
+	ofParameter<ofColor>* getSpecularColor();
+	ofParameter<float>* getShininess();
+	
+	ofColor* setAmbiantColor();
+	ofColor* setDiffuseColor();
+	ofColor* setEmissiveColor();
+	ofColor* setSpecularColor();
+	float* setShininess();
+
 
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);

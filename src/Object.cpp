@@ -17,12 +17,20 @@ Object::Object(string primitivetype)
 	this->tone_mapping = true;
 	this->illumModel = illum_enum::flat;
 	//this->TextureConfigure(image, 0);
+
+	this->ambiantColor = ofColor(255, 0, 0);
+	this->diffuseColor = ofColor(255, 0, 0);
+	this->specularColor = ofColor(255, 0, 0);
+	this->emissiveColor = ofColor(255, 0, 0);
+	this->shininess = 40.0f;
 }
+
 
 Object::~Object()
 {
 	
 }
+
 
 string* Object::getName()
 {
@@ -55,6 +63,7 @@ void Object::addChange(ofMatrix3x3 mat)
 		changes_buffer.push_back(mat);
 		current_change = changes_buffer.size() - 1;
 	}
+	
 }
 
 ofMatrix3x3 Object::getCurrentChangeM()
@@ -135,6 +144,56 @@ bool Object::getToneMapping()
 	return this->tone_mapping;
 }
 
+void Object::setAmbiantColor(ofColor color)
+{
+	this->ambiantColor = color;
+}
+
+void Object::setDiffuseColor(ofColor color)
+{
+	this->diffuseColor = color;
+}
+
+void Object::setSpecularColor(ofColor color)
+{
+	this->specularColor = color;
+}
+
+void Object::setEmissiveColor(ofColor color)
+{
+	this->emissiveColor = color;
+}
+
+void Object::setShininess(float shininess)
+{
+	this->shininess = shininess;
+}
+
+ofColor Object::getAmbiantColor()
+{
+	return this->ambiantColor;
+}
+
+ofColor Object::getDiffuseColor()
+{
+	return this->diffuseColor;
+}
+
+ofColor Object::getSpecularColor()
+{
+	return this->specularColor;
+}
+
+ofColor Object::getEmissiveColor()
+{
+	return this->emissiveColor;
+}
+
+float Object::getShininess()
+{
+	return this->shininess;
+}
+
 illum_enum Object::getIllumModel()
 {
 	return this->illumModel;
@@ -150,6 +209,7 @@ bool Object::undoChange()
 		current_change--;
 		return true;
 	}
+	
 }
 
 bool Object::recoverChange()

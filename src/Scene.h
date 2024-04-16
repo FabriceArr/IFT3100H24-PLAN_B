@@ -5,6 +5,8 @@
 #include "Element3D.h"
 #include "Element2D.h"
 #include "Element2DPrimitive.h"
+#include "ParamObj.h"
+#include "ParamPlane.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
 #include "ofxAssimpModelLoader.h"
@@ -33,6 +35,13 @@ private:
 	ofParameter<bool>* UI_tone_mapping;
 	ofParameter<int>* UI_illumination_Model;
 	
+
+	ofParameter<ofColor>* UI_ambiant_Color;
+	ofParameter<ofColor>* UI_Diffuse_Color;
+	ofParameter<ofColor>* UI_Specular_Color;
+	ofParameter<ofColor>* UI_Emissive_Color;
+	ofParameter<float>* UI_shininess;
+	
 	//points to the vector of elements currently selected
 	int selected_obj_ind;
 	std::vector<ObjNode*>* sub_level_selected;
@@ -56,6 +65,8 @@ private:
 
 	ofVec3f point1, point2, point3, radius;
 
+	ofShader* tesselation_Shader, *tesselation_Plane_Shader;
+
 public:
 	bool animate;
 	bool isOrtho;
@@ -70,6 +81,13 @@ public:
 		ofParameter<float>* UIGamma,
 		ofParameter<bool>* UIToneMapping,
 		ofParameter<int>* UIIllumModel);
+		ofParameter<bool>* UIToneMapping,
+		ofParameter<ofColor>* UIAmbiantColor,
+		ofParameter<ofColor>* UIDiffuseColor,
+		ofParameter<ofColor>* UISpecularColor,
+		ofParameter<ofColor>* UIEmissiveColor,
+		ofParameter<float>* UIShininess
+		);
 
 	//clean up the scene from memory
 	void exit();
@@ -118,6 +136,8 @@ public:
 	void selectNextObject();
 	void selectPreviousObject();
 	void selectSubsObject();
+
+	void loadShaders();
 
 
 };

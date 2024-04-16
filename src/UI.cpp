@@ -95,7 +95,6 @@ void UI::setup()
     // Ajoutez des callbacks pour les sliders RGB
     background_color_slider.addListener(this, &UI::backgroundColorRGBChanged);
     fill_color_slider.addListener(this, &UI::fillColorRGBChanged);
-    //imageFilter_slider.addListener(this, &UI::imageFilterMixChanged);
     stroke_color_slider.addListener(this, &UI::strokeColorRGBChanged);
 
     // Ajoutez des callbacks pour les sliders HSV
@@ -134,7 +133,22 @@ void UI::setup()
     group_tone_mapping.add(slider_gamma);
     group_tone_mapping.add(toggle_tone_mapping);
 
+    slider_diffuse_color.set("diffuse color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_specular_color.set("specular color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_emissive_color.set("emissive color", ofColor(255), ofColor(0, 0), ofColor(255, 255));
+    slider_ambiant_color.set("ambiant color", ofColor(255), ofColor(0, 0), ofColor(255, 255)); 
+    slider_shininess.set("shininess", material_shininess, 0.0f, 40.0f);
+
+    group_material.setup("material");
+
+    group_material.add(slider_ambiant_color);
+    group_material.add(slider_diffuse_color);
+    group_material.add(slider_emissive_color);
+    group_material.add(slider_specular_color);
+    group_material.add(slider_shininess);
+
     interface.add(&group_tone_mapping);
+    interface.add(&group_material);
 }
 
 void UI::update()
@@ -303,7 +317,60 @@ ofParameter<int>* UI::getIllumModel()
 {
     return &illumination_model;
 }
+ofParameter<ofColor>* UI::getAmbiantColor()
+{
+	return &slider_ambiant_color;
+}
 
+ofParameter<ofColor>* UI::getDiffuseColor()
+{
+	return &slider_diffuse_color;
+}
+
+ofParameter<ofColor>* UI::getEmissiveColor()
+{
+	return &slider_emissive_color;
+}
+
+ofParameter<ofColor>* UI::getSpecularColor()
+{
+	return &slider_specular_color;
+}
+
+ofParameter<float>* UI::getShininess()
+{
+	return &slider_shininess;
+}
+
+ofColor* UI::setAmbiantColor()
+{
+	slider_ambiant_color.reInit();
+    return nullptr;
+}
+
+ofColor* UI::setDiffuseColor()
+{
+	slider_diffuse_color.reInit();
+	return nullptr;
+}
+
+ofColor* UI::setEmissiveColor()
+{
+	slider_emissive_color.reInit();
+	return nullptr;
+}
+
+ofColor* UI::setSpecularColor()
+{
+	slider_specular_color.reInit();
+    return nullptr;
+}
+
+float* UI::setShininess()
+{
+	slider_shininess.reInit();
+    return nullptr;
+}
 
 void UI::changeFocus(const Object* Obj) {
 	//si la fonction demande de changer le focus vers rien, 
@@ -314,7 +381,6 @@ void UI::changeFocus(const Object* Obj) {
 	else {
         selected_object = nullptr;
 	}
-	
 }
 
 void UI::exit()
