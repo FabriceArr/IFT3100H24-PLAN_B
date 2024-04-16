@@ -24,14 +24,6 @@ private:
 	bool tone_mapping;
 	illum_enum illumModel;
 
-	ofColor ambiantColor;
-	ofColor diffuseColor;
-	ofColor specularColor;
-	ofColor emissiveColor;
-	float shininess;
-
-	ofMaterial material;
-
 	deque<ofMatrix3x3> changes_buffer;
 	unsigned int current_change;//index of the current change in the queu
 	
@@ -68,18 +60,6 @@ public:
 	virtual float getGamma();
 	virtual bool getToneMapping();
 	virtual illum_enum getIllumModel();
-
-	virtual void setAmbiantColor(ofColor ambiantColor);
-	virtual void setDiffuseColor(ofColor diffuseColor);
-	virtual void setSpecularColor(ofColor specularColor);
-	virtual void setEmissiveColor(ofColor emissiveColor);
-	virtual void setShininess(float shininess);
-	virtual ofColor getAmbiantColor();
-	virtual ofColor getDiffuseColor();
-	virtual ofColor getSpecularColor();
-	virtual ofColor getEmissiveColor();
-	virtual float getShininess();
-
 
 	virtual bool undoChange();
 	virtual bool recoverChange();
