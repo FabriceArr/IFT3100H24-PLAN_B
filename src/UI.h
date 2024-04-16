@@ -6,8 +6,6 @@
 #include "scene.h"
 #include <vector>
 
-enum class illum_enum { flat, lambert, gouraud, phong, blinnPhong };
-
 struct parameterVectorGroup {
 	ofParameter<float>* x;
 	ofParameter<float>* y;
@@ -184,6 +182,8 @@ public:
 	ofParameter<ofColor>* getEmissiveColor();
 	ofParameter<ofColor>* getSpecularColor();
 	ofParameter<float>* getShininess();
+
+	illum_enum getSelectedIllum();
 
 	ofColor* setAmbiantColor();
 	ofColor* setDiffuseColor();

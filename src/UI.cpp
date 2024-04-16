@@ -250,6 +250,8 @@ const ofParameter<int> UI::getStrokeWidthSlider()
     return stroke_width_slider;
 }
 
+
+
 ofVec3f* UI::setPositionSliderValues()
 {
     position_slider_group.x->reInit();
@@ -321,6 +323,25 @@ ofParameter<ofColor>* UI::getSpecularColor()
 ofParameter<float>* UI::getShininess()
 {
     return &slider_shininess;
+}
+
+illum_enum UI::getSelectedIllum()
+{
+    string hold = IlluminationModel_dropdown.getAllSelected().at(0);
+
+    if (hold == "Lambert") {
+        return illum_enum::lambert;
+    }
+    if (hold == "Gouraud") {
+        return illum_enum::gouraud;
+    }
+    if (hold == "Phong") {
+        return illum_enum::phong;
+    }
+    if (hold == "Blinn - Phong") {
+        return illum_enum::blinnPhong;
+    }
+    return illum_enum::flat;
 }
 
 ofColor* UI::setAmbiantColor()

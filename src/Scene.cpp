@@ -57,6 +57,10 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	wasDragging = false;
 
 	animate = false;
+
+	Scenelight.setAmbientColor(255.0);
+	Scenelight.setPosition(200.0, 200.0, -50.0);
+
 	loadShaders();
 }
 
@@ -85,6 +89,45 @@ void Scene::draw()
 	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
 	ofSetColor(255);*/
 
+
+	//charge the current illumination shader
+	if (currentIllumination != nullptr) {
+		switch (selectedIllumination)
+		{
+		
+		case illum_enum::lambert:
+			currentIllumination->begin();
+
+			currentIllumination->setUniform3f("color_ambient", 0.1f, 0.1f, 0.1f);
+			currentIllumination->setUniform3f("color_diffuse", 0.6f, 0.6f, 0.6f);
+			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
+
+			currentIllumination->end();
+			break;
+
+
+			//these are the same so just no break and they spill over to the blinnPhong setting alloc
+		case illum_enum::gouraud:
+		case illum_enum::phong:
+		case illum_enum::blinnPhong:
+
+			currentIllumination->begin();
+
+			currentIllumination->setUniform3f("color_ambient", 0.1f, 0.1f, 0.1f);
+			currentIllumination->setUniform3f("color_diffuse", 0.0f, 0.6f, 0.6f);
+			currentIllumination->setUniform3f("color_specular", 1.0f, 1.0f, 0.0f);
+			currentIllumination->setUniform1f("brightness", 32.0f);
+			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
+
+			currentIllumination->end();
+
+			break;
+		case illum_enum::flat:
+		default:
+			break;
+		}
+	}
+
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
@@ -95,9 +138,15 @@ void Scene::draw()
 			//draw others normally
 
 			ofPushMatrix();
+			if (currentIllumination != nullptr) {
+				currentIllumination->begin();
+			}
+
 			(*it)->draw(false, animate);
 			
-
+			if (currentIllumination != nullptr) {
+				currentIllumination->end();
+			}
 
 			ofPopMatrix();
 			
@@ -439,6 +488,34 @@ void Scene::updatePoint3(const ofVec3f point3)
 void Scene::updateRadius(const ofVec3f radius)
 {
 	UI_radius = radius;
+}
+
+void Scene::updateIlumModel(const illum_enum select)
+{
+	selectedIllumination = select;
+	switch (select)
+	{
+
+	case(illum_enum::lambert):
+		currentIllumination = lambert;
+		break;
+
+	case(illum_enum::gouraud):
+		currentIllumination = gouraud;
+		break;
+
+	case(illum_enum::phong):
+		currentIllumination = phong;
+		break;
+
+	case(illum_enum::blinnPhong):
+		currentIllumination = blinn_phong;
+		break;
+
+	default:
+		currentIllumination = nullptr;
+		break;
+	}
 }
 
 void Scene::updateSelectedObjects()
