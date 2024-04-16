@@ -59,7 +59,7 @@ private:
 
 	ofVec3f point1, point2, point3, radius;
 
-	ofShader* tesselation_Shader, *tesselation_Plane_Shader;
+	ofShader* tesselation_Shader, *tesselation_Plane_Shader, *blinn_phong, *gouraud, *lambert,*phong;
 
 public:
 	bool animate;

@@ -540,7 +540,9 @@ void Scene::selectSubsObject()
 
 void Scene::loadShaders()
 {
+	//gives debug messages
 	ofSetLogLevel(OF_LOG_VERBOSE);
+
 	tesselation_Shader = new ofShader();
 	ofLog() << "Shader1; " << tesselation_Shader->setupShaderFromFile(GL_VERTEX_SHADER, "Tesselation/tess.vert");
 	ofLog() << "Shader3; " << tesselation_Shader->setupShaderFromFile(GL_TESS_CONTROL_SHADER, "Tesselation/tess.tesc");
@@ -558,6 +560,34 @@ void Scene::loadShaders()
 	ofLog() << "Shader5; " << tesselation_Plane_Shader->linkProgram();
 
 	tesselation_Plane_Shader->isLoaded();
+
+	blinn_phong = new ofShader();
+	ofLog() << "Shader1; " << blinn_phong->setupShaderFromFile(GL_VERTEX_SHADER, "Illumination/blinn_phong/blinn_phong_330_vs.glsl");
+	ofLog() << "Shader4; " << blinn_phong->setupShaderFromFile(GL_FRAGMENT_SHADER, "Illumination/blinn_phong/blinn_phong_330_fs.glsl");
+	ofLog() << "Shader5; " << blinn_phong->linkProgram();
+
+	blinn_phong->isLoaded();
+
+	gouraud = new ofShader();
+	ofLog() << "Shader1; " << gouraud->setupShaderFromFile(GL_VERTEX_SHADER, "Illumination/gouraud/gouraud_330_vs.glsl");
+	ofLog() << "Shader4; " << gouraud->setupShaderFromFile(GL_FRAGMENT_SHADER, "Illumination/gouraud/gouraud_330_fs.glsl");
+	ofLog() << "Shader5; " << gouraud->linkProgram();
+
+	gouraud->isLoaded();
+
+	lambert = new ofShader();
+	ofLog() << "Shader1; " << lambert->setupShaderFromFile(GL_VERTEX_SHADER, "Illumination/lambert/lambert_330_vs.glsl");
+	ofLog() << "Shader4; " << lambert->setupShaderFromFile(GL_FRAGMENT_SHADER, "Illumination/lambert/lambert_330_fs.glsl");
+	ofLog() << "Shader5; " << lambert->linkProgram();
+
+	lambert->isLoaded();
+
+	phong = new ofShader();
+	ofLog() << "Shader1; " << phong->setupShaderFromFile(GL_VERTEX_SHADER, "Illumination/phong/phong_330_vs.glsl");
+	ofLog() << "Shader4; " << phong->setupShaderFromFile(GL_FRAGMENT_SHADER, "Illumination/phong/phong_330_fs.glsl");
+	ofLog() << "Shader5; " << phong->linkProgram();
+
+	phong->isLoaded();
 }
 
 void Scene::deSelectObject()
