@@ -72,8 +72,8 @@ void Scene::draw()
 	//Since it would be a bit of a mess
 
 	object_tree_head->resetSubStage();
-	/*setSelectedNode();
-	ofSetColor(52, 52, 52);
+	setSelectedNode();
+	/*ofSetColor(52, 52, 52);
 	camdebug.draw();
 	clickdebug.draw();
 
