@@ -3,6 +3,10 @@
 
 void Application::setup()
 {
+
+	//gives debug messages
+	ofSetLogLevel(OF_LOG_VERBOSE);
+
 	ofSetWindowTitle("Plan B viewer (m d f a t e c o space)");
 
 	interface.setup();
@@ -65,10 +69,11 @@ void Application::draw()
 	
 	cam.begin();
 	
-	
+	ofEnableDepthTest();
 	renderer.draw();
 	if(renderer.imageImport.isAllocated())
 		renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
+	ofDisableDepthTest();
 	skybox.draw();
 
 	cam.end();

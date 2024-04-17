@@ -8,11 +8,13 @@ void Renderer::setup(Scene* sce)
 	ofSetFrameRate(60);
 	ofDisableArbTex();
 	ofSetBackgroundColor(backgroundColor);
+	ofEnableLighting();
 
 	ofBackground(backgroundColor);
 	scene = sce;
 
 	saveNumber = 1;
+	
 }
 
 void Renderer::draw()

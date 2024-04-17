@@ -2,7 +2,9 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "ofxDropdown.h"
 #include "scene.h"
+#include "ShaderHandler.h"
 #include <vector>
 
 struct parameterVectorGroup {
@@ -29,6 +31,8 @@ struct rgb {
 class UI
 {
 private:
+	ShaderHandler* shader_handler_singleton;
+
 	Object* holder;
 	const Object* selected_object;
 
@@ -41,7 +45,7 @@ private:
 	parameterVectorGroup position_slider_group;
 	parameterVectorGroup rotation_slider_group;
 	parameterVectorGroup scale_slider_group;
-    
+
 	ofxTextField selected_object_name_field;
 
 	vector<ofParameter<float>*> trans_sliders_pointer;
@@ -51,6 +55,18 @@ private:
 	ofParameter<int> stroke_width_slider;
 
 	ofParameter<ofColor> fill_color_slider;
+
+	// Illumination Model with dropdown
+	ofxDropdown_<string> IlluminationModel_dropdown;
+	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong" };
+	//illum_enum illum_enum_list ;
+
+	ofParameter<ofColor> color_picker;
+
+	// Image Filter with dropdown
+	ofxDropdown_<string> imageFilter_dropdown;
+	vector<string> filter_vector{ "Aucun","Bilinéaire", "Trilinéaire", "Anistropique" };
+
 	ofParameter<ofColor> stroke_color_slider;
 
 	ofParameter<float> h_slider_fill;
@@ -60,11 +76,10 @@ private:
 	ofParameter<float> h_slider_stroke;
 	ofParameter<float> s_slider_stroke;
 	ofParameter<float> v_slider_stroke;
-	
+
 
 	hsv rgbToHSV(ofColor color);
 	ofColor hsvToRGB(hsv hsvColor);
-
 	ofxIntField intInputPoint1X;
 	ofxIntField intInputPoint1Y;
 	ofxIntField intInputPoint1Z;
@@ -89,11 +104,12 @@ private:
 	ofParameter<float> slider_exposure;
 	ofParameter<float> slider_gamma;
 	ofParameter<bool> toggle_tone_mapping;
+	ofParameter<int> illumination_model;
 
 	float tone_mapping_exposure;
 	float tone_mapping_gamma;
 	bool tone_mapping_toggle;
-
+	illum_enum illuminationModel_selection;
 
 	ofParameter<ofColor> slider_ambiant_color;
 	ofParameter<ofColor> slider_diffuse_color;
@@ -108,6 +124,8 @@ private:
 
 
 	void fillColorRGBChanged(ofColor& color);
+	//void onIllumModelChangeStr(string& illum);
+	//void onFilterChangeStr(string& filter);
 	void strokeColorRGBChanged(ofColor& color);
 	void backgroundColorRGBChanged(ofColor& color);
 
@@ -142,9 +160,11 @@ public:
 	const vector<ofParameter<float>*> getRotationSliderValues();
 	const vector<ofParameter<float>*> getScaleSliderValues();
 	const ofParameter<ofColor> getBackgroundColorSlider();
-	const ofParameter<ofColor> getFillColorSlider();	
+	const ofParameter<ofColor> getFillColorSlider();
 	const ofParameter<ofColor> getStrokeColorSlider();
 	const ofParameter<int> getStrokeWidthSlider();
+
+	//const unsigned int getFilter();
 
 	ofVec3f* setPositionSliderValues();
 	ofVec3f* setRotationSliderValues();
@@ -153,23 +173,25 @@ public:
 	float* setExposureSlider();
 	float* setGammaSlider();
 	bool* setToneMappingToggle();
-	
+
 	ofParameter<float>* getExposureSlider();
 	ofParameter<float>* getGammaSlider();
 	ofParameter<bool>* getToneMappingToggle();
+	ofParameter<int>* getIllumModel();
 
 	ofParameter<ofColor>* getAmbiantColor();
 	ofParameter<ofColor>* getDiffuseColor();
 	ofParameter<ofColor>* getEmissiveColor();
 	ofParameter<ofColor>* getSpecularColor();
 	ofParameter<float>* getShininess();
-	
+
+	void getSelectedIllum();
+
 	ofColor* setAmbiantColor();
 	ofColor* setDiffuseColor();
 	ofColor* setEmissiveColor();
 	ofColor* setSpecularColor();
 	float* setShininess();
-
 
 
 	void setHSVSlidersFromRGB(ofColor rgbColor, bool isFillColor);

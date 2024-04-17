@@ -3,13 +3,17 @@
 #include "Object.h"
 #include "ofVbo.h"
 #include "ofxAssimpModelLoader.h"
+#include "ShaderHandler.h"
+
 
 class Element3D : public Object
 {
 private:
+	ShaderHandler* shader_handler_singleton;
+	ofShader* active_ilum_shader;
+
 	ofTexture texture;
 	ofVbo object_buffer, limit_box;
-	ofMaterial material;
 
 public:
 	Element3D(string primitivetype, ofColor color);

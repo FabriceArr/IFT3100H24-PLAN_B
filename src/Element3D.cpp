@@ -46,7 +46,8 @@ GLuint plane_vert_ids[] =
 
 Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 {
-	
+	shader_handler_singleton = shader_handler_singleton->getInstance();
+	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
 
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
@@ -65,6 +66,9 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
 {
+	shader_handler_singleton = shader_handler_singleton->getInstance();
+	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
+
 	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
 
 	customBox(mesh);
@@ -77,19 +81,18 @@ Element3D::~Element3D()
 
 void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
+	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
+
 	if (animated && highlight) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100.0f), 360));
-
-
 	}
-	material.setAmbientColor(getAmbiantColor());
-	material.setDiffuseColor(getDiffuseColor());
-	material.setSpecularColor(getSpecularColor());	
-	material.setShininess(getShininess());
-	material.setEmissiveColor(getEmissiveColor());
+	shader_handler_singleton->setShaderValue(getAmbiantColor(), getDiffuseColor(), getSpecularColor());
 
-	material.begin();
+	if (active_ilum_shader != nullptr) {
+		active_ilum_shader->begin();
+	}
+
 	if (object_buffer.getNumIndices() > 0) {
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
 	}
@@ -97,7 +100,10 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 		int i = object_buffer.getNumIndices();
 		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
-	material.end();
+	if (active_ilum_shader != nullptr) {
+		active_ilum_shader->end();
+	}
+
 	if (highlight) {
 		
 

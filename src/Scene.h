@@ -9,7 +9,10 @@
 #include "ofxGui.h"
 #include "ofxAssimpModelLoader.h"
 #include "OBJLoader.h"
+#include "ShaderHandler.h"
 #include <vector>
+
+
 
 class Scene
 {
@@ -56,6 +59,8 @@ private:
 	ofShader anim_shader_rot, anim_shader_bob;
 
 	ofVec3f point1, point2, point3, radius;
+
+	ofShader* tesselation_Shader, * tesselation_Plane_Shader;
 
 public:
 	bool animate;
@@ -122,6 +127,8 @@ public:
 	void selectNextObject();
 	void selectPreviousObject();
 	void selectSubsObject();
+
+	void loadShaders();
 
 
 };
