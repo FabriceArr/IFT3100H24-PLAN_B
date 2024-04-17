@@ -25,7 +25,10 @@ public:
 
     void deleteInstance();
     ofShader* getIllumShaderUsed();
-    void setShaderValue(int value);
+    void setSelectedShader(string selected);
+
+    void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe);
+
     void loadShaders();
 };
 

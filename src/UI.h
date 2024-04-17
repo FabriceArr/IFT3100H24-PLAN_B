@@ -4,6 +4,7 @@
 #include "ofxGui.h"
 #include "ofxDropdown.h"
 #include "scene.h"
+#include "ShaderHandler.h"
 #include <vector>
 
 struct parameterVectorGroup {
@@ -30,6 +31,8 @@ struct rgb {
 class UI
 {
 private:
+	ShaderHandler* shader_handler_singleton;
+
 	Object* holder;
 	const Object* selected_object;
 
@@ -170,7 +173,6 @@ public:
 	float* setExposureSlider();
 	float* setGammaSlider();
 	bool* setToneMappingToggle();
-	illum_enum* setIllumModel();
 
 	ofParameter<float>* getExposureSlider();
 	ofParameter<float>* getGammaSlider();
@@ -183,7 +185,7 @@ public:
 	ofParameter<ofColor>* getSpecularColor();
 	ofParameter<float>* getShininess();
 
-	illum_enum getSelectedIllum();
+	void getSelectedIllum();
 
 	ofColor* setAmbiantColor();
 	ofColor* setDiffuseColor();

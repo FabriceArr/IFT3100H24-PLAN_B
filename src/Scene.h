@@ -11,7 +11,7 @@
 #include "ofxGui.h"
 #include "ofxAssimpModelLoader.h"
 #include "OBJLoader.h"
-#include "../ShaderHandler.h"
+#include "ShaderHandler.h"
 #include <vector>
 
 

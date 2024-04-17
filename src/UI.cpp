@@ -3,7 +3,7 @@
 
 void UI::setup()
 {
-
+    shader_handler_singleton = shader_handler_singleton->getInstance();
     interface.setup();
 
     tone_mapping_exposure = 1.0f;
@@ -158,7 +158,8 @@ void UI::update()
     tone_mapping_gamma = slider_gamma;
     tone_mapping_toggle = toggle_tone_mapping;
     illuminationModel_selection = static_cast<illum_enum>(illumination_model.get());
-    //IlluminationModel_dropdown.getAllSelected()[0]
+
+    getSelectedIllum();
 }
 
 void UI::draw()
@@ -167,21 +168,6 @@ void UI::draw()
         toggle_tone_mapping.set("aces filmic", true);
     else
         toggle_tone_mapping.set("reinhard", false);
-
-    /*
-    string temp = IlluminationModel_dropdown.getAllSelected()[0];
-    //ofLog() << "Illum model : " << temp;
-    if (temp == "flat")
-        illumination_model.set(flat);
-    else if (temp == "lambert")
-        illumination_model.set(lambert);
-    else if (temp == "gouraud")
-        illumination_model.set(gouraud);
-    else if (temp == "phong")
-        illumination_model.set(phong);
-    else if (temp == "blinnPhong")
-        illumination_model.set(blinnPhong);
-        */
     interface.draw();
 }
 
@@ -325,23 +311,9 @@ ofParameter<float>* UI::getShininess()
     return &slider_shininess;
 }
 
-illum_enum UI::getSelectedIllum()
+void UI::getSelectedIllum()
 {
-    string hold = IlluminationModel_dropdown.getAllSelected().at(0);
-
-    if (hold == "Lambert") {
-        return illum_enum::lambert;
-    }
-    if (hold == "Gouraud") {
-        return illum_enum::gouraud;
-    }
-    if (hold == "Phong") {
-        return illum_enum::phong;
-    }
-    if (hold == "Blinn - Phong") {
-        return illum_enum::blinnPhong;
-    }
-    return illum_enum::flat;
+    shader_handler_singleton->setSelectedShader(IlluminationModel_dropdown.getAllSelected().at(0));
 }
 
 ofColor* UI::setAmbiantColor()
@@ -369,12 +341,6 @@ float* UI::setShininess()
     return nullptr;
 }
 
-illum_enum* UI::setIllumModel()
-{
-    //illumination_model.set(static_cast<int>(illuminationModel_selection));
-    illumination_model.reInit();
-    return nullptr;
-}
 
 
 ofParameter<float>* UI::getGammaSlider()

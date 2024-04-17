@@ -52,6 +52,7 @@ void Application::update()
 	point3 = interface.getPoint3Values();
 	radius = interface.getRadiusValues();
 
+	
 
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
