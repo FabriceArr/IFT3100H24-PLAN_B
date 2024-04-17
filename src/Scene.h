@@ -11,9 +11,10 @@
 #include "ofxGui.h"
 #include "ofxAssimpModelLoader.h"
 #include "OBJLoader.h"
+#include "../ShaderHandler.h"
 #include <vector>
 
-enum class illum_enum { flat, lambert, gouraud, phong, blinnPhong };
+
 
 class Scene
 {
@@ -61,11 +62,7 @@ private:
 
 	ofVec3f point1, point2, point3, radius;
 
-	ofShader* tesselation_Shader, *tesselation_Plane_Shader, *blinn_phong, *gouraud, *lambert,*phong;
-	ofLight Scenelight;
-
-	illum_enum selectedIllumination;
-	ofShader* currentIllumination;
+	ofShader* tesselation_Shader, * tesselation_Plane_Shader;
 
 public:
 	bool animate;
@@ -109,7 +106,6 @@ public:
 	void updatePoint2(const ofVec3f point2);
 	void updatePoint3(const ofVec3f point3);
 	void updateRadius(const ofVec3f radius);
-	void updateIlumModel(const illum_enum select);
 
 	void updateSelectedObjects();
 

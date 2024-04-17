@@ -3,6 +3,10 @@
 
 void Application::setup()
 {
+
+	//gives debug messages
+	ofSetLogLevel(OF_LOG_VERBOSE);
+
 	ofSetWindowTitle("Plan B viewer (m d f a t e c o space)");
 	cam = new ofEasyCam();
 	interface.setup();
@@ -52,8 +56,6 @@ void Application::update()
 	scene.updateFillColor(interface.getFillColorSlider());
 	scene.updateStrokeColor(interface.getStrokeColorSlider());
 	scene.updateStrokeWidth(interface.getStrokeWidthSlider());
-
-	scene.updateIlumModel(interface.getSelectedIllum());
 
 	renderer.update();
 	isMouseDragRealease = ofGetMousePressed() && isMouseDragRealease;

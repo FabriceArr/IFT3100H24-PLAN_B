@@ -58,8 +58,6 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 
 	animate = false;
 
-	Scenelight.setAmbientColor(255.0);
-	Scenelight.setPosition(200.0, 200.0, -50.0);
 
 	loadShaders();
 }
@@ -89,45 +87,6 @@ void Scene::draw()
 	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
 	ofSetColor(255);*/
 
-
-	//charge the current illumination shader
-	if (currentIllumination != nullptr) {
-		switch (selectedIllumination)
-		{
-		
-		case illum_enum::lambert:
-			currentIllumination->begin();
-
-			currentIllumination->setUniform3f("color_ambient", 0.1f, 0.1f, 0.1f);
-			currentIllumination->setUniform3f("color_diffuse", 0.6f, 0.6f, 0.6f);
-			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
-
-			currentIllumination->end();
-			break;
-
-
-			//these are the same so just no break and they spill over to the blinnPhong setting alloc
-		case illum_enum::gouraud:
-		case illum_enum::phong:
-		case illum_enum::blinnPhong:
-
-			currentIllumination->begin();
-
-			currentIllumination->setUniform3f("color_ambient", 0.1f, 0.1f, 0.1f);
-			currentIllumination->setUniform3f("color_diffuse", 0.0f, 0.6f, 0.6f);
-			currentIllumination->setUniform3f("color_specular", 1.0f, 1.0f, 0.0f);
-			currentIllumination->setUniform1f("brightness", 32.0f);
-			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
-
-			currentIllumination->end();
-
-			break;
-		case illum_enum::flat:
-		default:
-			break;
-		}
-	}
-
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
@@ -138,15 +97,9 @@ void Scene::draw()
 			//draw others normally
 
 			ofPushMatrix();
-			if (currentIllumination != nullptr) {
-				currentIllumination->begin();
-			}
 
 			(*it)->draw(false, animate);
-			
-			if (currentIllumination != nullptr) {
-				currentIllumination->end();
-			}
+
 
 			ofPopMatrix();
 			
@@ -490,34 +443,6 @@ void Scene::updateRadius(const ofVec3f radius)
 	UI_radius = radius;
 }
 
-void Scene::updateIlumModel(const illum_enum select)
-{
-	selectedIllumination = select;
-	switch (select)
-	{
-
-	case(illum_enum::lambert):
-		currentIllumination = lambert;
-		break;
-
-	case(illum_enum::gouraud):
-		currentIllumination = gouraud;
-		break;
-
-	case(illum_enum::phong):
-		currentIllumination = phong;
-		break;
-
-	case(illum_enum::blinnPhong):
-		currentIllumination = blinn_phong;
-		break;
-
-	default:
-		currentIllumination = nullptr;
-		break;
-	}
-}
-
 void Scene::updateSelectedObjects()
 {
 	if (getSelectedObjects() != nullptr) {
@@ -617,8 +542,6 @@ void Scene::selectSubsObject()
 
 void Scene::loadShaders()
 {
-	//gives debug messages
-	ofSetLogLevel(OF_LOG_VERBOSE);
 
 	tesselation_Shader = new ofShader();
 	ofLog() << "Shader1; " << tesselation_Shader->setupShaderFromFile(GL_VERTEX_SHADER, "Tesselation/tess.vert");
@@ -637,34 +560,6 @@ void Scene::loadShaders()
 	ofLog() << "Shader5; " << tesselation_Plane_Shader->linkProgram();
 
 	tesselation_Plane_Shader->isLoaded();
-
-	blinn_phong = new ofShader();
-	ofLog() << "Shader1; " << blinn_phong->setupShaderFromFile(GL_VERTEX_SHADER, "Illumination/blinn_phong/blinn_phong_330_vs.glsl");
-	ofLog() << "Shader4; " << blinn_phong->setupShaderFromFile(GL_FRAGMENT_SHADER, "Illumination/blinn_phong/blinn_phong_330_fs.glsl");
-	ofLog() << "Shader5; " << blinn_phong->linkProgram();
-
-	blinn_phong->isLoaded();
-
-	gouraud = new ofShader();
-	ofLog() << "Shader1; " << gouraud->setupShaderFromFile(GL_VERTEX_SHADER, "Illumination/gouraud/gouraud_330_vs.glsl");
-	ofLog() << "Shader4; " << gouraud->setupShaderFromFile(GL_FRAGMENT_SHADER, "Illumination/gouraud/gouraud_330_fs.glsl");
-	ofLog() << "Shader5; " << gouraud->linkProgram();
-
-	gouraud->isLoaded();
-
-	lambert = new ofShader();
-	ofLog() << "Shader1; " << lambert->setupShaderFromFile(GL_VERTEX_SHADER, "Illumination/lambert/lambert_330_vs.glsl");
-	ofLog() << "Shader4; " << lambert->setupShaderFromFile(GL_FRAGMENT_SHADER, "Illumination/lambert/lambert_330_fs.glsl");
-	ofLog() << "Shader5; " << lambert->linkProgram();
-
-	lambert->isLoaded();
-
-	phong = new ofShader();
-	ofLog() << "Shader1; " << phong->setupShaderFromFile(GL_VERTEX_SHADER, "Illumination/phong/phong_330_vs.glsl");
-	ofLog() << "Shader4; " << phong->setupShaderFromFile(GL_FRAGMENT_SHADER, "Illumination/phong/phong_330_fs.glsl");
-	ofLog() << "Shader5; " << phong->linkProgram();
-
-	phong->isLoaded();
 }
 
 void Scene::deSelectObject()
