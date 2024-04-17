@@ -5,8 +5,6 @@
 #include "Element3D.h"
 #include "Element2D.h"
 #include "Element2DPrimitive.h"
-#include "ParamObj.h"
-#include "ParamPlane.h"
 #include "ObjNode.h"
 #include "ofxGui.h"
 #include "ofxAssimpModelLoader.h"

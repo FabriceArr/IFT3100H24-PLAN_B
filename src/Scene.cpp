@@ -107,6 +107,7 @@ void Scene::draw()
 
 
 	}
+
 }
 
 void Scene::exit()

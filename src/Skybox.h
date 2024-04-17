@@ -1,10 +1,15 @@
 #pragma once
+#include "ofMain.h"
+#include "ofxSkyBox.h"
+#include "Scene.h"
 
 class Skybox
 {
 	private:
-		unsigned int skyboxVAO, skyboxVBO, skyboxEBO;
-		unsigned int cubemapTexture;
+		ofxSkyBox skybox;
+		ofEasyCam camera;
+		ofVec3f sphereCenter;
+		
 
 	public:
 	Skybox();

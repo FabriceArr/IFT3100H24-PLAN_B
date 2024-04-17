@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
+#include "ofxSkyBox.h"
 
 enum class drawMode
 {
@@ -54,10 +55,12 @@ private:
 public:
 	Renderer renderer;
 	Scene scene;
-	ofEasyCam* cam; // add mouse controls for camera movement
+	ofEasyCam cam; // add mouse controls for camera movement
 	glm::quat camOrientPersp;
 	ofImage image;
 	bool isMouseDragRealease;
+	ofxSkyBox skybox;
+	ofVec3f sphereCenter;
 
 	void setup();
 	void update();
