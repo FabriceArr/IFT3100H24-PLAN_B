@@ -1,5 +1,6 @@
 #include "Element3D.h"
 #define MAXCHANGEBUFFERSIZE 10
+#define SIZEINCREASE 100
 
 ofVec3f cube_vertices[] =
 {
@@ -47,7 +48,6 @@ GLuint plane_vert_ids[] =
 Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 {
 	shader_handler_singleton = shader_handler_singleton->getInstance();
-	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
 
 	if (primitivetype == "cube") {
 		object_buffer.setVertexData(&cube_vertices[0], 8, GL_STATIC_DRAW);
@@ -61,13 +61,13 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 	}
 
 	updateColorData(color);
+	
 
 }
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
 {
 	shader_handler_singleton = shader_handler_singleton->getInstance();
-	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
 
 	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
 
@@ -81,17 +81,15 @@ Element3D::~Element3D()
 
 void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
-	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
-
+	ofScale(SIZEINCREASE);
 	if (animated && highlight) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100.0f), 360));
 	}
-	shader_handler_singleton->setShaderValue(getAmbiantColor(), getDiffuseColor(), getSpecularColor());
 
-	if (active_ilum_shader != nullptr) {
-		active_ilum_shader->begin();
-	}
+	shader_handler_singleton->setShaderValue(getAmbiantColor(), getDiffuseColor(), getSpecularColor(), getEmissiveColor(), getShininess());
+	shader_handler_singleton->enableShading();
+
 
 	if (object_buffer.getNumIndices() > 0) {
 		object_buffer.drawElements(GL_TRIANGLES, object_buffer.getNumIndices());
@@ -100,9 +98,7 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 		int i = object_buffer.getNumIndices();
 		object_buffer.draw(GL_TRIANGLES, 0, object_buffer.getNumIndices());
 	}
-	if (active_ilum_shader != nullptr) {
-		active_ilum_shader->end();
-	}
+	shader_handler_singleton->disableShading();
 
 	if (highlight) {
 		

@@ -7,6 +7,7 @@ class ShaderHandler
 {
 private:
     ofShader blinn_phong, gouraud, lambert, phong, toon;
+    ofMaterial flatMat;
     ofLight Scenelight;
 
     illum_enum selectedIllumination;
@@ -27,7 +28,12 @@ public:
     ofShader* getIllumShaderUsed();
     void setSelectedShader(string selected);
 
-    void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe);
+    void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColor emi, float shin);
+
+    void enableShading();
+    void disableShading();
+    void enableLighting();
+    void disableLighting();
 
     void loadShaders();
 };

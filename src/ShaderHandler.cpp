@@ -8,7 +8,10 @@ ShaderHandler::ShaderHandler()
 
 
 	Scenelight.setAmbientColor(0.1f);
-	Scenelight.setPosition(200.0, 200.0, -50.0);
+	Scenelight.setDiffuseColor(0.1f);
+	Scenelight.setSpecularColor(0.6f);
+
+	Scenelight.setGlobalPosition(200.0, 200.0, -50.0);
 
 	loadShaders();
 }
@@ -45,10 +48,9 @@ ofShader* ShaderHandler::getIllumShaderUsed()
 	return currentIllumination;
 }
 
-void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe)
+void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColor emi, float shin)
 {
 	//charge the current illumination shader
-	if (currentIllumination != nullptr) {
 		switch (selectedIllumination)
 		{
 
@@ -79,11 +81,16 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe)
 		case illum_enum::phong:
 			currentIllumination->begin();
 
-			currentIllumination->setUniform3f("color_ambient", amb.r / 255, amb.g / 255, amb.b / 255);
-			currentIllumination->setUniform3f("color_diffuse", dif.r / 255, dif.g / 255, dif.b / 255);
-			currentIllumination->setUniform3f("color_specular", spe.r / 255, spe.g / 255, spe.b / 255);
-			currentIllumination->setUniform1f("brightness", 40.0f);
-			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
+			currentIllumination->setUniform3f("Lightpositon", Scenelight.getGlobalPosition());
+			currentIllumination->setUniform3f("AmbiantLight", Scenelight.getAmbientColor().r, Scenelight.getAmbientColor().g, Scenelight.getAmbientColor().b);
+			currentIllumination->setUniform3f("DiffuseLight", Scenelight.getDiffuseColor().r, Scenelight.getDiffuseColor().g, Scenelight.getDiffuseColor().b);
+			currentIllumination->setUniform3f("SpecularLight", Scenelight.getSpecularColor().r, Scenelight.getSpecularColor().g, Scenelight.getSpecularColor().b);
+
+			currentIllumination->setUniform3f("AmbiantMatt", amb.r / 255, amb.g / 255, amb.b / 255);
+			currentIllumination->setUniform3f("DiffuseMatt", dif.r / 255, dif.g / 255, dif.b / 255);
+			currentIllumination->setUniform3f("SpecularMatt", spe.r / 255, spe.g / 255, spe.b / 255);
+			currentIllumination->setUniform1f("Shininess", 40.0f);
+			
 
 			currentIllumination->end();
 			break;
@@ -112,11 +119,46 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe)
 			currentIllumination->end();
 			break;
 		case illum_enum::flat:
+			flatMat.setAmbientColor(amb);
+			flatMat.setDiffuseColor(dif);
+			flatMat.setEmissiveColor(emi);
+			flatMat.setSpecularColor(spe);
+			flatMat.setShininess(shin);
+			break;
 		default:
 			break;
 		}
-	}
 
+}
+
+void ShaderHandler::enableShading()
+{
+	if (selectedIllumination == illum_enum::flat) {
+		flatMat.begin();
+	}
+	else {
+		currentIllumination->begin();
+	}
+}
+
+void ShaderHandler::disableShading()
+{
+	if (selectedIllumination == illum_enum::flat) {
+		flatMat.end();
+	}
+	else {
+		currentIllumination->end();
+	}
+}
+
+void ShaderHandler::enableLighting()
+{
+	Scenelight.enable();
+}
+
+void ShaderHandler::disableLighting()
+{
+	Scenelight.disable();
 }
 
 void ShaderHandler::setSelectedShader(string selected)

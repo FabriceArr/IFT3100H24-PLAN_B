@@ -18,7 +18,7 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 {
 	//Doit etre le SEUL object initialiser comme ceci
 	object_tree_head = new ObjNode(nullptr);
-
+	shader_handler_singleton = shader_handler_singleton->getInstance();
 
 	origin_pos = { 0, 0, 0 };
 
@@ -87,6 +87,8 @@ void Scene::draw()
 	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
 	ofSetColor(255);*/
 
+	shader_handler_singleton->enableLighting();
+
 	for (std::vector<ObjNode*>::const_iterator it =
 		object_tree_head->getSubs()->begin() ; it !=
 		object_tree_head->getSubs()->end(); it++)
@@ -107,6 +109,7 @@ void Scene::draw()
 
 
 	}
+	shader_handler_singleton->disableLighting();
 
 }
 
