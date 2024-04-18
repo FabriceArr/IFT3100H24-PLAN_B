@@ -247,6 +247,31 @@ void Application::keyReleased(int key)
 		isGrabReq = true;
 		break;
 
+	case 49: // touche 1
+		scene.kernel_type = ConvolutionKernel::identity;
+		scene.kernel_name = "identité";
+		break;
+
+	case 50: // touche 2
+		scene.kernel_type = ConvolutionKernel::emboss;
+		scene.kernel_name = "bosseler";
+		break;
+
+	case 51: // touche 3
+		scene.kernel_type = ConvolutionKernel::sharpen;
+		scene.kernel_name = "aiguiser";
+		break;
+
+	case 52: // touche 4
+		scene.kernel_type = ConvolutionKernel::edge_detect;
+		scene.kernel_name = "détection de bordure";
+		break;
+
+	case 53: // touche 5
+		scene.kernel_type = ConvolutionKernel::blur;
+		scene.kernel_name = "flou";
+		break;
+
 	default:
 		break;
 	}

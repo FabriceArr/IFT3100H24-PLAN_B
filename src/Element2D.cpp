@@ -64,11 +64,9 @@ Element2D::Element2D() : Object("Default_texture")
 	shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl");
 
 	// sélectionner le filtre de convolution par défaut
-	kernel_type = ConvolutionKernel::identity;
-	kernel_name = "identité";
+	kernel_type = scene.kernel_type;
+	kernel_name = scene.kernel_name;
 
-	// appliquer le filtre de convolution par défaut
-	filter();
 }
 
 Element2D::~Element2D()
@@ -109,7 +107,7 @@ void Element2D::draw(bool highlight, bool animated, unsigned int substage)
 	shader.setUniform1f("tone_mapping_gamma", getGamma());
 	shader.setUniform1i("tone_mapping_toggle", getToneMapping());
 
-	this->image_destination.draw(image.getWidth()/-2,0,0);
+	this->image.draw(image.getWidth()/-2,0,0);
 
 	// désactiver le filtre
 	shader.end();

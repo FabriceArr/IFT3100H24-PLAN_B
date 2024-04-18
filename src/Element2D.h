@@ -1,18 +1,10 @@
 #pragma once
 #include "Object.h"
+#include "Scene.h"
 #include "ofVbo.h"
 #include "TextGen.h"
+#include "ConvolutionKernel.h"
 #include <array>
-
-// énumération des types de kernel de convolution
-enum class ConvolutionKernel
-{
-	identity,
-	emboss,
-	sharpen,
-	edge_detect,
-	blur
-};
 
 // kernel de convolution (3x3) : identité
 const std::array<float, 9> convolution_kernel_identity
@@ -61,7 +53,7 @@ private:
 	ConvolutionKernel kernel_type;
 
 	string kernel_name;
-
+	Scene scene;
 	ofImage image_destination;
 
 	int image_width;
