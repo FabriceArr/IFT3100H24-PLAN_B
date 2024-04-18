@@ -75,7 +75,7 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 
 				//set the second set of face ids
 				vertid.push_back(stoi(tokens.at(2).substr(0, tokens.at(1).find_first_of("/"))) - 1);
-				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+				temp = tokens.at(2).substr(tokens.at(2).find_first_of("/") + 1);
 
 				uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
 				temp = temp.substr(temp.find_first_of("/") + 1);
@@ -84,7 +84,7 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 
 				//set the last set of face ids
 				vertid.push_back(stoi(tokens.at(3).substr(0, tokens.at(1).find_first_of("/"))) - 1);
-				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+				temp = tokens.at(3).substr(tokens.at(3).find_first_of("/") + 1);
 
 				uvid.push_back(stoi(temp.substr(0, temp.find_first_of("/"))) - 1);
 				temp = temp.substr(temp.find_first_of("/") + 1);
@@ -112,7 +112,7 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 
 				//set the second set of face ids
 				second.x = stoi(tokens.at(2).substr(0, tokens.at(1).find_first_of("/"))) - 1;
-				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+				temp = tokens.at(2).substr(tokens.at(2).find_first_of("/") + 1);
 
 				second.y = stoi(temp.substr(0, temp.find_first_of("/"))) - 1;
 				temp = temp.substr(temp.find_first_of("/") + 1);
@@ -125,7 +125,7 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 
 				//set the third set of face ids
 				third.x = stoi(tokens.at(3).substr(0, tokens.at(1).find_first_of("/"))) - 1;
-				temp = tokens.at(1).substr(tokens.at(1).find_first_of("/") + 1);
+				temp = tokens.at(3).substr(tokens.at(3).find_first_of("/") + 1);
 
 				third.y = stoi(temp.substr(0, temp.find_first_of("/"))) - 1;
 				temp = temp.substr(temp.find_first_of("/") + 1);
@@ -183,6 +183,12 @@ ofMesh OBJLoader::loadMeshOBJ(string path)
 	filereader.close();
 	for (int i = 0; i < vert.size(); i++) {
 		mesh.addVertex(vert.at(i));
+	}
+	for (int i = 0; i < norm.size(); i++) {
+		mesh.addNormal(norm.at(i));
+	}
+	for (int i = 0; i < uv.size(); i++) {
+		mesh.addTexCoord(uv.at(i));
 	}
 	for (int i = 0; i < vertid.size() / 3; i++) {
 		
