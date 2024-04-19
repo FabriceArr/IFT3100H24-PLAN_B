@@ -7,6 +7,7 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include "ofxSkyBox.h"
+#include "FiltreHandler.h"
 
 enum class drawMode
 {
@@ -22,6 +23,7 @@ enum class drawMode
 class Application : public ofBaseApp
 {
 private:
+	FiltreHandler* filter_handler_singleton;
 	UI interface;
 	const glm::quat DEFAULTVIEW =
 		glm::quat(0.977996, -0.132828, 0.159414, 0.021651);

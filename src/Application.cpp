@@ -3,6 +3,7 @@
 
 void Application::setup()
 {
+	filter_handler_singleton = filter_handler_singleton->getInstance();
 
 	//gives debug messages
 	ofSetLogLevel(OF_LOG_VERBOSE);
@@ -244,6 +245,31 @@ void Application::keyReleased(int key)
 
 	case ' ': // key space
 		isGrabReq = true;
+		break;
+
+	case 49: // touche 1
+		filter_handler_singleton->setKernelType(ConvolutionKernel::identity);
+		filter_handler_singleton->setKernelName("identité");
+		break;
+
+	case 50: // touche 2
+		filter_handler_singleton->setKernelType(ConvolutionKernel::emboss);
+		filter_handler_singleton->setKernelName("bosseler");
+		break;
+
+	case 51: // touche 3
+		filter_handler_singleton->setKernelType(ConvolutionKernel::sharpen);
+		filter_handler_singleton->setKernelName("aiguiser");
+		break;
+
+	case 52: // touche 4
+		filter_handler_singleton->setKernelType(ConvolutionKernel::edge_detect);
+		filter_handler_singleton->setKernelName("détection de bordure");
+		break;
+
+	case 53: // touche 5
+		filter_handler_singleton->setKernelType(ConvolutionKernel::blur);
+		filter_handler_singleton->setKernelName("flou");
 		break;
 
 	default:
