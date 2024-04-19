@@ -264,7 +264,9 @@ void ShaderHandler::loadShaders()
 	toon.isLoaded();
 }
 
-
+    //1: ambiant
+	//2: diffuse
+	//3: specular
 ofVec3f ShaderHandler::getNormalizedLight(int type)
 {
 	switch (type)

@@ -1,6 +1,6 @@
-// IFT3100H23 ~ phong_330_vs.glsl
+//IFT3100H23 ~ phong_330_vs.glsl
 
-#version 400
+#version 330
 
 // attributs de sommet
 in vec4 position;
@@ -27,3 +27,4 @@ void main()
 
   // transformation de la position du sommet par les matrices de modèle, vue et projection
   gl_Position = projectionMatrix * modelViewMatrix * position;
+  }

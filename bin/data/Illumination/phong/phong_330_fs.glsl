@@ -1,6 +1,6 @@
 // IFT3100H23 ~ phong_330_fs.glsl
 
-#version 400
+#version 330
 
 // attributs interpolés à partir des valeurs en sortie du shader de sommets
 in vec3 surface_position;
