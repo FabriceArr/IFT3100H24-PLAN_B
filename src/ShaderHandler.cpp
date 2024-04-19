@@ -7,6 +7,8 @@ ShaderHandler::ShaderHandler()
 	this->currentIllumination = nullptr;
 
 
+	Scenelight.setPointLight();
+
 	Scenelight.setAmbientColor(0.1f);
 	Scenelight.setDiffuseColor(0.1f);
 	Scenelight.setSpecularColor(0.6f);
@@ -153,6 +155,7 @@ void ShaderHandler::disableShading()
 
 void ShaderHandler::enableLighting()
 {
+	bool i = Scenelight.getIsPointLight();
 	Scenelight.enable();
 }
 
@@ -176,7 +179,7 @@ void ShaderHandler::setSelectedShader(string selected)
 	else if (selected == "Phong") {
 		selectedIllumination = illum_enum::phong;
 	}
-	else if (selected == "Blinn - Phong") {
+	else if (selected == "Blinn-Phong") {
 		selectedIllumination = illum_enum::blinnPhong;
 	}
 	else if (selected == "Toon") {
