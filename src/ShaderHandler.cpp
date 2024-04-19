@@ -109,7 +109,11 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColo
 			currentIllumination->begin();
 			currentIllumination->setUniform3f("color_ambient", getNormalizedLight(1));
 			currentIllumination->setUniform3f("color_diffuse", getNormalizedLight(2));
-			currentIllumination->setUniform1f("brightness", 40.0f);
+
+			currentIllumination->setUniform3f("matt_amb_reflect", ofVec3f(0.3, 0.2, 0.1));
+			currentIllumination->setUniform3f("matt_diff_reflect", ofVec3f(0.3, 0.2, 0.1));
+
+			currentIllumination->setUniform1f("brightness", 5.f);
 			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
 
 			currentIllumination->end();
