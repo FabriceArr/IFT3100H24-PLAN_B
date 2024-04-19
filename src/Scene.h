@@ -65,9 +65,6 @@ private:
 
 	
 public:
-	ConvolutionKernel kernel_type;
-
-	string kernel_name;
 
 	bool animate;
 	bool isOrtho;

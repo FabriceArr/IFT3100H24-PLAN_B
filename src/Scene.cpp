@@ -60,10 +60,6 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 
 
 	loadShaders();
-
-	// sélectionner le filtre de convolution par défaut
-	kernel_type = ConvolutionKernel::identity;
-	kernel_name = "identité";
 }
 
 void Scene::draw()

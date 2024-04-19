@@ -3,7 +3,8 @@
 
 Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 {
-	filtre_handler_singleton = filtre_handler_singleton->getInstance();
+	filter_handler_singleton = filter_handler_singleton->getInstance();
+
 	if (primitivetype == "Imported") {
 		if (!this->image.load(path)) {
 						ofLogNotice("Element2D") << "Image not loaded";
@@ -44,8 +45,8 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 	image_destination.allocate(image_width, image_height, OF_IMAGE_COLOR);
 
 	// sélectionner le filtre de convolution par défaut
-	kernel_type = filtre_handler_singleton->getConvolutionKernelType();
-	kernel_name = filtre_handler_singleton->getConvolutionKernelName();
+	kernel_type = filter_handler_singleton->getKernelType();
+	kernel_name = filter_handler_singleton->getKernelName();
 
 	filter();
 

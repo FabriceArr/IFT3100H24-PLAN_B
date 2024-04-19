@@ -10,6 +10,8 @@ private:
 
 	ConvolutionKernel kernelType;
 	string kernelName;
+	FiltreHandler(FiltreHandler const&) = delete;
+	void operator=(FiltreHandler const&) = delete;
 
 public:
 	static FiltreHandler* instance;
