@@ -11,7 +11,6 @@ class Element3D : public Object
 {
 private:
 	ShaderHandler* shader_handler_singleton;
-	ofShader* active_ilum_shader;
 
 	Element2D texture;
 	ofVbo object_buffer, limit_box;

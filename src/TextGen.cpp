@@ -28,7 +28,6 @@ ofImage TexTGen::generateTextureDefault(unsigned int size)
 		
 
 	}	
-	
 		
 	
 
