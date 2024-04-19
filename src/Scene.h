@@ -10,6 +10,7 @@
 #include "ofxAssimpModelLoader.h"
 #include "OBJLoader.h"
 #include "ShaderHandler.h"
+#include "ConvolutionKernel.h"
 #include <vector>
 
 
@@ -64,7 +65,9 @@ private:
 
 	ofShader* tesselation_Shader, * tesselation_Plane_Shader;
 
+	
 public:
+
 	bool animate;
 	bool isOrtho;
 	bool wasDragging;
