@@ -59,21 +59,20 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColo
 		case illum_enum::lambert:
 			currentIllumination->begin();
 
-			currentIllumination->setUniform3f("color_ambient", amb.r/255, amb.g / 255, amb.b / 255);
-			currentIllumination->setUniform3f("color_diffuse", dif.r / 255, dif.g / 255, dif.b / 255);
+			currentIllumination->setUniform3f("color_ambient", getNormalizedLight(1));
+			currentIllumination->setUniform3f("color_diffuse", getNormalizedLight(2));
 			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
 
 			currentIllumination->end();
 			break;
 
 
-			//these are the same so just no break and they spill over to the blinnPhong setting alloc
 		case illum_enum::gouraud:
 			currentIllumination->begin();
 
-			currentIllumination->setUniform3f("color_ambient", amb.r / 255, amb.g / 255, amb.b / 255);
-			currentIllumination->setUniform3f("color_diffuse", dif.r / 255, dif.g / 255, dif.b / 255);
-			currentIllumination->setUniform3f("color_specular", spe.r / 255, spe.g / 255, spe.b / 255);
+			currentIllumination->setUniform3f("color_ambient", getNormalizedLight(1));
+			currentIllumination->setUniform3f("color_diffuse", getNormalizedLight(2));
+			currentIllumination->setUniform3f("color_specular", getNormalizedLight(3));
 			currentIllumination->setUniform1f("brightness", 40.0f);
 			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
 
@@ -83,15 +82,11 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColo
 		case illum_enum::phong:
 			currentIllumination->begin();
 
-			currentIllumination->setUniform3f("Lightpositon", Scenelight.getGlobalPosition());
-			currentIllumination->setUniform3f("AmbiantLight", Scenelight.getAmbientColor().r, Scenelight.getAmbientColor().g, Scenelight.getAmbientColor().b);
-			currentIllumination->setUniform3f("DiffuseLight", Scenelight.getDiffuseColor().r, Scenelight.getDiffuseColor().g, Scenelight.getDiffuseColor().b);
-			currentIllumination->setUniform3f("SpecularLight", Scenelight.getSpecularColor().r, Scenelight.getSpecularColor().g, Scenelight.getSpecularColor().b);
-
-			currentIllumination->setUniform3f("AmbiantMatt", amb.r / 255, amb.g / 255, amb.b / 255);
-			currentIllumination->setUniform3f("DiffuseMatt", dif.r / 255, dif.g / 255, dif.b / 255);
-			currentIllumination->setUniform3f("SpecularMatt", spe.r / 255, spe.g / 255, spe.b / 255);
-			currentIllumination->setUniform1f("Shininess", 40.0f);
+			currentIllumination->setUniform3f("color_ambient", getNormalizedLight(1));
+			currentIllumination->setUniform3f("color_diffuse", getNormalizedLight(2));
+			currentIllumination->setUniform3f("color_specular", getNormalizedLight(3));
+			currentIllumination->setUniform1f("brightness", 40.0f);
+			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
 			
 
 			currentIllumination->end();
@@ -101,9 +96,9 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColo
 
 			currentIllumination->begin();
 
-			currentIllumination->setUniform3f("color_ambient", amb.r / 255, amb.g / 255, amb.b / 255);
-			currentIllumination->setUniform3f("color_diffuse", dif.r / 255, dif.g / 255, dif.b / 255);
-			currentIllumination->setUniform3f("color_specular", spe.r / 255, spe.g / 255, spe.b / 255);
+			currentIllumination->setUniform3f("color_ambient", getNormalizedLight(1));
+			currentIllumination->setUniform3f("color_diffuse", getNormalizedLight(2));
+			currentIllumination->setUniform3f("color_specular", getNormalizedLight(3));
 			currentIllumination->setUniform1f("brightness", 40.0f);
 			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
 
@@ -112,9 +107,8 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColo
 			break;
 		case illum_enum::toon:
 			currentIllumination->begin();
-
-			currentIllumination->setUniform3f("color_ambient", amb.r / 255, amb.g / 255, amb.b / 255);
-			currentIllumination->setUniform3f("color_diffuse", dif.r / 255, dif.g / 255, dif.b / 255);
+			currentIllumination->setUniform3f("color_ambient", getNormalizedLight(1));
+			currentIllumination->setUniform3f("color_diffuse", getNormalizedLight(2));
 			currentIllumination->setUniform1f("brightness", 40.0f);
 			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
 
@@ -268,4 +262,26 @@ void ShaderHandler::loadShaders()
 	ofLog() << "Shader5; " << toon.linkProgram();
 
 	toon.isLoaded();
+}
+
+
+ofVec3f ShaderHandler::getNormalizedLight(int type)
+{
+	switch (type)
+	{
+	case 1:
+		
+		return ofVec3f(Scenelight.getAmbientColor().r, Scenelight.getAmbientColor().g, Scenelight.getAmbientColor().b);
+		break;
+	case 2:
+		return ofVec3f(Scenelight.getDiffuseColor().r, Scenelight.getDiffuseColor().g, Scenelight.getDiffuseColor().b);
+		break;
+	case 3:
+		return ofVec3f(Scenelight.getSpecularColor().r, Scenelight.getSpecularColor().g, Scenelight.getSpecularColor().b);
+		break;
+
+	default:
+		break;
+	}
+	
 }

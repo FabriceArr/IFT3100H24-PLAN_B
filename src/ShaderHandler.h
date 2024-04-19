@@ -19,6 +19,13 @@ private:
     ShaderHandler(ShaderHandler& other) = delete; 
     void operator = (const ShaderHandler&) = delete;
 
+    /*
+    1:ambiant
+    2:diffuse
+    3:specular
+    */
+    ofVec3f getNormalizedLight(int type);
+
 public:
     static ShaderHandler* instance;
 
@@ -36,6 +43,8 @@ public:
     void disableLighting();
 
     void loadShaders();
+
+   
 };
 
 ShaderHandler* ShaderHandler::instance = nullptr;
