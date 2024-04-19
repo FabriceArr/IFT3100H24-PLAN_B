@@ -3,11 +3,14 @@
 
 Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 {
+	filtre_handler_singleton = filtre_handler_singleton->getInstance();
 	if (primitivetype == "Imported") {
 		if (!this->image.load(path)) {
 						ofLogNotice("Element2D") << "Image not loaded";
 		}
+		
 		this->image.load(path);
+
 
 		ofVec3f square_vertices_custom[] =
 		{
@@ -32,6 +35,20 @@ Element2D::Element2D(string primitivetype, string path) : Object(primitivetype)
 	if (!shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl")) {
 		ofLogError("Element2D") << "Shader tone mapping failed to load";
 	}
+
+	// dimensions de l'image source
+	image_width = image.getWidth();
+	image_height = image.getHeight();
+
+	// initialiser l'image de destination
+	image_destination.allocate(image_width, image_height, OF_IMAGE_COLOR);
+
+	// sélectionner le filtre de convolution par défaut
+	kernel_type = filtre_handler_singleton->getConvolutionKernelType();
+	kernel_name = filtre_handler_singleton->getConvolutionKernelName();
+
+	filter();
+
 }
 
 Element2D::Element2D() : Object("Default_texture")
@@ -62,10 +79,6 @@ Element2D::Element2D() : Object("Default_texture")
 		ofLogError("Element2D") << "Shader tone mapping failed to load";
 	}
 	shader.load("tone_mapping_330_vs.glsl", "tone_mapping_330_fs.glsl");
-
-	// sélectionner le filtre de convolution par défaut
-	kernel_type = scene.kernel_type;
-	kernel_name = scene.kernel_name;
 
 }
 
@@ -99,15 +112,15 @@ void Element2D::draw(bool highlight, bool animated, unsigned int substage)
 	}
 	// activer le filtre
 	shader.begin();
-
+	
 	// passer les attributs uniformes au shader
-	shader.setUniformTexture("image", image.getTexture(), 1);
+	shader.setUniformTexture("image", image_destination.getTexture(), 1);
 
 	shader.setUniform1f("tone_mapping_exposure", getExposure());
 	shader.setUniform1f("tone_mapping_gamma", getGamma());
 	shader.setUniform1i("tone_mapping_toggle", getToneMapping());
 
-	this->image.draw(image.getWidth()/-2,0,0);
+	this->image_destination.draw(image_destination.getWidth()/-2,0,0);
 
 	// désactiver le filtre
 	shader.end();

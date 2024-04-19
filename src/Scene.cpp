@@ -640,4 +640,3 @@ void Scene::PickingPhase(ofVec3f camPos, ofVec3f clickDirect)
 
 
 
-

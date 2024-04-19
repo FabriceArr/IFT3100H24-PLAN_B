@@ -1,9 +1,9 @@
 #pragma once
 #include "Object.h"
-#include "Scene.h"
 #include "ofVbo.h"
 #include "TextGen.h"
 #include "ConvolutionKernel.h"
+#include "FiltreHandler.h"
 #include <array>
 
 // kernel de convolution (3x3) : identité
@@ -50,17 +50,15 @@ const std::array<float, 9> convolution_kernel_blur
 class Element2D : public Object
 {
 private:
+	FiltreHandler* filter_handler_singleton;
 	ConvolutionKernel kernel_type;
 
 	string kernel_name;
-	Scene scene;
 	ofImage image_destination;
 
 	int image_width;
 	int image_height;
 
-	int offset_vertical;
-	int offset_horizontal;
 	ofImage image;
 	ofVbo square;
 	ofShader shader;
