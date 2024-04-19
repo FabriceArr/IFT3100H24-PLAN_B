@@ -18,6 +18,8 @@
 class Scene
 {
 private:
+	ShaderHandler* shader_handler_singleton;
+
 	bool raydebugbool;
 	ofSpherePrimitive camdebug, clickdebug;
 

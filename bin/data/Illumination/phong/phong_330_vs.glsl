@@ -1,4 +1,4 @@
-// IFT3100H23 ~ phong_330_vs.glsl
+//IFT3100H23 ~ phong_330_vs.glsl
 
 #version 330
 
@@ -25,6 +25,6 @@ void main()
   // transformation de la position du sommet dans l'espace de vue
   surface_position = vec3(modelViewMatrix * position);
 
-  // transformation de la position du sommet par les matrices de modÃ¨le, vue et projection
+  // transformation de la position du sommet par les matrices de modèle, vue et projection
   gl_Position = projectionMatrix * modelViewMatrix * position;
-}
+  }

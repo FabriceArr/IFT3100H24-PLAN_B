@@ -101,7 +101,6 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 {
 	
 	shader_handler_singleton = shader_handler_singleton->getInstance();
-	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
 
 	if (primitivetype == "cube") {
 		updateVertData(&cube_vertices[0], &cube_vertices_ids[0], 36);
@@ -115,13 +114,13 @@ Element3D::Element3D(string primitivetype, ofColor color): Object(primitivetype)
 	}
 
 	updateColorData(color);
+	
 
 }
 
 Element3D::Element3D(string name, ofMesh mesh): Object(name)
 {
 	shader_handler_singleton = shader_handler_singleton->getInstance();
-	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
 
 	object_buffer.setMesh(mesh, GL_STATIC_DRAW);
 	//object_buffer.setTexCoordData()
@@ -138,17 +137,15 @@ Element3D::~Element3D()
 void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 {
 	ofScale(OBJECT_SCALE);
-	active_ilum_shader = shader_handler_singleton->getIllumShaderUsed();
 
 	if (animated && highlight) {
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100.0f), 360));
 	}
-	shader_handler_singleton->setShaderValue(getAmbiantColor(), getDiffuseColor(), getSpecularColor());
 
-	if (active_ilum_shader != nullptr) {
-		active_ilum_shader->begin();
-	}
+	shader_handler_singleton->setShaderValue(getAmbiantColor(), getDiffuseColor(), getSpecularColor(), getEmissiveColor(), getShininess());
+	shader_handler_singleton->enableShading();
+
 
 	if (object_buffer.getNumVertices() > 0) {
 		//texture.getImage()->bind();
@@ -159,9 +156,7 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 	else {
 		ofLogError() << "Object with no vertices drawn";
 	}
-	if (active_ilum_shader != nullptr) {
-		active_ilum_shader->end();
-	}
+	shader_handler_singleton->disableShading();
 
 	if (highlight) {
 		

@@ -2,48 +2,48 @@
 
 #version 330
 
-// attributs interpolÃ©s Ã  partir des valeurs en sortie du shader de sommets
+// attributs interpolés à partir des valeurs en sortie du shader de sommets
 in vec3 surface_position;
 in vec3 surface_normal;
 
 // attribut en sortie
 out vec4 fragment_color;
 
-// couleurs de rÃ©flexion du matÃ©riau
+// couleurs de réflexion du matériau
 uniform vec3 color_ambient;
 uniform vec3 color_diffuse;
 uniform vec3 color_specular;
 
-// facteur de brillance spÃ©culaire du matÃ©riau
+// facteur de brillance spéculaire du matériau
 uniform float brightness;
 
-// position d'une source de lumiÃ¨re
+// position d'une source de lumière
 uniform vec3 light_position;
 
 void main()
 {
-  // re-normaliser la normale aprÃ¨s interpolation
+  // re-normaliser la normale après interpolation
   vec3 n = normalize(surface_normal);
 
-  // calculer la direction de la surface vers la lumiÃ¨re (l)
+  // calculer la direction de la surface vers la lumière (l)
   vec3 l = normalize(light_position - surface_position);
 
-  // calculer le niveau de rÃ©flexion diffuse (n â€¢ l)
+  // calculer le niveau de réflexion diffuse (n • l)
   float reflection_diffuse = max(dot(n, l), 0.0);
 
-  // rÃ©flexion spÃ©culaire par dÃ©faut
+  // réflexion spéculaire par défaut
   float reflection_specular = 0.0;
 
-  // calculer la rÃ©flexion spÃ©culaire seulement s'il y a rÃ©flexion diffuse
+  // calculer la réflexion spéculaire seulement s'il y a réflexion diffuse
   if (reflection_diffuse > 0.0)
   {
-    // calculer la direction de la surface vers la camÃ©ra (v)
+    // calculer la direction de la surface vers la caméra (v)
     vec3 v = normalize(-surface_position);
 
-    // calculer la direction de la rÃ©flection (r) du rayon incident (-l) en fonction de la normale (n)
+    // calculer la direction de la réflection (r) du rayon incident (-l) en fonction de la normale (n)
     vec3 r = reflect(-l, n);
 
-    // calculer le niveau de rÃ©flexion spÃ©culaire (r â€¢ v)
+    // calculer le niveau de réflexion spéculaire (r • v)
     reflection_specular = pow(max(dot(v, r), 0.0), brightness);
   }
 
