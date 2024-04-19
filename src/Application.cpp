@@ -40,7 +40,6 @@ void Application::setup()
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 
 	sphereCenter = cam.getGlobalPosition();
-
 	skybox.load();
 }
 
