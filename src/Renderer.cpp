@@ -15,8 +15,7 @@ void Renderer::setup(Scene* sce)
 
 	saveNumber = 1;
 
-	skybox.load();
-	
+	skybox.setup();
 	
 }
 
@@ -25,7 +24,6 @@ void Renderer::draw()
 	clear();
 
 	scene->draw();
-
 	skybox.draw();
 }
 

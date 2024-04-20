@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-#include "ofxSkyBox.h"
+#include "skybox.h"
 
 class Renderer
 {
@@ -22,12 +22,11 @@ private:
 	float stroke_width_default;
 	ofColor clear_color;
 
+	Skybox skybox;
 
 	//void updateCamMatrixes();
 public:
 	ofImage imageImport;
-	ofxSkyBox skybox;
-	ofVec3f sphereCenter;
 
 	ofColor strokecolor;
 	ofColor fillcolor;
