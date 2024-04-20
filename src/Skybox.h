@@ -5,12 +5,10 @@
 class Skybox
 {
 private:
-	ofShader skybox;
 	ofCubeMap cubemap;
 
 	void loadCubemap(std::string path);
 
-	unsigned int skyboxVAO, skyboxVBO;
 public:
 	Skybox();
 
