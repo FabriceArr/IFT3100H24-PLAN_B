@@ -1,13 +1,16 @@
-//vertex shader buono!!! questo veramente funziona! 13 10 2011
+#version 330 core
 
-varying vec3  texcoord;
+layout (location = 0) in vec3 aPos;
 
-void main(void) 
+out vec3 TexCoords;
+
+uniform mat4x4 modelViewMatrix;
+uniform mat4x4 projectionMatrix;
+
+void main()
 {
- 	vec4	texcoord0 = gl_ModelViewMatrix * gl_Vertex;
-	//texcoord = texcoord0.xyz;
-	texcoord = normalize(gl_Vertex.xyz);
-
-    gl_Position    = ftransform();
-   
-}
+    mat4x4 noTransView = mat4(mat3(modelViewMatrix));
+    vec4 pos = projectionMatrix * modelViewMatrix * vec4(aPos, 1.0);
+    gl_Position =  vec4(pos.x, pos.y, pos.w, pos.w);
+    TexCoords = vec3(aPos.x, aPos.y, -aPos.z);
+} 

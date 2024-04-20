@@ -57,7 +57,6 @@ obj/x64/Debug/vc143.pdb
 .vs/*
 obj/x64/Debug/vc142.pdb
 obj/x64/Debug/IFT3100H.7FD42DF7.tlog/CL.write.1.tlog
-*.png
 obj/x64/Debug/Build/src/Debug/Element2DPrimitive.obj
 obj/x64/Debug/IFT3100H.7FD42DF7.tlog/link.secondary.1.tlog
 poop.cpp
@@ -138,3 +137,6 @@ obj/x64/Release/IFT3100H.7FD42DF7.tlog/rc.write.1.tlog
 obj/x64/Release/IFT3100H24-PLAN_B.exe.recipe
 obj/x64/Release/IFT3100H24-PLAN_B.log
 obj/x64/Release/vc143.pdb
+bin/data/ScreenGrab_1.png
+bin/data/ScreenGrab_2.png
+bin/data/ScreenGrab_1.png

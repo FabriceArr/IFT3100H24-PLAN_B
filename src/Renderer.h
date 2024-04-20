@@ -1,10 +1,10 @@
 #pragma once
 #include "Scene.h"
+#include "skybox.h"
 
 class Renderer
 {
 private:
-
 	Scene* scene;
 	ofMatrix4x4 viewM, projectM;
 
@@ -22,11 +22,11 @@ private:
 	float stroke_width_default;
 	ofColor clear_color;
 
+	Skybox skybox;
 
 	//void updateCamMatrixes();
 public:
 	ofImage imageImport;
-
 
 	ofColor strokecolor;
 	ofColor fillcolor;

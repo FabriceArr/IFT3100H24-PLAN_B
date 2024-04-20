@@ -1,18 +1,20 @@
 #pragma once
 #include "ofMain.h"
-#include "ofxSkyBox.h"
-#include "Scene.h"
+#include <GLFW/glfw3.h>
 
 class Skybox
 {
-	private:
-		ofxSkyBox skybox;
-		ofEasyCam camera;
-		ofVec3f sphereCenter;
-		
+private:
+	ofCubeMap cubemap;
 
-	public:
+	void loadCubemap(std::string path);
+
+public:
 	Skybox();
-	~Skybox();
+
+	
+
+	void setup();
 	void draw();
 };
+
