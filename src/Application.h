@@ -6,7 +6,6 @@
 #include "Scene.h"
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
-#include "ofxSkyBox.h"
 #include "FiltreHandler.h"
 
 enum class drawMode
@@ -62,8 +61,6 @@ public:
 	ofImage image;
 	bool isMouseDragRealease;
 
-	ofxSkyBox skybox;
-	ofVec3f sphereCenter;
 
 	void setup();
 	void update();
