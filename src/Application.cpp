@@ -41,7 +41,8 @@ void Application::setup()
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 
 	sphereCenter = cam.getGlobalPosition();
-	skybox.load();
+	
+
 }
 
 void Application::update()
@@ -68,13 +69,13 @@ void Application::draw()
 {
 	
 	cam.begin();
-	
 	ofEnableDepthTest();
+	
 	renderer.draw();
 	if(renderer.imageImport.isAllocated())
 		renderer.imageImport.draw(renderer.imageImport.getWidth() / -2, 0);
 	ofDisableDepthTest();
-	skybox.draw();
+	
 
 	cam.end();
 

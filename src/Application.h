@@ -61,6 +61,7 @@ public:
 	glm::quat camOrientPersp;
 	ofImage image;
 	bool isMouseDragRealease;
+
 	ofxSkyBox skybox;
 	ofVec3f sphereCenter;
 

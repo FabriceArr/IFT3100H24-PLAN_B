@@ -1,10 +1,10 @@
 #pragma once
 #include "Scene.h"
+#include "ofxSkyBox.h"
 
 class Renderer
 {
 private:
-
 	Scene* scene;
 	ofMatrix4x4 viewM, projectM;
 
@@ -26,7 +26,8 @@ private:
 	//void updateCamMatrixes();
 public:
 	ofImage imageImport;
-
+	ofxSkyBox skybox;
+	ofVec3f sphereCenter;
 
 	ofColor strokecolor;
 	ofColor fillcolor;
