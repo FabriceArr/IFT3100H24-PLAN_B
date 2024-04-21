@@ -7,6 +7,7 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include "FiltreHandler.h"
+#include "ShaderHandler.h"
 
 enum class drawMode
 {
@@ -22,6 +23,7 @@ enum class drawMode
 class Application : public ofBaseApp
 {
 private:
+	ShaderHandler* shader_handler_singleton;
 	FiltreHandler* filter_handler_singleton;
 	UI interface;
 	const glm::quat DEFAULTVIEW =

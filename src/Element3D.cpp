@@ -142,9 +142,11 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 		ofTranslate(0.0f, sin(ofGetElapsedTimef()), 0.0f);
 		ofRotateYDeg(fmod((ofGetElapsedTimef() * 100.0f), 360));
 	}
-
-	shader_handler_singleton->setShaderValue(getAmbiantColor(), getDiffuseColor(), getSpecularColor(), getEmissiveColor(), getShininess());
-	shader_handler_singleton->enableShading();
+	if (*this->getName() != "plane") {
+		shader_handler_singleton->setShaderValue(getAmbiantColor(), getDiffuseColor(), getSpecularColor(), getEmissiveColor(), getShininess());
+		shader_handler_singleton->enableShading();
+	}
+	
 
 
 	if (object_buffer.getNumVertices() > 0) {
@@ -156,7 +158,10 @@ void Element3D::draw(bool highlight, bool animated, unsigned int substage)
 	else {
 		ofLogError() << "Object with no vertices drawn";
 	}
-	shader_handler_singleton->disableShading();
+	if (*this->getName() != "plane") {
+		shader_handler_singleton->disableShading();
+	}
+	
 
 	if (highlight) {
 		

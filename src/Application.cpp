@@ -3,6 +3,7 @@
 
 void Application::setup()
 {
+	shader_handler_singleton = shader_handler_singleton->getInstance();
 	filter_handler_singleton = filter_handler_singleton->getInstance();
 
 	//gives debug messages
@@ -114,6 +115,12 @@ void Application::keyReleased(int key)
 {
 	switch (key)
 	{
+	case'[':
+		shader_handler_singleton->change_light(true);
+		break;
+	case']':
+		shader_handler_singleton->change_light(false);
+		break;
 	case '.':
 		//ends animation, resets bool to be ready for next press
 		scene.animate = false;

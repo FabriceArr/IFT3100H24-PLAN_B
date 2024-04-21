@@ -13,6 +13,8 @@ private:
     illum_enum selectedIllumination;
     ofShader* currentIllumination;
 
+    int light_index;
+
     ShaderHandler();
     ~ShaderHandler(); 
     int data{ 0 };
@@ -34,6 +36,7 @@ public:
 
     void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColor emi, float shin);
 
+    void change_light(bool type);
     void enableShading();
     void disableShading();
     void enableLighting();

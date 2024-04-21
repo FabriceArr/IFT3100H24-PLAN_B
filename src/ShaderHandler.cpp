@@ -14,7 +14,7 @@ ShaderHandler::ShaderHandler()
 	Scenelight.setSpecularColor(0.6f);
 
 	Scenelight.setGlobalPosition(200.0, 200.0, -50.0);
-
+	light_index = 1;
 	loadShaders();
 }
 
@@ -48,6 +48,31 @@ ofShader* ShaderHandler::getIllumShaderUsed()
 {
 	
 	return currentIllumination;
+}
+void ShaderHandler::change_light(bool light_type) {
+	if (!(light_index <= 1) && light_type) {
+		light_index--;
+	}
+	if (!(light_index >= 4) && !light_type) {
+		light_index++;
+	}
+	switch (light_index)
+	{
+	case 1:
+		Scenelight.setSpotlight();
+			break;
+	case 2:
+		Scenelight.setDirectional();
+		break;
+	case 3:
+		Scenelight.setPointLight();
+		break;
+	case 4:
+		Scenelight.setAmbientColor(255);
+		break;
+	default:
+		break;
+	}
 }
 
 void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColor emi, float shin)
@@ -153,7 +178,6 @@ void ShaderHandler::disableShading()
 
 void ShaderHandler::enableLighting()
 {
-	bool i = Scenelight.getIsPointLight();
 	Scenelight.enable();
 }
 
