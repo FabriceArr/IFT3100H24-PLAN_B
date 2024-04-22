@@ -60,12 +60,15 @@ void ShaderHandler::change_light(bool light_type) {
 	{
 	case 1:
 		Scenelight.setSpotlight();
+		Scenelight.setAmbientColor(0);
 			break;
 	case 2:
 		Scenelight.setDirectional();
+		Scenelight.setAmbientColor(0);
 		break;
 	case 3:
 		Scenelight.setPointLight();
+		Scenelight.setAmbientColor(0);
 		break;
 	case 4:
 		Scenelight.setAmbientColor(255);
@@ -75,7 +78,7 @@ void ShaderHandler::change_light(bool light_type) {
 	}
 }
 
-void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColor emi, float shin)
+void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColor emi, float shin, ofTexture*texturelink, unsigned int text_id)
 {
 	//charge the current illumination shader
 		switch (selectedIllumination)
@@ -112,6 +115,7 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColo
 			currentIllumination->setUniform3f("color_specular", getNormalizedLight(3));
 			currentIllumination->setUniform1f("brightness", 40.0f);
 			currentIllumination->setUniform3f("light_position", Scenelight.getGlobalPosition());
+			currentIllumination->setUniformTexture("texture_couleur", *texturelink, text_id);
 			
 
 			currentIllumination->end();

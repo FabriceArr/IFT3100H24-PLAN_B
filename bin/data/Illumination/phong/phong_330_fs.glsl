@@ -5,6 +5,7 @@
 // attributs interpolés à partir des valeurs en sortie du shader de sommets
 in vec3 surface_position;
 in vec3 surface_normal;
+in vec2 surface_texcoord;
 
 // attribut en sortie
 out vec4 fragment_color;
@@ -19,6 +20,9 @@ uniform float brightness;
 
 // position d'une source de lumière
 uniform vec3 light_position;
+
+uniform sampler2D texture_couleur;
+
 
 void main()
 {
@@ -47,9 +51,12 @@ void main()
     reflection_specular = pow(max(dot(v, r), 0.0), brightness);
   }
 
+  vec3 sampled_texture = texture(texture_couleur, surface_texcoord).rgb;
+
   // calculer la couleur du fragment
-  fragment_color = vec4(
+
+  fragment_color = vec4(sampled_texture +( 
     color_ambient +
     color_diffuse * reflection_diffuse +
-    color_specular * reflection_specular, 1.0);
+    color_specular * reflection_specular), 1.0);
 }

@@ -34,7 +34,7 @@ public:
     ofShader* getIllumShaderUsed();
     void setSelectedShader(string selected);
 
-    void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColor emi, float shin);
+    void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColor emi, float shin, ofTexture * text, unsigned int text_id);
 
     void change_light(bool type);
     void enableShading();
