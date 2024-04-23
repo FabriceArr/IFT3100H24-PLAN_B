@@ -1,7 +1,7 @@
 #include "ofMain.h"
 #include "Renderer.h"
 
-void Renderer::setup(Scene* sce)
+void Renderer::setup(Scene* sce, ofEasyCam* camref)
 {
 	//ofHideCursor();
 
@@ -16,7 +16,10 @@ void Renderer::setup(Scene* sce)
 	saveNumber = 1;
 
 	skybox.setup();
-	
+	ofLog() << "Shader1; " << raytracing_scene.setupShaderFromFile(GL_VERTEX_SHADER, "raytracingscene/ray_tracing_scene.vert");
+	ofLog() << "Shader4; " << raytracing_scene.setupShaderFromFile(GL_FRAGMENT_SHADER, "raytracingscene/ray_tracing_scene.frag");
+	ofLog() << "Shader5; " << raytracing_scene.linkProgram();
+	cam = camref;
 }
 
 void Renderer::draw()
@@ -24,7 +27,15 @@ void Renderer::draw()
 	clear();
 
 	scene->draw();
+	raytracing_scene.begin();
+	raytracing_scene.setUniform3f("CameraPos", cam->getGlobalPosition());
+	ofVec3f i = cam->getGlobalPosition();
+	glm::quat j = cam->getGlobalOrientation();
+	ofBox(ofVec3f(0.0), 100);
+	raytracing_scene.end();
+	
 	skybox.draw();
+	
 }
 
 void Renderer::update()

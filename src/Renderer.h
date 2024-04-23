@@ -5,10 +5,13 @@
 class Renderer
 {
 private:
+	ofEasyCam* cam;
 	Scene* scene;
 	ofMatrix4x4 viewM, projectM;
 
-	ofShader shader;
+	ofShader raytracing_scene;
+
+
 
 	bool has_changed;
 
@@ -36,7 +39,7 @@ public:
 	
 	int saveNumber;
 
-	void setup(Scene* sce);
+	void setup(Scene* sce, ofEasyCam* cam);
 	void draw();
 	
 	void clear() const;

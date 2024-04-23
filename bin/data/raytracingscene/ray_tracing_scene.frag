@@ -7,7 +7,7 @@ uniform mat4x4 projectionMatrix;
 
 uniform vec3 CameraPos;
 uniform float Time;
-uniform samplerCube skybox;
+//uniform samplerCube skybox;
 
 #define FAR_INF 1e9
 #define EPS 1e-6
@@ -15,7 +15,7 @@ uniform samplerCube skybox;
 #define STACK_SIZE 130 //2^RAY_DEPTH
 //math phi
 #define PHI (1.618033988749895)//(1.+sqrt(5.))*.5
-
+mat4 ProjViewInv = modelViewMatrix * inverse(projectionMatrix);
 
 //#define ROTATE
 struct Ray
@@ -158,7 +158,8 @@ for (int i = 0; i < 1; i++)
 
 vec3 computeLight(vec3 pos, vec3 color, vec3 normal) 
 {
-  vec3 light = textureLod(skybox, normal, 0).rgb * AMBIENT_INTENSIVITY;
+  //vec3 light = textureLod(skybox, normal, 0).rgb * AMBIENT_INTENSIVITY;
+  vec3 light = vec3(0.2) * AMBIENT_INTENSIVITY;
   for (int i = 0; i < LightN; i++) 
   {
     vec3 toLight = Lights[i].pos - pos;
@@ -483,7 +484,6 @@ void main()
   clear_stack();
   pop_ray_to_stack(get_ray(fragUV));
   vec4 color = vec4(0);
-  mat4 ProjViewInv = modelViewMatrix * inverse(projectionMatrix);
 
   Material collisionMat;
   while (!stack_empty())
@@ -506,7 +506,8 @@ void main()
       create_rays(ray, bestCollision, collisionMat, color);
     } else
     {
-      color += vec4(textureLod(skybox, ray.dir, 0).rgb, 1) * (1 - ray.transparent);
+      //color += vec4(textureLod(skybox, ray.dir, 0).rgb, 1) * (1 - ray.transparent);
+      color += vec4( 0.2, 0.2, 0.2, 1) * (1 - ray.transparent);
     }
   }
   FragColor = vec4(color.rgb , 1.0);
