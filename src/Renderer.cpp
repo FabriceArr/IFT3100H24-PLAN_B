@@ -28,9 +28,11 @@ void Renderer::draw()
 
 	scene->draw();
 	raytracing_scene.begin();
+	cam->setGlobalPosition(ofVec3f(.3, 0.0, 10));
 	raytracing_scene.setUniform3f("CameraPos", cam->getGlobalPosition());
 	ofVec3f i = cam->getGlobalPosition();
 	glm::quat j = cam->getGlobalOrientation();
+	float k = cam->getFov();
 	ofBox(ofVec3f(0.0), 100);
 	raytracing_scene.end();
 	

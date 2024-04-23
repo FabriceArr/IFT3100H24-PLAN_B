@@ -6,7 +6,7 @@ uniform mat4x4 modelViewMatrix;
 uniform mat4x4 projectionMatrix;
 
 uniform vec3 CameraPos;
-uniform float Time;
+//uniform float Time;
 //uniform samplerCube skybox;
 
 #define FAR_INF 1e9
@@ -495,7 +495,7 @@ void main()
       ray.pos.yz = rotate(ray.pos.yz, .0);
       ray.dir.yz = rotate(ray.dir.yz, .0);
 
-      ray.pos.xz = rotate(ray.pos.xz, Time*.2);
+      ray.pos.xz = rotate(ray.pos.xz, .0);
       ray.dir.xz = rotate(ray.dir.xz, Time*.2);
     #endif
 
