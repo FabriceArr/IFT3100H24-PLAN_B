@@ -30,9 +30,10 @@ void Renderer::draw()
 	scene->draw();
 	if (display_RT_showcase) {
 		raytracing_scene.begin();
-		cam->setGlobalPosition(ofVec3f(.3, 0.0, 10));
-		cam->lookAt(ofVec3f(.4, 0.0, 10));
-		ofBox(ofVec3f(0.0), 100);
+		raytracing_scene.setUniform3f("CameraPos", cam->getGlobalPosition());
+		
+		
+		ofBox(ofVec3f(0.0), ofGetWidth());
 		raytracing_scene.end();
 	}
 	

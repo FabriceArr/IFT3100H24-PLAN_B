@@ -125,6 +125,8 @@ void Application::keyReleased(int key)
 		scene.toggleParametricDisplay();
 		break;
 	case '0':
+		cam->setGlobalPosition(ofVec3f(0.3, 0.0, -10));
+		cam->lookAt(ofVec3f(0, -1.03, -1));
 		renderer.toggleRayTraceShowcase();
 		break;
 	case '.':

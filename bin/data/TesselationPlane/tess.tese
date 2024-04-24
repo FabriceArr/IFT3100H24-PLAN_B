@@ -7,8 +7,7 @@ layout( quads ) in;
 out vec3 fragmentNormal;
 out vec4 fragmentPosition;
 
-uniform mat4x4 modelViewMatrix;
-uniform mat4x4 projectionMatrix;
+
 
 void BernsteinPolynomials(out float[4] b, out float[4] db, float t) {
 
@@ -69,6 +68,6 @@ void main()
 
 	fragmentNormal = normalize(cross(dPos_du, dPos_dv));
 
-	gl_Position = projectionMatrix * modelViewMatrix * fragmentPosition;
+	gl_Position = fragmentPosition;
 
 }

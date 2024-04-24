@@ -70,11 +70,13 @@ void ParamPlane::draw(bool highlight, bool animated, unsigned int substage)
 
 	glBindVertexArray(vaoHandle);
 	glDrawArrays(GL_PATCHES, 0, 8);
-	
-	
+
+	ofColor(56);
+	glDrawArrays(GL_POINTS, 0, 8);
+	ofColor(255);
 	brazier_surface_shader->end();
 	
-	glDrawArrays(GL_POINTS, 0, 8);
+	
 
 	glFinish();
 	ofPopMatrix();
