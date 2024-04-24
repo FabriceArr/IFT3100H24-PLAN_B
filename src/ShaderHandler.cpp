@@ -3,7 +3,7 @@
 
 ShaderHandler::ShaderHandler()
 {
-	this->selectedIllumination = illum_enum::flat;
+	this->selectedIllumination = illum_enum::materiel;
 	this->currentIllumination = nullptr;
 
 
@@ -147,7 +147,7 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColo
 
 			currentIllumination->end();
 			break;
-		case illum_enum::flat:
+		case illum_enum::materiel:
 			flatMat.setAmbientColor(amb);
 			flatMat.setDiffuseColor(dif);
 			flatMat.setEmissiveColor(emi);
@@ -162,7 +162,7 @@ void ShaderHandler::setShaderValue(ofColor amb, ofColor dif, ofColor spe, ofColo
 
 void ShaderHandler::enableShading()
 {
-	if (selectedIllumination == illum_enum::flat) {
+	if (selectedIllumination == illum_enum::materiel) {
 		flatMat.begin();
 	}
 	else {
@@ -172,7 +172,7 @@ void ShaderHandler::enableShading()
 
 void ShaderHandler::disableShading()
 {
-	if (selectedIllumination == illum_enum::flat) {
+	if (selectedIllumination == illum_enum::materiel) {
 		flatMat.end();
 	}
 	else {
@@ -193,8 +193,8 @@ void ShaderHandler::disableLighting()
 void ShaderHandler::setSelectedShader(string selected)
 {
 	
-	if (selected == "None") {
-		selectedIllumination = illum_enum::flat;
+	if (selected == "Materiel") {
+		selectedIllumination = illum_enum::materiel;
 	}
 	else if (selected == "Lambert") {
 		selectedIllumination = illum_enum::lambert;
@@ -214,7 +214,7 @@ void ShaderHandler::setSelectedShader(string selected)
 
 	switch (selectedIllumination)
 	{
-	case illum_enum::flat:
+	case illum_enum::materiel:
 		currentIllumination = nullptr;
 		break;
 

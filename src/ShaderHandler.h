@@ -1,7 +1,7 @@
 #pragma once
 #include "ofMain.h"
 
-enum class illum_enum { flat, lambert, gouraud, phong, blinnPhong, toon};
+enum class illum_enum { materiel, lambert, gouraud, phong, blinnPhong, toon};
 
 class ShaderHandler
 {

@@ -9,7 +9,7 @@ void UI::setup()
     tone_mapping_exposure = 1.0f;
     tone_mapping_gamma = 2.2f;
     tone_mapping_toggle = true;
-    illuminationModel_selection = illum_enum::flat;
+    illuminationModel_selection = illum_enum::materiel;
 
     // Setup for Background color input
     interface.add(background_color_slider.set("background Color", ofColor(255), ofColor(0, 0), ofColor(255, 255)));

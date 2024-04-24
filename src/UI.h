@@ -58,7 +58,7 @@ private:
 
 	// Illumination Model with dropdown
 	ofxDropdown_<string> IlluminationModel_dropdown;
-	vector<string> illuminationModel_vector{ "Flat","Lambert", "Gouraud", "Phong", "Blinn-Phong" , "Toon"};
+	vector<string> illuminationModel_vector{ "Materiel","Lambert", "Gouraud", "Phong", "Blinn-Phong" , "Toon"};
 	//illum_enum illum_enum_list ;
 
 	ofParameter<ofColor> color_picker;
