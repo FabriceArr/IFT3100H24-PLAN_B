@@ -26,6 +26,7 @@ private:
 	ofColor clear_color;
 
 	Skybox skybox;
+	bool display_RT_showcase;
 
 	//void updateCamMatrixes();
 public:
@@ -46,6 +47,8 @@ public:
 	void update();
 
 	void exit();
+
+	void toggleRayTraceShowcase();
 
 	void image_export(const string name, const string extension);
 

@@ -20,6 +20,7 @@ void Renderer::setup(Scene* sce, ofEasyCam* camref)
 	ofLog() << "Shader4; " << raytracing_scene.setupShaderFromFile(GL_FRAGMENT_SHADER, "raytracingscene/ray_tracing_scene.frag");
 	ofLog() << "Shader5; " << raytracing_scene.linkProgram();
 	cam = camref;
+	display_RT_showcase = false;
 }
 
 void Renderer::draw()
@@ -27,14 +28,15 @@ void Renderer::draw()
 	clear();
 
 	scene->draw();
-	raytracing_scene.begin();
-	cam->setGlobalPosition(ofVec3f(.3, 0.0, 10));
-	raytracing_scene.setUniform3f("CameraPos", cam->getGlobalPosition());
-	ofVec3f i = cam->getGlobalPosition();
-	glm::quat j = cam->getGlobalOrientation();
-	float k = cam->getFov();
-	ofBox(ofVec3f(0.0), 100);
-	raytracing_scene.end();
+	if (display_RT_showcase) {
+		raytracing_scene.begin();
+		cam->setGlobalPosition(ofVec3f(.3, 0.0, 10));
+		cam->lookAt(ofVec3f(.4, 0.0, 10));
+		ofBox(ofVec3f(0.0), 100);
+		raytracing_scene.end();
+	}
+	
+	
 	
 	skybox.draw();
 	
@@ -54,6 +56,11 @@ void Renderer::exit()
 {
 	//make scene destructor first
 	//delete scene;
+}
+
+void Renderer::toggleRayTraceShowcase()
+{
+	display_RT_showcase = !display_RT_showcase;
 }
 
 // fonction qui exporte une image à partir de son nom et de son extension, à partir du répertoire ./bin/data ou d'un chemin absolue

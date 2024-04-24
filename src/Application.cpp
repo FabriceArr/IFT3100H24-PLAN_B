@@ -41,7 +41,7 @@ void Application::setup()
 	cursorSubOffset += cursorOffset;
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 	
-
+	
 }
 
 void Application::update()
@@ -120,6 +120,12 @@ void Application::keyReleased(int key)
 		break;
 	case']':
 		shader_handler_singleton->change_light(false);
+		break;
+	case '9':
+		scene.toggleParametricDisplay();
+		break;
+	case '0':
+		renderer.toggleRayTraceShowcase();
 		break;
 	case '.':
 		//ends animation, resets bool to be ready for next press

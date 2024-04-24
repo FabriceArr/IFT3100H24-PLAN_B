@@ -57,9 +57,12 @@ void Scene::setup(const vector<ofParameter<float>*> UIposition,
 	wasDragging = false;
 
 	animate = false;
-
+	param_display_state = 0;
 
 	loadShaders();
+
+	param_curve = new ParamObj(tesselation_Shader);
+	Param_plane = new ParamPlane(tesselation_Plane_Shader);
 }
 
 void Scene::draw()
@@ -110,7 +113,7 @@ void Scene::draw()
 
 	}
 	shader_handler_singleton->disableLighting();
-
+	drawParamObject();
 }
 
 void Scene::exit()
@@ -635,6 +638,31 @@ void Scene::PickingPhase(ofVec3f camPos, ofVec3f clickDirect)
 	camdebug.setRadius(2);
 	clickdebug.setGlobalPosition(camPos + distance * clickDirect);
 	clickdebug.setRadius(2);
+}
+
+void Scene::toggleParametricDisplay()
+{
+	if (param_display_state >= 2) {
+		param_display_state = 0;
+	}
+	else { param_display_state++; }
+}
+
+void Scene::drawParamObject()
+{
+	switch (param_display_state)
+	{
+	case 1:
+		param_curve->draw(0, 0, 0);
+		break;
+
+	case 2:
+		Param_plane->draw(0, 0, 0);
+		break;
+
+	default:
+		break;
+	}
 }
 
 

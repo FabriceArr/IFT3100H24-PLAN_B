@@ -11,6 +11,8 @@
 #include "OBJLoader.h"
 #include "ShaderHandler.h"
 #include "ConvolutionKernel.h"
+#include "ParamPlane.h"
+#include "ParamObj.h"
 #include <vector>
 
 
@@ -64,6 +66,11 @@ private:
 	ofVec3f point1, point2, point3, radius;
 
 	ofShader* tesselation_Shader, * tesselation_Plane_Shader;
+
+	unsigned int param_display_state;
+
+	ParamObj* param_curve;
+	ParamPlane* Param_plane;
 
 	
 public:
@@ -127,7 +134,8 @@ public:
 	void draw();
 
 	void PickingPhase(ofVec3f camPos, ofVec3f clickDirect);
-
+	void toggleParametricDisplay();
+	void drawParamObject();
 
 	void selectNextObject();
 	void selectPreviousObject();
