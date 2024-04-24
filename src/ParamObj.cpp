@@ -42,20 +42,19 @@ ParamObj::ParamObj(ofShader* TesselShader) : Object("Curve")
 void ParamObj::draw(bool highlight, bool animated, unsigned int substage)
 {
 	ofPushMatrix();
-	ofColor(70, 0, 10);
+	ofSetColor(70, 0, 10);
 	for (size_t i = 0; i < points.size(); i++)
 	{
 		ofSphere(points.at(i).x, points.at(i).y, pointsize);
 	}
 	float step = (1.0f / segments);
-	ofColor(70, 40, 10);
+	float colorGrandiant = (255.f / segments);
 	for (size_t i = 0; i < segments - 1; i++)
 	{
-		
+		ofSetColor(colorGrandiant * i);
 		ofDrawLine(getPointAt( i * step), getPointAt((i + 1.0f) * step));
 	}
-	ofColor(255);
-
+	ofSetColor(255);
 
 
 

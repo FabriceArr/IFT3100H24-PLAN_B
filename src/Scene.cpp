@@ -89,7 +89,6 @@ void Scene::draw()
 	
 	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
 	ofSetColor(255);*/
-	param_curve->draw(0, 0, 0);
 	drawParamObject();
 
 	shader_handler_singleton->enableLighting();
