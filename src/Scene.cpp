@@ -89,6 +89,8 @@ void Scene::draw()
 	
 	ofDrawLine(camdebug.getGlobalPosition(), clickdebug.getGlobalPosition());
 	ofSetColor(255);*/
+	param_curve->draw(0, 0, 0);
+	drawParamObject();
 
 	shader_handler_singleton->enableLighting();
 
@@ -102,7 +104,7 @@ void Scene::draw()
 			//draw others normally
 
 			ofPushMatrix();
-
+			
 			(*it)->draw(false, animate);
 
 
@@ -113,7 +115,7 @@ void Scene::draw()
 
 	}
 	shader_handler_singleton->disableLighting();
-	drawParamObject();
+	
 }
 
 void Scene::exit()
