@@ -47,21 +47,6 @@ ParamPlane::ParamPlane(ofShader* TesselShader) : Object("Curve")
 void ParamPlane::draw(bool highlight, bool animated, unsigned int substage)
 {
 	ofPushMatrix();
-	ofMatrix3x3 hold = this->getCurrentChangeM();
-	ofTranslate(
-		hold.a,
-		hold.b,
-		hold.c);
-	ofRotateXDeg(
-		hold.d);
-	ofRotateYDeg(
-		hold.e);
-	ofRotateZDeg(
-		hold.f);
-	ofScale(
-		hold.g,
-		hold.h,
-		hold.i);
 
 	brazier_surface_shader->begin();
 
@@ -70,11 +55,11 @@ void ParamPlane::draw(bool highlight, bool animated, unsigned int substage)
 
 	glBindVertexArray(vaoHandle);
 	glDrawArrays(GL_PATCHES, 0, 8);
-	
-	
+
+	glDrawArrays(GL_POINTS, 0, 8);
 	brazier_surface_shader->end();
 	
-	glDrawArrays(GL_POINTS, 0, 8);
+	
 
 	glFinish();
 	ofPopMatrix();

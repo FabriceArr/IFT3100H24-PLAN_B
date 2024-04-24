@@ -5,7 +5,7 @@ void Application::setup()
 {
 	shader_handler_singleton = shader_handler_singleton->getInstance();
 	filter_handler_singleton = filter_handler_singleton->getInstance();
-
+	cam = new ofEasyCam();
 	//gives debug messages
 	ofSetLogLevel(OF_LOG_VERBOSE);
 
@@ -32,8 +32,8 @@ void Application::setup()
 	interface.getStrokeWidthSlider();
 	interface.getBackgroundColorSlider();
 
-	renderer.setup(&scene);
-	cam.setOrientation(DEFAULTVIEW);
+	renderer.setup(&scene, cam);
+	cam->setOrientation(DEFAULTVIEW);
 	isGrabReq = false;
 	isMouseDragRealease = false;
 
@@ -41,7 +41,7 @@ void Application::setup()
 	cursorSubOffset += cursorOffset;
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 	
-
+	
 }
 
 void Application::update()
@@ -67,7 +67,7 @@ void Application::update()
 void Application::draw()
 {
 	
-	cam.begin();
+	cam->begin();
 	ofEnableDepthTest();
 	
 	renderer.draw();
@@ -76,7 +76,7 @@ void Application::draw()
 	ofDisableDepthTest();
 	
 
-	cam.end();
+	cam->end();
 
 	interface.draw();
 /*
@@ -120,6 +120,14 @@ void Application::keyReleased(int key)
 		break;
 	case']':
 		shader_handler_singleton->change_light(false);
+		break;
+	case '9':
+		scene.toggleParametricDisplay();
+		break;
+	case '0':
+		cam->setGlobalPosition(ofVec3f(0.3, 0.0, -10));
+		cam->lookAt(ofVec3f(0, -1.03, -1));
+		renderer.toggleRayTraceShowcase();
 		break;
 	case '.':
 		//ends animation, resets bool to be ready for next press
@@ -234,18 +242,18 @@ void Application::keyReleased(int key)
 
 	case 'o': //orthogonal camera view switch
 
-		if (!cam.getOrtho()) // Cam is in perspective
+		if (!cam->getOrtho()) // Cam is in perspective
 		{
-			camOrientPersp = cam.getOrientationQuat();
-			cam.setOrientation(FRONTVIEW);
+			camOrientPersp = cam->getOrientationQuat();
+			cam->setOrientation(FRONTVIEW);
 			scene.isOrtho = true;
 		}
 		else {		// Cam is in Ortho
-			cam.setOrientation(camOrientPersp);
+			cam->setOrientation(camOrientPersp);
 			scene.isOrtho = false;
 		}
 
-		cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
+		cam->getOrtho() ? cam->disableOrtho() : cam->enableOrtho();
 		
 		break;
 
@@ -310,12 +318,12 @@ void Application::mousePressed(int x, int y, int button)
 		float yclick = 1.0f - (2.0f * y) / ofGetWindowHeight();
 		
 		glm::vec4 rayDirectionNDS = glm::vec4(xclick, yclick, -1, 1);
-		glm::vec4 rayeye = glm::inverse(cam.getProjectionMatrix()) * rayDirectionNDS;
+		glm::vec4 rayeye = glm::inverse(cam->getProjectionMatrix()) * rayDirectionNDS;
 		rayeye = ofVec4f(rayeye.x, rayeye.y, -1.0, 0.0);
 
-		glm::vec3 world = glm::inverse(cam.getModelViewMatrix()) * rayeye;
+		glm::vec3 world = glm::inverse(cam->getModelViewMatrix()) * rayeye;
 		scene.PickingPhase(
-			cam.getGlobalPosition(),
+			cam->getGlobalPosition(),
 			glm::normalize(world));
 	}
 	

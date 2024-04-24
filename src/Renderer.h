@@ -5,10 +5,13 @@
 class Renderer
 {
 private:
+	ofEasyCam* cam;
 	Scene* scene;
 	ofMatrix4x4 viewM, projectM;
 
-	ofShader shader;
+	ofShader raytracing_scene;
+
+
 
 	bool has_changed;
 
@@ -23,6 +26,7 @@ private:
 	ofColor clear_color;
 
 	Skybox skybox;
+	bool display_RT_showcase;
 
 	//void updateCamMatrixes();
 public:
@@ -36,13 +40,15 @@ public:
 	
 	int saveNumber;
 
-	void setup(Scene* sce);
+	void setup(Scene* sce, ofEasyCam* cam);
 	void draw();
 	
 	void clear() const;
 	void update();
 
 	void exit();
+
+	void toggleRayTraceShowcase();
 
 	void image_export(const string name, const string extension);
 
